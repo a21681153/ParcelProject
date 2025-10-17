@@ -1,0 +1,72 @@
+[
+  {
+    "ContainingType": "ParcelManagement2.Controllers.SimpleDatabaseController",
+    "Method": "CheckAccountStructure",
+    "RelativePath": "api/SimpleDatabase/account-structure",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ParcelManagement2.Controllers.SimpleDatabaseController",
+    "Method": "GetApplicationTables",
+    "RelativePath": "api/SimpleDatabase/app-tables",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ParcelManagement2.Controllers.SimpleDatabaseController",
+    "Method": "Test",
+    "RelativePath": "api/SimpleDatabase/test",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ParcelManagement2.Controllers.SimpleDatabaseController",
+    "Method": "TestConnection",
+    "RelativePath": "api/SimpleDatabase/test-connection",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ParcelManagement2.Controllers.SimpleDatabaseController",
+    "Method": "GetTestUsers",
+    "RelativePath": "api/SimpleDatabase/test-users",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ParcelManagement2.Controllers.TestApiController",
+    "Method": "Get",
+    "RelativePath": "api/TestApi",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ParcelManagement2.Controllers.TestApiController",
+    "Method": "Hello",
+    "RelativePath": "api/TestApi/hello",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  }
+]

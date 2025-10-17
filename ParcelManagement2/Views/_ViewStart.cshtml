@@ -1,0 +1,41 @@
+﻿@{
+    // 根據使用者角色動態選擇 Layout
+    string? userRole = User?.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
+    string controllerName = ViewContext.RouteData.Values["Controller"]?.ToString() ?? "";
+
+    // 預設 Layout
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    // 根據使用者角色或控制器選擇不同的 Layout
+    if (User.Identity?.IsAuthenticated == true)
+    {
+        switch (userRole?.ToUpper())
+        {
+            case "ADMIN":
+                Layout = "~/Views/Shared/_AdminLayout.cshtml";
+                break;
+            case "RESIDENT":
+                Layout = "~/Views/Shared/_ResidentLayout.cshtml";
+                break;
+            default:
+                Layout = "~/Views/Shared/_Layout.cshtml";
+                break;
+        }
+    }
+
+    // 或者根據 Controller 名稱選擇（作為備選方案）
+    /*
+    switch (controllerName.ToUpper())
+    {
+        case "HOME":
+            Layout = "~/Views/Shared/_AdminLayout.cshtml";
+            break;
+        case "RESIDENT":
+            Layout = "~/Views/Shared/_ResidentLayout.cshtml";
+            break;
+        default:
+            Layout = "~/Views/Shared/_Layout.cshtml";
+            break;
+    }
+    */
+}

@@ -1,0 +1,1436 @@
+﻿@using ParcelManagement2.Controllers
+@model ResidentHomeVm
+@{
+    ViewBag.Title = "住戶首頁";
+    // 讓 Json 資料安全地輸出到 <script> 區塊
+    string jsonResidents = (ViewBag.JsonList as string) ?? "[]";
+    string selectedResidentId = (ViewBag.SelectedResidentId as string) ?? "";
+}
+
+<script src="https://cdn.jsdelivr.net/npm/vue@3.2.31/dist/vue.global.prod.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<style>
+    /* 基本變數設定 */
+    :root {
+        --resident-primary: #2c3e50;
+        --resident-secondary: #34495e;
+        --resident-primary-dark: #1a252f;
+        --resident-accent: #3498db;
+        --resident-light: #7f8c8d;
+        --border-color: #bdc3c7;
+        --card-radius: 12px;
+        --status-pending: #e74c3c;
+        --status-collected: #27ae60;
+        --text-primary: #2c3e50;
+        --text-secondary: #6c757d;
+    }
+
+    /* 主容器優化 */
+    .resident-container {
+        padding: 15px;
+        margin: 0;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    }
+
+    /* 歡迎標題卡片*/
+    .welcome-card {
+        background: linear-gradient(135deg, var(--resident-primary) 0%, var(--resident-secondary) 100%);
+        color: white;
+        border-radius: var(--card-radius);
+        padding: 20px 25px; 
+        margin-bottom: 20px; 
+        box-shadow: 0 4px 20px rgba(44, 62, 80, 0.2);
+        position: relative;
+        overflow: hidden;
+    }
+
+        .welcome-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+    .welcome-content {
+        position: relative;
+        z-index: 2;
+    }
+
+    .welcome-title {
+        font-size: 1.4rem; 
+        font-weight: 700;
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+        .welcome-title i {
+            margin-right: 10px;
+            font-size: 1.2rem; 
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+    .resident-link {
+        color: rgba(255, 255, 255, 0.9);
+        text-decoration: none;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+        transition: all 0.3s ease;
+    }
+
+        .resident-link:hover {
+            color: white;
+            border-bottom-color: white;
+        }
+
+    .condo-info {
+        font-size: 1rem; 
+        margin-top: 6px; 
+        color: rgba(255, 255, 255, 0.9);
+        font-weight: 500;
+    }
+
+    /* 成員選擇器 */
+    .member-selector {
+        margin-top: 12px; 
+        padding: 12px 0 0 0; 
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .member-select-label {
+        font-size: 13px;
+        margin-bottom: 6px;
+        color: rgba(255, 255, 255, 0.9);
+        font-weight: 500;
+    }
+
+    .member-select {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: white;
+        border-radius: 6px;
+        padding: 6px 10px;
+        font-size: 13px; 
+        transition: all 0.3s ease;
+        max-width: 220px;
+    }
+
+        .member-select:focus {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.5);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2);
+        }
+
+        .member-select option {
+            background: var(--resident-primary);
+            color: white;
+        }
+
+    /* 佈局容器優化 */
+    .layout-container {
+        display: flex;
+        gap: 20px;
+        align-items: stretch;
+        min-height: calc(100vh - 300px); /* 充分利用剩餘空間 */
+    }
+
+    .left-column, .right-column {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        min-height: auto;
+    }
+
+    .left-column {
+        gap: 20px;
+        max-width: 48%; /* 限制左欄最大寬度 */
+        min-height: calc(100vh - 300px); /* 確保左欄有足夠高度 */
+    }
+
+    .right-column {
+        max-width: 52%; /* 右欄稍微寬一些 */
+    }
+    /* 卡片設計 */
+    .resident-card {
+        background: white;
+        border: 1px solid var(--border-color);
+        border-radius: var(--card-radius);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        transition: all 0.3s ease;
+        padding: 20px; 
+        margin-bottom: 0;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+
+        .resident-card:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+            transform: translateY(-2px);
+        }
+
+        /*左欄卡片高度重新分配 */
+        .resident-card.half-height {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 200px; 
+        }
+
+        /* 第一個卡片（戶內住戶）- 固定高度 */
+        .resident-card.residents-card {
+            flex: none; /* 不參與彈性分配 */
+            height: 280px; /* 固定高度 */
+            min-height: 280px;
+            max-height: 280px;
+        }
+
+        /* 第二個卡片（待領取信件）- 填滿剩餘空間 */
+        .resident-card.mails-card {
+            flex: 1; /* 填滿剩餘空間 */
+            min-height: 300px; /* 保證最小高度 */
+        }
+
+        /*右欄包裹卡片充滿空間 */
+        .resident-card.full-height {
+            flex: 1;
+            height: 100%;
+            /*height: calc(100vh - 320px); /* 計算可用高度 */
+            min-height: 680px; /* 最小高度保證 */
+            /*max-height: calc(100vh - 320px); /* 移除最大高度限制 */
+            display: flex;
+            flex-direction: column;
+        }
+
+            .resident-card.full-height .resident-table-container {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                min-height: 0;
+            }
+
+            .resident-card.full-height .table-wrapper {
+                flex: none;
+                overflow-y: auto;
+                overflow-x: hidden;
+                min-height: 0px;
+                max-height: none;
+                border: 1px solid var(--border-color);
+                border-radius:4px;
+            }
+
+                .resident-card.full-height .table-wrapper::-webkit-scrollbar {
+                    width: 8px;
+                }
+
+                .resident-card.full-height .table-wrapper::-webkit-scrollbar-track {
+                    background: #f1f1f1;
+                    border-radius: 4px;
+                }
+
+                .resident-card.full-height .table-wrapper::-webkit-scrollbar-thumb {
+                    background: var(--resident-light);
+                    border-radius: 4px;
+                }
+
+                    .resident-card.full-height .table-wrapper::-webkit-scrollbar-thumb:hover {
+                        background: var(--resident-primary);
+                    }
+            .resident-card.full-height .resident-table tbody {
+                height: auto; /* 自動高度 */
+            }
+
+                .resident-card.full-height .resident-table tbody td {
+                    padding: 12px 8px; 
+                    text-align: center;
+                    font-size: 14px;
+                    border-bottom: 1px solid var(--border-color);
+                    height:70px;
+                    vertical-align: middle;
+                    transition: background-color 0.2s ease;
+                    white-space: nowrap; /* 防止文字換行 */
+                }
+
+            .resident-card.full-height .empty-state {
+                text-align: center;
+                color: var(--resident-light);
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                min-height: 200px; /* 最小高度 */
+                padding: 40px 20px;
+            }
+
+            .resident-card.full-height .loading {
+                text-align: center;
+                padding: 40px 20px;
+                color: var(--resident-light);
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                min-height: 200px;
+            }
+            .resident-card.full-height .resident-table {
+                margin: 0;
+                border: none;
+                border-collapse: separate;
+                border-spacing: 0;
+                height:70px;
+                width: 100%;
+                font-size: 14px;
+                min-height: fit-content; /* 根據內容自適應 */
+            }
+
+        .resident-card.mails-card .table-wrapper {
+            flex: 1;
+            overflow-y: auto;
+            min-height: 0;
+        }
+
+            .resident-card.mails-card .table-wrapper::-webkit-scrollbar {
+                width: 6px;
+            }
+
+            .resident-card.mails-card .table-wrapper::-webkit-scrollbar-track {
+                background: #f1f1f1;
+                border-radius: 4px;
+            }
+
+            .resident-card.mails-card .table-wrapper::-webkit-scrollbar-thumb {
+                background: var(--resident-light);
+                border-radius: 4px;
+            }
+            /* 確保卡片內容充滿空間 */
+            .resident-card.full-height .card-content,
+            .resident-card.residents-card .card-content,
+            .resident-card.mails-card .card-content {
+                flex: none;
+                display: flex;
+                flex-direction: column;
+                overflow: hidden;
+            }
+
+    .card-title {
+        font-size: 1.2rem; 
+        font-weight: 600;
+        color: var(--resident-primary);
+        margin-bottom: 15px; 
+        display: flex;
+        align-items: center;
+        border-bottom: 2px solid var(--border-color);
+        padding-bottom: 10px;
+        flex-shrink: 0;
+    }
+
+        .card-title i {
+            margin-right: 8px;
+            color: var(--resident-accent);
+            font-size: 1.1rem; 
+        }
+
+        .card-title .badge {
+            margin-left: auto;
+            font-size: 11px;
+            padding: 4px 8px;
+            border-radius: 12px;
+        }
+
+    .card-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+        overflow: hidden;
+    }
+
+    /* 表格容器充滿卡片 */
+    .resident-table-container {
+        background: white;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+        border: 1px solid var(--border-color);
+        flex: 1; /* 充滿卡片剩餘空間 */
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+    }
+
+    /* 表格wrapper充滿表格容器 */
+    .table-wrapper {
+        flex: 1;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* 確保表格充滿wrapper */
+    .resident-table {
+        margin: 0;
+        border: none;
+        border-collapse: separate;
+        border-spacing: 0;
+        width: 100%;
+        font-size: 14px;
+        flex: 1; /* 充滿可用空間 */
+        height: 100%;
+    }
+
+        /* 表格主體填滿空間 */
+        .resident-table tbody {
+            height: 100%;
+        }
+
+        .resident-table thead th {
+            background: var(--resident-primary);
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+            padding: 12px 10px;
+            text-align: center;
+            border: none;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .resident-table tbody td {
+            padding: 10px 8px; 
+            text-align: center;
+            height:70px;
+            font-size: 14px;
+            border-bottom: 1px solid var(--border-color);
+            vertical-align: middle;
+            transition: background-color 0.2s ease;
+        }
+
+        .resident-table tbody tr:hover td {
+            background-color: rgba(44, 62, 80, 0.05);
+        }
+
+        .resident-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* 空白填充行樣式 */
+        .resident-table tbody tr.empty-row td {
+            height: 40px;
+            border-bottom: 1px solid rgba(222, 226, 230, 0.3);
+            color: transparent;
+        }
+
+        .resident-table tbody tr.empty-row:hover td {
+            background-color: transparent;
+        }
+
+    /* 空狀態也要充滿空間 */
+    .empty-state {
+        text-align: center;
+        color: var(--resident-light);
+        flex: 1; /* 充滿可用空間 */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 280px;
+        padding: 30px 15px;
+    }
+
+        .empty-state i {
+            font-size: 36px;
+            margin-bottom: 12px;
+            display: block;
+            opacity: 0.5;
+        }
+
+        .empty-state h6 {
+            font-size: 15px;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: var(--resident-primary);
+        }
+
+        .empty-state p {
+            font-size: 13px;
+            margin: 0;
+            opacity: 0.8;
+        }
+
+    /* 包裹/信件狀態樣式 */
+    .package-id {
+        background: #f8f9fa;
+        padding: 6px 10px;
+        border-radius: 4px;
+        font-family: 'Courier New', monospace;
+        font-size: 14px;
+        font-weight: 600;
+        border: 1px solid var(--border-color);
+        color: var(--text-primary);
+        display: inline-block;
+    }
+
+    /* 可點擊的狀態徽章 */
+    .status-badge {
+        padding: 6px 15px;
+        border-radius: 15px;
+        font-size: 14px;
+        font-weight: 600;
+        text-align: center;
+        display: inline-block;
+        cursor: pointer; /*滑鼠指標 */
+        transition: all 0.2s ease; /* 過渡效果 */
+        border: 1px solid;
+        text-decoration: none;
+    }
+
+        .status-badge:hover {
+            transform: scale(1.05);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+
+    .status-badge-pending {
+        background-color: #fff5f5;
+        border-color: var(--status-pending);
+        color: var(--status-pending);
+    }
+
+        .status-badge-pending:hover {
+            background-color: var(--status-pending);
+            color: white;
+        }
+
+    .status-badge-mail {
+        background-color: #fff8dc;
+        border-color: #f39c12;
+        color: #f39c12;
+    }
+
+        .status-badge-mail:hover {
+            background-color: #f39c12;
+            color: white;
+        }
+
+    .resident-info {
+        font-weight: 600;
+        color: var(--text-primary);
+        font-size: 16px;
+    }
+
+    .resident-id {
+        background: var(--resident-primary);
+        color: white;
+        padding: 4px 12px;
+        border-radius: 3px;
+        font-size: 14px;
+        font-weight: 600;
+        display: inline-block;
+    }
+
+    .resident-phone {
+        color: var(--resident-light);
+        font-size: 14px;
+        font-family: 'Courier New', monospace;
+    }
+
+    /* 載入動畫 */
+    .loading {
+        text-align: center;
+        padding: 20px;
+        color: var(--resident-light);
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100px;
+    }
+
+        .loading i {
+            animation: spin 1s linear infinite;
+            font-size: 24px;
+            margin-bottom: 10px;
+            display: block;
+            color: var(--resident-primary);
+        }
+
+    @@keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    /* 包裹照片模態視窗樣式 */
+
+    .package-info-compact {
+        background: #f8f9fa;
+        padding: 8px 12px;
+        border-radius: 6px;
+        border: 1px solid #dee2e6;
+        font-size: 14px; 
+    }
+
+        .package-info-compact .text-muted {
+            font-size: 14px; 
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .package-info-compact .small {
+            font-size: 14px; 
+            font-weight: 500;
+        }
+
+    /* 縮小照片展示區域 */
+    #photo-gallery-container {
+        min-height: 40vh; 
+        max-height: 50vh; 
+        overflow-y: auto;
+    }
+
+    #photo-gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+        gap: 12px; 
+        padding: 8px 4px; 
+    }
+
+    .photo-item {
+        border: 2px solid #dee2e6;
+        border-radius: 8px;
+        overflow: hidden;
+        background: white;
+        position: relative;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+    }
+
+        .photo-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+        }
+
+        .photo-item img {
+            width: 100%;
+            height: 180px; 
+            object-fit: cover;
+            cursor: zoom-in;
+            transition: transform 0.2s ease;
+        }
+
+            .photo-item img:hover {
+                transform: scale(1.02);
+            }
+
+        .photo-item .photo-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: white;
+            padding: 6px 8px; 
+            font-size: 11px; 
+            font-weight: 600;
+            text-align: center;
+        }
+
+    /* 載入和空狀態縮小 */
+    #photo-loading {
+        padding: 30px 0 !important;
+    }
+
+    #no-photos {
+        padding: 30px 0 !important;
+    }
+
+        #no-photos i {
+            font-size: 2.5rem !important;
+        }
+
+    /* 全螢幕照片檢視器優化 */
+    .fullscreen-viewer {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.95);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        cursor: zoom-out;
+        animation: fadeIn 0.2s ease-out;
+    }
+
+        .fullscreen-viewer img {
+            max-width: 95%;
+            max-height: 95%;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+        }
+
+        /* 關閉按鈕優化 */
+        .fullscreen-viewer::before {
+            content: '✕';
+            position: fixed;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 10000;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0,0,0,0.5);
+            border-radius: 50%;
+            transition: all 0.2s ease;
+        }
+
+        .fullscreen-viewer:hover::before {
+            background: rgba(255,255,255,0.2);
+            transform: scale(1.1);
+        }
+
+    /* 載入動畫 */
+    @@keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    /* 響應式調整 */
+    @@media (max-width: 992px) {
+        .layout-container {
+            flex-direction: column;
+            gap: 15px;
+            min-height: auto;
+        }
+
+        .left-column, .right-column {
+            flex: none;
+            max-width: none;
+            min-height: auto;
+        }
+
+        .left-column {
+            gap: 15px;
+        }
+
+        .resident-card.residents-card,
+        .resident-card.mails-card,
+        .resident-card.full-height {
+            flex: none;
+            margin-bottom: 15px;
+            height: auto;
+            min-height: 300px;
+            max-height: none;
+        }
+
+        .modal-dialog.modal-lg {
+            margin: 15px; 
+            max-width: calc(100% - 30px);
+        }
+
+        #photo-gallery-container {
+            min-height: 35vh;
+            max-height: 45vh;
+        }
+
+        #photo-gallery {
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 8px;
+        }
+
+        .photo-item img {
+            height: 150px; 
+        }
+
+        .package-info-compact {
+            padding: 6px 8px;
+            font-size: 11px;
+        }
+
+            .package-info-compact .row {
+                flex-direction: column;
+            }
+
+            .package-info-compact .col-3 {
+                margin-bottom: 6px;
+                padding-bottom: 6px;
+                border-bottom: 1px solid #e9ecef;
+            }
+
+                .package-info-compact .col-3:last-child {
+                    border-bottom: none;
+                    margin-bottom: 0;
+                }
+    }
+
+    @@media (max-width: 768px) {
+        .resident-container {
+            padding: 12px;
+        }
+
+        .welcome-card {
+            padding: 15px 20px;
+            margin-bottom: 15px;
+        }
+
+        .welcome-title {
+            font-size: 1.3rem;
+        }
+
+        .layout-container {
+            gap: 12px;
+        }
+
+        .left-column {
+            gap: 12px;
+            min-height: auto;
+        }
+
+        .resident-card {
+            padding: 15px;
+        }
+
+            .resident-card.residents-card {
+                height: auto;
+                min-height: 250px;
+                max-height: none;
+            }
+
+        .card-title {
+            font-size: 1.1rem;
+        }
+
+        .empty-state {
+            padding: 25px 10px;
+            min-height: 100px;
+        }
+
+            .empty-state i {
+                font-size: 28px;
+            }
+
+        .modal-dialog.modal-lg {
+            margin: 10px;
+            max-width: calc(100% - 20px);
+        }
+
+        #photo-gallery-container {
+            min-height: 30vh;
+            max-height: 40vh;
+        }
+
+        #photo-gallery {
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 6px;
+            padding: 6px 2px;
+        }
+
+        .photo-item img {
+            height: 120px;
+        }
+    }
+
+    @@media (max-width: 576px) {
+        .resident-container {
+            padding: 10px;
+        }
+
+        .welcome-card {
+            padding: 12px 15px;
+        }
+
+        .welcome-title {
+            font-size: 1.2rem;
+        }
+
+        .layout-container {
+            gap: 10px;
+        }
+
+        .left-column {
+            gap: 10px;
+            min-height: auto;
+        }
+
+        .resident-card {
+            padding: 12px;
+        }
+
+            .resident-card.residents-card {
+                height: auto;
+                min-height: 200px;
+            }
+
+        .card-title {
+            font-size: 1rem;
+        }
+
+        .resident-table thead th{
+            padding: 9px 6px;
+            font-size: 14px;
+        }
+        .resident-table tbody td {
+            padding: 9px 6px;
+            font-size: 13px;
+            height: 60px; 
+            white-space: normal;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .resident-table tbody tr.empty-row td {
+            height: 60px; 
+        }
+        #photo-gallery {
+            grid-template-columns: 1fr 1fr; 
+            padding: 4px;
+        }
+
+        .photo-item img {
+            height: 100px;
+        }
+
+        .modal-header {
+            padding: 6px 10px !important; 
+        }
+
+        .modal-body {
+            padding: 6px !important; 
+        }
+
+        #photo-gallery-container {
+            min-height: 25vh;
+            max-height: 35vh;
+        }
+    }
+
+    .resident-table tbody tr.empty-row td {
+        height: 70px; /* ✅ 與其他行保持一致 */
+        border-bottom: 1px solid rgba(222, 226, 230, 0.3);
+        color: transparent;
+    }
+
+    .resident-table tbody tr.empty-row:hover td {
+        background-color: transparent;
+    }
+</style>
+
+<div class="resident-container" id="ResidentApp">
+    <!-- 歡迎標題卡片 -->
+    <div class="welcome-card">
+        <div class="welcome-content">
+            <h1 class="welcome-title">
+                <i class="bi bi-house-heart"></i>
+                歡迎回來，<a href="/Resident/Edit" class="resident-link">
+                    <span v-if="currentMemberName">{{ currentMemberName }}</span>
+                    <span v-else>@Model.FullName</span>
+                </a>
+            </h1>
+            <div class="condo-info">
+                <i class="bi bi-geo-alt me-2"></i>戶號：@Model.Condo_Id
+            </div>
+
+            <!-- 成員選擇器 (僅在有多個成員時顯示) -->
+            @if (Model.HasMultipleMembers)
+            {
+                <div class="member-selector">
+                    <label class="member-select-label">
+                        <i class="bi bi-person-check me-2"></i>目前登入身份：
+                    </label>
+                    <select class="member-select" v-model="selectedMemberId" v-on:change="changeMember">
+                        <option v-for="member in members" :value="member.red_id" :key="member.red_id">
+                            {{ member.red_id }} - {{ member.red_name }}
+                        </option>
+                    </select>
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- 主要內容區域 - 左右兩欄佈局 -->
+    <div class="layout-container">
+        <!-- 左欄：戶內住戶 + 待領取信件 -->
+        <div class="left-column">
+            <!-- 戶內住戶資訊 - 加入特定類別並固定高度 -->
+            <div class="resident-card residents-card">
+                <h3 class="card-title">
+                    <i class="bi bi-people"></i>戶內住戶
+                </h3>
+                <div class="card-content">
+                    <div class="resident-table-container">
+                        <div class="table-wrapper">
+                            <table class="table resident-table">
+                                <thead>
+                                    <tr>
+                                        <th><i class="bi bi-person-badge me-1"></i>住戶編號</th>
+                                        <th><i class="bi bi-person me-1"></i>姓名</th>
+                                        <th><i class="bi bi-telephone me-1"></i>電話</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tblResidents">
+                                    <!-- 將由 JS 產生 -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 待領取信件 - 加入特定類別並充滿剩餘空間 -->
+            <div class="resident-card mails-card">
+                <h3 class="card-title">
+                    <i class="bi bi-envelope"></i>待領取信件
+                    <span v-if="mails.length > 0" class="badge bg-warning">{{ mails.length }}</span>
+                </h3>
+                <div class="card-content">
+                    <div class="resident-table-container">
+                        <div v-if="mailsLoading" class="loading">
+                            <i class="bi bi-arrow-clockwise"></i>
+                            <p>載入中...</p>
+                        </div>
+                        <div v-else-if="mails && mails.length > 0" class="table-wrapper">
+                            <table class="table resident-table">
+                                <thead>
+                                    <tr>
+                                        <th><i class="bi bi-hash me-1"></i>信件編號</th>
+                                        <th><i class="bi bi-envelope me-1"></i>類別</th>
+                                        <th><i class="bi bi-person me-1"></i>收件人</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="m in mails" :key="m.pack_id">
+                                        <td>
+                                            <code class="package-id">{{ m.pack_id }}</code>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge status-badge-mail">
+                                                <i class="bi bi-envelope me-1"></i>{{ m.pack_name || '信件' }}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class="resident-info">{{ m.red_name }}</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div v-else class="empty-state">
+                            <i class="bi bi-envelope-open"></i>
+                            <h6>目前沒有信件</h6>
+                            <p>所有信件都已領取完畢</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 右欄：待領取包裹 -->
+        <div class="right-column">
+            <div class="resident-card full-height">
+                <h3 class="card-title">
+                    <i class="bi bi-box-seam"></i>待領取包裹
+                    <span v-if="packages.length > 0" class="badge bg-danger">{{ packages.length }}</span>
+                </h3>
+                <div class="card-content">
+                    <div class="resident-table-container">
+                        <!-- 載入狀態 -->
+                        <div v-if="packagesLoading" class="loading">
+                            <i class="bi bi-arrow-clockwise"></i>
+                            <p>載入包裹資料中...</p>
+                        </div>
+                        <!-- 包裹清單 -->
+                        <div v-else-if="packages && packages.length > 0" class="table-wrapper">
+                            <table class="table resident-table">
+                                <thead>
+                                    <tr>
+                                        <th><i class="bi bi-hash me-1"></i>包裹編號</th>
+                                        <th><i class="bi bi-box me-1"></i>狀態</th>
+                                        <th><i class="bi bi-person me-1"></i>收件人</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="p in packages" :key="p.pack_id">
+                                        <td>
+                                            <code class="package-id">{{ p.pack_id }}</code>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge status-badge-pending"
+                                                  v-on:click="viewPackagePhoto(p.pack_id)"
+                                                  title="點擊查看包裹照片">
+                                                <i class="bi bi-box me-1"></i>未取
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class="resident-info">{{ p.red_name }}</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- 空狀態 -->
+                        <div v-else class="empty-state">
+                            <i class="bi bi-inbox"></i>
+                            <h6>目前沒有待領取的包裹</h6>
+                            <p>所有包裹都已領取完畢</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 包裹照片模態視窗 -->
+<div class="modal fade" id="packagePhotoModal" tabindex="-1" aria-labelledby="packagePhotoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header py-1 px-2">
+                <h6 class="modal-title" id="packagePhotoModalLabel">
+                    <i class="bi bi-camera me-1"></i>包裹照片
+                </h6>
+                <button type="button" class="btn-close btn-sm" data-bs-dismiss="modal" aria-label="關閉"></button>
+            </div>
+
+            <div class="modal-body p-1">
+                <div class="package-info-compact mb-2">
+                    <div class="row g-1">
+                        <div class="col-3">
+                            <small class="text-muted d-block">編號</small>
+                            <strong id="modal-package-id" class="small">-</strong>
+                        </div>
+                        <div class="col-3">
+                            <small class="text-muted d-block">類別</small>
+                            <span id="modal-package-name" class="small">-</span>
+                        </div>
+                        <div class="col-3">
+                            <small class="text-muted d-block">收件人</small>
+                            <span id="modal-recipient" class="small">-</span>
+                        </div>
+                        <div class="col-3">
+                            <small class="text-muted d-block">時間</small>
+                            <span id="modal-create-time" class="small">-</span>
+                        </div>
+                    </div>
+                </div>
+                <div id="photo-gallery-container">
+                    <div id="photo-gallery">
+                        <!-- 照片將由 JavaScript 動態載入 -->
+                    </div>
+                    <div id="photo-loading" class="text-center" style="display: none; padding: 30px 0;">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">載入中...</span>
+                        </div>
+                        <p class="mt-2 small">正在載入照片...</p>
+                    </div>
+                    <!-- 無照片狀態 -->
+                    <div id="no-photos" class="text-center" style="display: none; padding: 30px 0;">
+                        <i class="bi bi-camera" style="font-size: 2.5rem; opacity: 0.3;"></i>
+                        <h6 class="mt-2">此包裹暫無照片</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        /* --------- 戶內所有住戶清單 --------- */
+        (function () {
+            const data = @Html.Raw(jsonResidents);
+            const tbody = document.getElementById('tblResidents');
+
+            if (data.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="3" class="empty-state">
+                            <i class="bi bi-person-plus"></i>
+                            <h6>尚未建立住戶資料</h6>
+                            <p>請聯繫管理員新增住戶資訊</p>
+                        </td>
+                    </tr>`;
+                return;
+            }
+
+            const rows = data.map(function(r) {
+                return `
+                    <tr>
+                        <td><span class="resident-id">${r.red_id}</span></td>
+                        <td><span class="resident-info">${r.red_name}</span></td>
+                        <td><span class="resident-phone">${r.phone || '-'}</span></td>
+                    </tr>`;
+            }).join('');
+            tbody.innerHTML = rows;
+        })();
+
+        /* --------- Vue 應用程式 --------- */
+        const { createApp } = Vue;
+
+        createApp({
+            data: function() {
+                return {
+                    packages: [],
+                    mails: [],
+                    members: @Html.Raw(jsonResidents),
+                    selectedMemberId: '@Html.Raw(selectedResidentId)',
+                    packagesLoading: true,
+                    mailsLoading: true,
+                    currentMemberName: ''
+                };
+            },
+            mounted: function() {
+                this.fetchPackages();
+                this.fetchMails();
+                this.initCurrentMemberName();
+            },
+            methods: {
+                initCurrentMemberName: function() {
+                    var self = this;
+                    if (self.selectedMemberId && self.members.length > 0) {
+                        var selectedMember = self.members.find(function(member) {
+                            return member.red_id === self.selectedMemberId;
+                        });
+                        if (selectedMember) {
+                            self.currentMemberName = selectedMember.red_name;
+                        }
+                    }
+                },
+                changeMember: function() {
+                    var self = this;
+                    if (!self.selectedMemberId) {
+                        self.showMessage('請選擇成員','error');
+                        return;
+                    }
+                    console.log('切換成員:', self.selectedMemberId);
+                    const params = new URLSearchParams();
+                    params.append('residentId',self.selectedMemberId);
+
+                    axios.post('/Resident/SelectMember',params, {
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        }
+                    })
+                    .then(function(res) {
+                        console.log('API回應:',res.data);
+
+                        if (res.data && res.data.success) {
+                            self.currentMemberName = res.data.memberName;
+                            self.fetchPackages();
+                            self.fetchMails();
+                            self.showMessage('已切換為：' + res.data.memberName, 'success');
+                        } else {
+                            self.showMessage(res.data.message || '切換失敗', 'error');
+                        }
+                    })
+                    .catch(function(error) {
+                        console.error('API 錯誤:', error);
+
+                        if (error.response) {
+                            // API 有回應但出錯
+                            console.error('錯誤狀態:', error.response.status);
+                            console.error('錯誤資料:', error.response.data);
+
+                            if (error.response.status === 404) {
+                                self.showMessage('找不到 API 端點，請檢查路由設定', 'error');
+                            } else {
+                                self.showMessage(error.response.data?.message || '切換成員時發生錯誤', 'error');
+                            }
+                        } else if (error.request) {
+                            // 請求發送但沒收到回應
+                            self.showMessage('無法連接到伺服器', 'error');
+                        } else {
+                            // 其他錯誤
+                            self.showMessage('切換成員時發生錯誤', 'error');
+                        }
+                    });
+                },
+
+                fetchPackages: function() {
+                    var self = this;
+                    self.packagesLoading = true;
+                    axios.post('/Resident/GetUncollectedPackages')
+                         .then(function(res) {
+                             self.packages = res.data || [];
+                             self.packagesLoading = false;
+                         })
+                         .catch(function() {
+                             self.packages = [];
+                             self.packagesLoading = false;
+                         });
+                },
+
+                fetchMails: function() {
+                    var self = this;
+                    self.mailsLoading = true;
+                    axios.post('/Resident/GetUncollectedMails')
+                         .then(function(res) {
+                             self.mails = res.data || [];
+                             self.mailsLoading = false;
+                         })
+                         .catch(function() {
+                             self.mails = [];
+                             self.mailsLoading = false;
+                         });
+                },
+
+                // 查看包裹照片功能
+                viewPackagePhoto: function(packageId) {
+                    console.log('查看包裹照片:', packageId);
+
+                    if (!packageId) {
+                        alert('包裹編號不能為空');
+                        return;
+                    }
+
+                    // 顯示載入狀態
+                    document.getElementById('photo-loading').style.display = 'block';
+                    document.getElementById('photo-gallery').innerHTML = '';
+                    document.getElementById('no-photos').style.display = 'none';
+
+                    // 開啟模態視窗
+                    var modal = new bootstrap.Modal(document.getElementById('packagePhotoModal'));
+                    modal.show();
+
+                    // 設定模態視窗標題
+                    document.getElementById('packagePhotoModalLabel').innerHTML =
+                        '<i class="bi bi-camera me-1"></i>包裹照片 - ' + packageId;
+
+                    axios.post('/Resident/GetPackagePhotos', {
+                        packageId: packageId.toString()
+                    }, {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
+                        }
+                    })
+                    .then(function(res) {
+                        document.getElementById('photo-loading').style.display = 'none';
+
+                        if (res.data.success) {
+                            // 填入包裹資訊
+                            document.getElementById('modal-package-id').textContent = res.data.packageId;
+                            document.getElementById('modal-package-name').textContent = res.data.packageName;
+                            document.getElementById('modal-recipient').textContent =
+                                res.data.recipientName + ' (' + res.data.recipientId + ')';
+                            document.getElementById('modal-create-time').textContent = res.data.createTime;
+
+                            // 顯示照片
+                            if (res.data.photos && res.data.photos.length > 0) {
+                                var galleryHtml = res.data.photos.map(function(photoUrl, index) {
+                                    return `
+                                        <div class="photo-item">
+                                            <img src="${photoUrl}"
+                                                 alt="包裹照片 ${index + 1}"
+                                                 onclick="openFullscreen(this)"
+                                                 onerror="this.src='/images/no-image.png'; this.onerror=null;">
+                                            <div class="photo-label">照片 ${index + 1}</div>
+                                        </div>`;
+                                }).join('');
+                                document.getElementById('photo-gallery').innerHTML = galleryHtml;
+                            } else {
+                                document.getElementById('no-photos').style.display = 'block';
+                            }
+                        } else {
+                            alert('載入包裹照片失敗：' + res.data.message);
+                            modal.hide();
+                        }
+                    })
+                    .catch(function(error) {
+                        document.getElementById('photo-loading').style.display = 'none';
+                        console.error('載入包裹照片錯誤:', error);
+
+                        // 錯誤處理
+                        if (error.response) {
+                            alert('伺服器錯誤：' + (error.response.data.message || error.response.status));
+                        } else if (error.request) {
+                            alert('網路連線錯誤，請檢查網路狀態');
+                        } else {
+                            alert('載入包裹照片時發生未知錯誤');
+                        }
+                        modal.hide();
+                    });
+                },
+
+                showMessage: function(message, type) {
+                    if (type === 'success') {
+                        alert('✓ ' + message);
+                    } else {
+                        alert('✗ ' + message);
+                    }
+                }
+            }
+        }).mount('#ResidentApp');
+
+        // 全螢幕照片查看功能
+        function openFullscreen(img) {
+            var existingViewer = document.querySelector('[data-viewer="true"]');
+            if (existingViewer && existingViewer.parentNode) {
+                document.body.removeChild(existingViewer);
+            }
+            var viewer = document.createElement('div');
+            viewer.className = 'fullscreen-viewer';
+            viewer.setAttribute('data-viewer', 'true');
+
+            var fullImg = document.createElement('img');
+            fullImg.src = img.src;
+            fullImg.alt = img.alt;
+
+            viewer.appendChild(fullImg);
+
+            // 點擊任何地方都可以關閉
+            viewer.onclick = function() {
+                closeFullscreenViewer();
+            };
+
+            // ESC 鍵關閉
+            var escHandler = function(e) {
+                if (e.key === 'Escape') {
+                    closeFullscreenViewer();
+                    document.removeEventListener('keydown', escHandler);
+                }
+            };
+                // 關閉全螢幕檢視器的安全函數
+            function closeFullscreenViewer() {
+                var existingViewer = document.querySelector('[data-viewer="true"]');
+                if (existingViewer && existingViewer.parentNode) {
+                    try {
+                        document.body.removeChild(existingViewer);
+                    } catch (e) {
+                        console.warn('無法移除全螢幕檢視器:', e);
+                    }
+                }
+                document.removeEventListener('keydown', escHandler);
+            }
+            document.addEventListener('keydown', escHandler);
+            document.body.appendChild(viewer);
+        }
+    </script>
+}

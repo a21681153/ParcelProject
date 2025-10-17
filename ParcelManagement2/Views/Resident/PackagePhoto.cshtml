@@ -1,0 +1,95 @@
+﻿@model PackagePhotoVm
+@{
+    ViewBag.Title = "包裹照片 - " + Model.PackageId;
+}
+
+<style>
+    .photo-viewer {
+        padding: 20px;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .package-info {
+        background: #f8f9fa;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+    }
+
+    .photo-gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 15px;
+        margin-top: 20px;
+    }
+
+    .photo-item {
+        border: 2px solid #dee2e6;
+        border-radius: 8px;
+        overflow: hidden;
+        background: white;
+    }
+
+        .photo-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            cursor: zoom-in;
+        }
+
+    .no-photos {
+        text-align: center;
+        padding: 40px;
+        color: #6c757d;
+    }
+</style>
+
+<div class="photo-viewer">
+    <h2>包裹照片</h2>
+
+    <div class="package-info">
+        <h5><i class="bi bi-box-seam me-2"></i>@Model.PackageId</h5>
+        <p><strong>類別：</strong>@Model.PackageName</p>
+        <p><strong>收件人：</strong>@Model.RecipientName (@Model.RecipientId)</p>
+        <p><strong>到件時間：</strong>@Model.CreateTime.ToString("yyyy/MM/dd HH:mm")</p>
+    </div>
+
+    @if (Model.Photos.Any())
+    {
+        <div class="photo-gallery">
+            @foreach (var photo in Model.Photos)
+            {
+                <div class="photo-item">
+                    <img src="@photo" alt="包裹照片" onclick="openFullscreen(this)">
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="no-photos">
+            <i class="bi bi-camera" style="font-size: 48px; opacity: 0.3;"></i>
+            <h6>此包裹暫無照片</h6>
+        </div>
+    }
+</div>
+
+<script>
+    function openFullscreen(img) {
+        var modal = document.createElement('div');
+        modal.style.cssText = `
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9); display: flex; align-items: center;
+            justify-content: center; z-index: 9999; cursor: zoom-out;
+        `;
+
+        var fullImg = document.createElement('img');
+        fullImg.src = img.src;
+        fullImg.style.cssText = 'max-width: 90%; max-height: 90%; object-fit: contain;';
+
+        modal.appendChild(fullImg);
+        modal.onclick = function() { document.body.removeChild(modal); };
+        document.body.appendChild(modal);
+    }
+</script>

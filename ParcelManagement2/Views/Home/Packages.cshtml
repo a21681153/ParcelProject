@@ -1,0 +1,1101 @@
+﻿@{
+    var date = DateTime.Now.ToString("MMdd");
+}
+
+<script src="https://cdn.jsdelivr.net/npm/vue@3.2.31/dist/vue.global.prod.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<style>
+    /* 頁面標題和標頭 */
+    .page-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 16px;
+        padding: 0 4px;
+    }
+
+    .page-title {
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: var(--admin-primary);
+        margin: 0;
+        display: flex;
+        align-items: center;
+    }
+
+        .page-title i {
+            margin-right: 8px;
+            color: var(--admin-accent);
+            font-size: 1.1rem;
+        }
+
+    /* 卡片設計 */
+    .admin-card {
+        background: white;
+        border: 1px solid var(--border-color);
+        border-radius: var(--card-radius);
+        box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+        transition: all 0.2s ease;
+        padding: 16px;
+        margin-bottom: 16px;
+    }
+
+        .admin-card:hover {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transform: translateY(-1px);
+        }
+
+    /* 表格容器 - 自然高度，不強制限制 */
+    .admin-table-container {
+        background: white;
+        border-radius: var(--card-radius);
+        overflow: hidden;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+        border: 1px solid var(--border-color);
+        margin-bottom: 16px;
+        position: relative;
+        z-index: 1;
+        min-height: 600px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* 表格響應式容器 - 自然高度 */
+    .table-responsive {
+        overflow-x: auto;
+        position: relative;
+        z-index: 1;
+        border-radius: 0;
+        max-height: 70vh;
+        overflow-y: auto;
+    }
+
+    /* 表頭 sticky 層級修正 */
+    .table thead {
+        position: relative;
+        z-index: 10;
+    }
+
+        .table thead th {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: var(--admin-primary);
+            color: white;
+            font-weight: 600;
+            white-space: nowrap;
+            border-color: var(--admin-primary);
+            font-size: 15px; /* 表頭字體調整到15px */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 12px 8px;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+            .table thead th i {
+                margin-right: 5px;
+                vertical-align: middle;
+                font-size: 13px; /* 表頭圖標調整到13px */
+            }
+
+    /* 表格主體 */
+    .table tbody {
+        position: relative;
+        z-index: 5;
+    }
+
+    /* 表格單元格 */
+    .table th,
+    .table td {
+        vertical-align: middle;
+        text-align: center;
+        padding: 8px 6px; /* 增加內邊距配合較大字體 */
+        border: 1px solid #e9ecef;
+        font-size: 14px; /* 主要內容字體調整*/
+        line-height: 1.3;
+        word-wrap: break-word;
+        position: relative;
+    }
+
+    .table tbody tr {
+        transition: all 0.2s ease;
+        height: auto;
+    }
+
+        .table tbody tr:hover {
+            background-color: rgba(0,102,204,0.05);
+            transform: translateY(-1px);
+        }
+
+    /* 統計區域 */
+    .admin-stats {
+        background: linear-gradient(90deg, var(--admin-primary), var(--admin-secondary));
+        color: white;
+        border-radius: 0 0 var(--card-radius) var(--card-radius);
+        padding: 14px 0; /* 增加padding配合較大字體 */
+        position: relative;
+        z-index: 5;
+    }
+
+        .admin-stats h6 {
+            font-size: 13px; /* 統計標題調整 */
+            margin: 0 0 5px 0;
+        }
+
+        .admin-stats .display-6 {
+            font-size: 1.5rem; /*  統計數字調整 */
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .admin-stats small {
+            font-size: 12px; /* 統計小字體調整 */
+        }
+
+        /* 統計區域內容容器 */
+        .admin-stats .container-fluid {
+            margin: 0;
+            position: relative;
+            z-index: inherit;
+        }
+
+        .admin-stats .row {
+            margin: 0;
+        }
+
+        .admin-stats .col-md-3 {
+            margin: 0;
+            padding: 0 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+            /*最後更新時間的樣式 */
+            .admin-stats .col-md-3:last-child {
+                text-align: center;
+            }
+
+                .admin-stats .col-md-3:last-child h6 {
+                    text-align: center;
+                }
+
+                .admin-stats .col-md-3:last-child small {
+                    text-align: center;
+                    display: block;
+                    white-space: nowrap;
+                    font-size: 11px; /* 最後更新時間保持11px以適應空間 */
+                }
+
+    /* 導航頁籤 */
+    .admin-tabs {
+        background: transparent;
+        border: none;
+        position: relative;
+        z-index: 15;
+        margin-bottom: 12px;
+    }
+
+        .admin-tabs .nav-item {
+            margin: 0 2px;
+        }
+
+        .admin-tabs .nav-link {
+            background: var(--admin-primary);
+            color: white;
+            border: 2px solid var(--admin-primary);
+            font-weight: 600;
+            padding: 10px 16px;
+            transition: all 0.3s ease;
+            border-radius: 8px 8px 0 0;
+            font-size: 14px; /* 導航頁籤調整 */
+            text-decoration: none;
+            display: block;
+            position: relative;
+        }
+
+            .admin-tabs .nav-link:not(.active) {
+                background: var(--admin-secondary);
+                color: #ffffff;
+                border-color: var(--admin-secondary);
+            }
+
+            .admin-tabs .nav-link:hover,
+            .admin-tabs .nav-link:focus {
+                background: var(--admin-primary-dark);
+                color: white;
+                border-color: var(--admin-primary-dark);
+                transform: translateY(-1px);
+            }
+
+            .admin-tabs .nav-link.active {
+                background: var(--admin-primary);
+                color: white;
+                border-color: var(--admin-primary);
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            }
+
+            .admin-tabs .nav-link i {
+                font-size: 13px; /* 導航圖標調整 */
+                margin-right: 6px;
+            }
+
+    /* 表單控制項 */
+    .form-select-sm {
+        padding: 8px 6px;
+        font-size: 14px; /* 表單選單調整 */
+        min-height: 36px; /* 增加高度 */
+        border-radius: 5px;
+        border: 1px solid var(--border-color);
+        max-width: 120px;
+    }
+
+        .form-select-sm:focus {
+            border-color: var(--admin-primary);
+            box-shadow: 0 0 0 0.125rem rgba(0,0,0,0.1);
+        }
+
+    /* 一般表單選單 */
+    .form-select {
+        font-size: 14px; /* 一般選單調整 */
+        min-height: 38px; /* 增加高度 */
+    }
+
+    /* 表單標籤 */
+    .form-label {
+        font-size: 14px !important; /* 表單標籤調整 */
+        font-weight: 600 !important;
+    }
+
+    /* 按鈕組 */
+    .btn-group-sm > .btn,
+    .btn-sm {
+        padding: 4px 8px; /* 增加內邊距 */
+        font-size: 14px; /* 按鈕字體調整 */
+        min-width: 35px;
+        height: 32px; /* 增加高度 */
+        margin: 1px;
+        border-radius: 5px;
+    }
+
+    /* 一般按鈕 */
+    .btn {
+        font-size: 14px; /* 一般按鈕調整 */
+    }
+
+    /* Checkbox 改善對齊 */
+    .form-check {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 2px 0; /* 適當增加間距 */
+        padding: 3px 6px; /* 增加內邊距 */
+        background: rgba(0,0,0,0.02);
+        border-radius: 4px;
+        min-height: 28px; /* 增加最小高度 */
+    }
+
+    .form-check-input {
+        margin: 0 4px 0 0; /* 適當間距 */
+        transform: scale(1.0); /* 稍微放大checkbox */
+    }
+
+    .form-check-label {
+        font-size: 14px; /* Checkbox標籤調整 */
+        margin: 0;
+        font-weight: 500;
+        color: #495057;
+        white-space: nowrap;
+    }
+
+    /* 狀態容器對齊修正 - 編輯模式 */
+    .status-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 6px 4px; /* 增加內邊距 */
+        background: rgba(0,0,0,0.02);
+        border-radius: 5px;
+        margin: 2px 0;
+        min-height: 50px; /* 增加最小高度 */
+        gap: 4px; /* 增加間距 */
+    }
+
+    .status-select-wrapper {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+        .status-select-wrapper .form-select {
+            font-size: 14px; /* 狀態選單調整到14px */
+            padding: 4px 8px; /* 增加內邊距 */
+            min-height: 30px; /* 增加高度 */
+        }
+
+    .status-display-wrapper {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 20px; /* 增加高度 */
+    }
+
+        .status-display-wrapper small {
+            font-size: 13px; /* 狀態提示文字調整 */
+            line-height: 1.1;
+        }
+
+    /* 狀態樣式 - 調整 */
+    .package-status-pending {
+        color: var(--status-pending);
+        font-weight: 600;
+        font-size: 14px;
+    }
+
+    .package-status-collected {
+        color: var(--status-collected);
+        font-weight: 600;
+        font-size: 14px;
+    }
+
+    .status-badge-pending {
+        background-color: #fff5f5;
+        border: 1px solid var(--status-pending);
+        color: var(--status-pending);
+        font-size: 14px; 
+        padding: 3px 10px; /* 增加內邊距 */
+        border-radius: 12px;
+    }
+
+    .status-badge-collected {
+        background-color: #f0fff4;
+        border: 1px solid var(--status-collected);
+        color: var(--status-collected);
+        font-size: 14px; 
+        padding: 3px 10px; /* 增加內邊距 */
+        border-radius: 12px;
+    }
+
+    /* 其他組件改善 - 調整到14px */
+    .package-id {
+        background: #f8f9fa;
+        padding: 2px 4px; /* 增加內邊距 */
+        border-radius: 4px;
+        font-family: 'Courier New', monospace;
+        font-size: 14px; 
+        font-weight: 600;
+        border: 1px solid #e9ecef;
+        color: #495057;
+        display: inline-block;
+        max-width: 130px; /* 稍微增加寬度 */
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .package-type-badge {
+        font-size: 14px; 
+        padding: 4px 10px; 
+        border-radius: 12px;
+        font-weight: 600;
+        max-width: 100px; 
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        display: inline-block;
+        border: 1px solid transparent; /* 新增邊框 */
+        transition: all 0.2s ease; /* 新增過渡效果 */
+    }
+    /* 包裹類型 - 藍色系 */
+    .package-type-parcel {
+        background-color: #e3f2fd !important; /* 淺藍色背景 */
+        color: #1976d2 !important; /* 深藍色文字 */
+        border-color: #1976d2 !important;
+    }
+
+    /* 信件類型 - 綠色系 */
+    .package-type-letter {
+        background-color: #fff3e0 !important; /* 淺橙色 */
+        color: #f57c00 !important; /* 深橙色 */
+        border-color: #f57c00 !important;
+    }
+
+    /* 懸停效果 */
+    .package-type-badge:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .resident-name {
+        font-weight: 600;
+        color: #2c3e50;
+        font-size: 14px;
+        max-width: 100px; /* 稍微增加寬度 */
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        display: inline-block;
+    }
+
+    .pickup-time {
+        font-size: 14px;
+        color: #6c757d;
+        font-weight: 500;
+        max-width: 120px; /* 稍微增加寬度 */
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    /*編輯開關 */
+    .form-check.form-switch .form-check-input {
+        transform: scale(1.2);
+    }
+
+    .form-check.form-switch .form-check-label {
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    /*滾動條優化 - 只在表格內部使用 */
+    .table-responsive::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    .table-responsive::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 4px;
+    }
+
+    .table-responsive::-webkit-scrollbar-thumb {
+        background: var(--admin-light);
+        border-radius: 4px;
+        transition: background 0.2s ease;
+    }
+
+        .table-responsive::-webkit-scrollbar-thumb:hover {
+            background: var(--admin-secondary);
+        }
+
+    /* 表格邊框處理 */
+    .admin-table-container .table {
+        margin: 0;
+        border: none;
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+
+    .table tbody tr:first-child td {
+        border-top: none;
+    }
+    .table th:first-child,
+    .table td:first-child {
+        border-left: none;
+    }
+
+    .table th:last-child,
+    .table td:last-child {
+        border-right: none;
+    }
+
+    /* 空資料提示 */
+    .empty-state {
+        padding: 40px 20px;
+        text-align: center;
+        color: var(--admin-light);
+        min-height: 150px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+        .empty-state i {
+            font-size: 48px;
+            margin-bottom: 15px;
+            display: block;
+            opacity: 0.3;
+        }
+
+        .empty-state h6 {
+            font-size: 16px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .empty-state p {
+            font-size: 14px;
+            margin: 0;
+            opacity: 0.8;
+        }
+
+    /* 頁面底部間距 */
+    .container-fluid {
+        padding-bottom: 40px;
+    }
+
+    /* 編輯選取欄位優化 */
+    .edit-selection-cell {
+        min-width: 75px; /* 增加寬度配合較大字體 */
+        max-width: 85px;
+    }
+
+        .edit-selection-cell .d-flex {
+            gap: 1px; /* 稍微增加checkbox間距 */
+        }
+
+    /* 響應式設計 */
+    .mobile-responsive .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .mobile-responsive .admin-card {
+        padding: 12px;
+        margin-bottom: 12px;
+    }
+
+    .mobile-responsive .table-responsive {
+        max-height: 60vh;
+    }
+
+    .mobile-responsive .admin-tabs .nav-link {
+        padding: 8px 12px;
+        font-size: 13px; /* 移動端稍小 */
+    }
+
+    .mobile-responsive .table th,
+    .mobile-responsive .table td {
+        padding: 10px 6px;
+        font-size: 13px; /* 移動端稍小 */
+    }
+
+    .mobile-responsive .pickup-time,
+    .mobile-responsive .package-id,
+    .mobile-responsive .resident-name,
+    .mobile-responsive .package-type-badge,
+    .mobile-responsive .package-status-pending,
+    .mobile-responsive .package-status-collected,
+    .mobile-responsive .status-badge-pending,
+    .mobile-responsive .status-badge-collected {
+        font-size: 13px; /* 移動端統一為13px */
+    }
+
+    .mobile-responsive .form-check-label {
+        font-size: 13px; /* 移動端checkbox標籤 */
+    }
+
+    .small-responsive .admin-tabs .nav-link i {
+        display: none;
+    }
+
+    .small-responsive .admin-card {
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+
+    .small-responsive .table th,
+    .small-responsive .table td {
+        padding: 8px 4px;
+        font-size: 12px; /* 小螢幕適當大小 */
+    }
+
+    .small-responsive .package-id,
+    .small-responsive .resident-name,
+    .small-responsive .package-type-badge,
+    .small-responsive .pickup-time,
+    .small-responsive .package-status-pending,
+    .small-responsive .package-status-collected,
+    .small-responsive .status-badge-pending,
+    .small-responsive .status-badge-collected {
+        max-width: 90px;
+        font-size: 12px; /* 小螢幕統一為12px */
+    }
+
+    .small-responsive .form-check-label {
+        font-size: 12px; /* 小螢幕checkbox標籤 */
+    }
+
+    .small-responsive .page-title {
+        font-size: 1.1rem;
+    }
+
+    .small-responsive .table-responsive {
+        max-height: 50vh;
+    }
+
+    .small-responsive .status-display-wrapper small {
+        font-size: 11px; /* 小螢幕狀態提示文字 */
+    }
+    /* 備註欄位樣式 */
+    .remarks-cell {
+        max-width: 150px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: 12px;
+        font-style: italic;
+        color: #6c757d;
+    }
+
+    .empty-state-history {
+        color: #6c757d;
+    }
+
+        .empty-state-history .bi-archive {
+            color: #17a2b8 !important;
+        }
+
+    .empty-state-undone .bi-check-circle {
+        color: #28a745 !important;
+    }
+
+    .empty-state-search .bi-search {
+        color: #ffc107 !important;
+    }
+
+    .empty-state-default .bi-inbox {
+        color: #6c757d !important;
+    }
+</style>
+
+
+<div class="container-fluid py-4" id="ProductItem" style="padding: 20px !important; margin: 0 !important;">
+    <!-- 標題區域 -->
+    <div class="d-flex align-items-center justify-content-between" style="margin: 0 0 20px 0 !important;">
+        <h4 class="page-title" style="margin: 0 !important;">
+            <i class="bi bi-box-seam"></i>
+            @ViewBag.Title
+        </h4>
+
+        <!-- 編輯開關 -->
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="toggleEdit"
+                   v-model="display_edit" v-on:change="ShowEdit"
+                   style="transform: scale(1.2) !important;">
+            <label class="form-check-label fw-bold" for="toggleEdit" style="font-size: 14px !important;">
+                <i class="bi me-2" v-on:class="display_edit ? 'bi-pencil-square text-warning' : 'bi-eye text-primary'"></i>
+                {{ display_edit ? '編輯模式' : '檢視模式' }}
+            </label>
+        </div>
+    </div>
+
+    <!-- 導航頁籤 -->
+    <ul class="nav nav-pills nav-fill admin-tabs shadow rounded-3" style="margin: 0 0 25px 0 !important;">
+        <li class="nav-item">
+            <a href="#" v-bind:class="['nav-link', { active: QueryOpt==='ALL' }]"
+               v-on:click="QueryOpt='ALL'; HandleQuery()">
+                <i class="bi bi-layers"></i>查看全部
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="#" v-bind:class="['nav-link', { active: QueryOpt==='UNDONE' }]"
+               v-on:click="QueryOpt='UNDONE'; HandleQuery()">
+                <i class="bi bi-exclamation-circle"></i>未領取
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="#" v-bind:class="['nav-link', { active: QueryOpt==='RESIDENT' }]"
+               v-on:click="QueryOpt='RESIDENT'; HandleQuery()">
+                <i class="bi bi-person-badge"></i>住戶查詢
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="#" v-bind:class="['nav-link', { active: QueryOpt==='HISTORY' }]"
+               v-on:click="QueryOpt='HISTORY'; HandleQuery()">
+                <i class="bi bi-archive"></i>歷史紀錄
+            </a>
+        </li>
+    </ul>
+
+    <!-- 包裹表單 -->
+    <div class="admin-card" v-if="display_edit">
+        <div class="row g-3 align-items-end" style="margin: 0 !important;">
+            <div class="col-md-3" style="margin: 0 !important; padding: 0 12px !important;">
+                <label class="form-label" style="font-size: 14px !important; font-weight: 600 !important; margin: 0 0 6px 0 !important;">包裹類別</label>
+                <select v-model="Pack_Type" class="form-select">
+                    <option value="">請選擇類別</option>
+                    <option :value="item.pack_type" v-for="item in ProdTypeList" :key="item.pack_type">
+                        {{item.pack_name}}
+                    </option>
+                </select>
+            </div>
+            <div class="col-md-3" style="margin: 0 !important; padding: 0 12px !important;">
+                <label class="form-label" style="font-size: 14px !important; font-weight: 600 !important; margin: 0 0 6px 0 !important;">收件住戶</label>
+                <select v-model="Red_Id" class="form-select">
+                    <option value="">請選擇住戶</option>
+                    <option :value="item.red_id" v-for="item in ResidentList" :key="item.red_id">
+                        {{item.condo_id}} - {{item.red_name}}
+                    </option>
+                </select>
+            </div>
+            <!-- 備註欄位 -->
+            <div class="col-md-2" style="margin: 0 !important; padding: 0 12px !important;">
+                <label class="form-label" style="font-size: 14px !important; font-weight: 600 !important; margin: 0 0 6px 0 !important;">
+                    備註 <small class="text-muted">(選填)</small>
+                </label>
+                <input type="text"
+                       v-model="Remarks"
+                       class="form-control"
+                       placeholder="例: 存放於:管理室、物流:黑貓宅急便"
+                       maxlength="500"
+                       style="font-size: 12px;">
+            </div>
+            <!-- 包裹照片上傳欄位 -->
+            <div class="col-md-3" style="margin: 0 !important; padding: 0 12px !important;">
+                <label class="form-label" style="font-size: 14px !important; font-weight: 600 !important; margin: 0 0 6px 0 !important;">包裹照片 <small class="text-muted">(選填)</small></label>
+                <input type="file"
+                       id="photoUpload"
+                       class="form-control"
+                       accept="image/*"
+                       v-on:change="handlePhotoSelect($event)"
+                       style="font-size: 13px;">
+            </div>
+            <div class="col-md-3" style="margin: 0 !important; padding: 0 12px !important;">
+                <div class="d-flex gap-3">
+                    <button type="button" class="btn btn-primary flex-fill"
+                            v-on:click="AddProduct" style="background: var(--admin-primary) !important; border-color: var(--admin-primary) !important;">
+                        <i class="bi bi-plus-circle me-2"></i>新增包裹
+                    </button>
+                    <button type="button" class="btn btn-success flex-fill"
+                            v-on:click="UpdatePackages">
+                        <i class="bi bi-arrow-repeat me-2"></i>批次更新
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 住戶查詢選單 -->
+    <div class="admin-card" v-if="QueryOpt==='RESIDENT'">
+        <div class="row g-3" style="margin: 0 !important;">
+            <div class="col-md-6" style="margin: 0 !important; padding: 0 12px !important;">
+                <label class="form-label" style="font-size: 13px !important; font-weight: 600 !important; margin: 0 0 6px 0 !important;">選擇住戶</label>
+                <select class="form-select" v-model="SelectRed" v-on:change="SearchByResident">
+                    <option value="">請選擇要查詢的住戶</option>
+                    <option v-for="r in ResidentList" :value="r.red_id" :key="r.red_id">
+                        {{ r.condo_id }} - {{ r.red_name }}
+                    </option>
+                </select>
+            </div>
+            <div class="col-md-6" v-if="SelectRed" style="margin: 0 !important; padding: 0 12px !important;">
+                <label class="form-label" style="font-size: 13px !important; font-weight: 600 !important; margin: 0 0 6px 0 !important;">篩選狀態</label>
+                <select class="form-select" v-model="SelectStatus" v-on:change="SearchByResident">
+                    <option value="">全部狀態</option>
+                    <option value="未取">未取</option>
+                    <option value="已取">已取</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- 包裹清單 -->
+    <div class="admin-table-container">
+        <div class="table-responsive">
+            <table class='table admin-table table-hover align-middle' style="margin: 0 !important;">
+                <thead class="sticky-top">
+                    <tr>
+                        <th v-if="display_edit && QueryOpt==='HISTORY'" style="width: 10%;">
+                            <i class="bi bi-gear"></i>操作
+                        </th>
+                        <th v-if="display_edit && QueryOpt!=='HISTORY'" class="edit-selection-cell" style="width: 10%;">
+                            <i class="bi bi-check2-square"></i>選取
+                        </th>
+                        <th v-if="QueryOpt!=='UNDONE'" style="width: 15%;">
+                            <i class="bi bi-clock"></i>領取時間
+                        </th>
+                        <th style="width: 15%;">
+                            <i class="bi bi-hash"></i>包裹編號
+                        </th>
+                        <th style="width: 10%;">
+                            <i class="bi bi-box"></i>類別
+                        </th>
+                        <th style="width: 10%;">
+                            <i class="bi bi-person"></i>住戶
+                        </th>
+                        <th style="width: 10%;">
+                            <i class="bi bi-clipboard-check"></i>狀態
+                        </th>
+                        <th style="width:30%; font-size: 12px ; color: #999;" v-if="QueryOpt!=='HISTORY'">
+                            <i style="font-size: 12px ; font-style: italic;"> 備註</i>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(item, idx) in ProductList" :key="item.pack_id || idx">
+                        <!-- 歷史紀錄操作 -->
+                        <td v-if="display_edit && QueryOpt==='HISTORY'" class="empty-state-history">
+                            <div class="d-flex justify-content-center gap-1">
+                                <button class="btn btn-outline-primary btn-sm"
+                                        v-on:click="RestoreOne(item)" title="復原包裹"
+                                        style="padding: 4px 8px; font-size: 11px;">
+                                    <i class="bi bi-arrow-counterclockwise"></i>
+                                </button>
+                                <button class="btn btn-outline-danger btn-sm"
+                                        v-on:click="RemoveOne(item)" title="永久刪除"
+                                        style="padding: 4px 8px; font-size: 11px;">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </div>
+                        </td>
+
+                        <!-- 編輯選取  -->
+                        <td v-if="display_edit && QueryOpt!=='HISTORY'" class="edit-selection-cell">
+                            <div class="d-flex flex-column align-items-center gap-1">
+                                <div class="form-check">
+                                    <input type="checkbox" v-model="item.Flag_Update"
+                                           v-on:change="onUpdateChk(item)"
+                                           class="form-check-input"
+                                           :id="'update_' + idx">
+                                    <label :for="'update_' + idx" class="form-check-label">更新</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" v-model="item.Flag_Del"
+                                           v-on:change="onDeleteChk(item)"
+                                           class="form-check-input"
+                                           :id="'del_' + idx">
+                                    <label :for="'del_' + idx" class="form-check-label">刪除</label>
+                                </div>
+                            </div>
+                        </td>
+
+                        <!-- 領取時間 -->
+                        <td v-if="QueryOpt!=='UNDONE'">
+                            <small class="pickup-time">
+                                <span v-if="!item.pickup_datetime || item.pickup_datetime === '-'">-</span>
+                                <span v-else>{{ item.pickup_datetime.substring(0, 16).replace('T', ' ') }}</span>
+                            </small>
+                        </td>
+
+                        <!-- 包裹編號 -->
+                        <td>
+                            <code class="package-id">{{ item.pack_id }}</code>
+                        </td>
+
+                        <!-- 包裹類別 -->
+                        <td>
+                            <span v-bind:class="getPackageTypeClass(item)" class="package-type-badge">
+                                {{ item.pack_name }}</span>
+                        </td>
+
+                        <!-- 住戶姓名 -->
+                        <td>
+                            <span class="resident-name">{{ item.condo_id }}-{{ item.red_name }}</span>
+                        </td>
+
+                        <!-- 包裹狀態欄位 -->
+                        <td>
+                            <!-- 編輯模式：下拉選單 + 當前狀態 -->
+                            <div v-if="display_edit" class="status-container">
+                                <div v-if="QueryOpt!=='HISTORY'" class="status-select-wrapper">
+                                    <select v-model="item.status"
+                                            v-bind:disabled="!item.Flag_Update"
+                                            class="form-select form-select-sm">
+                                        <option :value="0">未取</option>
+                                        <option :value="1">已取</option>
+                                    </select>
+                                </div>
+                                <div class="status-display-wrapper">
+                                    <small class="text-muted">目前狀態:</small>
+                                    <small v-if="item.status == 0 || item.status === '0'"
+                                           class="package-status-pending"
+                                           style="cursor: pointer;"
+                                           v-on:click="viewPackagePhoto(item)"
+                                           title="點擊查看包裹照片">
+                                        <i class="bi bi-exclamation-triangle"></i> 未取
+                                    </small>
+                                    <small v-else class="package-status-collected">
+                                        <i class="bi bi-check-circle"></i> 已取
+                                    </small>
+                                </div>
+                            </div>
+                            <!-- 檢視模式：彩色狀態徽章 -->
+                            <div v-else>
+                                <span v-if="item.status == 0 || item.status === '0'"
+                                      class="badge rounded-pill package-status-pending status-badge-pending"
+                                      style="cursor: pointer;"
+                                      v-on:click="viewPackagePhoto(item)"
+                                      title="點擊查看包裹照片">
+                                    <i class="bi bi-exclamation-triangle me-1"></i>未取
+                                </span>
+                                <span v-else
+                                      class="badge rounded-pill package-status-collected status-badge-collected">
+                                    <i class="bi bi-check-circle me-1"></i>已取
+                                </span>
+                            </div>
+                        </td>
+                        <td v-if="QueryOpt!=='HISTORY'" style="text-align: center;">
+                            <small class="remarks-cell" :title="item.remarks || '-'">
+                                {{ item.remarks || '-' }}
+                            </small>
+                        </td>
+                    </tr>
+
+                    <!-- 根據不同查詢類型顯示對應的空資料提示 -->
+                    <tr v-if="ProductList.length === 0">
+                        <!-- 歷史紀錄模式 -->
+                        <td v-if="QueryOpt === 'HISTORY' && display_edit"
+                            colspan="6"
+                            style="padding: 40px 20px !important; text-align: center !important; color: var(--admin-light) !important;">
+                            <div>
+                                <i class="bi bi-archive" style="font-size: 48px !important; margin: 0 0 16px 0 !important; display: block !important; color: var(--admin-light) !important;"></i>
+                                <h6 style="margin: 0 0 4px 0 !important;">目前尚無歷史紀錄</h6>
+                                <p class="text-secondary" style="margin: 0 !important;">尚未有任何已刪除的包裹記錄</p>
+                            </div>
+                        </td>
+
+                        <td v-else-if="QueryOpt === 'HISTORY' && !display_edit"
+                            colspan="5"
+                            style="padding: 40px 20px !important; text-align: center !important; color: var(--admin-light) !important;">
+                            <div>
+                                <i class="bi bi-archive" style="font-size: 48px !important; margin: 0 0 16px 0 !important; display: block !important; color: var(--admin-light) !important;"></i>
+                                <h6 style="margin: 0 0 4px 0 !important;">目前尚無歷史紀錄</h6>
+                                <p class="text-secondary" style="margin: 0 !important;">尚未有任何已刪除的包裹記錄</p>
+                            </div>
+                        </td>
+
+                        <!-- 未領取模式 -->
+                        <td v-else-if="QueryOpt === 'UNDONE' && display_edit"
+                            colspan="6"
+                            style="padding: 40px 20px !important; text-align: center !important; color: var(--admin-light) !important;">
+                            <div>
+                                <i class="bi bi-check-circle" style="font-size: 48px !important; margin: 0 0 16px 0 !important; display: block !important; color: var(--admin-light) !important;"></i>
+                                <h6 style="margin: 0 0 4px 0 !important;">沒有待領取的包裹</h6>
+                                <p class="text-secondary" style="margin: 0 !important;">所有包裹都已領取完畢</p>
+                            </div>
+                        </td>
+
+                        <td v-else-if="QueryOpt === 'UNDONE' && !display_edit"
+                            colspan="5"
+                            style="padding: 40px 20px !important; text-align: center !important; color: var(--admin-light) !important;">
+                            <div>
+                                <i class="bi bi-check-circle" style="font-size: 48px !important; margin: 0 0 16px 0 !important; display: block !important; color: var(--admin-light) !important;"></i>
+                                <h6 style="margin: 0 0 4px 0 !important;">沒有待領取的包裹</h6>
+                                <p class="text-secondary" style="margin: 0 !important;">所有包裹都已領取完畢</p>
+                            </div>
+                        </td>
+
+                        <!-- 住戶查詢模式 -->
+                        <td v-else-if="QueryOpt === 'RESIDENT' && display_edit"
+                            colspan="7"
+                            style="padding: 40px 20px !important; text-align: center !important; color: var(--admin-light) !important;">
+                            <div>
+                                <i class="bi bi-search" style="font-size: 48px !important; margin: 0 0 16px 0 !important; display: block !important; color: var(--admin-light) !important;"></i>
+                                <h6 style="margin: 0 0 4px 0 !important;">查無此住戶的包裹記錄</h6>
+                                <p class="text-secondary" style="margin: 0 !important;">請選擇其他住戶或調整查詢條件</p>
+                            </div>
+                        </td>
+
+                        <td v-else-if="QueryOpt === 'RESIDENT' && !display_edit"
+                            colspan="6"
+                            style="padding: 40px 20px !important; text-align: center !important; color: var(--admin-light) !important;">
+                            <div>
+                                <i class="bi bi-search" style="font-size: 48px !important; margin: 0 0 16px 0 !important; display: block !important; color: var(--admin-light) !important;"></i>
+                                <h6 style="margin: 0 0 4px 0 !important;">查無此住戶的包裹記錄</h6>
+                                <p class="text-secondary" style="margin: 0 !important;">請選擇其他住戶或調整查詢條件</p>
+                            </div>
+                        </td>
+
+                        <!-- 預設模式（ALL） -->
+                        <td v-else-if="display_edit"
+                            colspan="7"
+                            style="padding: 40px 20px !important; text-align: center !important; color: var(--admin-light) !important;">
+                            <div>
+                                <i class="bi bi-inbox" style="font-size: 48px !important; margin: 0 0 16px 0 !important; display: block !important; color: var(--admin-light) !important;"></i>
+                                <h6 style="margin: 0 0 4px 0 !important;">目前暫無包裹或信件</h6>
+                                <p class="text-secondary" style="margin: 0 !important;">請等待包裹送達或調整查詢條件</p>
+                            </div>
+                        </td>
+
+                        <td v-else
+                            colspan="6"
+                            style="padding: 40px 20px !important; text-align: center !important; color: var(--admin-light) !important;">
+                            <div>
+                                <i class="bi bi-inbox" style="font-size: 48px !important; margin: 0 0 16px 0 !important; display: block !important; color: var(--admin-light) !important;"></i>
+                                <h6 style="margin: 0 0 4px 0 !important;">目前暫無包裹或信件</h6>
+                                <p class="text-secondary" style="margin: 0 !important;">請等待包裹送達或調整查詢條件</p>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- 空資料提示 
+                    <tr v-if="ProductList.length === 0">
+                        <td colspan="7" style="padding: 40px 20px !important; text-align: center !important; color: var(--admin-light) !important;">
+                            <i class="bi bi-inbox" style="font-size: 48px !important; margin: 0 0 16px 0 !important; display: block !important; color: var(--admin-light) !important;"></i>
+                            <h6 style="margin: 0 0 4px 0 !important;">目前暫無包裹或信件</h6>
+                            <p class="text-secondary" style="margin: 0 !important;">請等待包裹送達或調整查詢條件</p>
+                        </td>
+                    </tr>-->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 統計資訊 -->
+        <div class="admin-stats" v-if="ProductList.length > 0">
+            <div class="container-fluid" style="margin: 0 !important;">
+                <!-- 在所有螢幕尺寸都顯示為一行 -->
+                <div class="row text-center g-1" style="margin: 0 !important;">
+                    <!-- 總計 -->
+                    <div class="col-3" style="padding: 8px 5px !important;">
+                        <div style="background: rgba(255,255,255,0.1); border-radius: 8px; padding: 10px 5px;">
+                            <h6 style="font-size: 0.75rem; margin-bottom: 0.2rem; white-space: nowrap;">
+                                <i class="bi bi-box-seam me-1"></i>總計
+                            </h6>
+                            <div class="fw-bold" style="font-size: 1.2rem; line-height: 1;">{{ ProductList.length }}</div>
+                            <small style="font-size: 0.65rem;">件</small>
+                        </div>
+                    </div>
+
+                    <!-- 未取 -->
+                    <div class="col-3" style="padding: 8px 5px !important;">
+                        <div style="background: rgba(255,205,210,0.2); border-radius: 8px; padding: 10px 5px;">
+                            <h6 style="color: #e57373 !important; font-size: 0.75rem; margin-bottom: 0.2rem; white-space: nowrap;">
+                                <i class="bi bi-exclamation-triangle me-1"></i>未取
+                            </h6>
+                            <div class="fw-bold" style="color: #e57373 !important; font-size: 1.2rem; line-height: 1;">
+                                {{ ProductList.filter(p => p.status == 0 || p.status === '0').length }}
+                            </div>
+                            <small style="color: #e57373 !important; font-size: 0.65rem;">件</small>
+                        </div>
+                    </div>
+
+                    <!-- 已取 -->
+                    <div class="col-3" style="padding: 8px 5px !important;">
+                        <div style="background: rgba(200,230,201,0.3); border-radius: 8px; padding: 10px 5px;">
+                            <h6 style="color: #81c784 !important; font-size: 0.75rem; margin-bottom: 0.2rem; white-space: nowrap;">
+                                <i class="bi bi-check-circle me-1"></i>已取
+                            </h6>
+                            <div class="fw-bold" style="color: #81c784 !important; font-size: 1.2rem; line-height: 1;">
+                                {{ ProductList.filter(p => p.status == 1 || p.status === '1').length }}
+                            </div>
+                            <small style="color: #81c784 !important; font-size: 0.65rem;">件</small>
+                        </div>
+                    </div>
+
+                    <!-- 最後更新時間 -->
+                    <div class="col-3" style="padding: 8px 5px !important;">
+                        <div style="background: rgba(255,255,255,0.1); border-radius: 8px; padding: 10px 5px; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100%;">
+                            <h6 style="font-size: 1rem; margin-bottom: 0.2rem; white-space: nowrap;">
+                                <i class="bi bi-clock me-1"></i>更新
+                            </h6>
+                            <small style="font-size: 0.9rem; text-align: center; line-height: 1.1;">
+                                {{ new Date().toLocaleString('zh-TW', {
+                                month: '2-digit',
+                                day: '2-digit',
+                                hour: '2-digit',
+                                minute: '2-digit'
+                                }) }}
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/parcel.js"></script>

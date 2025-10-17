@@ -1,0 +1,577 @@
+﻿@{
+    ViewBag.Title = ViewBag.Title ?? "社區包裹統計首頁";
+}
+
+<script src="https://cdn.jsdelivr.net/npm/vue@3.2.31/dist/vue.global.prod.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<style>
+    /* ✅ 頁面標題區域 */
+    .page-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 16px; /* ✅ 從 20px 稍微縮小 */
+        padding: 0 4px;
+    }
+
+    .page-title {
+        font-size: 1.4rem;
+        font-weight: 600;
+        color: var(--admin-primary);
+        margin: 0;
+        display: flex;
+        align-items: center;
+    }
+
+        .page-title i {
+            margin-right: 10px;
+            color: var(--admin-accent);
+            font-size: 1.2rem;
+        }
+
+    /* ✅ 統一的卡片設計 */
+    .admin-card {
+        background: white;
+        border: 1px solid var(--border-color);
+        border-radius: var(--card-radius);
+        box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+        transition: all 0.2s ease;
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+        .admin-card:hover {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transform: translateY(-1px);
+        }
+
+    .admin-table-container {
+        background: white;
+        border-radius: var(--card-radius);
+        overflow: hidden;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+        border: 1px solid var(--border-color);
+        margin-bottom: 20px;
+    }
+
+    /* 統計卡片 */
+    .stats-card {
+        background: linear-gradient(135deg, var(--admin-primary), var(--admin-secondary));
+        color: white;
+        border-radius: var(--card-radius);
+        padding: 15px; 
+        margin-bottom: 14px; 
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .stats-item {
+        padding: 10px 5px;
+    }
+    .stats-number {
+        font-size: 1.5rem; 
+        font-weight:bold;
+        line-height: 1;
+        margin-bottom: 0.5rem; 
+    }
+
+    .stats-label {
+        font-size: 0.85rem;
+        opacity: 0.9;
+        margin: 0;
+        font-weight: 500;
+        line-height: 1.2;
+    }
+
+    /* 統計區域內間距調整 */
+    .stats-card .row {
+        margin: 0;
+    }
+
+    .stats-card .col-md-4 {
+        padding: 8px 15px; 
+    }
+
+    /* 統計圖標優化 */
+    .stats-label i {
+        font-size: 0.8rem; /* 圖標 */
+        margin-right: 0.3rem; /* 圖標間距 */
+    }
+
+    /* 表格大小 */
+    .table th,
+    .table td {
+        vertical-align: middle;
+        text-align: center;
+        padding: 16px 12px;
+        border: 1px solid #e9ecef;
+        font-size: 15px;
+        line-height: 1.4;
+    }
+
+    .table th {
+        background: var(--admin-primary);
+        color: white;
+        font-weight: 600;
+        white-space: nowrap;
+        border-color: var(--admin-primary);
+        font-size: 15px;
+    }
+
+        .table th i {
+            margin-right: 8px;
+            vertical-align: middle;
+            font-size: 14px;
+        }
+
+    .table tbody tr {
+        transition: all 0.2s ease;
+    }
+
+        .table tbody tr:hover {
+            background-color: rgba(0,102,204,0.05);
+            transform: translateY(-1px);
+        }
+
+    /* 統計連結大小 */
+    .stat-link {
+        text-decoration: none;
+        padding: 6px 12px;
+        border-radius: 6px;
+        transition: all 0.2s ease;
+        display: inline-block;
+        min-width: 60px;
+    }
+
+        .stat-link:hover {
+            transform: scale(1.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+    .stat-pending {
+        color: var(--status-pending);
+        font-weight: 600;
+        font-size: 16px;
+    }
+
+    .stat-collected {
+        color: var(--status-collected);
+        font-weight: 600;
+        font-size: 16px;
+    }
+
+    .resident-info {
+        font-weight: 600;
+        color: var(--admin-primary);
+        font-size: 15px;
+    }
+
+    /* 分頁控制項大小 */
+    .pagination .page-link {
+        background: white;
+        border: 1px solid var(--border-color);
+        color: var(--admin-primary);
+        padding: 10px 14px;
+        margin: 0 2px;
+        border-radius: 6px;
+        font-weight: 500;
+        transition: all 0.2s ease;
+        font-size: 14px;
+        min-width: 44px;
+    }
+
+        .pagination .page-link:hover {
+            background: var(--admin-primary-dark);
+            color: white;
+            border-color: var(--admin-primary-dark);
+            transform: translateY(-1px);
+        }
+
+    .pagination .page-item.active .page-link {
+        background: var(--admin-primary);
+        border-color: var(--admin-primary);
+        color: white;
+    }
+
+    .pagination .page-item.disabled .page-link {
+        background: #f8f9fa;
+        color: #6c757d;
+        border-color: #dee2e6;
+    }
+
+    /* 按鈕大小 */
+    .btn {
+        font-size: 14px;
+        font-weight: 500;
+        transition: all 0.2s ease;
+        padding: 10px 16px;
+    }
+
+        .btn:hover {
+            transform: translateY(-1px);
+        }
+
+    .btn-outline-primary {
+        border-color: var(--admin-accent);
+        color: var(--admin-accent);
+    }
+
+        .btn-outline-primary:hover {
+            background: var(--admin-accent);
+            border-color: var(--admin-accent);
+            color: white;
+        }
+
+    /* 空資料提示大小 */
+    .empty-state {
+        padding: 50px 20px;
+        text-align: center;
+        color: var(--admin-light);
+    }
+
+        .empty-state i {
+            font-size: 56px;
+            margin-bottom: 16px;
+            display: block;
+            opacity: 0.5;
+        }
+
+        .empty-state h6 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .empty-state small {
+            font-size: 14px;
+        }
+
+    /* 重新整理按鈕圖標 */
+    .btn i {
+        font-size: 14px;
+        margin-right: 6px;
+    }
+
+    /* 響應式設計調整 */
+    .mobile-responsive .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .mobile-responsive .admin-card {
+        padding: 16px;
+        margin-bottom: 16px;
+    }
+
+    .mobile-responsive .stats-card {
+        padding: 10px 5px; 
+        margin-bottom: 12px;
+    }
+    .mobile-responsive .stats-item{
+        padding:8px 2px;
+    }
+    .mobile-responsive .stats-number {
+        font-size: 13px; /* 移動端統計數字 */
+        margin-bottom:0.3rem;
+    }
+
+    .mobile-responsive .stats-label {
+        font-size: 13px; /* 移動端標籤 */
+        line-height: 1.1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .mobile-responsive .stats-card .col-md-4 {
+        padding: 6px 12px; /* 移動端間距 */
+    }
+
+    .mobile-responsive .table th,
+    .mobile-responsive .table td {
+        padding: 12px 8px;
+        font-size: 14px;
+    }
+
+    .mobile-responsive .pagination .page-link {
+        padding: 8px 10px;
+        font-size: 13px;
+    }
+
+    .small-responsive .admin-card {
+        padding: 14px;
+        margin-bottom: 14px;
+    }
+
+    .small-responsive .stats-card {
+        padding: 10px; 
+        margin-bottom: 10px;
+    }
+
+    .small-responsive .stats-number {
+        font-size: 1.3rem; 
+    }
+
+    .small-responsive .stats-label {
+        font-size: 13px; 
+    }
+
+    .small-responsive .stats-card .col-md-4 {
+        padding: 5px 10px; 
+    }
+
+    .small-responsive .table th,
+    .small-responsive .table td {
+        padding: 10px 6px;
+        font-size: 13px;
+    }
+
+    .small-responsive .pagination .page-link {
+        padding: 6px 8px;
+        font-size: 12px;
+    }
+
+    .small-responsive .page-title {
+        font-size: 1.2rem;
+    }
+
+    /*數字和文字對比優化 */
+    .stat-pending,
+    .stat-collected {
+        text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    }
+
+    /* 表格行高度優化 */
+    .table tbody tr {
+        min-height: 60px;
+    }
+
+    .table tbody td {
+        min-height: 50px;
+    }
+
+    /* 統計卡片與表格的視覺平衡 */
+    .stats-card + .admin-table-container {
+        margin-top: 0; /* 確保緊密銜接 */
+    }
+
+</style>
+
+<div class="container-fluid">
+    <div id="ResidentStats">
+        <!-- 標題區域 -->
+        <div class="page-header">
+            <h3 class="page-title">
+                <i class="bi bi-graph-up"></i>
+                @ViewBag.Title
+            </h3>
+
+            <!-- 重新整理按鈕 -->
+            <button type="button" class="btn btn-outline-primary" v-on:click="fetchStats">
+                <i class="bi bi-arrow-clockwise me-2"></i>
+                重新整理
+            </button>
+        </div>
+
+        <!-- 統計摘要 -->
+        <div class="stats-card" v-if="stats.length > 0">
+            <!-- 在移動端也保持一行顯示 -->
+            <div class="row text-center g-2">
+                <!-- 總住戶數 -->
+                <div class="col-4 col-md-4">
+                    <div class="stats-item">
+                        <div class="stats-number">{{ stats.length }}</div>
+                        <h6 class="stats-label">
+                            <i class="bi bi-people"></i>總住戶數
+                        </h6>
+                    </div>
+                </div>
+
+                <!-- 未取包裹 -->
+                <div class="col-4 col-md-4">
+                    <div class="stats-item">
+                        <div class="stats-number" style="color: #ffcdd2;">{{ totalUncollected }}</div>
+                        <h6 class="stats-label" style="color: #ffcdd2;">
+                            <i class="bi bi-exclamation-triangle"></i>未領取包裹
+                        </h6>
+                    </div>
+                </div>
+
+                <!-- 已取包裹 -->
+                <div class="col-4 col-md-4">
+                    <div class="stats-item">
+                        <div class="stats-number" style="color: #c8e6c9;">{{ totalCollected }}</div>
+                        <h6 class="stats-label" style="color: #c8e6c9;">
+                            <i class="bi bi-check-circle"></i>已領取包裹
+                        </h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 統計表格 -->
+        <div class="admin-table-container">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="sticky-top">
+                        <tr>
+                            <th>
+                                <i class="bi bi-person"></i>住戶資訊
+                            </th>
+                            <th>
+                                <i class="bi bi-exclamation-triangle"></i>未領取包裹
+                            </th>
+                            <th>
+                                <i class="bi bi-check-circle"></i>已領取包裹
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="r in pagedStats" :key="r.red_id">
+                            <td>
+                                <span class="resident-info">{{r.condo_id}} - {{ r.red_name }}</span>
+                            </td>
+                            <td>
+                                <a href="#" class="stat-link" v-on:click.prevent="goToResident(r.red_id, '未取')">
+                                    <span class="stat-pending">{{ r.uncollected }}</span> 件
+                                </a>
+                            </td>
+                            <td>
+                                <a href="#" class="stat-link" v-on:click.prevent="goToResident(r.red_id, '已取')">
+                                    <span class="stat-collected">{{ r.collected }}</span> 件
+                                </a>
+                            </td>
+                        </tr>
+
+                        <!-- 空資料提示 -->
+                        <tr v-if="pagedStats.length === 0">
+                            <td colspan="3" class="empty-state">
+                                <i class="bi bi-inbox"></i>
+                                <h6 class="mb-2">目前無統計資料</h6>
+                                <small class="text-secondary">請稍後再試或聯繫管理員</small>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ✅ 分頁控制 -->
+        <nav v-if="totalPages > 1" class="mt-4">
+            <ul class="pagination justify-content-center">
+                <!-- 上一頁 -->
+                <li :class="['page-item', { disabled: currentPage === 1 }]">
+                    <a class="page-link" href="#" v-on:click.prevent="setPage(currentPage-1)">
+                        <i class="bi bi-chevron-left me-1"></i>上一頁
+                    </a>
+                </li>
+
+                <!-- 頁碼 -->
+                <li v-for="n in visiblePages" :key="n"
+                    :class="['page-item', { active: n === currentPage, disabled: n === '...' }]">
+                    <a class="page-link" href="#" v-on:click.prevent="n !== '...' && setPage(n)">
+                        {{ n }}
+                    </a>
+                </li>
+
+                <!-- 下一頁 -->
+                <li :class="['page-item', { disabled: currentPage === totalPages }]">
+                    <a class="page-link" href="#" v-on:click.prevent="setPage(currentPage+1)">
+                        下一頁<i class="bi bi-chevron-right ms-1"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                stats: [],
+                currentPage: 1,
+                pageSize: 15
+            }
+        },
+        computed: {
+            totalPages() {
+                return Math.ceil(this.stats.length / this.pageSize);
+            },
+            pagedStats() {
+                const start = (this.currentPage - 1) * this.pageSize;
+                return this.stats.slice(start, start + this.pageSize);
+            },
+            totalUncollected() {
+                return this.stats.reduce((sum, stat) => sum + stat.uncollected, 0);
+            },
+            totalCollected() {
+                return this.stats.reduce((sum, stat) => sum + stat.collected, 0);
+            },
+            visiblePages() {
+                const pages = [];
+                const total = this.totalPages;
+                const current = this.currentPage;
+
+                if (total <= 7) {
+                    for (let i = 1; i <= total; i++) {
+                        pages.push(i);
+                    }
+                } else {
+                    pages.push(1);
+
+                    if (current > 4) {
+                        pages.push('...');
+                    }
+
+                    const start = Math.max(2, current - 2);
+                    const end = Math.min(total - 1, current + 2);
+
+                    for (let i = start; i <= end; i++) {
+                        pages.push(i);
+                    }
+
+                    if (current < total - 3) {
+                        pages.push('...');
+                    }
+
+                    pages.push(total);
+                }
+
+                return pages;
+            }
+        },
+        mounted() {
+            this.fetchStats();
+        },
+        methods: {
+            fetchStats() {
+                axios.post('/Home/GetResidentPackageStats')
+                    .then(res => {
+                        if (Array.isArray(res.data)) {
+                            this.stats = res.data;
+                            this.currentPage = 1;
+                        } else {
+                            this.stats = [];
+                        }
+                    })
+                    .catch(() => {
+                        this.stats = [];
+                        console.error('無法載入統計資料');
+                    });
+            },
+            setPage(n) {
+                if (n < 1 || n > this.totalPages || n === '...') return;
+                this.currentPage = n;
+            },
+            goToResident(red_id, status) {
+                const url = `/Home/Packages?red_id=${encodeURIComponent(red_id)}&status=${encodeURIComponent(status)}`;
+                window.location.href = url;
+            }
+        }
+    });
+
+    app.mount('#ResidentStats');
+</script>
+
+<script src="/Scripts/common-jwt.js"></script>

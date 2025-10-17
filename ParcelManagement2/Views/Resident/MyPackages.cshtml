@@ -1,0 +1,724 @@
+﻿@model MyPackagesVm
+@{
+    ViewBag.Title = "我的包裹";
+    string jsonResidents = (ViewBag.JsonResidents as string) ?? "[]";
+    string selectedResidentId = (ViewBag.SelectedResidentId as string) ?? "";
+}
+
+<script src="https://cdn.jsdelivr.net/npm/vue@3.2.31/dist/vue.global.prod.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<style>
+    /* 基本變數設定 */
+    :root {
+        --primary-color: #2c3e50;
+        --secondary-color: #34495e;
+        --accent-color: #3498db;
+        --success-color: #27ae60;
+        --warning-color: #f39c12;
+        --danger-color: #e74c3c;
+        --light-color: #7f8c8d;
+        --border-color: #bdc3c7;
+        --card-radius: 12px;
+    }
+
+    /* 容器樣式 */
+    .packages-container {
+        padding: 20px;
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        min-height: 100vh;
+    }
+
+    /* 標題卡片 */
+    .header-card {
+        background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+        color: white;
+        border-radius: var(--card-radius);
+        padding: 25px;
+        margin-bottom: 25px;
+        box-shadow: 0 4px 20px rgba(44, 62, 80, 0.2);
+    }
+
+    .header-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .header-subtitle {
+        opacity: 0.9;
+        margin-bottom: 0;
+    }
+
+    /* 成員選擇器 */
+    .member-selector {
+        margin-top: 15px;
+        padding-top: 15px;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .member-select {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: white;
+        border-radius: 6px;
+        padding: 8px 12px;
+        font-size: 14px;
+        max-width: 250px;
+    }
+
+        .member-select:focus {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.5);
+            outline: none;
+        }
+
+        .member-select option {
+            background: var(--primary-color);
+            color: white;
+        }
+
+    /* 分頁導航 */
+    .nav-tabs {
+        border-bottom: 2px solid var(--border-color);
+        margin-bottom: 20px;
+    }
+
+        .nav-tabs .nav-link {
+            border: none;
+            border-bottom: 3px solid transparent;
+            color: var(--light-color);
+            font-weight: 600;
+            padding: 15px 25px;
+            transition: all 0.3s ease;
+        }
+
+            .nav-tabs .nav-link:hover {
+                color: var(--primary-color);
+                border-bottom-color: var(--accent-color);
+            }
+
+            .nav-tabs .nav-link.active {
+                color: var(--primary-color);
+                border-bottom-color: var(--accent-color);
+                background: none;
+            }
+
+    /* 內容卡片 */
+    .content-card {
+        background: white;
+        border-radius: var(--card-radius);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+
+    /* 表格樣式 */
+    .packages-table {
+        margin: 0;
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+
+        .packages-table thead th {
+            background: var(--primary-color);
+            color: white;
+            font-weight: 600;
+            padding: 15px 12px;
+            text-align: center;
+            border: none;
+            font-size: 14px;
+        }
+
+        .packages-table tbody td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+            vertical-align: middle;
+            font-size: 14px;
+        }
+
+        .packages-table tbody tr:hover td {
+            background-color: rgba(44, 62, 80, 0.05);
+        }
+
+        .packages-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+    /* 狀態徽章 */
+    .status-badge {
+        padding: 6px 12px;
+        border-radius: 15px;
+        font-size: 14px;
+        font-weight: 600;
+        display: inline-block;
+        transition:all 0.3s ease;
+    }
+
+    .status-pending {
+        background: #fff5f5;
+        color: var(--danger-color);
+        border: 1px solid var(--danger-color);
+        cursor:pointer;
+        text-decoration:none;
+    }
+
+    .status-collected {
+        background: #f0fff4;
+        color: var(--success-color);
+        border: 1px solid var(--success-color);
+        cursor:default;
+    }
+
+    .status-pending:hover {
+        background: var(--danger-color);
+        color: white;
+        transform: scale(1.05); /* ✅ 滑鼠懸停效果 */
+        box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3);
+    }
+
+    /* 類型徽章 */
+    .type-badge {
+        padding: 4px 8px;
+        border-radius: 10px;
+        font-size: 14px;
+        font-weight: 600;
+        display: inline-block;
+    }
+
+    .type-package {
+        background: #e3f2fd;
+        color: #1976d2;
+    }
+
+    .type-mail {
+        background: #fff3e0;
+        color: #f57c00;
+    }
+
+    /* 載入和空狀態 */
+    .loading, .empty-state {
+        text-align: center;
+        padding: 60px 20px;
+        color: var(--light-color);
+    }
+
+        .loading i, .empty-state i {
+            font-size: 48px;
+            margin-bottom: 15px;
+            display: block;
+            opacity: 0.5;
+        }
+
+        .loading i {
+            animation: spin 1s linear infinite;
+        }
+
+    @@keyframes spin {
+        0%
+
+    {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+
+    }
+
+    /* 響應式設計 */
+    @@media (max-width: 768px) {
+        .packages-container
+
+    {
+        padding: 15px;
+    }
+
+    .header-card {
+        padding: 20px;
+    }
+
+    .nav-tabs .nav-link {
+        padding: 12px 15px;
+        font-size: 14px;
+    }
+
+    .packages-table thead th,
+    .packages-table tbody td {
+        padding: 10px 8px;
+        font-size: 14px;
+    }
+    }
+    /* 包裹照片模態視窗樣式 */
+    .photo-item {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+        .photo-item img {
+            transition: transform 0.3s ease;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+        }
+
+            .photo-item img:hover {
+                border-color: var(--accent-color);
+            }
+
+    #photo-gallery {
+        max-height: 60vh;
+        overflow-y: auto;
+        padding: 15px;
+    }
+
+    #photo-loading, #no-photos {
+        padding: 40px 20px;
+        text-align: center;
+        color: var(--light-color);
+    }
+
+        #no-photos i {
+            font-size: 3rem;
+            opacity: 0.3;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+</style>
+
+<div class="packages-container" id="MyPackagesApp">
+    <!-- 標題卡片 -->
+    <div class="header-card">
+        <h1 class="header-title">
+            <i class="bi bi-box-seam me-2"></i>我的包裹
+        </h1>
+        <p class="header-subtitle">查看您的包裹與信件狀況</p>
+
+        <!-- 成員選擇器 -->
+        @if (Model.HasMultipleMembers)
+        {
+            <div class="member-selector">
+                <label class="form-label text-light mb-2">
+                    <i class="bi bi-person-check me-2"></i>查看成員：
+                </label>
+                <select class="member-select" v-model="selectedMemberId" v-on:change ="changeMember">
+                    <option v-for="member in members" :value="member.red_id" :key="member.red_id">
+                        {{ member.red_id }} - {{ member.red_name }}
+                    </option>
+                </select>
+            </div>
+        }
+    </div>
+
+    <!-- 分頁導航 -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link" v-on:class="{ active: activeTab === 'all' }" v-on:click="switchTab('all')" href="#all-packages">
+                <i class="bi bi-list-ul me-2"></i>所有包裹
+                <span v-if="allPackages.length > 0" class="badge bg-primary ms-2">{{ allPackages.length }}</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" v-on:class="{ active: activeTab === 'pending' }" v-on:click="switchTab('pending')" href="#pending-packages">
+                <i class="bi bi-exclamation-triangle me-2"></i>未領取
+                <span v-if="pendingCount > 0" class="badge bg-danger ms-2">{{ pendingCount }}</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" v-on:class="{ active: activeTab === 'history' }" v-on:click ="switchTab('history')" href="#collected-history">
+                <i class="bi bi-check-circle me-2"></i>領取紀錄
+                <span v-if="collectedHistory.length > 0" class="badge bg-success ms-2">{{ collectedHistory.length }}</span>
+            </a>
+        </li>
+    </ul>
+
+    <!-- 分頁內容 -->
+    <div class="content-card">
+        <!-- 所有包裹 -->
+        <div v-show="activeTab === 'all'">
+            <div v-if="allLoading" class="loading">
+                <i class="bi bi-arrow-clockwise"></i>
+                <h5>載入中...</h5>
+            </div>
+            <div v-else-if="allPackages.length === 0" class="empty-state">
+                <i class="bi bi-inbox"></i>
+                <h5>目前沒有任何包裹</h5>
+                <p>尚未有任何包裹或信件記錄</p>
+            </div>
+            <div v-else>
+                <table class="table packages-table">
+                    <thead>
+                        <tr>
+                            <th>包裹編號</th>
+                            <th>類型</th>
+                            <th>收件人</th>
+                            <th>送達時間</th>
+                            <th>狀態</th>
+                            <th>領取人</th>
+                            <th>領取時間</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="item in allPackages" :key="item.pack_id">
+                            <td>
+                                <code>{{ item.pack_id }}</code>
+                            </td>
+                            <td>
+                                <span class="type-badge" v-on:class="item.item_type === '信件' ? 'type-mail' : 'type-package'">
+                                    {{ item.item_type }}
+                                </span>
+                            </td>
+                            <td>{{ item.red_name }}</td>
+                            <td>{{ formatDateTime(item.create_time) }}</td>
+                            <td>
+                                <span class="status-badge" v-on:class="item.status == 0 ? 'status-pending' : 'status-collected'">
+                                    {{ item.status_text }}
+                                </span>
+                            </td>
+                            <td>{{item.collector_name}}</td>
+                            <td>{{ item.pickup_datetime ? formatDateTime(item.pickup_datetime) : '-' }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 未領取包裹 -->
+        <div v-show="activeTab === 'pending'">
+            <div v-if="pendingLoading" class="loading">
+                <i class="bi bi-arrow-clockwise"></i>
+                <h5>載入中...</h5>
+            </div>
+            <div v-else-if="pendingPackages.length === 0" class="empty-state">
+                <i class="bi bi-check-circle"></i>
+                <h5>沒有待領取的包裹</h5>
+                <p>所有包裹都已領取完畢</p>
+            </div>
+            <div v-else>
+                <table class="table packages-table">
+                    <thead>
+                        <tr>
+                            <th>包裹編號</th>
+                            <th>類型</th>
+                            <th>收件人</th>
+                            <th>送達時間</th>
+                            <th>存放天數</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="item in pendingPackages" :key="item.pack_id">
+                            <td>
+                                <code>{{ item.pack_id }}</code>
+                            </td>
+                            <td>
+                                <span class="type-badge" v-on:class="item.item_type === '信件' ? 'type-mail' : 'type-package'">
+                                    {{ item.item_type }}
+                                </span>
+                            </td>
+                            <td>{{ item.red_name }}</td>
+                            <td>{{ formatDateTime(item.create_time) }}</td>
+                            <td>{{ calculateDays(item.create_time) }} 天</td>
+                            <td>
+                                <button class="btn btn-sm btn-primary" v-on:click ="viewPackagePhoto(item.pack_id)">
+                                    <i class="bi bi-camera me-1"></i>查看照片
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 領取紀錄 -->
+        <div v-show="activeTab === 'history'">
+            <div v-if="historyLoading" class="loading">
+                <i class="bi bi-arrow-clockwise"></i>
+                <h5>載入中...</h5>
+            </div>
+            <div v-else-if="collectedHistory.length === 0" class="empty-state">
+                <i class="bi bi-clock-history"></i>
+                <h5>目前沒有領取紀錄</h5>
+                <p>尚未領取過任何包裹</p>
+            </div>
+            <div v-else>
+                <table class="table packages-table">
+                    <thead>
+                        <tr>
+                            <th>包裹編號</th>
+                            <th>類型</th>
+                            <th>收件人</th>
+                            <th>送達時間</th>
+                            <th>領取時間</th>
+                            <th>存放天數</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="item in collectedHistory" :key="item.pack_id">
+                            <td>
+                                <code>{{ item.pack_id }}</code>
+                            </td>
+                            <td>
+                                <span class="type-badge" v-on:class="item.item_type === '信件' ? 'type-mail' : 'type-package'">
+                                    {{ item.item_type }}
+                                </span>
+                            </td>
+                            <td>{{ item.red_name }}</td>
+                            <td>{{ formatDateTime(item.create_time) }}</td>
+                            <td>{{ formatDateTime(item.pickup_datetime) }}</td>
+                            <td>{{ item.storage_days }} 天</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 包裹照片模態視窗 -->
+<div class="modal fade" id="packagePhotoModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="bi bi-camera me-2"></i>包裹照片
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div id="photo-loading" class="text-center" style="display: none;">
+                    <div class="spinner-border text-primary" role="status"></div>
+                    <p class="mt-2">正在載入照片...</p>
+                </div>
+                <div id="photo-gallery"></div>
+                <div id="no-photos" class="text-center" style="display: none;">
+                    <i class="bi bi-camera" style="font-size: 3rem; opacity: 0.3;"></i>
+                    <h6 class="mt-2">此包裹暫無照片</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts {
+    <script>
+        const { createApp } = Vue;
+
+        createApp({
+            data() {
+                return {
+                    activeTab: 'all',
+                    members: @Html.Raw(jsonResidents),
+                    selectedMemberId: '@Html.Raw(selectedResidentId)',
+
+                    allPackages: [],
+                    pendingPackages: [],
+                    collectedHistory: [],
+
+                    allLoading: false,
+                    pendingLoading: false,
+                    historyLoading: false
+                };
+            },
+
+            computed: {
+                pendingCount() {
+                    return this.allPackages.filter(p => p.status == 0).length;
+                }
+            },
+
+            mounted() {
+                this.loadAllData();
+            },
+
+            methods: {
+                switchTab(tab) {
+                    this.activeTab = tab;
+                    this.loadTabData();
+                },
+
+                changeMember() {
+                    console.log('切換成員:', this.selectedMemberId);
+
+                    if (!this.selectedMemberId) return;
+
+                    const params = new URLSearchParams();
+                    params.append('residentId', this.selectedMemberId);
+
+                    axios.post('/Resident/SelectMember', params, {
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        }
+                    })
+                    .then((res) => {
+                        if (res.data && res.data.success) {
+                            // 切換成功後重新載入所有資料
+                            this.loadAllData();
+                            this.showMessage('已切換為：' + res.data.memberName, 'success');
+                        } else {
+                            this.showMessage(res.data?.message || '切換失敗', 'error');
+                        }
+                    })
+                    .catch((error) => {
+                        console.error('切換成員錯誤:', error);
+                        this.showMessage('切換成員時發生錯誤', 'error');
+                    })
+                },
+
+                loadAllData() {
+                    this.loadAllPackages();
+                    this.loadCollectedHistory();
+                },
+
+                loadTabData() {
+                    switch(this.activeTab) {
+                        case 'all':
+                            if (this.allPackages.length === 0) this.loadAllPackages();
+                            break;
+                        case 'pending':
+                            // 未領取資料從所有包裹中篩選
+                            break;
+                        case 'history':
+                            if (this.collectedHistory.length === 0) this.loadCollectedHistory();
+                            break;
+                    }
+                },
+
+                async loadAllPackages() {
+                    this.allLoading = true;
+                    try {
+                        const response = await axios.post('/Resident/GetAllPackages');
+                        this.allPackages = response.data || [];
+                        this.pendingPackages = this.allPackages.filter(p => p.status == 0);
+                    } catch (error) {
+                        console.error('載入所有包裹失敗:', error);
+                        this.allPackages = [];
+                        this.pendingPackages = [];
+                    } finally {
+                        this.allLoading = false;
+                        this.pendingLoading = false;
+                    }
+                },
+
+                async loadCollectedHistory() {
+                    this.historyLoading = true;
+                    try {
+                        const response = await axios.post('/Resident/GetCollectedHistory');
+                        this.collectedHistory = response.data || [];
+                    } catch (error) {
+                        console.error('載入領取紀錄失敗:', error);
+                        this.collectedHistory = [];
+                    } finally {
+                        this.historyLoading = false;
+                    }
+                },
+
+                formatDateTime(dateTimeString) {
+                    if (!dateTimeString) return '-';
+                    const date = new Date(dateTimeString);
+                    return date.toLocaleString('zh-TW', {
+                        year: 'numeric',
+                        month: '2-digit',
+                        day: '2-digit',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                },
+
+                calculateDays(createTime) {
+                    if (!createTime) return 0;
+                    const created = new Date(createTime);
+                    const now = new Date();
+                    const diffTime = Math.abs(now - created);
+                    return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                },
+
+                viewPackagePhoto(packageId) {
+                    console.log('查看包裹照片:', packageId);
+
+                    if (!packageId) {
+                        this.showMessage('包裹編號不能為空', 'error');
+                        return;
+                    }
+
+                    // 顯示載入狀態
+                    document.getElementById('photo-loading').style.display = 'block';
+                    document.getElementById('photo-gallery').innerHTML = '';
+                    document.getElementById('no-photos').style.display = 'none';
+
+                    // 開啟模態視窗
+                    var modal = new bootstrap.Modal(document.getElementById('packagePhotoModal'));
+                    modal.show();
+
+                    // 設定模態視窗標題
+                    document.querySelector('#packagePhotoModal .modal-title').innerHTML =
+                        '<i class="bi bi-camera me-2"></i>包裹照片 - ' + packageId;
+
+                    // 請求包裹照片
+                    axios.post('/Resident/GetPackagePhotos', {
+                        PackageId: packageId.toString()
+                    }, {
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    })
+                    .then((res) => {
+                        document.getElementById('photo-loading').style.display = 'none';
+
+                        if (res.data && res.data.success) {
+                            // 顯示照片
+                            if (res.data.photos && res.data.photos.length > 0) {
+                                var galleryHtml = res.data.photos.map((photoUrl, index) => {
+                                    return `
+                                        <div class="photo-item mb-3">
+                                            <img src="${photoUrl}"
+                                                 alt="包裹照片 ${index + 1}"
+                                                 class="img-fluid rounded shadow"
+                                                 style="max-width: 100%; height: auto; cursor: zoom-in;"
+                                                 onclick="this.style.transform = this.style.transform ? '' : 'scale(1.5)'"
+                                                 onerror="this.src='/images/no-image.png'; this.onerror=null;">
+                                            <div class="text-center mt-2">
+                                                <small class="text-muted">照片 ${index + 1}</small>
+                                            </div>
+                                        </div>`;
+                                }).join('');
+                                document.getElementById('photo-gallery').innerHTML = galleryHtml;
+                            } else {
+                                document.getElementById('no-photos').style.display = 'block';
+                            }
+                        } else {
+                            this.showMessage('載入包裹照片失敗：' + (res.data.message || '未知錯誤'), 'error');
+                            modal.hide();
+                        }
+                    })
+                    .catch((error) => {
+                        document.getElementById('photo-loading').style.display = 'none';
+                        console.error('載入包裹照片錯誤:', error);
+
+                        if (error.response) {
+                            this.showMessage('伺服器錯誤：' + (error.response.data?.message || error.response.status), 'error');
+                        } else if (error.request) {
+                            this.showMessage('網路連線錯誤，請檢查網路狀態', 'error');
+                        } else {
+                            this.showMessage('載入包裹照片時發生未知錯誤', 'error');
+                        }
+
+                        var modal = bootstrap.Modal.getInstance(document.getElementById('packagePhotoModal'));
+                        if (modal) modal.hide();
+                    });
+                },
+
+                // ✅ 新增：訊息顯示方法
+                showMessage(message, type) {
+                    if (type === 'success') {
+                        alert('✓ ' + message);
+                    } else if (type === 'error') {
+                        alert('✗ ' + message);
+                    } else {
+                        alert(message);
+                    }
+                }
+            }
+        }).mount('#MyPackagesApp');
+    </script>
+}

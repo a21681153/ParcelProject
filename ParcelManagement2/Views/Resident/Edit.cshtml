@@ -1,0 +1,934 @@
+﻿@model ResidentEditVm
+@{
+    ViewBag.Title = "編輯個人資料";
+}
+
+<!-- 只載入必要的 JavaScript 依賴 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@3.2.31/dist/vue.global.prod.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<!-- 添加 CSRF Token -->
+@Html.AntiForgeryToken()
+
+<style>
+    :root {
+        --resident-primary: #2c3e50;
+        --resident-secondary: #34495e;
+        --resident-primary-dark: #1a252f;
+        --resident-accent: #3498db;
+        --resident-light: #7f8c8d;
+        --border-color: #bdc3c7;
+        --card-radius: 12px;
+        --status-pending: #e74c3c;
+        --status-collected: #27ae60;
+        --text-primary: #2c3e50;
+        --text-secondary: #6c757d;
+    }
+
+    .edit-container {
+        padding: 20px;
+        margin: 0;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    }
+
+    .page-header {
+        background: linear-gradient(135deg, var(--resident-primary) 0%, var(--resident-secondary) 100%);
+        color: white;
+        border-radius: var(--card-radius);
+        padding: 20px 25px;
+        margin-bottom: 25px;
+        box-shadow: 0 4px 20px rgba(44, 62, 80, 0.2);
+    }
+
+    .page-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin: 0;
+        display: flex;
+        align-items: center;
+    }
+
+        .page-title i {
+            margin-right: 12px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+    .back-button {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: white;
+        padding: 8px 16px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-size: 14px;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        margin-left: auto;
+    }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            transform: translateY(-1px);
+        }
+
+    .edit-card {
+        background: white;
+        border: 1px solid var(--border-color);
+        border-radius: var(--card-radius);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        padding: 30px;
+        margin-bottom: 25px;
+        transition: all 0.3s ease;
+    }
+
+        .edit-card:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+        }
+
+    .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid var(--border-color);
+    }
+
+    .section-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--resident-primary);
+        margin: 0;
+        display: flex;
+        align-items: center;
+        flex: 1;
+    }
+
+        .section-title i {
+            margin-right: 10px;
+            color: var(--resident-accent);
+        }
+
+    .edit-toggle-btn {
+        background: var(--resident-accent);
+        border: none;
+        color: white;
+        padding: 6px 16px;
+        border-radius: 6px;
+        font-size: 13px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        cursor: pointer;
+    }
+
+        .edit-toggle-btn:hover {
+            background: var(--resident-primary);
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(52, 152, 219, 0.3);
+        }
+
+        .edit-toggle-btn.save-mode {
+            background: var(--status-collected);
+        }
+
+            .edit-toggle-btn.save-mode:hover {
+                background: #229954;
+            }
+
+        .edit-toggle-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-label {
+        font-weight: 600;
+        color: var(--text-primary);
+        font-size: 14px;
+        margin-bottom: 8px;
+        display: block;
+    }
+
+    .form-control {
+        border: 2px solid var(--border-color);
+        border-radius: 8px;
+        padding: 12px 16px;
+        font-size: 14px;
+        transition: all 0.3s ease;
+        background: white;
+        color: var(--text-primary);
+        width: 100%;
+    }
+
+        .form-control:focus {
+            border-color: var(--resident-accent);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+            outline: none;
+        }
+
+        .form-control:hover {
+            border-color: var(--resident-secondary);
+        }
+
+        .form-control:disabled {
+            background: #f8f9fa;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .form-control[readonly] {
+            background: #f8f9fa;
+            cursor: not-allowed;
+        }
+
+    .photo-gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+
+    .photo-item {
+        position: relative;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 2px solid var(--border-color);
+        aspect-ratio: 1;
+        background: #f8f9fa;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+    }
+
+        .photo-item:hover {
+            border-color: var(--resident-accent);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            cursor: zoom-in;
+        }
+
+    .photo-delete {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background: var(--status-pending);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+        font-size: 12px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+    }
+
+        .photo-delete:hover {
+            background: #c0392b;
+            transform: scale(1.1);
+        }
+
+    .photo-upload {
+        border: 2px dashed var(--border-color);
+        border-radius: 8px;
+        padding: 20px;
+        text-align: center;
+        background: #f8f9fa;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        margin-bottom: 20px;
+    }
+
+        .photo-upload:hover {
+            border-color: var(--resident-accent);
+            background: rgba(52, 152, 219, 0.05);
+        }
+
+        .photo-upload i {
+            font-size: 48px;
+            color: var(--resident-light);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+    .photo-upload-text {
+        color: var(--text-secondary);
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+
+    .photo-upload-limit {
+        color: var(--text-secondary);
+        font-size: 12px;
+        opacity: 0.8;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 30px;
+        color: var(--resident-light);
+    }
+
+        .empty-state i {
+            font-size: 48px;
+            opacity: 0.3;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .empty-state p {
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+    .btn-secondary {
+        background: var(--resident-light);
+        border-color: var(--resident-light);
+        color: white;
+        font-weight: 600;
+        padding: 12px 24px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        border: none;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+        .btn-secondary:hover {
+            background: var(--resident-secondary);
+            border-color: var(--resident-secondary);
+            color: white;
+            transform: translateY(-1px);
+        }
+
+    .loading-spinner {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        border: 2px solid rgba(255,255,255,0.3);
+        border-radius: 50%;
+        border-top-color: white;
+        animation: spin 1s ease-in-out infinite;
+    }
+
+    @@keyframes spin {
+        to
+
+    {
+        transform: rotate(360deg);
+    }
+
+    }
+
+    .alert {
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 20px;
+        border: none;
+    }
+
+    .alert-success {
+        background: rgba(39, 174, 96, 0.1);
+        color: var(--status-collected);
+        border-left: 4px solid var(--status-collected);
+    }
+
+    .alert-danger {
+        background: rgba(231, 76, 60, 0.1);
+        color: var(--status-pending);
+        border-left: 4px solid var(--status-pending);
+    }
+
+    .fullscreen-viewer {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.95);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        cursor: zoom-out;
+        animation: fadeIn 0.2s ease-out;
+    }
+
+        .fullscreen-viewer img {
+            max-width: 95%;
+            max-height: 95%;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+        }
+
+    @@keyframes fadeIn {
+        from
+
+    {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+    }
+
+    @@media (max-width: 768px) {
+        .edit-container
+
+    {
+        padding: 15px;
+    }
+
+    .page-header {
+        padding: 20px;
+    }
+
+    .edit-card {
+        padding: 20px;
+    }
+
+    .photo-gallery {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
+
+    .page-title {
+        font-size: 1.3rem;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .back-button {
+        margin-left: 0;
+        margin-top: 10px;
+    }
+
+    .section-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .edit-toggle-btn {
+        align-self: flex-end;
+    }
+
+    }
+</style>
+
+<div class="edit-container" id="EditApp">
+    <!-- 頁面標題 -->
+    <div class="page-header">
+        <div class="d-flex align-items-center justify-content-between w-100">
+            <h1 class="page-title">
+                <i class="bi bi-person-gear"></i>
+                編輯個人資料
+            </h1>
+            <a href="/Resident/Home" class="back-button">
+                <i class="bi bi-arrow-left me-2"></i>返回首頁
+            </a>
+        </div>
+    </div>
+
+    <!-- 訊息顯示 -->
+    <div v-if="message.show" v-bind:class="['alert', message.type === 'success' ? 'alert-success' : 'alert-danger']">
+        <i v-bind:class="['bi', message.type === 'success' ? 'bi-check-circle' : 'bi-exclamation-circle', 'me-2']"></i>
+        {{ message.text }}
+    </div>
+
+    <div class="row g-4">
+        <!-- 基本資料 -->
+        <div class="col-lg-6">
+            <div class="edit-card">
+                <div class="section-header">
+                    <h3 class="section-title">
+                        <i class="bi bi-person-circle"></i>基本資料
+                    </h3>
+                    <div class="edit-button-group">
+                        <button v-if="editMode.basic" type="button" class="cancel-btn" v-on:click="cancelEdit('basic')">
+                            <i class="bi bi-x"></i>取消
+                        </button>
+                        <button type="button"
+                                v-bind:class="['edit-toggle-btn', editMode.basic ? 'save-mode' : '']"
+                                v-on:click="toggleEdit('basic')"
+                                v-bind:disabled="loading.basic">
+                            <span v-if="loading.basic" class="loading-spinner"></span>
+                            <i v-else v-bind:class="['bi', editMode.basic ? 'bi-check-lg' : 'bi-pencil']"></i>
+                            {{ editMode.basic ? '儲存' : '編輯' }}
+                        </button>
+                    </div>
+                </div>
+
+                <fieldset v-bind:disabled="!editMode.basic">
+                    <div class="form-group">
+                        <label class="form-label">住戶編號</label>
+                        <input v-model="form.residentId" class="form-control" readonly>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="bi bi-person me-1"></i>姓名
+                        </label>
+                        <input v-model="form.fullName" class="form-control" placeholder="請輸入姓名" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="bi bi-telephone me-1"></i>電話號碼
+                        </label>
+                        <input v-model="form.phone" class="form-control" placeholder="請輸入電話號碼">
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+
+        <!-- ✅ 密碼變更 -->
+        <div class="col-lg-6">
+            <div class="edit-card">
+                <div class="section-header">
+                    <h3 class="section-title">
+                        <i class="bi bi-key"></i>變更密碼
+                        <small class="text-muted ms-2">(選填)</small>
+                    </h3>
+                    <div class="edit-button-group">
+                        <button v-if="editMode.password" type="button" class="cancel-btn" v-on:click="cancelEdit('password')">
+                            <i class="bi bi-x"></i>取消
+                        </button>
+                        <button type="button"
+                                v-bind:class="['edit-toggle-btn', editMode.password ? 'save-mode' : '']"
+                                v-on:click="toggleEdit('password')"
+                                v-bind:disabled="loading.password">
+                            <span v-if="loading.password" class="loading-spinner"></span>
+                            <i v-else v-bind:class="['bi', editMode.password ? 'bi-check-lg' : 'bi-pencil']"></i>
+                            {{ editMode.password ? '儲存' : '編輯' }}
+                        </button>
+                    </div>
+                </div>
+
+                <fieldset v-bind:disabled="!editMode.password">
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="bi bi-lock me-1"></i>目前密碼
+                        </label>
+                        <input v-model="form.currentPassword" type="password" class="form-control" placeholder="請輸入目前密碼">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="bi bi-lock-fill me-1"></i>新密碼
+                        </label>
+                        <input v-model="form.newPassword" type="password" class="form-control" placeholder="請輸入新密碼">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="bi bi-check2-square me-1"></i>確認新密碼
+                        </label>
+                        <input v-model="form.confirmPassword" type="password" class="form-control" placeholder="請再次輸入新密碼">
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+
+        <!-- ✅ 個人照片管理 -->
+        <div class="col-12">
+            <div class="edit-card">
+                <div class="section-header">
+                    <h3 class="section-title">
+                        <i class="bi bi-images"></i>個人照片
+                        <small class="text-muted ms-2">(每張最大5MB)</small>
+                        <span v-bind:class="['photo-counter', totalPhotoCount >= 5 ? 'full' : '']">
+                            {{ totalPhotoCount }}/5
+                        </span>
+                    </h3>
+                    <div class="edit-button-group">
+                        <button v-if="editMode.photos" type="button" class="cancel-btn" v-on:click="cancelEdit('photos')">
+                            <i class="bi bi-x"></i>取消
+                        </button>
+                        <button type="button"
+                                v-bind:class="['edit-toggle-btn', editMode.photos ? 'save-mode' : '']"
+                                v-on:click="toggleEdit('photos')"
+                                v-bind:disabled="loading.photos">
+                            <span v-if="loading.photos" class="loading-spinner"></span>
+                            <i v-else v-bind:class="['bi', editMode.photos ? 'bi-check-lg' : 'bi-pencil']"></i>
+                            {{ editMode.photos ? '儲存' : '編輯' }}
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 現有照片展示 -->
+                <div v-if="existingPhotos.length > 0" class="photo-gallery">
+                    <div v-for="(photo, index) in existingPhotos" v-bind:key="index" class="photo-item">
+                        <img v-bind:src="photo" v-bind:alt="`個人照片 ${index + 1}`" v-on:click="viewFullScreen(photo)">
+                        <button v-if="editMode.photos" type="button" class="photo-delete" v-on:click="deletePhoto(index)">
+                            <i class="bi bi-x"></i>
+                        </button>
+                    </div>
+                </div>
+                <div v-else class="empty-state">
+                    <i class="bi bi-images"></i>
+                    <p>尚未上傳個人照片</p>
+                </div>
+
+                <!-- 照片上傳區域 -->
+                <div v-if="editMode.photos && totalPhotoCount < 5" class="photo-upload" v-on:click="triggerFileInput">
+                    <i class="bi bi-cloud-upload"></i>
+                    <div class="photo-upload-text">點擊此處選擇照片</div>
+                    <div class="photo-upload-limit">
+                        支援 JPG, PNG, GIF 格式，每張最大 5MB（還可上傳 {{ 5 - totalPhotoCount }} 張）
+                    </div>
+                </div>
+                <div v-if="editMode.photos && totalPhotoCount >= 5" class="alert alert-danger">
+                    <i class="bi bi-exclamation-triangle me-2"></i>
+                    已達到最大上傳數量（5張），如需新增請先刪除現有照片
+                </div>
+
+                <input ref="fileInput" type="file" multiple
+                       accept="image/jpeg,image/jpg,image/png,image/gif"
+                       style="display: none;" v-on:change="handleFileSelect">
+
+                <!-- 照片預覽區域 -->
+                <div v-if="newPhotos.length > 0" class="photo-gallery">
+                    <div v-for="(photo, index) in newPhotos" v-bind:key="`new-${index}`" class="photo-item">
+                        <img v-bind:src="photo.preview" v-bind:alt="`新照片 ${index + 1}`">
+                        <button type="button" class="photo-delete" v-on:click="removeNewPhoto(index)">
+                            <i class="bi bi-x"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 返回按鈕 -->
+    <div class="text-end mt-4">
+        <a href="/Resident/Home" class="btn btn-secondary">
+            <i class="bi bi-arrow-left me-2"></i>返回首頁
+        </a>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        const { createApp } = Vue;
+
+        createApp({
+            data() {
+                return {
+                    // 響應式資料
+                    editMode: {
+                        basic: false,
+                        password: false,
+                        photos: false
+                    },
+                    loading: {
+                        basic: false,
+                        password: false,
+                        photos: false
+                    },
+                    // 使用原始資料和備份資料
+                    form: {
+                        residentId: '@Html.Raw(Model.ResidentId)',
+                        fullName: '@Html.Raw(Model.FullName)', 
+                        phone: '@Html.Raw(Model.Phone)',
+                        currentPassword: '',
+                        newPassword: '',
+                        confirmPassword: ''
+                    },
+                    // 備份原始資料
+                    originalForm: {
+                        residentId: '@Html.Raw(Model.ResidentId)',
+                        fullName: '@Html.Raw(Model.FullName)',
+                        phone: '@Html.Raw(Model.Phone)',
+                        currentPassword: '',
+                        newPassword: '',
+                        confirmPassword: ''
+                    },
+                    message: {
+                        show: false,
+                        type: 'success',
+                        text: ''
+                    },
+                    existingPhotos: @Html.Raw(Json.Serialize(Model.ExistingPhotos ?? new List<string>())),
+                    originalExistingPhotos: [], // 備份原始照片
+                    newPhotos: [],
+                    fullScreenImage: null
+                };
+            },
+            computed: {
+                // 計算總照片數量
+                totalPhotoCount() {
+                    return this.existingPhotos.length + this.newPhotos.length;
+                }
+            },
+            mounted() {
+                console.log('編輯頁面初始化完成');
+                // 設定 axios 預設標頭
+                axios.defaults.headers.common['RequestVerificationToken'] = document.querySelector('input[name="__RequestVerificationToken"]').value;
+                // 備份原始照片
+                this.originalExistingPhotos = [...this.existingPhotos];
+            },
+            methods: {
+                // 顯示訊息
+                showMessage(text, type = 'success') {
+                    this.message.text = text;
+                    this.message.type = type;
+                    this.message.show = true;
+                    setTimeout(() => {
+                        this.message.show = false;
+                    }, 5000);
+                },
+                // 取消編輯功能
+                cancelEdit(section) {
+                    if (section === 'basic') {
+                        // 還原基本資料
+                        this.form.fullName = this.originalForm.fullName;
+                        this.form.phone = this.originalForm.phone;
+                    } else if (section === 'password') {
+                        // 清空密碼欄位
+                        this.form.currentPassword = '';
+                        this.form.newPassword = '';
+                        this.form.confirmPassword = '';
+                    } else if (section === 'photos') {
+                        // 還原照片
+                        this.existingPhotos = [...this.originalExistingPhotos];
+                        this.newPhotos = [];
+                        if (this.$refs.fileInput) {
+                            this.$refs.fileInput.value = '';
+                        }
+                    }
+                    // 退出編輯模式
+                    this.editMode[section] = false;
+                    this.showMessage('已取消編輯', 'success');
+                },
+                // 切換編輯模式
+                async toggleEdit(section) {
+                    if (!this.editMode[section]) {
+                        // 進入編輯模式
+                        this.editMode[section] = true;
+                        return;
+                    }
+
+                    // 儲存模式
+                    this.loading[section] = true;
+                    try {
+                        if (section === 'basic') {
+                            await this.saveBasicInfo();
+                        } else if (section === 'password') {
+                            await this.savePassword();
+                        } else if (section === 'photos') {
+                            await this.savePhotos();
+                        }
+                        this.editMode[section] = false;
+                    } catch (error) {
+                        console.error('儲存失敗:', error);
+                    } finally {
+                        this.loading[section] = false;
+                    }
+                },
+
+                // 儲存基本資料
+                async saveBasicInfo() {
+                    if (!this.form.fullName.trim()) {
+                        this.showMessage('姓名不能為空', 'error');
+                        throw new Error('姓名不能為空');
+                    }
+
+                    const response = await axios.post('/Resident/SaveBasicInfo', {
+                        residentId: this.form.residentId,
+                        fullName: this.form.fullName.trim(),
+                        phone: this.form.phone.trim()
+                    });
+
+                    if (response.data.success) {
+                        this.showMessage('基本資料儲存成功', 'success');
+                        // 更新備份資料
+                        this.originalForm.fullName = this.form.fullName;
+                        this.originalForm.phone = this.form.phone;
+                    } else {
+                        this.showMessage(response.data.message || '儲存失敗', 'error');
+                        throw new Error(response.data.message);
+                    }
+                },
+
+                // 儲存密碼
+                async savePassword() {
+                    if (!this.form.currentPassword || !this.form.newPassword || !this.form.confirmPassword) {
+                        this.showMessage('請填寫所有密碼欄位', 'error');
+                        throw new Error('請填寫所有密碼欄位');
+                    }
+
+                    if (this.form.newPassword !== this.form.confirmPassword) {
+                        this.showMessage('新密碼與確認密碼不一致', 'error');
+                        throw new Error('新密碼與確認密碼不一致');
+                    }
+
+                    if (this.form.newPassword.length < 6) {
+                        this.showMessage('新密碼至少需要6個字元', 'error');
+                        throw new Error('新密碼至少需要6個字元');
+                    }
+
+                    const response = await axios.post('/Resident/SavePassword', {
+                        currentPassword: this.form.currentPassword,
+                        newPassword: this.form.newPassword
+                    });
+
+                    if (response.data.success) {
+                        this.showMessage('密碼變更成功', 'success');
+                        // 清空密碼欄位
+                        this.form.currentPassword = '';
+                        this.form.newPassword = '';
+                        this.form.confirmPassword = '';
+                    } else {
+                        this.showMessage(response.data.message || '密碼變更失敗', 'error');
+                        throw new Error(response.data.message);
+                    }
+                },
+
+                // 儲存照片
+                async savePhotos() {
+                    if (this.newPhotos.length === 0) {
+                        this.showMessage('照片儲存成功', 'success');
+                        // 更新備份照片
+                        this.originalExistingPhotos = [...this.existingPhotos];
+                        return;
+                    }
+
+                    const formData = new FormData();
+                    this.newPhotos.forEach(photo => {
+                        formData.append('photos', photo.file);
+                    });
+
+                    const response = await axios.post('/Resident/SavePhotos', formData, {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    });
+
+                    if (response.data.success) {
+                        this.showMessage('照片上傳成功', 'success');
+                        // 更新現有照片列表
+                        if (response.data.photos) {
+                            this.existingPhotos = response.data.photos;
+                        }
+                        // 更新備份照片
+                        this.originalExistingPhotos = [...this.existingPhotos];
+                        // 清空新照片
+                        this.newPhotos = [];
+                        if (this.$refs.fileInput) {
+                            this.$refs.fileInput.value = '';
+                        }
+                    } else {
+                        this.showMessage(response.data.message || '照片上傳失敗', 'error');
+                        throw new Error(response.data.message);
+                    }
+                },
+
+                // 觸發檔案選擇
+                triggerFileInput() {
+                    this.$refs.fileInput.click();
+                },
+
+                // 處理檔案選擇
+                handleFileSelect(event) {
+                    const files = Array.from(event.target.files);
+
+                    // 檢查照片數量限制
+                    const currentTotal = this.existingPhotos.length + this.newPhotos.length;
+                    const availableSlots = 5 - currentTotal;
+
+                    if (files.length > availableSlots) {
+                        alert(`最多只能再上傳 ${availableSlots} 張照片！\n您選擇了 ${files.length} 張照片，已超過剩餘張數。`);
+                        // 清空檔案輸入
+                        event.target.value = '';
+                        return;
+                    }
+
+                    // 檢查單個檔案大小和格式
+                    const validFiles = [];
+                    for (let i = 0; i < files.length; i++) {
+                        const file = files[i];
+
+                        if (file.size > 5 * 1024 * 1024) {
+                            alert(`檔案 "${file.name}" 大小超過 5MB，已跳過`);
+                            continue;
+                        }
+
+                        const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
+                        if (!allowedTypes.includes(file.type.toLowerCase())) {
+                            alert(`檔案 "${file.name}" 格式不支援，已跳過`);
+                            continue;
+                        }
+
+                        validFiles.push(file);
+                    }
+
+                    if (validFiles.length === 0) {
+                        event.target.value = '';
+                        return;
+                    }
+
+                    // 處理有效檔案
+                    validFiles.forEach(file => {
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            this.newPhotos.push({
+                                file: file,
+                                preview: e.target.result
+                            });
+                        };
+                        reader.readAsDataURL(file);
+                    });
+                },
+
+                // 移除新照片
+                removeNewPhoto(index) {
+                    this.newPhotos.splice(index, 1);
+                },
+
+                // 刪除現有照片
+                async deletePhoto(index) {
+                    if (!confirm('確定要刪除這張照片嗎？')) return;
+
+                    try {
+                        const response = await axios.post('/Resident/DeletePhoto', {
+                            photoIndex: index
+                        });
+
+                        if (response.data.success) {
+                            this.existingPhotos.splice(index, 1);
+                            this.showMessage('照片刪除成功', 'success');
+                        } else {
+                            this.showMessage(response.data.message || '刪除失敗', 'error');
+                        }
+                    } catch (error) {
+                        console.error('刪除照片錯誤:', error);
+                        this.showMessage('刪除照片時發生錯誤', 'error');
+                    }
+                },
+            }
+        }).mount('#EditApp');
+    </script>
+}
