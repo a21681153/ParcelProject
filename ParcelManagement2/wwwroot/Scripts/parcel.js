@@ -483,24 +483,33 @@ const prodObj = Vue.createApp({
         /* ====== 歷史單筆復原 ====== */
         RestoreOne(row) {
             if (!confirm(`確定復原 ${row.pack_id} 嗎？`)) return;
-            axios.post('/Home/RestorePackage?id='+ row.pack_id )
-                .then(res => {
-                    if (blockInfo(res.data) !== false) {
-                        return;  
-                    }
-                    showMessage('已復原', 'success');
-                    // 依目前頁籤刷新
-                    if (this.QueryOpt === 'HISTORY') {
-                        this.GetDeleted();  
-                    } else if (this.QueryOpt === 'ALL') {
-                        this.GetAllProductData();
-                    } else if (this.QueryOpt === 'UNDONE') {
-                        this.GetUndeliveredPackages();
-                    } else if (this.QueryOpt === 'RESIDENT') {
-                        this.SearchByResident();
-                    }
-                })
-                .catch(() => showMessage('連線錯誤', 'warn'));
+            axios.post('/Home/RestorePackage',
+                { id: row.pack_id },
+                {
+                    headers: { 'Content-Type': 'application/json' }
+                }
+            )
+            .then(res => {
+                const js = toJson(res.data);
+                if (blockInfo(js)) {
+                    return;
+                }
+                showMessage('已復原', 'success');
+                // 依目前頁籤刷新
+                if (this.QueryOpt === 'HISTORY') {
+                    this.GetDeleted();
+                } else if (this.QueryOpt === 'ALL') {
+                    this.GetAllProductData();
+                } else if (this.QueryOpt === 'UNDONE') {
+                    this.GetUndeliveredPackages();
+                } else if (this.QueryOpt === 'RESIDENT') {
+                    this.SearchByResident();
+                }
+            })
+            .catch(error => {
+                console.error('復原包裹失敗:', error);
+                showMessage('連線錯誤', 'warn');
+            });
         },
         /* ====== 歷史單筆清除 ====== */
         RemoveOne(row) {

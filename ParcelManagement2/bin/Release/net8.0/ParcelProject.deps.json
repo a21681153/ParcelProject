@@ -6,12 +6,13 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v8.0": {
-      "ParcelManagement2/1.0.0": {
+      "ParcelProject/1.0.0": {
         "dependencies": {
-          "Microsoft.Data.SqlClient": "5.1.2"
+          "Microsoft.Data.SqlClient": "5.1.2",
+          "Newtonsoft.Json": "13.0.4"
         },
         "runtime": {
-          "ParcelManagement2.dll": {}
+          "ParcelProject.dll": {}
         }
       },
       "Azure.Core/1.25.0": {
@@ -236,6 +237,14 @@
           }
         }
       },
+      "Newtonsoft.Json/13.0.4": {
+        "runtime": {
+          "lib/net6.0/Newtonsoft.Json.dll": {
+            "assemblyVersion": "13.0.0.0",
+            "fileVersion": "13.0.4.30916"
+          }
+        }
+      },
       "System.Configuration.ConfigurationManager/6.0.1": {
         "dependencies": {
           "System.Security.Cryptography.ProtectedData": "6.0.0",
@@ -407,7 +416,7 @@
     }
   },
   "libraries": {
-    "ParcelManagement2/1.0.0": {
+    "ParcelProject/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -537,6 +546,13 @@
       "sha512": "sha512-hqTM5628jSsQiv+HGpiq3WKBl2c8v1KZfby2J6Pr7pEPlK9waPdgEO6b8A/+/xn/yZ9ulv8HuqK71ONy2tg67A==",
       "path": "microsoft.win32.systemevents/6.0.0",
       "hashPath": "microsoft.win32.systemevents.6.0.0.nupkg.sha512"
+    },
+    "Newtonsoft.Json/13.0.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-pdgNNMai3zv51W5aq268sujXUyx7SNdE2bj1wZcWjAQrKMFZV260lbqYop1d2GM67JI1huLRwxo9ZqnfF/lC6A==",
+      "path": "newtonsoft.json/13.0.4",
+      "hashPath": "newtonsoft.json.13.0.4.nupkg.sha512"
     },
     "System.Configuration.ConfigurationManager/6.0.1": {
       "type": "package",

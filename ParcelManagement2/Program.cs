@@ -6,6 +6,14 @@ using ParcelManagement2.Services;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var isDevelopment = builder.Environment.IsDevelopment();
+var isProduction = builder.Environment.IsProduction();
+
+Console.WriteLine($"=== 環境: {builder.Environment.EnvironmentName} ===");
+Console.WriteLine($"=== 開發環境: {isDevelopment} ===");
+Console.WriteLine($"=== 正式環境: {isProduction} ===");
+
 builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromMinutes(30);
@@ -42,13 +50,22 @@ builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<DBConn>();
 // 註冊 ResidentModel 服務
 builder.Services.AddScoped<ResidentModel>();
+builder.Services.AddHttpClient();
 
-//builder.Services.AddHttpClient();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+    });
+
 builder.Services.Configure<CookiePolicyOptions>(options =>
 {
     options.MinimumSameSitePolicy = SameSiteMode.Lax; // 開發環境使用 Lax
     options.HttpOnly = Microsoft.AspNetCore.CookiePolicy.HttpOnlyPolicy.Always;
-    options.Secure = CookieSecurePolicy.SameAsRequest;
+    // ** 開發環境允許 HTTP，正式環境使用 HTTPS **
+    options.Secure = isDevelopment
+        ? CookieSecurePolicy.None
+        : CookieSecurePolicy.SameAsRequest;
 });
 // 配置 Cookie Authentication
 builder.Services.AddAuthentication("Cookies")
@@ -59,9 +76,11 @@ builder.Services.AddAuthentication("Cookies")
         options.AccessDeniedPath = "/Account/AccessDenied";
         options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
         options.SlidingExpiration = true;
-
         options.Cookie.SameSite = SameSiteMode.Lax;
-        options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
+
+        options.Cookie.SecurePolicy = isDevelopment
+            ? CookieSecurePolicy.None
+            : CookieSecurePolicy.SameAsRequest;
         options.Cookie.HttpOnly = true;
     });
 
@@ -71,9 +90,9 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("ResidentOnly", policy => policy.RequireRole("Resident"));
     options.AddPolicy("AdminOrResident", policy => policy.RequireRole("Admin", "Resident"));
 });
-// Add services to the container.
-builder.Services.AddControllers();
+
 builder.Services.AddControllersWithViews();
+builder.Services.AddHttpClient();
 
 var app = builder.Build();
 
@@ -84,10 +103,14 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+else
+{
+       app.UseDeveloperExceptionPage();
+}
 app.UseSession();
 app.UseCookiePolicy();
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();

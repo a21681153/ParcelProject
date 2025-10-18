@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ParcelProject")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+98fb20846b5a27cd9e57fb7ff2c890a9baed475a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+df135d55304aa4335a7245144382cdecb19f02eb")]
 [assembly: System.Reflection.AssemblyProductAttribute("ParcelProject")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ParcelProject")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

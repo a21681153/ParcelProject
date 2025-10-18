@@ -6,7 +6,11 @@ using ParcelManagement2.Models;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
+using System.Net.Http;
+using System.Text;
 using System.Text.Json;
+using Newtonsoft.Json;
+
 namespace ParcelManagement2.Controllers
 {
     [Authorize(Roles = "Admin")]
@@ -17,18 +21,23 @@ namespace ParcelManagement2.Controllers
         private readonly DBConn _dbConn;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly ApplicationSettingsModel _appSettings;
+        private readonly HttpClient _httpClient;
+        private readonly string _lineBotApiUrl;
         public HomeController(
             ILogger<HomeController> logger,
             IConfiguration configuration,
             DBConn dbConn,
             IWebHostEnvironment webHostEnvironment,
-            IOptions<ApplicationSettingsModel> appSettings)
+            IOptions<ApplicationSettingsModel> appSettings,
+            HttpClient httpClient)
         {
             _logger = logger;
             _configuration = configuration;
             _dbConn = dbConn;
             _webHostEnvironment = webHostEnvironment;
             _appSettings = appSettings.Value;
+            _httpClient = httpClient; 
+            _lineBotApiUrl = _configuration["LineBotApiUrl"] ?? "http://localhost:5181"; // ** 新增：從設定檔讀取 LINE Bot API URL **
         }
         public IActionResult Index()
         {
@@ -168,6 +177,16 @@ namespace ParcelManagement2.Controllers
 
                 if (result == "OK")
                 {
+                    bool shouldNotify = await ShouldSendNotification(Pack_Type);
+                    if (shouldNotify)
+                    {
+                        string condoId = await GetCondoIdByRedId(Red_Id);
+                        if (!string.IsNullOrEmpty(condoId))
+                        {
+                            // 呼叫 LINE Bot 推播 API 
+                            await SendLineNotification(newPackId, condoId);
+                        }
+                    }
                     return Json(new[] { new { msg = "OK", pack_id = newPackId } });
                 }
                 else
@@ -179,6 +198,95 @@ namespace ParcelManagement2.Controllers
             {
                 _logger.LogError(ex, "新增包裹失敗");
                 return Json(new[] { new { msg = "FAIL", err = ex.Message } });
+            }
+        }
+        private async Task<bool> ShouldSendNotification(string packType)
+        {
+            try
+            {
+                using var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection"));
+                await connection.OpenAsync();
+
+                using var command = new SqlCommand(
+                    "SELECT pack_name FROM Mail WHERE pack_type = @packType",
+                    connection);
+                command.Parameters.AddWithValue("@packType", packType);
+
+                var packName = (await command.ExecuteScalarAsync())?.ToString();
+
+                bool isPackage = packName == "包裹";
+
+                _logger.LogInformation("包裹類型: {PackType}, 名稱: {PackName}, 是否推播: {ShouldNotify}",
+                    packType, packName, isPackage);
+
+                return isPackage;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "檢查包裹類型失敗: {PackType}", packType);
+                // 發生錯誤時預設不推播,避免誤發通知
+                return false;
+            }
+        }
+        private async Task<string> GetCondoIdByRedId(string redId)
+        {
+            try
+            {
+                const string sqlstr = "SELECT condo_id FROM Resident WHERE red_id = @redId";
+                var parameters = new Dictionary<string, object>
+                {
+                    ["@redId"] = redId
+                };
+
+                using var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection"));
+                await connection.OpenAsync();
+
+                using var command = new SqlCommand(sqlstr, connection);
+                command.Parameters.AddWithValue("@redId", redId);
+
+                var result = await command.ExecuteScalarAsync();
+                return result?.ToString() ?? "";
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "取得 condo_id 失敗");
+                return "";
+            }
+        }
+        //呼叫 LINE Bot 推播 API 
+        private async Task SendLineNotification(string packId, string condoId)
+        {
+            try
+            {
+                // 準備要發送的資料
+                var requestData = new
+                {
+                    PackId = packId,
+                    CondoId = condoId
+                };
+
+                // 序列化為 JSON
+                string jsonContent = JsonConvert.SerializeObject(requestData);
+                var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+                // 呼叫 LINE Bot API
+                string apiUrl = $"{_lineBotApiUrl}/api/LineBot/push";
+                var response = await _httpClient.PostAsync(apiUrl, content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string responseBody = await response.Content.ReadAsStringAsync();
+                    _logger.LogInformation("LINE 推播成功: {Response}", responseBody);
+                }
+                else
+                {
+                    _logger.LogWarning("LINE 推播失敗: StatusCode={StatusCode}", response.StatusCode);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "LINE 推播發生錯誤");
+                // 不影響主要流程,只記錄錯誤
             }
         }
         // 建立包裹類別下拉選單 (對應Mail表格)
@@ -193,7 +301,7 @@ namespace ParcelManagement2.Controllers
                 if (dataTable.Rows.Count > 0)
                 {
                     string jsonResult = _dbConn.DataTableToJsonString(dataTable);
-                    var resultObject = JsonSerializer.Deserialize<object>(jsonResult);
+                    var resultObject = System.Text.Json.JsonSerializer.Deserialize<object>(jsonResult);
                     return Json(resultObject);
                 }
                 else
@@ -246,7 +354,7 @@ namespace ParcelManagement2.Controllers
                 if (dataTable.Rows.Count > 0)
                 {
                     string jsonResult = _dbConn.DataTableToJsonString(dataTable);
-                    var resultObject = JsonSerializer.Deserialize<object>(jsonResult);
+                    var resultObject = System.Text.Json.JsonSerializer.Deserialize<object>(jsonResult);
                     return Json(resultObject);
                 }
                 else
@@ -303,7 +411,7 @@ namespace ParcelManagement2.Controllers
                 if (dataTable.Rows.Count > 0)
                 {
                     string jsonResult = _dbConn.DataTableToJsonString(dataTable);
-                    var resultObject = JsonSerializer.Deserialize<object>(jsonResult);
+                    var resultObject = System.Text.Json.JsonSerializer.Deserialize<object>(jsonResult);
                     return Json(resultObject);
                 }
                 else
@@ -408,7 +516,7 @@ namespace ParcelManagement2.Controllers
                 if (dataTable.Rows.Count > 0)
                 {
                     string jsonResult = _dbConn.DataTableToJsonString(dataTable);
-                    var resultObject = JsonSerializer.Deserialize<object>(jsonResult);
+                    var resultObject = System.Text.Json.JsonSerializer.Deserialize<object>(jsonResult);
                     return Json(resultObject);
                 }
                 else
@@ -443,7 +551,7 @@ namespace ParcelManagement2.Controllers
                 if (dataTable.Rows.Count > 0)
                 {
                     string jsonResult = _dbConn.DataTableToJsonString(dataTable);
-                    var resultObject = JsonSerializer.Deserialize<object>(jsonResult);
+                    var resultObject = System.Text.Json.JsonSerializer.Deserialize<object>(jsonResult);
                     return Json(resultObject);
                 }
                 else
@@ -477,7 +585,7 @@ namespace ParcelManagement2.Controllers
                 if (dataTable.Rows.Count > 0)
                 {
                     string jsonResult = _dbConn.DataTableToJsonString(dataTable);
-                    var resultObject = JsonSerializer.Deserialize<object>(jsonResult);
+                    var resultObject = System.Text.Json.JsonSerializer.Deserialize<object>(jsonResult);
                     return Json(resultObject);
                 }
                 else
