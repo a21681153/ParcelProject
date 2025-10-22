@@ -2,7 +2,6 @@
 @model ResidentHomeVm
 @{
     ViewBag.Title = "住戶首頁";
-    // 讓 Json 資料安全地輸出到 <script> 區塊
     string jsonResidents = (ViewBag.JsonList as string) ?? "[]";
     string selectedResidentId = (ViewBag.SelectedResidentId as string) ?? "";
 }
@@ -134,12 +133,12 @@
             color: white;
         }
 
-    /* 佈局容器優化 */
+    /* 佈局容器 */
     .layout-container {
         display: flex;
         gap: 20px;
         align-items: stretch;
-        min-height: calc(100vh - 300px); /* 充分利用剩餘空間 */
+        min-height: calc(100vh - 300px); 
     }
 
     .left-column, .right-column {
@@ -150,13 +149,15 @@
     }
 
     .left-column {
+        flex: 1;
         gap: 20px;
-        max-width: 48%; /* 限制左欄最大寬度 */
-        min-height: calc(100vh - 300px); /* 確保左欄有足夠高度 */
+        max-width: 45%; 
+        min-height: calc(100vh - 300px);
     }
 
     .right-column {
-        max-width: 52%; /* 右欄稍微寬一些 */
+        flex: 1;
+        max-width: 55%; 
     }
     /* 卡片設計 */
     .resident-card {
@@ -186,27 +187,25 @@
             min-height: 200px; 
         }
 
-        /* 第一個卡片（戶內住戶）- 固定高度 */
+        /* 第一個卡片（戶內住戶） */
         .resident-card.residents-card {
-            flex: none; /* 不參與彈性分配 */
-            height: 280px; /* 固定高度 */
+            flex: none; 
+            height: 280px; 
             min-height: 280px;
             max-height: 280px;
         }
 
-        /* 第二個卡片（待領取信件）- 填滿剩餘空間 */
+        /* 第二個卡片（待領取信件）*/
         .resident-card.mails-card {
-            flex: 1; /* 填滿剩餘空間 */
-            min-height: 300px; /* 保證最小高度 */
+            flex: 1; 
+            min-height: 300px; 
         }
 
         /*右欄包裹卡片充滿空間 */
         .resident-card.full-height {
             flex: 1;
             height: 100%;
-            /*height: calc(100vh - 320px); /* 計算可用高度 */
-            min-height: 680px; /* 最小高度保證 */
-            /*max-height: calc(100vh - 320px); /* 移除最大高度限制 */
+            min-height: 680px; 
             display: flex;
             flex-direction: column;
         }
@@ -246,7 +245,7 @@
                         background: var(--resident-primary);
                     }
             .resident-card.full-height .resident-table tbody {
-                height: auto; /* 自動高度 */
+                height: auto;
             }
 
                 .resident-card.full-height .resident-table tbody td {
@@ -257,7 +256,7 @@
                     height:70px;
                     vertical-align: middle;
                     transition: background-color 0.2s ease;
-                    white-space: nowrap; /* 防止文字換行 */
+                    white-space: nowrap; 
                 }
 
             .resident-card.full-height .empty-state {
@@ -268,7 +267,7 @@
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
-                min-height: 200px; /* 最小高度 */
+                min-height: 200px; 
                 padding: 40px 20px;
             }
 
@@ -291,7 +290,7 @@
                 height:70px;
                 width: 100%;
                 font-size: 14px;
-                min-height: fit-content; /* 根據內容自適應 */
+                min-height: fit-content; 
             }
 
         .resident-card.mails-card .table-wrapper {
@@ -363,7 +362,7 @@
         overflow: hidden;
         box-shadow: 0 1px 4px rgba(0,0,0,0.06);
         border: 1px solid var(--border-color);
-        flex: 1; /* 充滿卡片剩餘空間 */
+        flex: 1;
         display: flex;
         flex-direction: column;
         min-height: 0;
@@ -377,7 +376,7 @@
         flex-direction: column;
     }
 
-    /* 確保表格充滿wrapper */
+    /* 表格充滿wrapper */
     .resident-table {
         margin: 0;
         border: none;
@@ -385,7 +384,7 @@
         border-spacing: 0;
         width: 100%;
         font-size: 14px;
-        flex: 1; /* 充滿可用空間 */
+        flex: 1; 
         height: 100%;
     }
 
@@ -436,11 +435,11 @@
             background-color: transparent;
         }
 
-    /* 空狀態也要充滿空間 */
+    /* 空狀態 */
     .empty-state {
         text-align: center;
         color: var(--resident-light);
-        flex: 1; /* 充滿可用空間 */
+        flex: 1; 
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -490,8 +489,8 @@
         font-weight: 600;
         text-align: center;
         display: inline-block;
-        cursor: pointer; /*滑鼠指標 */
-        transition: all 0.2s ease; /* 過渡效果 */
+        cursor: pointer; 
+        transition: all 0.2s ease; 
         border: 1px solid;
         text-decoration: none;
     }
@@ -576,7 +575,7 @@
         }
     }
 
-    /* 包裹照片模態視窗樣式 */
+    /* 包裹照片模態視窗 */
 
     .package-info-compact {
         background: #f8f9fa;
@@ -597,7 +596,7 @@
             font-weight: 500;
         }
 
-    /* 縮小照片展示區域 */
+    /* 照片展示區域 */
     #photo-gallery-container {
         min-height: 40vh; 
         max-height: 50vh; 
@@ -628,7 +627,7 @@
 
         .photo-item img {
             width: 100%;
-            height: 180px; 
+            height: 370px; 
             object-fit: cover;
             cursor: zoom-in;
             transition: transform 0.2s ease;
@@ -651,7 +650,7 @@
             text-align: center;
         }
 
-    /* 載入和空狀態縮小 */
+    /* 載入和空狀態 */
     #photo-loading {
         padding: 30px 0 !important;
     }
@@ -664,7 +663,7 @@
             font-size: 2.5rem !important;
         }
 
-    /* 全螢幕照片檢視器優化 */
+    /* 全螢幕照片檢視器 */
     .fullscreen-viewer {
         position: fixed;
         top: 0;
@@ -688,7 +687,7 @@
             box-shadow: 0 4px 24px rgba(0,0,0,0.5);
         }
 
-        /* 關閉按鈕優化 */
+        /* 關閉按鈕 */
         .fullscreen-viewer::before {
             content: '✕';
             position: fixed;
@@ -935,13 +934,211 @@
     }
 
     .resident-table tbody tr.empty-row td {
-        height: 70px; /* ✅ 與其他行保持一致 */
+        height: 70px;
         border-bottom: 1px solid rgba(222, 226, 230, 0.3);
         color: transparent;
     }
 
     .resident-table tbody tr.empty-row:hover td {
         background-color: transparent;
+    }
+    /* 包裹圖標動畫效果 */
+    .package-icon-animation {
+        animation: packageIconPulse 2s ease-in-out infinite;
+        transition: all 0.3s ease;
+    }
+
+        .package-icon-animation:hover {
+            transform: scale(1.05);
+            color: #004499 !important;
+        }
+
+    @@keyframes packageIconPulse {
+        0%, 100%
+
+    {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+
+    50% {
+        transform: scale(1.02);
+        opacity: 1;
+    }
+
+    }
+
+    /* 無照片佔位符樣式 */
+    .no-photo-placeholder {
+        transition: all 0.3s ease;
+        cursor: default;
+    }
+
+        .no-photo-placeholder:hover {
+            background: #f1f3f4 !important;
+            border-color: #0066cc !important;
+        }
+
+    /* 照片載入失敗回退樣式 */
+    .photo-fallback {
+        transition: all 0.3s ease;
+    }
+
+        .photo-fallback:hover i {
+            color: #004499 !important;
+            transform: scale(1.1);
+        }
+    /* 信件通知條樣式 */
+    .mail-notification-bar {
+        background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+        color: white;
+        border-radius: var(--card-radius);
+        margin-bottom: 20px;
+        box-shadow: 0 4px 15px rgba(243, 156, 18, 0.3);
+        overflow: hidden;
+        animation: slideInDown 0.5s ease-out;
+    }
+
+    .notification-content {
+        display: flex;
+        align-items: center;
+        padding: 15px 20px;
+        gap: 15px;
+    }
+
+    .notification-icon {
+        font-size: 24px;
+        color: rgba(255, 255, 255, 0.9);
+        animation: bellShake 2s ease-in-out infinite;
+    }
+
+    .notification-text {
+        flex: 1;
+    }
+
+        .notification-text h6 {
+            margin: 0 0 3px 0;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .notification-text small {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+    .notification-action .btn {
+        border-color: rgba(255, 255, 255, 0.3);
+        color: white;
+        font-size: 12px;
+        padding: 4px 12px;
+        transition: all 0.3s ease;
+    }
+
+        .notification-action .btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: white;
+            transform: translateY(-1px);
+        }
+
+    /* 信件詳情面板 */
+    .mail-details-panel {
+        padding: 0 20px 20px 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+        margin-top: 15px;
+        padding-top: 15px;
+        animation: slideDown 0.3s ease-out;
+    }
+
+    .mail-item-card {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 8px;
+        padding: 12px;
+        transition: all 0.3s ease;
+    }
+
+        .mail-item-card:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+    .mail-info {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 6px;
+    }
+
+    .mail-id {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 11px;
+        font-family: 'Courier New', monospace;
+    }
+
+    .mail-type {
+        background: rgba(255, 255, 255, 0.9);
+        color: #e67e22;
+        padding: 2px 8px;
+        border-radius: 10px;
+        font-size: 11px;
+        font-weight: 600;
+    }
+
+    .recipient-name {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 12px;
+    }
+
+    /* 動畫效果 */
+    @@keyframes slideInDown {
+        from
+
+    {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    }
+
+    @@keyframes slideDown {
+        from
+
+    {
+        max-height: 0;
+        opacity: 0;
+    }
+
+    to {
+        max-height: 500px;
+        opacity: 1;
+    }
+
+    }
+
+    @@keyframes bellShake {
+        0%, 100%
+
+    {
+        transform: rotate(0deg);
+    }
+
+    10%, 30%, 50%, 70%, 90% {
+        transform: rotate(-10deg);
+    }
+
+    20%, 40%, 60%, 80% {
+        transform: rotate(10deg);
+    }
+
     }
 </style>
 
@@ -976,7 +1173,38 @@
             }
         </div>
     </div>
+    <div v-if="mails && mails.length > 0" class="mail-notification-bar">
+        <div class="notification-content">
+            <div class="notification-icon">
+                <i class="bi bi-envelope-exclamation"></i>
+            </div>
+            <div class="notification-text">
+                <h6>貴戶有信件，請查收</h6>
+                <small>共有 {{ mails.length }} 封信件待領取</small>
+            </div>
+            <div class="notification-action">
+                <button class="btn btn-sm btn-outline-light" v-on:click="toggleMailDetails">
+                    <i class="bi" :class="showMailDetails ? 'bi-chevron-up' : 'bi-chevron-down'"></i>
+                    {{ showMailDetails ? '收起' : '詳情' }}
+                </button>
+            </div>
+        </div>
 
+        <!-- 信件詳情面板 -->
+        <div v-if="showMailDetails" class="mail-details-panel">
+            <div class="row g-2">
+                <div v-for="mail in mails" :key="mail.pack_id" class="col-md-6 col-lg-4">
+                    <div class="mail-item-card">
+                        <div class="mail-info">
+                            <code class="mail-id">{{ mail.pack_id }}</code>
+                            <span class="mail-type">{{ mail.pack_name || '信件' }}</span>
+                        </div>
+                        <small class="recipient-name">{{ mail.red_name }}</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- 主要內容區域 - 左右兩欄佈局 -->
     <div class="layout-container">
         <!-- 左欄：戶內住戶 + 待領取信件 -->
@@ -1135,14 +1363,13 @@
                             <span id="modal-recipient" class="small">-</span>
                         </div>
                         <div class="col-3">
-                            <small class="text-muted d-block">時間</small>
+                            <small class="text-muted d-block">到貨時間</small>
                             <span id="modal-create-time" class="small">-</span>
                         </div>
                     </div>
                 </div>
                 <div id="photo-gallery-container">
                     <div id="photo-gallery">
-                        <!-- 照片將由 JavaScript 動態載入 -->
                     </div>
                     <div id="photo-loading" class="text-center" style="display: none; padding: 30px 0;">
                         <div class="spinner-border text-primary" role="status">
@@ -1151,9 +1378,17 @@
                         <p class="mt-2 small">正在載入照片...</p>
                     </div>
                     <!-- 無照片狀態 -->
-                    <div id="no-photos" class="text-center" style="display: none; padding: 30px 0;">
-                        <i class="bi bi-camera" style="font-size: 2.5rem; opacity: 0.3;"></i>
-                        <h6 class="mt-2">此包裹暫無照片</h6>
+                    <div id="no-photos" class="text-center" style="display: none; padding: 40px 20px;">
+                        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                            <i class="bi bi-box-seam package-icon-animation"
+                               style="font-size: 64px; color: #0066cc; margin-bottom: 15px; display: block;"></i>
+                            <h6 style="font-size: 16px; font-weight: 600; color: #495057; margin-bottom: 6px;">
+                                此包裹暫無照片
+                            </h6>
+                            <small style="font-size: 12px; color: #6c757d;">
+                                建議收取包裹時拍照記錄
+                            </small>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1203,7 +1438,8 @@
                     selectedMemberId: '@Html.Raw(selectedResidentId)',
                     packagesLoading: true,
                     mailsLoading: true,
-                    currentMemberName: ''
+                    currentMemberName: '',
+                    showMailDetails: false
                 };
             },
             mounted: function() {
@@ -1212,6 +1448,9 @@
                 this.initCurrentMemberName();
             },
             methods: {
+                toggleMailDetails: function() {
+                this.showMailDetails = !this.showMailDetails;
+                },
                 initCurrentMemberName: function() {
                     var self = this;
                     if (self.selectedMemberId && self.members.length > 0) {
@@ -1350,13 +1589,36 @@
                                             <img src="${photoUrl}"
                                                  alt="包裹照片 ${index + 1}"
                                                  onclick="openFullscreen(this)"
-                                                 onerror="this.src='/images/no-image.png'; this.onerror=null;">
+                                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                            <div class="photo-fallback" style="display:none;flex-direction:column;align-items:center;justify-content:center;
+                                                     height:180px;color:#6c757d;background:#f8f9fa;">
+                                                <i class="bi bi-box-seam" style="font-size:48px;margin-bottom:10px;color:#0066cc;"></i>
+                                                <small>照片載入失敗</small>
+                                            </div>
                                             <div class="photo-label">照片 ${index + 1}</div>
                                         </div>`;
                                 }).join('');
                                 document.getElementById('photo-gallery').innerHTML = galleryHtml;
-                            } else {
-                                document.getElementById('no-photos').style.display = 'block';
+                        } else {
+                            // 沒有照片時顯示包裹圖標
+                            document.getElementById('photo-gallery').innerHTML = `
+                                <div class="no-photo-placeholder" style="grid-column: 1 / -1; display: flex; flex-direction: column;
+                                     align-items: center; justify-content: center; padding: 60px 20px; background: #f8f9fa;
+                                     border-radius: 12px; border: 2px dashed #dee2e6;">
+                                    <div style="text-align: center;">
+                                        <i class="bi bi-box-seam package-icon-animation"
+                                           style="font-size: 80px; color: #0066cc; margin-bottom: 20px; display: block;"></i>
+                                        <h6 style="font-size: 18px; font-weight: 600; color: #495057; margin-bottom: 8px;">
+                                            此包裹暫無照片
+                                        </h6>
+                                        <p style="font-size: 14px; color: #6c757d; margin-bottom: 6px;">
+                                            包裹編號: ${res.data.packageId}
+                                        </p>
+                                        <small style="font-size: 12px; color: #999;">
+                                            建議收取包裹時拍照記錄
+                                        </small>
+                                    </div>
+                                </div>`;
                             }
                         } else {
                             alert('載入包裹照片失敗：' + res.data.message);
@@ -1367,15 +1629,24 @@
                         document.getElementById('photo-loading').style.display = 'none';
                         console.error('載入包裹照片錯誤:', error);
 
-                        // 錯誤處理
-                        if (error.response) {
-                            alert('伺服器錯誤：' + (error.response.data.message || error.response.status));
-                        } else if (error.request) {
-                            alert('網路連線錯誤，請檢查網路狀態');
-                        } else {
-                            alert('載入包裹照片時發生未知錯誤');
-                        }
-                        modal.hide();
+                        document.getElementById('photo-gallery').innerHTML = `
+                            <div class="no-photo-placeholder" style="grid-column: 1 / -1; display: flex; flex-direction: column;
+                                 align-items: center; justify-content: center; padding: 60px 20px; background: #f8f9fa;
+                                 border-radius: 12px; border: 2px dashed #dee2e6;">
+                                <div style="text-align: center;">
+                                    <i class="bi bi-box-seam package-icon-animation"
+                                       style="font-size: 80px; color: #0066cc; margin-bottom: 20px; display: block;"></i>
+                                    <h6 style="font-size: 18px; font-weight: 600; color: #495057; margin-bottom: 8px;">
+                                        此包裹暫無照片
+                                    </h6>
+                                    <p style="font-size: 14px; color: #6c757d; margin-bottom: 6px;">
+                                        包裹編號: ${packageId}
+                                    </p>
+                                    <small style="font-size: 12px; color: #999;">
+                                        載入失敗或暫無照片資料
+                                    </small>
+                                </div>
+                            </div>`;
                     });
                 },
 

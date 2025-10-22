@@ -25,17 +25,37 @@ function blockInfo(myJson) {
 }
 // 顯示包裹照片的函數
 function showPackagePhoto(photoPath, packId) {
-    if (!photoPath) {
-        showMessage("此包裹沒有照片", "warn");
-        return;
-    }
-
     const uid = Date.now();
     const idBox = `photoModal_${uid}`;
     const modalWidth = Math.min(600, window.innerWidth - 40);
     const modalHeight = Math.min(500, window.innerHeight - 40);
     const modalTop = Math.max(20, (window.innerHeight - modalHeight) / 2);
     const modalLeft = Math.max(20, (window.innerWidth - modalWidth) / 2);
+
+    let contentHtml = '';
+
+    if (photoPath) {
+        contentHtml = `
+            <img src="${photoPath}" alt="包裹照片" 
+                 style="max-width:100%;max-height:100%;object-fit:contain;
+                        border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,0.1);"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div style="display:none;flex-direction:column;align-items:center;justify-content:center;
+                        height:100%;color:#6c757d;">
+                <i class="bi bi-box-seam" style="font-size:64px;margin-bottom:15px;color:#0066cc;"></i>
+                <p style="margin:0;font-size:16px;">照片載入失敗</p>
+                <small style="margin-top:5px;color:#999;">包裹編號: ${packId}</small>
+            </div>`;
+    } else {
+        contentHtml = `
+            <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;
+                        height:100%;color:#6c757d;">
+                <i class="bi bi-box-seam" style="font-size:80px;margin-bottom:20px;color:#0066cc;"></i>
+                <p style="margin:0;font-size:18px;font-weight:600;color:#495057;">此包裹暫無照片</p>
+                <small style="margin-top:8px;color:#999;font-size:14px;">包裹編號: ${packId}</small>
+                <small style="margin-top:3px;color:#999;font-size:12px;">建議收取包裹時拍照記錄</small>
+            </div>`;
+    }
 
     const htmlx = `
 <div id="${idBox}" style="position:fixed;z-index:10000;
@@ -56,13 +76,9 @@ function showPackagePhoto(photoPath, packId) {
   
   <div style="flex:1;padding:20px;display:flex;align-items:center;justify-content:center;
               background:#f8f9fa;">
-      <img src="${photoPath}" alt="包裹照片" 
-           style="max-width:100%;max-height:100%;object-fit:contain;
-                  border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,0.1);"
-           onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2Y4ZjlmYSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IiM2Yzc1N2QiPuaaguWDj+OB4+WKoOimi+OBleOCjOOBvuOBmzwvdGV4dD48L3N2Zz4='; this.alt='照片載入失敗';">
+        ${contentHtml}
   </div>
-  
-</div>`;
+ </div>`;
 
     document.body.insertAdjacentHTML('beforeend', htmlx);
 
@@ -260,11 +276,78 @@ const prodObj = Vue.createApp({
         },
         // 查看包裹照片
         viewPackagePhoto(item) {
+            const uid = Date.now();
+            const idBox = `photoModal_${uid}`;
+            const modalWidth = Math.min(600, window.innerWidth - 40);
+            const modalHeight = Math.min(500, window.innerHeight - 40);
+            const modalTop = Math.max(20, (window.innerHeight - modalHeight) / 2);
+            const modalLeft = Math.max(20, (window.innerWidth - modalWidth) / 2);
+
+            let contentHtml = '';
+
             if (item.photo_path) {
-                showPackagePhoto(item.photo_path, item.pack_id);
+                contentHtml = `
+            <img src="${item.photo_path}" alt="包裹照片" 
+                 style="max-width:100%;max-height:100%;object-fit:contain;
+                        border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,0.1);"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div style="display:none;flex-direction:column;align-items:center;justify-content:center;
+                        height:100%;color:#6c757d;">
+                <i class="bi bi-box-seam" style="font-size:64px;margin-bottom:15px;color:#0066cc;"></i>
+                <p style="margin:0;font-size:16px;">照片載入失敗</p>
+                <small style="margin-top:5px;color:#999;">包裹編號: ${item.pack_id}</small>
+            </div>`;
             } else {
-                showMessage("此包裹沒有照片", "warn");
+                contentHtml = `
+            <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;
+                        height:100%;color:#6c757d;">
+                <i class="bi bi-box-seam" style="font-size:80px;margin-bottom:20px;color:#0066cc;"></i>
+                <p style="margin:0;font-size:18px;font-weight:600;color:#495057;">此包裹暫無照片</p>
+                <small style="margin-top:8px;color:#999;font-size:14px;">包裹編號: ${item.pack_id}</small>
+                <small style="margin-top:3px;color:#999;font-size:12px;">建議收取包裹時拍照記錄</small>
+            </div>`;
             }
+            const htmlx = `
+        <div id="${idBox}" style="position:fixed;z-index:10000;
+             width:${modalWidth}px; height:${modalHeight}px;
+             top:${modalTop}px; left:${modalLeft}px;
+             background:white; border-radius:12px;
+             box-shadow:0 4px 20px rgba(0,0,0,0.3);
+             display:flex; flex-direction:column;">
+          
+          <div style="background:var(--admin-primary);height:50px;
+                      display:flex;align-items:center;justify-content:space-between;
+                      padding:0 20px;border-radius:12px 12px 0 0;color:white;">
+              <h5 style="margin:0;font-size:16px;">包裹照片 - ${item.pack_id}</h5>
+              <button id="closeBtn_${uid}" style="background:none;border:none;color:white;
+                      font-size:20px;cursor:pointer;padding:0;width:30px;height:30px;
+                      display:flex;align-items:center;justify-content:center;">×</button>
+          </div>
+          
+          <div style="flex:1;padding:20px;display:flex;align-items:center;justify-content:center;
+                      background:#f8f9fa;">
+              ${contentHtml}
+          </div>
+          
+        </div>`;
+            document.body.insertAdjacentHTML('beforeend', htmlx);
+
+            const modal = document.getElementById(idBox);
+            const closeBtn = document.getElementById(`closeBtn_${uid}`);
+            // 關閉按鈕事件
+            closeBtn.onclick = () => modal.remove();
+            // 點擊外部關閉
+            modal.onclick = (e) => {
+                if (e.target === modal) modal.remove();
+            };
+            // ESC 鍵關閉
+            const handleEsc = (e) => {
+                if (e.key === 'Escape') {
+                    modal.remove();
+                    document.removeEventListener('keydown', handleEsc);
+                }
+            };
+            document.addEventListener('keydown', handleEsc);
         },
         /* === 把後端回來的 1 筆資料轉成畫面需要的格式 === */
         convertRec(r) {

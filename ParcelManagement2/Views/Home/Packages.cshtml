@@ -76,7 +76,7 @@
         overflow-y: auto;
     }
 
-    /* 表頭 sticky 層級修正 */
+    /* 表頭 sticky 修正 */
     .table thead {
         position: relative;
         z-index: 10;
@@ -91,7 +91,7 @@
             font-weight: 600;
             white-space: nowrap;
             border-color: var(--admin-primary);
-            font-size: 15px; /* 表頭字體調整到15px */
+            font-size: 15px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             padding: 12px 8px;
             text-align: center;
@@ -101,7 +101,7 @@
             .table thead th i {
                 margin-right: 5px;
                 vertical-align: middle;
-                font-size: 13px; /* 表頭圖標調整到13px */
+                font-size: 13px; 
             }
 
     /* 表格主體 */
@@ -115,9 +115,9 @@
     .table td {
         vertical-align: middle;
         text-align: center;
-        padding: 8px 6px; /* 增加內邊距配合較大字體 */
+        padding: 8px 6px;
         border: 1px solid #e9ecef;
-        font-size: 14px; /* 主要內容字體調整*/
+        font-size: 14px; 
         line-height: 1.3;
         word-wrap: break-word;
         position: relative;
@@ -138,24 +138,24 @@
         background: linear-gradient(90deg, var(--admin-primary), var(--admin-secondary));
         color: white;
         border-radius: 0 0 var(--card-radius) var(--card-radius);
-        padding: 14px 0; /* 增加padding配合較大字體 */
+        padding: 14px 0; 
         position: relative;
         z-index: 5;
     }
 
         .admin-stats h6 {
-            font-size: 13px; /* 統計標題調整 */
+            font-size: 13px; 
             margin: 0 0 5px 0;
         }
 
         .admin-stats .display-6 {
-            font-size: 1.5rem; /*  統計數字調整 */
+            font-size: 1.5rem; 
             font-weight: 700;
             line-height: 1.2;
         }
 
         .admin-stats small {
-            font-size: 12px; /* 統計小字體調整 */
+            font-size: 12px; 
         }
 
         /* 統計區域內容容器 */
@@ -178,7 +178,7 @@
             justify-content: center;
         }
 
-            /*最後更新時間的樣式 */
+            /*最後更新時間 */
             .admin-stats .col-md-3:last-child {
                 text-align: center;
             }
@@ -191,7 +191,7 @@
                     text-align: center;
                     display: block;
                     white-space: nowrap;
-                    font-size: 11px; /* 最後更新時間保持11px以適應空間 */
+                    font-size: 11px; 
                 }
 
     /* 導航頁籤 */
@@ -215,7 +215,7 @@
             padding: 10px 16px;
             transition: all 0.3s ease;
             border-radius: 8px 8px 0 0;
-            font-size: 14px; /* 導航頁籤調整 */
+            font-size: 14px; 
             text-decoration: none;
             display: block;
             position: relative;
@@ -243,15 +243,15 @@
             }
 
             .admin-tabs .nav-link i {
-                font-size: 13px; /* 導航圖標調整 */
+                font-size: 13px; 
                 margin-right: 6px;
             }
 
     /* 表單控制項 */
     .form-select-sm {
         padding: 8px 6px;
-        font-size: 14px; /* 表單選單調整 */
-        min-height: 36px; /* 增加高度 */
+        font-size: 14px;
+        min-height: 36px; 
         border-radius: 5px;
         border: 1px solid var(--border-color);
         max-width: 120px;
@@ -264,69 +264,69 @@
 
     /* 一般表單選單 */
     .form-select {
-        font-size: 14px; /* 一般選單調整 */
+        font-size: 14px; 
         min-height: 38px; 
     }
 
     /* 表單標籤 */
     .form-label {
-        font-size: 14px !important; /* 表單標籤調整 */
+        font-size: 14px !important; 
         font-weight: 600 !important;
     }
 
     /* 按鈕組 */
     .btn-group-sm > .btn,
     .btn-sm {
-        padding: 4px 8px; /* 增加內邊距 */
-        font-size: 14px; /* 按鈕字體調整 */
+        padding: 4px 8px; 
+        font-size: 14px; 
         min-width: 35px;
-        height: 32px; /* 增加高度 */
+        height: 32px; 
         margin: 1px;
         border-radius: 5px;
     }
 
     /* 一般按鈕 */
     .btn {
-        font-size: 14px; /* 一般按鈕調整 */
+        font-size: 14px; 
     }
 
-    /* Checkbox 改善對齊 */
+    /* Checkbox  */
     .form-check {
         display: flex;
         align-items: center;
         justify-content: center;
-        margin: 2px 0; /* 適當增加間距 */
-        padding: 3px 6px; /* 增加內邊距 */
+        margin: 2px 0; 
+        padding: 3px 6px; 
         background: rgba(0,0,0,0.02);
         border-radius: 4px;
-        min-height: 28px; /* 增加最小高度 */
+        min-height: 28px;
     }
 
     .form-check-input {
-        margin: 0 4px 0 0; /* 適當間距 */
-        transform: scale(1.0); /* 稍微放大checkbox */
+        margin: 0 4px 0 0; 
+        transform: scale(1.0); 
     }
 
     .form-check-label {
-        font-size: 14px; /* Checkbox標籤調整 */
+        font-size: 14px; 
         margin: 0;
         font-weight: 500;
         color: #495057;
         white-space: nowrap;
     }
 
-    /* 狀態容器對齊修正 - 編輯模式 */
+    /* 狀態容器對齊 - 編輯模式 */
     .status-container {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        padding: 6px 4px; /* 增加內邊距 */
+        padding: 6px 4px; 
         background: rgba(0,0,0,0.02);
         border-radius: 5px;
         margin: 2px 0;
-        min-height: 50px; /* 增加最小高度 */
-        gap: 4px; /* 增加間距 */
+        min-height: 50px;
+        gap: 4px; 
     }
 
     .status-select-wrapper {
@@ -336,9 +336,9 @@
     }
 
         .status-select-wrapper .form-select {
-            font-size: 14px; /* 狀態選單調整到14px */
-            padding: 4px 8px; /* 增加內邊距 */
-            min-height: 30px; /* 增加高度 */
+            font-size: 14px;
+            padding: 4px 8px;
+            min-height: 30px;
         }
 
     .status-display-wrapper {
@@ -347,15 +347,15 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        min-height: 20px; /* 增加高度 */
+        min-height: 20px;
     }
 
         .status-display-wrapper small {
-            font-size: 13px; /* 狀態提示文字調整 */
+            font-size: 13px; 
             line-height: 1.1;
         }
 
-    /* 狀態樣式 - 調整 */
+    /* 狀態樣式 */
     .package-status-pending {
         color: var(--status-pending);
         font-weight: 600;
@@ -373,7 +373,7 @@
         border: 1px solid var(--status-pending);
         color: var(--status-pending);
         font-size: 14px; 
-        padding: 3px 10px; /* 增加內邊距 */
+        padding: 3px 10px;
         border-radius: 12px;
     }
 
@@ -382,14 +382,14 @@
         border: 1px solid var(--status-collected);
         color: var(--status-collected);
         font-size: 14px; 
-        padding: 3px 10px; /* 增加內邊距 */
+        padding: 3px 10px;
         border-radius: 12px;
     }
 
-    /* 其他組件改善 - 調整到14px */
+    /* 其他組件改善 */
     .package-id {
         background: #f8f9fa;
-        padding: 2px 4px; /* 增加內邊距 */
+        padding: 2px 4px; 
         border-radius: 4px;
         font-family: 'Courier New', monospace;
         font-size: 14px; 
@@ -397,7 +397,7 @@
         border: 1px solid #e9ecef;
         color: #495057;
         display: inline-block;
-        max-width: 130px; /* 稍微增加寬度 */
+        max-width: 130px;
         overflow: hidden;
         text-overflow: ellipsis;
     }
@@ -412,23 +412,22 @@
         text-overflow: ellipsis;
         white-space: nowrap;
         display: inline-block;
-        border: 1px solid transparent; /* 新增邊框 */
-        transition: all 0.2s ease; /* 新增過渡效果 */
+        border: 1px solid transparent; /* 邊框 */
+        transition: all 0.2s ease; /* 過渡效果 */
     }
-    /* 包裹類型 - 藍色系 */
+    /* 包裹類型 - 藍色 */
     .package-type-parcel {
-        background-color: #e3f2fd !important; /* 淺藍色背景 */
-        color: #1976d2 !important; /* 深藍色文字 */
+        background-color: #e3f2fd !important;
+        color: #1976d2 !important;
         border-color: #1976d2 !important;
     }
 
-    /* 信件類型 - 綠色系 */
+    /* 信件類型 - 綠色 */
     .package-type-letter {
-        background-color: #fff3e0 !important; /* 淺橙色 */
-        color: #f57c00 !important; /* 深橙色 */
+        background-color: #fff3e0 !important;
+        color: #f57c00 !important; 
         border-color: #f57c00 !important;
     }
-
     /* 懸停效果 */
     .package-type-badge:hover {
         transform: translateY(-1px);
@@ -438,7 +437,7 @@
         font-weight: 600;
         color: #2c3e50;
         font-size: 14px;
-        max-width: 100px; /* 稍微增加寬度 */
+        max-width: 100px; 
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -449,7 +448,7 @@
         font-size: 14px;
         color: #6c757d;
         font-weight: 500;
-        max-width: 120px; /* 稍微增加寬度 */
+        max-width: 120px; 
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -545,12 +544,12 @@
 
     /* 編輯選取欄位優化 */
     .edit-selection-cell {
-        min-width: 75px; /* 增加寬度配合較大字體 */
+        min-width: 75px; 
         max-width: 85px;
     }
 
         .edit-selection-cell .d-flex {
-            gap: 1px; /* 稍微增加checkbox間距 */
+            gap: 1px; 
         }
 
     /* 響應式設計 */
@@ -571,13 +570,13 @@
 
     .mobile-responsive .admin-tabs .nav-link {
         padding: 8px 12px;
-        font-size: 13px; /* 移動端稍小 */
+        font-size: 13px; 
     }
 
     .mobile-responsive .table th,
     .mobile-responsive .table td {
         padding: 10px 6px;
-        font-size: 13px; /* 移動端稍小 */
+        font-size: 13px; 
     }
 
     .mobile-responsive .pickup-time,
@@ -588,11 +587,11 @@
     .mobile-responsive .package-status-collected,
     .mobile-responsive .status-badge-pending,
     .mobile-responsive .status-badge-collected {
-        font-size: 13px; /* 移動端統一為13px */
+        font-size: 13px; 
     }
 
     .mobile-responsive .form-check-label {
-        font-size: 13px; /* 移動端checkbox標籤 */
+        font-size: 13px; 
     }
 
     .small-responsive .admin-tabs .nav-link i {
@@ -607,7 +606,7 @@
     .small-responsive .table th,
     .small-responsive .table td {
         padding: 8px 4px;
-        font-size: 12px; /* 小螢幕適當大小 */
+        font-size: 12px; 
     }
 
     .small-responsive .package-id,
@@ -619,11 +618,11 @@
     .small-responsive .status-badge-pending,
     .small-responsive .status-badge-collected {
         max-width: 90px;
-        font-size: 12px; /* 小螢幕統一為12px */
+        font-size: 12px;
     }
 
     .small-responsive .form-check-label {
-        font-size: 12px; /* 小螢幕checkbox標籤 */
+        font-size: 12px;
     }
 
     .small-responsive .page-title {
@@ -635,7 +634,7 @@
     }
 
     .small-responsive .status-display-wrapper small {
-        font-size: 11px; /* 小螢幕狀態提示文字 */
+        font-size: 11px;
     }
     /* 備註欄位樣式 */
     .remarks-cell {
@@ -643,7 +642,7 @@
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        font-size: 12px;
+        font-size: 14px;
         font-style: italic;
         color: #6c757d;
     }
@@ -692,6 +691,31 @@
         margin-top: 0.25rem;
         font-size: 11px;
         color: #dc3545;
+    }
+    /* 包裹圖標樣式 */
+    .package-icon-placeholder {
+        color: #0066cc;
+        transition: all 0.3s ease;
+    }
+
+        .package-icon-placeholder:hover {
+            color: #004499;
+            transform: scale(1.05);
+        }
+
+    /* 模態框內的包裹圖標動畫 */
+    @@keyframes packageIconPulse {
+        0%, 100%
+    {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    }
+
+    .modal-package-icon {
+        animation: packageIconPulse 2s ease-in-out infinite;
     }
 </style>
 
@@ -861,8 +885,8 @@
                         <th style="width: 10%;">
                             <i class="bi bi-clipboard-check"></i>狀態
                         </th>
-                        <th style="width:30%; font-size: 12px ; color: #999;" v-if="QueryOpt!=='HISTORY'">
-                            <i style="font-size: 12px ; font-style: italic;"> 備註</i>
+                        <th style="width:30%; font-size: 14px ; color: #999;" v-if="QueryOpt!=='HISTORY'">
+                            <i style="font-size: 14px ; font-style: italic;"> 備註</i>
                         </th>
                     </tr>
                 </thead>
@@ -970,9 +994,9 @@
                             </div>
                         </td>
                         <td v-if="QueryOpt!=='HISTORY'" style="text-align: center;">
-                            <small class="remarks-cell" :title="item.remarks || '-'">
+                            <span class="remarks-cell" :title="item.remarks || '-'">
                                 {{ item.remarks || '-' }}
-                            </small>
+                            </span>
                         </td>
                     </tr>
 

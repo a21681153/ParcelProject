@@ -173,7 +173,7 @@
     .status-pending:hover {
         background: var(--danger-color);
         color: white;
-        transform: scale(1.05); /* ✅ 滑鼠懸停效果 */
+        transform: scale(1.05); 
         box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3);
     }
 
@@ -552,7 +552,6 @@
                     })
                     .then((res) => {
                         if (res.data && res.data.success) {
-                            // 切換成功後重新載入所有資料
                             this.loadAllData();
                             this.showMessage('已切換為：' + res.data.memberName, 'success');
                         } else {
@@ -576,7 +575,6 @@
                             if (this.allPackages.length === 0) this.loadAllPackages();
                             break;
                         case 'pending':
-                            // 未領取資料從所有包裹中篩選
                             break;
                         case 'history':
                             if (this.collectedHistory.length === 0) this.loadCollectedHistory();
@@ -707,8 +705,6 @@
                         if (modal) modal.hide();
                     });
                 },
-
-                // ✅ 新增：訊息顯示方法
                 showMessage(message, type) {
                     if (type === 'success') {
                         alert('✓ ' + message);
