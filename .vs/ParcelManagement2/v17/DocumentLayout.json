@@ -3,12 +3,32 @@
   "WorkspaceRootPath": "E:\\\u5C08\u984C\\ParcelProject\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|e:\\\u5C08\u984C\\parcelproject\\parcelmanagement2\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
-      "RelativeMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|solutionrelative:parcelmanagement2\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+      "AbsoluteMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|e:\\\u5C08\u984C\\parcelproject\\parcelmanagement2\\views\\home\\packages.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|solutionrelative:parcelmanagement2\\views\\home\\packages.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|e:\\\u5C08\u984C\\parcelproject\\parcelmanagement2\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|solutionrelative:parcelmanagement2\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|e:\\\u5C08\u984C\\parcelproject\\parcelmanagement2\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|solutionrelative:parcelmanagement2\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|e:\\\u5C08\u984C\\parcelproject\\parcelmanagement2\\wwwroot\\scripts\\parcel.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|solutionrelative:parcelmanagement2\\wwwroot\\scripts\\parcel.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|e:\\\u5C08\u984C\\parcelproject\\parcelmanagement2\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|solutionrelative:parcelmanagement2\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|e:\\\u5C08\u984C\\parcelproject\\parcelmanagement2\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|solutionrelative:parcelmanagement2\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|e:\\\u5C08\u984C\\parcelproject\\parcelmanagement2\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|solutionrelative:parcelmanagement2\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|e:\\\u5C08\u984C\\parcelproject\\parcelmanagement2\\appsettings.production.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
@@ -21,22 +41,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|e:\\\u5C08\u984C\\parcelproject\\parcelmanagement2\\database-usage.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}",
       "RelativeMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|solutionrelative:parcelmanagement2\\database-usage.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|e:\\\u5C08\u984C\\parcelproject\\parcelmanagement2\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|solutionrelative:parcelmanagement2\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|e:\\\u5C08\u984C\\parcelproject\\parcelmanagement2\\wwwroot\\scripts\\parcel.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|solutionrelative:parcelmanagement2\\wwwroot\\scripts\\parcel.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|e:\\\u5C08\u984C\\parcelproject\\parcelmanagement2\\views\\home\\packages.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|solutionrelative:parcelmanagement2\\views\\home\\packages.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|e:\\\u5C08\u984C\\parcelproject\\parcelmanagement2\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|solutionrelative:parcelmanagement2\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -46,7 +50,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 12,
           "Children": [
             {
               "$type": "Bookmark",
@@ -78,59 +82,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "web.config",
-              "DocumentMoniker": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\web.config",
-              "RelativeDocumentMoniker": "ParcelManagement2\\web.config",
-              "ToolTip": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\web.config",
-              "RelativeToolTip": "ParcelManagement2\\web.config",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAOAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
-              "WhenOpened": "2025-10-18T16:50:07.816Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "appsettings.Production.json",
-              "DocumentMoniker": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\appsettings.Production.json",
-              "RelativeDocumentMoniker": "ParcelManagement2\\appsettings.Production.json",
-              "ToolTip": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\appsettings.Production.json",
-              "RelativeToolTip": "ParcelManagement2\\appsettings.Production.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAADAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-10-18T16:48:58.509Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "appsettings.Development.json",
-              "DocumentMoniker": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\appsettings.Development.json",
-              "RelativeDocumentMoniker": "ParcelManagement2\\appsettings.Development.json",
-              "ToolTip": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\appsettings.Development.json",
-              "RelativeToolTip": "ParcelManagement2\\appsettings.Development.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAACAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-10-18T16:46:08.412Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\appsettings.json",
-              "RelativeDocumentMoniker": "ParcelManagement2\\appsettings.json",
-              "ToolTip": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\appsettings.json",
-              "RelativeToolTip": "ParcelManagement2\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-10-18T13:55:19.495Z",
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "ParcelManagement2\\Views\\Home\\Index.cshtml",
+              "ToolTip": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "ParcelManagement2\\Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAAACsAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-10-22T07:58:24.358Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 9,
               "Title": "Database-Usage.md",
               "DocumentMoniker": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Database-Usage.md",
               "RelativeDocumentMoniker": "ParcelManagement2\\Database-Usage.md",
@@ -138,31 +103,56 @@
               "RelativeToolTip": "ParcelManagement2\\Database-Usage.md",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
-              "WhenOpened": "2025-10-18T16:46:04.393Z",
+              "WhenOpened": "2025-10-18T16:46:04.393Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Program.cs",
+              "DocumentMoniker": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Program.cs",
+              "RelativeDocumentMoniker": "ParcelManagement2\\Program.cs",
+              "ToolTip": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Program.cs",
+              "RelativeToolTip": "ParcelManagement2\\Program.cs",
+              "ViewState": "AgIAAE8AAAAAAAAAAAAnwGIAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-18T13:55:55.742Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 3,
               "Title": "parcel.js",
               "DocumentMoniker": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\wwwroot\\Scripts\\parcel.js",
               "RelativeDocumentMoniker": "ParcelManagement2\\wwwroot\\Scripts\\parcel.js",
               "ToolTip": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\wwwroot\\Scripts\\parcel.js",
               "RelativeToolTip": "ParcelManagement2\\wwwroot\\Scripts\\parcel.js",
-              "ViewState": "AgIAAOABAAAAAAAAAAAYwPEBAAAaAAAAAAAAAA==",
+              "ViewState": "AgIAAMMBAAAAAAAAAAAuwNMBAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
               "WhenOpened": "2025-10-18T14:03:34.753Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 2,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "ParcelManagement2\\Controllers\\HomeController.cs",
+              "ToolTip": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "ParcelManagement2\\Controllers\\HomeController.cs",
+              "ViewState": "AgIAALUAAAAAAAAAAAAswOMAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-18T13:54:10.448Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
               "Title": "Packages.cshtml",
               "DocumentMoniker": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Views\\Home\\Packages.cshtml",
               "RelativeDocumentMoniker": "ParcelManagement2\\Views\\Home\\Packages.cshtml",
               "ToolTip": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Views\\Home\\Packages.cshtml",
               "RelativeToolTip": "ParcelManagement2\\Views\\Home\\Packages.cshtml",
-              "ViewState": "AgIAAD0DAAAAAAAAAAAAAEgDAABTAAAAAAAAAA==",
+              "ViewState": "AgIAABMDAAAAAAAAAAAuwBwDAABQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-10-18T15:34:50.614Z",
               "EditorCaption": ""
@@ -170,28 +160,50 @@
             {
               "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "Program.cs",
-              "DocumentMoniker": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Program.cs",
-              "RelativeDocumentMoniker": "ParcelManagement2\\Program.cs",
-              "ToolTip": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Program.cs",
-              "RelativeToolTip": "ParcelManagement2\\Program.cs",
-              "ViewState": "AgIAAFcAAAAAAAAAAAAowG0AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-18T13:55:55.742Z",
-              "EditorCaption": ""
+              "Title": "appsettings.json",
+              "DocumentMoniker": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\appsettings.json",
+              "RelativeDocumentMoniker": "ParcelManagement2\\appsettings.json",
+              "ToolTip": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\appsettings.json",
+              "RelativeToolTip": "ParcelManagement2\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-10-18T13:55:19.495Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "web.config",
+              "DocumentMoniker": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\web.config",
+              "RelativeDocumentMoniker": "ParcelManagement2\\web.config",
+              "ToolTip": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\web.config",
+              "RelativeToolTip": "ParcelManagement2\\web.config",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2025-10-18T16:50:07.816Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 8,
-              "Title": "HomeController.cs",
-              "DocumentMoniker": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Controllers\\HomeController.cs",
-              "RelativeDocumentMoniker": "ParcelManagement2\\Controllers\\HomeController.cs",
-              "ToolTip": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Controllers\\HomeController.cs",
-              "RelativeToolTip": "ParcelManagement2\\Controllers\\HomeController.cs",
-              "ViewState": "AgIAAFECAAAAAAAAAAAQwGMCAAARAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-18T13:54:10.448Z",
-              "EditorCaption": ""
+              "Title": "appsettings.Development.json",
+              "DocumentMoniker": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\appsettings.Development.json",
+              "RelativeDocumentMoniker": "ParcelManagement2\\appsettings.Development.json",
+              "ToolTip": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\appsettings.Development.json",
+              "RelativeToolTip": "ParcelManagement2\\appsettings.Development.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-10-18T16:46:08.412Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "appsettings.Production.json",
+              "DocumentMoniker": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\appsettings.Production.json",
+              "RelativeDocumentMoniker": "ParcelManagement2\\appsettings.Production.json",
+              "ToolTip": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\appsettings.Production.json",
+              "RelativeToolTip": "ParcelManagement2\\appsettings.Production.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-10-18T16:48:58.509Z"
             }
           ]
         }

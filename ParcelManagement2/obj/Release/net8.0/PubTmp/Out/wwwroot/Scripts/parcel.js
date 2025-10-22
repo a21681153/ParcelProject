@@ -143,6 +143,7 @@ const prodObj = Vue.createApp({
             Pack_Type: '',
             Red_Id: '',
             selectedPhoto: null,
+            showRemarksError: false,
             //----
             ProdTypeList: [],      // 包裹類別清單
             ResidentList: [],      // 住戶清單
@@ -411,8 +412,14 @@ const prodObj = Vue.createApp({
         },
         // 新增包裹
         AddProduct() {
+            this.showRemarksError = false;
             if (this.Pack_Type === '' || this.Red_Id === '') {
                 showMessage("類別及住戶必選", "warn");
+                return;
+            }
+            if (!this.Remarks || this.Remarks.trim() === '') {
+                this.showRemarksError = true;
+                showMessage('請填寫備註內容，至少需要註明包裹放置位置！', "warn");
                 return;
             }
             console.log('準備新增包裹:', {
@@ -446,12 +453,18 @@ const prodObj = Vue.createApp({
                     showMessage("包裹已新增", "success");
                     this.GetAllProductData();
                     this.Pack_Type = this.Red_Id = this.Remarks = '';
+                    this.showRemarksError = false;
                     this.selectedPhoto = null;
                     // 清除文件選擇器
                     const fileInput = document.getElementById('photoUpload');
                     if (fileInput) fileInput.value = '';
                 }
             }).catch(() => showMessage("連線錯誤", "warn"));
+        },
+        clearRemarksError() {
+            if (this.showRemarksError && this.Remarks && this.Remarks.trim() !== '') {
+                this.showRemarksError = false;
+            }
         },
         // 取刪除歷史
         GetDeleted() {

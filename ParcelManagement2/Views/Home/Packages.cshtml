@@ -41,6 +41,11 @@
         margin-bottom: 16px;
     }
 
+        .admin-card .col-md-3 {
+            padding-left: 12px !important;
+            padding-right: 12px !important;
+        }
+
         .admin-card:hover {
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             transform: translateY(-1px);
@@ -260,7 +265,7 @@
     /* 一般表單選單 */
     .form-select {
         font-size: 14px; /* 一般選單調整 */
-        min-height: 38px; /* 增加高度 */
+        min-height: 38px; 
     }
 
     /* 表單標籤 */
@@ -662,6 +667,32 @@
     .empty-state-default .bi-inbox {
         color: #6c757d !important;
     }
+
+    .required-asterisk {
+        color: #dc3545;
+        font-weight: bold;
+        margin-left: 2px;
+    }
+    .hint-text {
+        font-size: 11px;
+        color: #6c757d;
+        font-style: italic;
+        margin-top: 2px;
+        display: block;
+    }
+
+    .form-control.is-invalid {
+        border-color: #dc3545;
+        box-shadow: 0 0 0 0.125rem rgba(220, 53, 69, 0.25);
+    }
+
+    .invalid-feedback {
+        display: block;
+        width: 100%;
+        margin-top: 0.25rem;
+        font-size: 11px;
+        color: #dc3545;
+    }
 </style>
 
 
@@ -715,10 +746,10 @@
 
     <!-- 包裹表單 -->
     <div class="admin-card" v-if="display_edit">
-        <div class="row g-3 align-items-end" style="margin: 0 !important;">
+        <div class="row g-3 justify-content-end" style="margin: 0 !important;">
             <div class="col-md-3" style="margin: 0 !important; padding: 0 12px !important;">
                 <label class="form-label" style="font-size: 14px !important; font-weight: 600 !important; margin: 0 0 6px 0 !important;">包裹類別</label>
-                <select v-model="Pack_Type" class="form-select">
+                <select v-model="Pack_Type" class="form-select" style="height:38px;">
                     <option value="">請選擇類別</option>
                     <option :value="item.pack_type" v-for="item in ProdTypeList" :key="item.pack_type">
                         {{item.pack_name}}
@@ -727,7 +758,7 @@
             </div>
             <div class="col-md-3" style="margin: 0 !important; padding: 0 12px !important;">
                 <label class="form-label" style="font-size: 14px !important; font-weight: 600 !important; margin: 0 0 6px 0 !important;">收件住戶</label>
-                <select v-model="Red_Id" class="form-select">
+                <select v-model="Red_Id" class="form-select" style="height:38px;">
                     <option value="">請選擇住戶</option>
                     <option :value="item.red_id" v-for="item in ResidentList" :key="item.red_id">
                         {{item.condo_id}} - {{item.red_name}}
@@ -735,16 +766,23 @@
                 </select>
             </div>
             <!-- 備註欄位 -->
-            <div class="col-md-2" style="margin: 0 !important; padding: 0 12px !important;">
+            <div class="col-md-3" style="margin: 0 !important; padding: 0 12px !important;">
                 <label class="form-label" style="font-size: 14px !important; font-weight: 600 !important; margin: 0 0 6px 0 !important;">
-                    備註 <small class="text-muted">(選填)</small>
+                    備註 <span class="required-asterisk">*</span>
                 </label>
                 <input type="text"
                        v-model="Remarks"
                        class="form-control"
-                       placeholder="例: 存放於:管理室、物流:黑貓宅急便"
+                       v-bind:class="{ 'is-invalid': showRemarksError }"
+                       placeholder="請至少填寫包裹放置位置"
                        maxlength="500"
-                       style="font-size: 12px;">
+                       v-on:input="clearRemarksError"
+                       required
+                       style="font-size: 12px; height: 38px;">
+                <small class="hint-text">例: 管理室、1樓信箱、黑貓宅急便</small>
+                <div class="invalid-feedback" v-if="showRemarksError">
+                    請填寫包裹放置位置
+                </div>
             </div>
             <!-- 包裹照片上傳欄位 -->
             <div class="col-md-3" style="margin: 0 !important; padding: 0 12px !important;">
@@ -754,12 +792,14 @@
                        class="form-control"
                        accept="image/*"
                        v-on:change="handlePhotoSelect($event)"
-                       style="font-size: 13px;">
+                       style="font-size: 13px; height: 38px; padding-top: 7px;">
             </div>
-            <div class="col-md-3" style="margin: 0 !important; padding: 0 12px !important;">
+            <div class="col-md-3 " style="margin: 0 !important; padding:5px 12px !important;">
                 <div class="d-flex gap-3">
-                    <button type="button" class="btn btn-primary flex-fill"
-                            v-on:click="AddProduct" style="background: var(--admin-primary) !important; border-color: var(--admin-primary) !important;">
+                    <button type="button" 
+                            class="btn btn-primary flex-fill"
+                            v-on:click="AddProduct" 
+                            style="background: var(--admin-primary) !important; border-color: var(--admin-primary) !important;">
                         <i class="bi bi-plus-circle me-2"></i>新增包裹
                     </button>
                     <button type="button" class="btn btn-success flex-fill"

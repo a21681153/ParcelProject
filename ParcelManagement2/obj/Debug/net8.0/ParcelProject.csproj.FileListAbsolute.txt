@@ -138,3 +138,5 @@ E:\專題\ParcelProject\ParcelManagement2\obj\Debug\net8.0\ParcelProject.genrunt
 E:\專題\ParcelProject\ParcelManagement2\obj\Debug\net8.0\ref\ParcelProject.dll
 E:\專題\ParcelProject\ParcelManagement2\bin\Debug\net8.0\Newtonsoft.Json.dll
 E:\專題\ParcelProject\ParcelManagement2\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+E:\專題\ParcelProject\ParcelManagement2\bin\Debug\net8.0\web.config
+E:\專題\ParcelProject\ParcelManagement2\bin\Debug\net8.0\appsettings.Production.json
