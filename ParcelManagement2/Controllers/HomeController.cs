@@ -321,15 +321,39 @@ namespace ParcelManagement2.Controllers
         {
             try
             {
-                string sql = "SELECT photo_path FROM Boxdetail WHERE pack_id = @packId";
+                string sql = @"
+                    SELECT photo_path, image_data 
+                    FROM Boxdetail 
+                    WHERE pack_id = @packId";
                 var parameters = new Dictionary<string, object> { ["@packId"] = packId };
 
                 DataTable dataTable = await _dbConn.GetDataTableAsync(sql, parameters);
 
                 if (dataTable.Rows.Count > 0)
                 {
-                    string photoPath = dataTable.Rows[0]["photo_path"]?.ToString() ?? "";
-                    return Json(new { success = true, photoPath = photoPath });
+                    var row = dataTable.Rows[0];
+                    var photos = new List<object>();
+
+                    // 檔案路徑照片
+                    string photoPath = row["photo_path"]?.ToString();
+                    if (!string.IsNullOrEmpty(photoPath))
+                    {
+                        photos.Add(new { type = "file", url = photoPath });
+                    }
+
+                    // 二進制照片
+                    if (row["image_data"] != DBNull.Value && row["image_data"] != null)
+                    {
+                        byte[] imageData = (byte[])row["image_data"];
+                        if (imageData.Length > 0)
+                        {
+                            string base64String = Convert.ToBase64String(imageData);
+                            string mimeType = GetImageMimeType(imageData);
+                            string dataUrl = $"data:{mimeType};base64,{base64String}";
+                            photos.Add(new { type = "binary", url = dataUrl });
+                        }
+                    }
+                    return Json(new { success = true, photos = photos });
                 }
                 else
                 {
@@ -341,6 +365,22 @@ namespace ParcelManagement2.Controllers
                 _logger.LogError(ex, "獲取包裹照片失敗");
                 return Json(new { success = false, message = "獲取照片失敗", error = ex.Message });
             }
+        }
+        private string GetImageMimeType(byte[] imageData)
+        {
+            if (imageData.Length < 4) return "image/jpeg";
+
+            // 檢查檔案頭判斷圖片格式
+            if (imageData[0] == 0xFF && imageData[1] == 0xD8 && imageData[2] == 0xFF)
+                return "image/jpeg";
+            if (imageData[0] == 0x89 && imageData[1] == 0x50 && imageData[2] == 0x4E && imageData[3] == 0x47)
+                return "image/png";
+            if (imageData[0] == 0x47 && imageData[1] == 0x49 && imageData[2] == 0x46)
+                return "image/gif";
+            if (imageData[0] == 0x42 && imageData[1] == 0x4D)
+                return "image/bmp";
+
+            return "image/jpeg"; // 預設為 JPEG
         }
         // 建立住戶下拉選單 (對應Resident表格)
         [HttpPost]

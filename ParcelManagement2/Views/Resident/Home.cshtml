@@ -1138,7 +1138,20 @@
     20%, 40%, 60%, 80% {
         transform: rotate(10deg);
     }
+     @@keyframes packagePulse {
+         0%, 100%
 
+    {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+
+    50% {
+        transform: scale(1.05);
+        opacity: 1;
+    }
+
+    }
     }
 </style>
 
@@ -1567,7 +1580,6 @@
                     }, {
                         headers: {
                             'Content-Type': 'application/json',
-                            'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
                         }
                     })
                     .then(function(res) {
@@ -1584,70 +1596,48 @@
                             // 顯示照片
                             if (res.data.photos && res.data.photos.length > 0) {
                                 var galleryHtml = res.data.photos.map(function(photoUrl, index) {
+                                    const isBase64 = photoUrl.startsWith('data:image/');
+                                    const photoType = isBase64 ? '系統照片' : '檔案照片';
+
                                     return `
-                                        <div class="photo-item">
-                                            <img src="${photoUrl}"
-                                                 alt="包裹照片 ${index + 1}"
-                                                 onclick="openFullscreen(this)"
-                                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                                            <div class="photo-fallback" style="display:none;flex-direction:column;align-items:center;justify-content:center;
-                                                     height:180px;color:#6c757d;background:#f8f9fa;">
-                                                <i class="bi bi-box-seam" style="font-size:48px;margin-bottom:10px;color:#0066cc;"></i>
-                                                <small>照片載入失敗</small>
+                                        <div class="photo-item mb-3" style="text-align:center;">
+                                            <div style="position:relative; display:inline-block; width:750px">
+                                                <img src="${photoUrl}"
+                                                     alt="包裹照片 ${index + 1}"
+                                                     class="img-fluid rounded shadow"
+                                                     style="width: 750px; height: 300px; object-fit: cover; cursor: zoom-in;
+                                                            border: 2px solid #dee2e6; transition: all 0.3s ease;"
+                                                     onclick="openFullscreen(this)"
+                                                     onmouseover="this.style.borderColor='#0066cc'; this.style.transform='scale(1.02)';"
+                                                     onmouseout="this.style.transform=''; this.style.borderColor='#dee2e6';"
+                                                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                                <div style="display:none; flex-direction:column; align-items:center; justify-content:center;
+                                                     height:300px; color:#6c757d; background:#f8f9fa; border-radius:8px; border: 2px solid #dee2e6;">
+                                                    <i class="bi bi-box-seam" style="font-size:60px; color:#0066cc; margin-bottom:15px;
+                                                       animation:packagePulse 2s ease-in-out infinite;"></i>
+                                                    <p style="margin:0; font-size:14px;">照片載入失敗</p>
+                                                </div>
+                                                <div style="position:absolute; bottom:5px; left:5px; right:5px; background:rgba(0,0,0,0.7);
+                                                     color:white; padding:6px 10px; border-radius:6px; text-align:center;">
+                                                    <small style="font-size:11px; font-weight:600;">${photoType} ${index + 1}</small>
+                                                </div>
                                             </div>
-                                            <div class="photo-label">照片 ${index + 1}</div>
                                         </div>`;
-                                }).join('');
-                                document.getElementById('photo-gallery').innerHTML = galleryHtml;
+                            }).join('');
+                            document.getElementById('photo-gallery').innerHTML = galleryHtml;
                         } else {
                             // 沒有照片時顯示包裹圖標
-                            document.getElementById('photo-gallery').innerHTML = `
-                                <div class="no-photo-placeholder" style="grid-column: 1 / -1; display: flex; flex-direction: column;
-                                     align-items: center; justify-content: center; padding: 60px 20px; background: #f8f9fa;
-                                     border-radius: 12px; border: 2px dashed #dee2e6;">
-                                    <div style="text-align: center;">
-                                        <i class="bi bi-box-seam package-icon-animation"
-                                           style="font-size: 80px; color: #0066cc; margin-bottom: 20px; display: block;"></i>
-                                        <h6 style="font-size: 18px; font-weight: 600; color: #495057; margin-bottom: 8px;">
-                                            此包裹暫無照片
-                                        </h6>
-                                        <p style="font-size: 14px; color: #6c757d; margin-bottom: 6px;">
-                                            包裹編號: ${res.data.packageId}
-                                        </p>
-                                        <small style="font-size: 12px; color: #999;">
-                                            建議收取包裹時拍照記錄
-                                        </small>
-                                    </div>
-                                </div>`;
-                            }
-                        } else {
-                            alert('載入包裹照片失敗：' + res.data.message);
-                            modal.hide();
+                            document.getElementById('no-photos').style.display = 'block';
                         }
-                    })
-                    .catch(function(error) {
-                        document.getElementById('photo-loading').style.display = 'none';
-                        console.error('載入包裹照片錯誤:', error);
-
-                        document.getElementById('photo-gallery').innerHTML = `
-                            <div class="no-photo-placeholder" style="grid-column: 1 / -1; display: flex; flex-direction: column;
-                                 align-items: center; justify-content: center; padding: 60px 20px; background: #f8f9fa;
-                                 border-radius: 12px; border: 2px dashed #dee2e6;">
-                                <div style="text-align: center;">
-                                    <i class="bi bi-box-seam package-icon-animation"
-                                       style="font-size: 80px; color: #0066cc; margin-bottom: 20px; display: block;"></i>
-                                    <h6 style="font-size: 18px; font-weight: 600; color: #495057; margin-bottom: 8px;">
-                                        此包裹暫無照片
-                                    </h6>
-                                    <p style="font-size: 14px; color: #6c757d; margin-bottom: 6px;">
-                                        包裹編號: ${packageId}
-                                    </p>
-                                    <small style="font-size: 12px; color: #999;">
-                                        載入失敗或暫無照片資料
-                                    </small>
-                                </div>
-                            </div>`;
-                    });
+                    } else {
+                        document.getElementById('no-photos').style.display = 'block';
+                    }
+                })
+                .catch(function(error) {
+                    document.getElementById('photo-loading').style.display = 'none';
+                    console.error('載入包裹照片錯誤:', error);
+                    document.getElementById('no-photos').style.display = 'block';
+                });
                 },
 
                 showMessage: function(message, type) {

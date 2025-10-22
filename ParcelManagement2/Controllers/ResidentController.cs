@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using ParcelManagement2.Models;
 using ParcelManagement2.Services;
 using System.Data;
+using System.Text.Json;
 
 namespace ParcelManagement2.Controllers
 {
@@ -468,7 +469,6 @@ namespace ParcelManagement2.Controllers
                 return Json(new { success = false, message = "取得資料時發生錯誤" });
             }
         }
-        /* ======= 未領取包裹數 (導覽列信件提醒用) ======= */
         [HttpPost]
         public IActionResult GetUncollectedCount()
         {
@@ -513,106 +513,91 @@ namespace ParcelManagement2.Controllers
         }
         // 取得包裹照片 API
         [HttpPost]
-        public IActionResult GetPackagePhotos([FromBody] GetPackagePhotosRequest request)
+        public async Task<IActionResult> GetPackagePhotos([FromBody] JsonElement requestData)
         {
             try
             {
-                string? username = User.Identity?.Name;
-                if (string.IsNullOrEmpty(username))
-                    return Json(new { success = false, message = "未授權的存取" });
+                string packageId = requestData.GetProperty("packageId").GetString() ?? "";
 
-                var acct = _accountService.GetByUsername(username);
-                if (acct == null)
-                    return Json(new { success = false, message = "找不到使用者資料" });
-
-                if (string.IsNullOrEmpty(acct.Condo_Id))
-                    return Json(new { success = false, message = "使用者資料不完整" });
-
-                if (string.IsNullOrEmpty(request?.PackageId))
+                if (string.IsNullOrEmpty(packageId))
+                {
                     return Json(new { success = false, message = "包裹編號不能為空" });
+                }
 
-                // 查詢 Boxdetail 中的包裹照片路徑
-                const string sql = @"
-            SELECT bd.pack_id, bd.create_time, bd.photo_path, m.pack_name, 
-                   r.red_name, r.red_id
-            FROM Boxdetail bd
-            INNER JOIN Resident r ON r.red_id = bd.red_id
-            INNER JOIN Mail m ON m.pack_type = bd.pack_type
-            WHERE bd.pack_id = @packageId 
-              AND r.condo_id = @condoId
-              AND bd.deleted = 0";
+                // 查詢包裹資訊，包含檔案路徑和二進制資料
+                string sql = @"
+            SELECT b.pack_id, b.photo_path, b.image_data, b.create_time,
+                   m.pack_name, r.red_name, r.red_id
+            FROM Boxdetail b
+            LEFT JOIN Mail m ON b.pack_type = m.pack_type
+            LEFT JOIN Resident r ON b.red_id = r.red_id
+            WHERE b.pack_id = @packageId AND ISNULL(b.deleted, 0) = 0";
 
-                var parameters = new Dictionary<string, object>
-        {
-            { "@packageId", request.PackageId },
-            { "@condoId", acct.Condo_Id }
-        };
+                var parameters = new Dictionary<string, object> { ["@packageId"] = packageId };
+                DataTable dataTable = await _dbConn.GetDataTableAsync(sql, parameters);
 
-                DataTable result = _dbConn.GetDataTable(sql, parameters);
+                if (dataTable.Rows.Count == 0)
+                {
+                    return Json(new { success = false, message = "找不到指定的包裹" });
+                }
 
-                if (result.Rows.Count == 0)
-                    return Json(new { success = false, message = "找不到包裹資料" });
-
-                var packageData = result.Rows[0];
+                var row = dataTable.Rows[0];
                 var photos = new List<string>();
 
-                // 處理照片路徑
-                object? photoPathData = packageData["photo_path"];
-                if (photoPathData != null && photoPathData != DBNull.Value)
+                // 處理檔案路徑照片
+                string photoPath = row["photo_path"]?.ToString();
+                if (!string.IsNullOrEmpty(photoPath))
                 {
-                    string photoPath = photoPathData.ToString() ?? "";
-                    if (!string.IsNullOrEmpty(photoPath))
-                    {
-                        // 處理多個照片路徑（如果以分隔符號分隔）
-                        string[] photoPaths = photoPath.Split(new char[] { ',', ';', '|' }, StringSplitOptions.RemoveEmptyEntries);
+                    photos.Add(photoPath);
+                }
 
-                        foreach (string path in photoPaths)
-                        {
-                            string trimmedPath = path.Trim();
-                            if (!string.IsNullOrEmpty(trimmedPath))
-                            {
-                                // 檢查檔案是否存在
-                                string fullPath = Path.Combine(_webHostEnvironment.WebRootPath, "uploads", "packages", Path.GetFileName(trimmedPath));
-                                if (System.IO.File.Exists(fullPath))
-                                {
-                                    // 轉換為網頁 URL
-                                    string webPath = $"/uploads/packages/{Path.GetFileName(trimmedPath)}";
-                                    photos.Add(webPath);
-                                }
-                                else
-                                {
-                                    // 如果 photo_path 已經是完整路徑，直接檢查
-                                    if (System.IO.File.Exists(trimmedPath))
-                                    {
-                                        string fileName = Path.GetFileName(trimmedPath);
-                                        string webPath = $"/uploads/packages/{fileName}";
-                                        photos.Add(webPath);
-                                    }
-                                }
-                            }
-                        }
+                // 處理二進制照片資料
+                if (row["image_data"] != DBNull.Value && row["image_data"] != null)
+                {
+                    byte[] imageData = (byte[])row["image_data"];
+                    if (imageData.Length > 0)
+                    {
+                        // 轉換為 Base64 Data URL
+                        string base64String = Convert.ToBase64String(imageData);
+                        string mimeType = GetImageMimeType(imageData);
+                        string dataUrl = $"data:{mimeType};base64,{base64String}";
+                        photos.Add(dataUrl);
                     }
                 }
-                // ✅ 安全地處理可能為 null 的值
-                var response = new
+
+                return Json(new
                 {
                     success = true,
-                    packageId = request.PackageId,
-                    packageName = packageData["pack_name"]?.ToString() ?? "包裹",
-                    recipientName = packageData["red_name"]?.ToString() ?? "",
-                    recipientId = packageData["red_id"]?.ToString() ?? "",
-                    createTime = packageData["create_time"] != null && packageData["create_time"] != DBNull.Value
-                        ? Convert.ToDateTime(packageData["create_time"]).ToString("yyyy/MM/dd HH:mm")
-                        : "",
-                    photos = photos
-                };
-                return Json(response);
+                    packageId = packageId,
+                    packageName = row["pack_name"]?.ToString() ?? "",
+                    recipientId = row["red_id"]?.ToString() ?? "",
+                    recipientName = row["red_name"]?.ToString() ?? "",
+                    createTime = row["create_time"]?.ToString() ?? "",
+                    photos = photos,
+                    photoCount = photos.Count
+                });
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "取得包裹照片失敗：PackageId = {PackageId}", request?.PackageId ?? "null");
-                return Json(new { success = false, message = "取得包裹照片時發生錯誤" });
+                _logger.LogError(ex, "獲取包裹照片失敗");
+                return Json(new { success = false, message = "獲取包裹照片失敗", error = ex.Message });
             }
+        }
+        private string GetImageMimeType(byte[] imageData)
+        {
+            if (imageData.Length < 4) return "image/jpeg";
+
+            // 檢查檔案頭判斷圖片格式
+            if (imageData[0] == 0xFF && imageData[1] == 0xD8 && imageData[2] == 0xFF)
+                return "image/jpeg";
+            if (imageData[0] == 0x89 && imageData[1] == 0x50 && imageData[2] == 0x4E && imageData[3] == 0x47)
+                return "image/png";
+            if (imageData[0] == 0x47 && imageData[1] == 0x49 && imageData[2] == 0x46)
+                return "image/gif";
+            if (imageData[0] == 0x42 && imageData[1] == 0x4D)
+                return "image/bmp";
+
+            return "image/jpeg"; // 預設為 JPEG
         }
         /* ======= 編輯個人資料 ======= */
         public IActionResult Edit()
