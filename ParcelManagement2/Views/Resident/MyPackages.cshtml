@@ -17,6 +17,7 @@
         --success-color: #27ae60;
         --warning-color: #f39c12;
         --danger-color: #e74c3c;
+        --info-color: #17a2b8;
         --light-color: #7f8c8d;
         --border-color: #bdc3c7;
         --card-radius: 12px;
@@ -145,56 +146,114 @@
             border-bottom: none;
         }
 
-    /* 狀態徽章 */
-    .status-badge {
-        padding: 6px 12px;
-        border-radius: 15px;
-        font-size: 14px;
+    /* 包裹編號樣式 */
+    .package-code {
+        background: #f8f9fa;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-family: 'Courier New', monospace;
+        font-size: 13px;
         font-weight: 600;
+        border: 1px solid #dee2e6;
+        color: var(--primary-color);
         display: inline-block;
-        transition:all 0.3s ease;
     }
 
+    /* 狀態徽章 */
+    .status-badge {
+        padding: 6px 14px;
+        border-radius: 15px;
+        font-size: 13px;
+        font-weight: 600;
+        display: inline-block;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        text-decoration: none;
+        border: 1px solid;
+        min-width: 70px;
+    }
+
+    /* 未取狀態 - 紅色系 */
     .status-pending {
         background: #fff5f5;
         color: var(--danger-color);
-        border: 1px solid var(--danger-color);
-        cursor:pointer;
-        text-decoration:none;
+        border-color: var(--danger-color);
     }
 
+        .status-pending:hover {
+            background: var(--danger-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
+        }
+
+    /* 已取狀態 - 綠色系 */
     .status-collected {
         background: #f0fff4;
         color: var(--success-color);
-        border: 1px solid var(--success-color);
-        cursor:default;
-    }
-
-    .status-pending:hover {
-        background: var(--danger-color);
-        color: white;
-        transform: scale(1.05); /* ✅ 滑鼠懸停效果 */
-        box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3);
+        border-color: var(--success-color);
+        cursor: default;
     }
 
     /* 類型徽章 */
     .type-badge {
-        padding: 4px 8px;
-        border-radius: 10px;
-        font-size: 14px;
+        padding: 5px 12px;
+        border-radius: 12px;
+        font-size: 13px;
         font-weight: 600;
         display: inline-block;
+        border: 1px solid;
+        transition: all 0.2s ease;
+        min-width: 60px;
     }
 
+    /* 包裹類型 - 藍色系 */
     .type-package {
         background: #e3f2fd;
         color: #1976d2;
+        border-color: #1976d2;
     }
 
+        .type-package:hover {
+            background: #bbdefb;
+            transform: scale(1.02);
+        }
+
+    /* 信件類型 - 橙色系 */
     .type-mail {
         background: #fff3e0;
         color: #f57c00;
+        border-color: #f57c00;
     }
+
+        .type-mail:hover {
+            background: #ffe0b2;
+            transform: scale(1.02);
+        }
+
+    /* 快遞類型 - 紫色系 */
+    .type-express {
+        background: #f3e5f5;
+        color: #7b1fa2;
+        border-color: #7b1fa2;
+    }
+
+        .type-express:hover {
+            background: #e1bee7;
+            transform: scale(1.02);
+        }
+
+    /* 掛號類型 - 青色系 */
+    .type-registered {
+        background: #e0f2f1;
+        color: #00695c;
+        border-color: #00695c;
+    }
+
+        .type-registered:hover {
+            background: #b2dfdb;
+            transform: scale(1.02);
+        }
 
     /* 載入和空狀態 */
     .loading, .empty-state {
@@ -214,77 +273,126 @@
             animation: spin 1s linear infinite;
         }
 
-    @@keyframes spin {
-        0%
-
-    {
-        transform: rotate(0deg);
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
     }
 
-    100% {
-        transform: rotate(360deg);
+    /* 操作按鈕樣式 */
+    .action-btn {
+        padding: 6px 12px;
+        font-size: 12px;
+        border-radius: 6px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
     }
 
+    .action-btn-photo {
+        background: var(--info-color);
+        color: white;
     }
 
-    /* 響應式設計 */
-    @@media (max-width: 768px) {
-        .packages-container
+        .action-btn-photo:hover {
+            background: #138496;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(23, 162, 184, 0.3);
+        }
 
-    {
-        padding: 15px;
-    }
-
-    .header-card {
+    /* 包裹照片模態視窗樣式 */
+    .photo-gallery {
+        max-height: 65vh;
+        overflow-y: auto;
         padding: 20px;
     }
 
-    .nav-tabs .nav-link {
-        padding: 12px 15px;
-        font-size: 14px;
-    }
-
-    .packages-table thead th,
-    .packages-table tbody td {
-        padding: 10px 8px;
-        font-size: 14px;
-    }
-    }
-    /* 包裹照片模態視窗樣式 */
     .photo-item {
         text-align: center;
-        margin-bottom: 20px;
+        margin-bottom: 25px;
+        transition: all 0.3s ease;
     }
 
         .photo-item img {
-            transition: transform 0.3s ease;
+            transition: all 0.3s ease;
             border: 2px solid #dee2e6;
             border-radius: 8px;
+            cursor: zoom-in;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
             .photo-item img:hover {
                 border-color: var(--accent-color);
+                transform: scale(1.02);
+                box-shadow: 0 4px 16px rgba(0,0,0,0.2);
             }
 
-    #photo-gallery {
-        max-height: 60vh;
-        overflow-y: auto;
-        padding: 15px;
+    .photo-caption {
+        background: #f8f9fa;
+        padding: 8px 12px;
+        border-radius: 6px;
+        margin-top: 10px;
+        font-size: 13px;
+        color: var(--light-color);
     }
 
-    #photo-loading, #no-photos {
-        padding: 40px 20px;
+    /* 無照片狀態優化 */
+    #no-photos {
+        padding: 60px 20px;
         text-align: center;
         color: var(--light-color);
     }
 
-        #no-photos i {
-            font-size: 3rem;
-            opacity: 0.3;
-            margin-bottom: 15px;
+        #no-photos .no-photo-icon {
+            font-size: 80px;
+            color: #0066cc;
+            margin-bottom: 20px;
             display: block;
+            animation: packagePulse 2s ease-in-out infinite;
         }
 
+    @keyframes packagePulse {
+        0%, 100% { transform: scale(1); opacity: 0.8; }
+        50% { transform: scale(1.05); opacity: 1; }
+    }
+
+    /* 響應式設計 */
+    @media (max-width: 768px) {
+        .packages-container {
+            padding: 15px;
+        }
+
+        .header-card {
+            padding: 20px;
+        }
+
+        .nav-tabs .nav-link {
+            padding: 12px 15px;
+            font-size: 14px;
+        }
+
+        .packages-table thead th,
+        .packages-table tbody td {
+            padding: 10px 6px;
+            font-size: 12px;
+        }
+
+        .type-badge,
+        .status-badge {
+            font-size: 11px;
+            padding: 4px 8px;
+            min-width: 50px;
+        }
+
+        .package-code {
+            font-size: 11px;
+            padding: 2px 6px;
+        }
+    }
 </style>
 
 <div class="packages-container" id="MyPackagesApp">
@@ -302,7 +410,7 @@
                 <label class="form-label text-light mb-2">
                     <i class="bi bi-person-check me-2"></i>查看成員：
                 </label>
-                <select class="member-select" v-model="selectedMemberId" v-on:change ="changeMember">
+                <select class="member-select" v-model="selectedMemberId" v-on:change="changeMember">
                     <option v-for="member in members" :value="member.red_id" :key="member.red_id">
                         {{ member.red_id }} - {{ member.red_name }}
                     </option>
@@ -314,19 +422,19 @@
     <!-- 分頁導航 -->
     <ul class="nav nav-tabs" role="tablist">
         <li class="nav-item">
-            <a class="nav-link" v-on:class="{ active: activeTab === 'all' }" v-on:click="switchTab('all')" href="#all-packages">
+            <a class="nav-link" v-bind:class="{ active: activeTab === 'all' }" v-on:click="switchTab('all')" href="#all-packages">
                 <i class="bi bi-list-ul me-2"></i>所有包裹
                 <span v-if="allPackages.length > 0" class="badge bg-primary ms-2">{{ allPackages.length }}</span>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" v-on:class="{ active: activeTab === 'pending' }" v-on:click="switchTab('pending')" href="#pending-packages">
+            <a class="nav-link" v-bind:class="{ active: activeTab === 'pending' }" v-on:click="switchTab('pending')" href="#pending-packages">
                 <i class="bi bi-exclamation-triangle me-2"></i>未領取
                 <span v-if="pendingCount > 0" class="badge bg-danger ms-2">{{ pendingCount }}</span>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" v-on:class="{ active: activeTab === 'history' }" v-on:click ="switchTab('history')" href="#collected-history">
+            <a class="nav-link" v-bind:class="{ active: activeTab === 'history' }" v-on:click="switchTab('history')" href="#collected-history">
                 <i class="bi bi-check-circle me-2"></i>領取紀錄
                 <span v-if="collectedHistory.length > 0" class="badge bg-success ms-2">{{ collectedHistory.length }}</span>
             </a>
@@ -350,33 +458,38 @@
                 <table class="table packages-table">
                     <thead>
                         <tr>
-                            <th>包裹編號</th>
-                            <th>類型</th>
-                            <th>收件人</th>
-                            <th>送達時間</th>
-                            <th>狀態</th>
-                            <th>領取人</th>
-                            <th>領取時間</th>
+                            <th><i class="bi bi-hash me-1"></i>包裹編號</th>
+                            <th><i class="bi bi-box me-1"></i>類型</th>
+                            <th><i class="bi bi-person me-1"></i>收件人</th>
+                            <th><i class="bi bi-clock me-1"></i>送達時間</th>
+                            <th><i class="bi bi-clipboard-check me-1"></i>狀態</th>
+                            <th><i class="bi bi-person-check me-1"></i>領取人</th>
+                            <th><i class="bi bi-calendar-check me-1"></i>領取時間</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr v-for="item in allPackages" :key="item.pack_id">
                             <td>
-                                <code>{{ item.pack_id }}</code>
+                                <code class="package-code">{{ item.pack_id }}</code>
                             </td>
                             <td>
-                                <span class="type-badge" v-on:class="item.item_type === '信件' ? 'type-mail' : 'type-package'">
+                                <span class="type-badge" v-bind:class="getTypeClass(item.item_type)">
+                                    <i v-bind:class="getTypeIcon(item.item_type)" class="me-1"></i>
                                     {{ item.item_type }}
                                 </span>
                             </td>
                             <td>{{ item.red_name }}</td>
                             <td>{{ formatDateTime(item.create_time) }}</td>
                             <td>
-                                <span class="status-badge" v-on:class="item.status == 0 ? 'status-pending' : 'status-collected'">
+                                <span class="status-badge" 
+                                      v-bind:class="item.status == 0 ? 'status-pending' : 'status-collected'"
+                                      v-on:click="item.status == 0 ? viewPackagePhoto(item.pack_id) : null"
+                                      v-bind:title="item.status == 0 ? '點擊查看包裹照片' : '已領取'">
+                                    <i v-bind:class="item.status == 0 ? 'bi-exclamation-triangle' : 'bi-check-circle'" class="me-1"></i>
                                     {{ item.status_text }}
                                 </span>
                             </td>
-                            <td>{{item.collector_name}}</td>
+                            <td>{{ item.collector_name || '-' }}</td>
                             <td>{{ item.pickup_datetime ? formatDateTime(item.pickup_datetime) : '-' }}</td>
                         </tr>
                     </tbody>
@@ -399,29 +512,34 @@
                 <table class="table packages-table">
                     <thead>
                         <tr>
-                            <th>包裹編號</th>
-                            <th>類型</th>
-                            <th>收件人</th>
-                            <th>送達時間</th>
-                            <th>存放天數</th>
-                            <th>操作</th>
+                            <th><i class="bi bi-hash me-1"></i>包裹編號</th>
+                            <th><i class="bi bi-box me-1"></i>類型</th>
+                            <th><i class="bi bi-person me-1"></i>收件人</th>
+                            <th><i class="bi bi-clock me-1"></i>送達時間</th>
+                            <th><i class="bi bi-calendar-days me-1"></i>存放天數</th>
+                            <th><i class="bi bi-gear me-1"></i>操作</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr v-for="item in pendingPackages" :key="item.pack_id">
                             <td>
-                                <code>{{ item.pack_id }}</code>
+                                <code class="package-code">{{ item.pack_id }}</code>
                             </td>
                             <td>
-                                <span class="type-badge" v-on:class="item.item_type === '信件' ? 'type-mail' : 'type-package'">
+                                <span class="type-badge" v-bind:class="getTypeClass(item.item_type)">
+                                    <i v-bind:class="getTypeIcon(item.item_type)" class="me-1"></i>
                                     {{ item.item_type }}
                                 </span>
                             </td>
                             <td>{{ item.red_name }}</td>
                             <td>{{ formatDateTime(item.create_time) }}</td>
-                            <td>{{ calculateDays(item.create_time) }} 天</td>
                             <td>
-                                <button class="btn btn-sm btn-primary" v-on:click ="viewPackagePhoto(item.pack_id)">
+                                <span v-bind:class="getDaysClass(calculateDays(item.create_time))">
+                                    {{ calculateDays(item.create_time) }} 天
+                                </span>
+                            </td>
+                            <td>
+                                <button class="btn action-btn action-btn-photo" v-on:click="viewPackagePhoto(item.pack_id)">
                                     <i class="bi bi-camera me-1"></i>查看照片
                                 </button>
                             </td>
@@ -446,21 +564,22 @@
                 <table class="table packages-table">
                     <thead>
                         <tr>
-                            <th>包裹編號</th>
-                            <th>類型</th>
-                            <th>收件人</th>
-                            <th>送達時間</th>
-                            <th>領取時間</th>
-                            <th>存放天數</th>
+                            <th><i class="bi bi-hash me-1"></i>包裹編號</th>
+                            <th><i class="bi bi-box me-1"></i>類型</th>
+                            <th><i class="bi bi-person me-1"></i>收件人</th>
+                            <th><i class="bi bi-clock me-1"></i>送達時間</th>
+                            <th><i class="bi bi-calendar-check me-1"></i>領取時間</th>
+                            <th><i class="bi bi-calendar-days me-1"></i>存放天數</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr v-for="item in collectedHistory" :key="item.pack_id">
                             <td>
-                                <code>{{ item.pack_id }}</code>
+                                <code class="package-code">{{ item.pack_id }}</code>
                             </td>
                             <td>
-                                <span class="type-badge" v-on:class="item.item_type === '信件' ? 'type-mail' : 'type-package'">
+                                <span class="type-badge" v-bind:class="getTypeClass(item.item_type)">
+                                    <i v-bind:class="getTypeIcon(item.item_type)" class="me-1"></i>
                                     {{ item.item_type }}
                                 </span>
                             </td>
@@ -477,29 +596,38 @@
 </div>
 
 <!-- 包裹照片模態視窗 -->
-<div class="modal fade" id="packagePhotoModal" tabindex="-1">
+<div class="modal fade" id="packagePhotoModal" tabindex="-1" aria-labelledby="packagePhotoModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">
+                <h5 class="modal-title" id="packagePhotoModalLabel">
                     <i class="bi bi-camera me-2"></i>包裹照片
                 </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="關閉"></button>
             </div>
             <div class="modal-body">
-                <div id="photo-loading" class="text-center" style="display: none;">
-                    <div class="spinner-border text-primary" role="status"></div>
-                    <p class="mt-2">正在載入照片...</p>
+                <!-- 載入狀態 -->
+                <div id="photo-loading" class="text-center" style="display: none; padding: 40px 20px;">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">載入中...</span>
+                    </div>
+                    <p class="mt-3">正在載入包裹照片...</p>
                 </div>
-                <div id="photo-gallery"></div>
-                <div id="no-photos" class="text-center" style="display: none;">
-                    <i class="bi bi-camera" style="font-size: 3rem; opacity: 0.3;"></i>
-                    <h6 class="mt-2">此包裹暫無照片</h6>
+                
+                <!-- 照片展示區 -->
+                <div id="photo-gallery" class="photo-gallery"></div>
+                
+                <!-- 無照片狀態 -->
+                <div id="no-photos" style="display: none;">
+                    <i class="bi bi-box-seam no-photo-icon"></i>
+                    <h6>此包裹暫無照片</h6>
+                    <p class="mb-0">建議收取包裹時拍照記錄</p>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 @section scripts {
     <script>
         const { createApp } = Vue;
@@ -552,7 +680,6 @@
                     })
                     .then((res) => {
                         if (res.data && res.data.success) {
-                            // 切換成功後重新載入所有資料
                             this.loadAllData();
                             this.showMessage('已切換為：' + res.data.memberName, 'success');
                         } else {
@@ -576,7 +703,6 @@
                             if (this.allPackages.length === 0) this.loadAllPackages();
                             break;
                         case 'pending':
-                            // 未領取資料從所有包裹中篩選
                             break;
                         case 'history':
                             if (this.collectedHistory.length === 0) this.loadCollectedHistory();
@@ -633,6 +759,34 @@
                     return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
                 },
 
+                // 取得包裹類型樣式類別
+                getTypeClass(itemType) {
+                    const type = itemType ? itemType.toString().toLowerCase() : '';
+                    if (type.includes('包裹') || type.includes('宅配')) return 'type-package';
+                    if (type.includes('信件') || type.includes('郵件')) return 'type-mail';
+                    if (type.includes('快遞') || type.includes('急件')) return 'type-express';
+                    if (type.includes('掛號') || type.includes('registered')) return 'type-registered';
+                    return 'type-package'; // 預設
+                },
+
+                // 取得包裹類型圖標
+                getTypeIcon(itemType) {
+                    const type = itemType ? itemType.toString().toLowerCase() : '';
+                    if (type.includes('包裹') || type.includes('宅配')) return 'bi-box';
+                    if (type.includes('信件') || type.includes('郵件')) return 'bi-envelope';
+                    if (type.includes('快遞') || type.includes('急件')) return 'bi-lightning';
+                    if (type.includes('掛號') || type.includes('registered')) return 'bi-envelope-check';
+                    return 'bi-box'; // 預設
+                },
+
+                // 取得存放天數樣式
+                getDaysClass(days) {
+                    if (days <= 3) return 'text-success fw-bold';
+                    if (days <= 7) return 'text-warning fw-bold';
+                    return 'text-danger fw-bold';
+                },
+
+                // 查看包裹照片
                 viewPackagePhoto(packageId) {
                     console.log('查看包裹照片:', packageId);
 
@@ -646,17 +800,17 @@
                     document.getElementById('photo-gallery').innerHTML = '';
                     document.getElementById('no-photos').style.display = 'none';
 
-                    // 開啟模態視窗
-                    var modal = new bootstrap.Modal(document.getElementById('packagePhotoModal'));
-                    modal.show();
-
                     // 設定模態視窗標題
-                    document.querySelector('#packagePhotoModal .modal-title').innerHTML =
+                    document.getElementById('packagePhotoModalLabel').innerHTML =
                         '<i class="bi bi-camera me-2"></i>包裹照片 - ' + packageId;
+
+                    // 開啟模態視窗
+                    const modal = new bootstrap.Modal(document.getElementById('packagePhotoModal'));
+                    modal.show();
 
                     // 請求包裹照片
                     axios.post('/Resident/GetPackagePhotos', {
-                        PackageId: packageId.toString()
+                        packageId: packageId.toString()
                     }, {
                         headers: {
                             'Content-Type': 'application/json'
@@ -668,47 +822,44 @@
                         if (res.data && res.data.success) {
                             // 顯示照片
                             if (res.data.photos && res.data.photos.length > 0) {
-                                var galleryHtml = res.data.photos.map((photoUrl, index) => {
+                                let galleryHtml = res.data.photos.map((photoUrl, index) => {
                                     return `
-                                        <div class="photo-item mb-3">
+                                        <div class="photo-item">
                                             <img src="${photoUrl}"
                                                  alt="包裹照片 ${index + 1}"
                                                  class="img-fluid rounded shadow"
-                                                 style="max-width: 100%; height: auto; cursor: zoom-in;"
-                                                 onclick="this.style.transform = this.style.transform ? '' : 'scale(1.5)'"
-                                                 onerror="this.src='/images/no-image.png'; this.onerror=null;">
-                                            <div class="text-center mt-2">
-                                                <small class="text-muted">照片 ${index + 1}</small>
+                                                 style="max-width: 100%; height: auto;"
+                                                 onclick="this.style.transform = this.style.transform ? '' : 'scale(1.2)'; this.style.zIndex = this.style.zIndex ? '' : '9999';"
+                                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                            <div style="display:none; flex-direction:column; align-items:center; justify-content:center;
+                                                 height:200px; color:#6c757d; background:#f8f9fa; border-radius:8px;">
+                                                <i class="bi bi-box-seam" style="font-size:48px; color:#0066cc; margin-bottom:10px;"></i>
+                                                <small>照片載入失敗</small>
+                                            </div>
+                                            <div class="photo-caption">
+                                                <small>照片 ${index + 1}</small>
                                             </div>
                                         </div>`;
                                 }).join('');
                                 document.getElementById('photo-gallery').innerHTML = galleryHtml;
                             } else {
+                                // 沒有照片時顯示包裹圖標
                                 document.getElementById('no-photos').style.display = 'block';
                             }
                         } else {
-                            this.showMessage('載入包裹照片失敗：' + (res.data.message || '未知錯誤'), 'error');
-                            modal.hide();
+                            // API 回應失敗也顯示包裹圖標
+                            document.getElementById('no-photos').style.display = 'block';
                         }
                     })
                     .catch((error) => {
                         document.getElementById('photo-loading').style.display = 'none';
                         console.error('載入包裹照片錯誤:', error);
-
-                        if (error.response) {
-                            this.showMessage('伺服器錯誤：' + (error.response.data?.message || error.response.status), 'error');
-                        } else if (error.request) {
-                            this.showMessage('網路連線錯誤，請檢查網路狀態', 'error');
-                        } else {
-                            this.showMessage('載入包裹照片時發生未知錯誤', 'error');
-                        }
-
-                        var modal = bootstrap.Modal.getInstance(document.getElementById('packagePhotoModal'));
-                        if (modal) modal.hide();
+                        
+                        // 錯誤時也顯示包裹圖標而不是關閉視窗
+                        document.getElementById('no-photos').style.display = 'block';
                     });
                 },
 
-                // ✅ 新增：訊息顯示方法
                 showMessage(message, type) {
                     if (type === 'success') {
                         alert('✓ ' + message);
