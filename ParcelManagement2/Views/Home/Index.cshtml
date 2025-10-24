@@ -1,32 +1,27 @@
 ﻿@{
     ViewBag.Title = ViewBag.Title ?? "社區包裹統計首頁";
 }
-
-<script src="https://cdn.jsdelivr.net/npm/vue@3.2.31/dist/vue.global.prod.js"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-@{
-    ViewBag.Title = ViewBag.Title ?? "社區包裹統計首頁";
-}
-
 <script src="https://cdn.jsdelivr.net/npm/vue@3.2.31/dist/vue.global.prod.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 <style>
     :root {
-        --theme-primary: #B4CAFA;
-        --theme-primary-dark: #8BB0F7;
-        --theme-accent: #6B8FF7;
-        --theme-border: #A0BDF8;
-        --theme-text-primary: #1A2332;
-        --theme-text-secondary: #4A5568;
-        --status-pending: #dc3545;
-        --status-collected: #22c55e;
+        --theme-primary: #34A3A0; /* 主色：薄荷青 */
+        --theme-primary-dark: #237C77; /* 加深：表頭用 */
+        --theme-accent: #FF8A5B; /* 點綴：柔珊瑚 */
+        --theme-light: #FFF7EA; /* 背景：奶油米 */
+        --theme-border: #E7ECEF; /* 柔和邊框 */
+        --theme-text-primary: #1E2A32; /* 主字色 */
+        --theme-text-secondary: #6B7E8E;
+        /* 狀態顏色：維持既有 */
+        --status-pending: #E74C3C;
+        --status-collected: #2ECC71;
         --card-radius: 16px;
     }
 
-    /* 添加全局動畫效果 */
+    /* 動畫維持，僅微調陰影與對比 */
     * {
-        transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        transition: all .3s cubic-bezier(.25,.46,.45,.94);
     }
 
     .page-header {
@@ -35,22 +30,19 @@
         justify-content: space-between;
         margin-bottom: 24px;
         padding: 0 8px;
-        animation: slideInFromTop 0.8s ease-out;
+        animation: slideInFromTop .8s ease-out;
     }
 
     @@keyframes slideInFromTop {
-        from
+        from {
+            opacity: 0;
+            transform: translateY(-30px)
+        }
 
-    {
-        opacity: 0;
-        transform: translateY(-30px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
+        to {
+            opacity: 1;
+            transform: translateY(0)
+        }
     }
 
     .page-title {
@@ -60,41 +52,170 @@
         margin: 0;
         display: flex;
         align-items: center;
-        text-shadow: 0 2px 4px rgba(180, 202, 250, 0.3);
+        text-shadow: none;
     }
 
         .page-title i {
             margin-right: 12px;
-            color: var(--theme-accent);
+            color: var(--theme-primary) !important;
             font-size: 1.3rem;
             animation: bounce 2s ease-in-out infinite;
         }
 
     @@keyframes bounce {
-        0%, 100%
+        0%, 100% {
+            transform: translateY(0)
+        }
 
-    {
-        transform: translateY(0);
+        50% {
+            transform: translateY(-5px)
+        }
     }
 
-    50% {
-        transform: translateY(-5px);
-    }
-
-    }
-
-    .admin-card {
-        background: rgba(255, 255, 255, 0.95);
-        border: 1px solid var(--theme-border);
+    /* 統計卡片：淺色雙漸層，讓紅/綠數字自然清楚（不改數字顏色本身） */
+    .stats-card {
+        background: linear-gradient(135deg, #FFF7EA 0%, #EBF8F6 100%) !important;
+        color: var(--theme-text-primary) !important;
         border-radius: var(--card-radius);
-        box-shadow: 0 4px 15px rgba(139, 176, 247, 0.2);
-        transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        padding: 24px;
+        padding: 28px;
         margin-bottom: 24px;
-        backdrop-filter: blur(12px);
+        box-shadow: 0 8px 28px rgba(35,124,119,0.18) !important;
+        border: 1px solid rgba(35,124,119,0.12) !important;
         position: relative;
         overflow: hidden;
-        animation: fadeInUp 0.6s ease-out;
+        animation: fadeInUp .6s ease-out;
+    }
+
+        .stats-card:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 16px 40px rgba(59,167,160,0.22);
+        }
+
+        .stats-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(45deg, transparent 0%, rgba(255,255,255,.25) 50%, transparent 100%);
+            opacity: .35;
+            animation: wave 4s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+    @@keyframes wave {
+        0%, 100% {
+            background-position: 0% 50%
+        }
+
+        50% {
+            background-position: 100% 50%
+        }
+    }
+
+    .stats-item {
+        cursor: pointer;
+        border-radius: 12px;
+        padding: 16px 8px;
+    }
+
+        .stats-item:hover {
+            background: rgba(46,133,128,0.06);
+        }
+
+    .stats-number {
+        font-size: 2.2rem;
+        font-weight: 900;
+        line-height: 1;
+        margin-bottom: 8px;
+        color: #223849; /* 總住戶數維持深字；未領/已領有 inline 顏色，不動 */
+        text-shadow: none;
+        animation: countUp .8s ease-out;
+    }
+
+    @@keyframes countUp {
+        from {
+            opacity: 0;
+            transform: scale(.5)
+        }
+
+        to {
+            opacity: 1;
+            transform: scale(1)
+        }
+    }
+
+    .stats-number:hover {
+        transform: scale(1.08);
+    }
+
+    .stats-label {
+        font-size: .95rem;
+        margin: 0;
+        font-weight: 700;
+        line-height: 1.3;
+        color: var(--theme-text-primary);
+        text-shadow: none;
+    }
+
+        .stats-label i {
+            font-size: 1rem;
+            margin-right: 6px;
+            color: var(--theme-primary) !important;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+    @@keyframes pulse {
+        0%, 100% {
+            transform: scale(1);
+            opacity: .95
+        }
+
+        50% {
+            transform: scale(1.06);
+            opacity: 1
+        }
+    }
+
+    .table thead th {
+        background: linear-gradient(180deg, var(--theme-primary-dark) 0%, #1E6B66 100%) !important;
+        color: #FFFFFF !important;
+        border-color: var(--theme-primary-dark) !important;
+        text-shadow: none !important;
+        font-weight: 800 !important;
+    }
+
+        .table thead th i {
+            color: #D6F1EF !important; /* 圖示淡薄荷，對比清楚 */
+        }
+
+        .table thead th::before { /* 移除原高光帶，避免反白 */
+            display: none !important;
+        }
+
+    .table thead.sticky-top th {
+        box-shadow: inset 0 -1px 0 rgba(255,255,255,0.12) !important;
+    }
+    /* 重要：不覆蓋紅/綠數字或標籤的 inline 顏色 —— 移除任何 [style*="..."] 的覆寫 */
+
+    .stats-card .row {
+        margin: 0
+    }
+
+    .stats-card .col-md-4 {
+        padding: 12px 16px
+    }
+
+    /* 卡片/容器：淺底、柔邊框、低對比陰影 */
+    .admin-card {
+        background: rgba(255,255,255,.98);
+        border: 1px solid var(--theme-border);
+        border-radius: var(--card-radius);
+        box-shadow: 0 4px 18px rgba(34,56,73,.08);
+        padding: 24px;
+        margin-bottom: 24px;
+        backdrop-filter: blur(8px);
+        position: relative;
+        overflow: hidden;
+        animation: fadeInUp .6s ease-out;
     }
 
         .admin-card::before {
@@ -103,287 +224,89 @@
             top: 0;
             left: -100%;
             width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, var(--theme-primary), var(--theme-accent), var(--status-collected));
+            height: 3px;
+            background: linear-gradient(90deg, var(--theme-primary), #5FC3BD, var(--theme-accent));
+            opacity: .7;
             animation: shimmer 3s ease-in-out infinite;
         }
 
     @@keyframes shimmer {
-        0%
+        0% {
+            left: -100%
+        }
 
-    {
-        left: -100%;
-    }
+        50% {
+            left: 100%
+        }
 
-    50% {
-        left: 100%;
-    }
-
-    100% {
-        left: 100%;
-    }
-
+        100% {
+            left: 100%
+        }
     }
 
     @@keyframes fadeInUp {
-        from
+        from {
+            opacity: 0;
+            transform: translateY(30px)
+        }
 
-    {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
+        to {
+            opacity: 1;
+            transform: translateY(0)
+        }
     }
 
     .admin-card:hover {
-        box-shadow: 0 8px 30px rgba(139, 176, 247, 0.3);
-        transform: translateY(-4px) scale(1.02);
-        border-color: var(--theme-accent);
+        box-shadow: 0 10px 26px rgba(34,56,73,.12);
+        transform: translateY(-3px) scale(1.01);
+        border-color: #D7D1C9;
     }
 
     .admin-table-container {
-        background: rgba(255, 255, 255, 0.95);
+        background: #FFFFFF;
         border-radius: var(--card-radius);
         overflow: hidden;
-        box-shadow: 0 4px 20px rgba(139, 176, 247, 0.25);
+        box-shadow: 0 6px 22px rgba(34,56,73,.08);
         border: 1px solid var(--theme-border);
         margin-bottom: 24px;
-        backdrop-filter: blur(12px);
-        animation: fadeInUp 0.8s ease-out;
-        animation-delay: 0.2s;
+        backdrop-filter: blur(8px);
+        animation: fadeInUp .8s ease-out;
+        animation-delay: .2s;
         animation-fill-mode: both;
     }
 
-    .stats-card {
-        background: linear-gradient(135deg, #5A6CF3 0%, #4C63D2 50%, #667EEA 100%);
-        color: white;
-        border-radius: var(--card-radius);
-        padding: 28px;
-        margin-bottom: 24px;
-        box-shadow: 0 8px 30px rgba(90, 108, 243, 0.4);
-        border: 2px solid rgba(255, 255, 255, 0.2);
+    /* 表格：主色加深的表頭，內容淺底 */
+    .table th {
+        background: linear-gradient(135deg, var(--theme-primary), var(--theme-primary-dark));
+        color: #fff;
+        font-weight: 700;
+        white-space: nowrap;
+        border-color: var(--theme-primary);
+        text-shadow: 0 1px 2px rgba(0,0,0,.18);
         position: relative;
         overflow: hidden;
-        animation: fadeInUp 0.6s ease-out;
-        transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
-        .stats-card:hover {
-            transform: translateY(-2px) scale(1.01);
-            box-shadow: 0 12px 40px rgba(90, 108, 243, 0.5);
-        }
-
-        .stats-card::before {
+        .table th::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, transparent 0%, rgba(255, 255, 255, 0.1) 50%, transparent 100%);
-            animation: wave 4s ease-in-out infinite;
-            pointer-events: none;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,.22), transparent);
+            animation: headerShine 3s ease-in-out infinite;
         }
-
-    @@keyframes wave {
-        0%, 100%
-
-    {
-        background-position: 0% 50%;
-    }
-
-    50% {
-        background-position: 100% 50%;
-    }
-
-    }
-
-    .stats-item {
-        transition: all 0.3s ease;
-        cursor: pointer;
-        border-radius: 12px;
-        padding: 16px 8px;
-    }
-
-        .stats-item:hover {
-            transform: scale(1.05);
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-    .stats-number {
-        font-size: 2.2rem;
-        font-weight: 900;
-        line-height: 1;
-        margin-bottom: 8px;
-        text-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
-        color: white;
-        animation: countUp 0.8s ease-out;
-        transition: all 0.3s ease;
-    }
-
-    @@keyframes countUp {
-        from
-
-    {
-        opacity: 0;
-        transform: scale(0.5);
-    }
-
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-
-    }
-
-    .stats-number:hover {
-        transform: scale(1.1);
-    }
-
-    .stats-label {
-        font-size: 0.95rem;
-        margin: 0;
-        font-weight: 600;
-        line-height: 1.3;
-        color: rgba(255, 255, 255, 0.95);
-        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-    }
-
-        .stats-label i {
-            font-size: 1rem;
-            margin-right: 6px;
-            color: rgba(255, 255, 255, 0.9);
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-    @@keyframes pulse {
-        0%, 100%
-
-    {
-        transform: scale(1);
-        opacity: 0.9;
-    }
-
-    50% {
-        transform: scale(1.1);
-        opacity: 1;
-    }
-
-    }
-
-    /* 統計數字顏色 */
-    .stats-card .stats-number[style*="#DC3545"] {
-        color: #FFB3BA !important;
-        text-shadow: 0 3px 8px rgba(255, 179, 186, 0.4);
-        animation: glow-red 2s ease-in-out infinite alternate;
-    }
-
-    @@keyframes glow-red {
-        from
-
-    {
-            text-shadow: 0 3px 8px rgba(255, 179, 186, 0.4), 0 0 15px rgba(255, 179, 186, 0.3);
-    }
-
-    to {
-            text-shadow: 0 3px 8px rgba(255, 179, 186, 0.6), 0 0 20px rgba(255, 179, 186, 0.5);
-    }
-
-    }
-
-    .stats-card .stats-number[style*="#22c55e"] {
-        color: #90EE90 !important;
-        text-shadow: 0 3px 8px rgba(144, 238, 144, 0.4);
-        animation: glow-green 2s ease-in-out infinite alternate;
-    }
-
-    @@keyframes glow-green {
-        from
-
-    {
-            text-shadow: 0 3px 8px rgba(144, 238, 144, 0.4), 0 0 15px rgba(144, 238, 144, 0.3);
-    }
-
-    to {
-            text-shadow: 0 3px 8px rgba(144, 238, 144, 0.6), 0 0 20px rgba(144, 238, 144, 0.5);
-    }
-
-    }
-
-    .stats-card .stats-label[style*="#DC3545"] {
-        color: #FFB3BA !important;
-    }
-
-    .stats-card .stats-label[style*="#22c55e"] {
-        color: #90EE90 !important;
-    }
-
-    .stats-card .row {
-        margin: 0;
-    }
-
-    .stats-card .col-md-4 {
-        padding: 12px 16px;
-    }
-
-    /* 表格樣式 */
-    .table {
-        animation: fadeIn 1s ease-out;
-    }
-
-        .table th,
-        .table td {
-            vertical-align: middle;
-            text-align: center;
-            padding: 18px 14px;
-            border: 1px solid var(--theme-border);
-            font-size: 15px;
-            line-height: 1.4;
-            transition: all 0.3s ease;
-        }
-
-        .table th {
-            background: linear-gradient(135deg, var(--theme-primary), var(--theme-primary-dark));
-            color: var(--theme-text-primary);
-            font-weight: 700;
-            white-space: nowrap;
-            border-color: var(--theme-primary);
-            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
-
-            .table th::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: -100%;
-                width: 100%;
-                height: 100%;
-                background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-                animation: headerShine 3s ease-in-out infinite;
-            }
 
     @@keyframes headerShine {
-        0%
+        0% {
+            left: -100%
+        }
 
-    {
-        left: -100%;
-    }
+        50% {
+            left: 100%
+        }
 
-    50% {
-        left: 100%;
-    }
-
-    100% {
-        left: 100%;
-    }
-
+        100% {
+            left: 100%
+        }
     }
 
     .table th i {
@@ -394,221 +317,183 @@
     }
 
     @@keyframes wiggle {
-        0%, 100%
+        0%, 100% {
+            transform: rotate(0)
+        }
 
-    {
-        transform: rotate(0deg);
+        25% {
+            transform: rotate(2deg)
+        }
+
+        75% {
+            transform: rotate(-2deg)
+        }
     }
 
-    25% {
-        transform: rotate(2deg);
-    }
-
-    75% {
-        transform: rotate(-2deg);
-    }
-
+    .table th, .table td {
+        vertical-align: middle;
+        text-align: center;
+        padding: 18px 14px;
+        border: 1px solid var(--theme-border);
+        font-size: 15px;
+        line-height: 1.4;
+        background: #FFFFFF;
     }
 
     .table tbody tr {
-        transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        background: rgba(255, 255, 255, 0.8);
-        animation: slideInFromLeft 0.6s ease-out;
+        transition: all .3s cubic-bezier(.25,.46,.45,.94);
+        background: #FFFFFF;
+        animation: slideInFromLeft .6s ease-out;
         animation-fill-mode: both;
     }
 
+        .table tbody tr:hover {
+            background: linear-gradient(135deg, rgba(52,163,160,0.08), rgba(255,138,91,0.05)) !important;
+            box-shadow: 0 4px 14px rgba(30,42,50,0.08) !important;
+            transform: translateY(-1px) scale(1.003);
+        }
+
         .table tbody tr:nth-child(odd) {
-            animation-delay: 0.1s;
+            animation-delay: .1s
         }
 
         .table tbody tr:nth-child(even) {
-            animation-delay: 0.2s;
+            animation-delay: .2s
         }
 
     @@keyframes slideInFromLeft {
-        from
-
-    {
-        opacity: 0;
-        transform: translateX(-20px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-
-    }
-
-    .table tbody tr:hover {
-        background: linear-gradient(135deg, rgba(180, 202, 250, 0.2), rgba(107, 143, 247, 0.1));
-        transform: translateY(-2px) scale(1.01);
-        box-shadow: 0 4px 15px rgba(139, 176, 247, 0.2);
-    }
-
-    /* 按鈕樣式 */
-    .btn {
-        font-size: 14px;
-        font-weight: 600;
-        transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        padding: 12px 20px;
-        border-radius: 12px;
-        position: relative;
-        overflow: hidden;
-    }
-
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.6s;
+        from {
+            opacity: 0;
+            transform: translateX(-20px)
         }
 
-        .btn:hover::before {
-            left: 100%;
+        to {
+            opacity: 1;
+            transform: translateX(0)
         }
+    }
 
-        .btn:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-        }
-
+    /* 按鈕顏色維持原本 #4ECDC4（不更動） */
     .btn-outline-primary {
-        border-color: var(--theme-accent);
-        color: var(--theme-accent);
-        background: rgba(255, 255, 255, 0.9);
+        border-color: #4ECDC4;
+        color: #4ECDC4;
+        background: rgba(255,255,255,.96);
         border-width: 2px;
+        font-weight: 600;
     }
 
         .btn-outline-primary:hover {
-            background: var(--theme-accent);
-            border-color: var(--theme-accent);
-            color: white;
-            box-shadow: 0 6px 25px rgba(107, 143, 247, 0.4);
+            background: #4ECDC4;
+            border-color: #4ECDC4;
+            color: #fff;
+            box-shadow: 0 6px 24px rgba(78,205,196,.35);
+            transform: translateY(-2px) scale(1.05);
         }
 
-    /* 分頁控制 */
+    /* 分頁：活潑主色 + 淺底 hover，更直覺 */
     .pagination .page-link {
-        background: rgba(255, 255, 255, 0.9);
-        border: 2px solid var(--theme-border);
+        background: #FFFFFF;
+        border: 1px solid var(--theme-border);
         color: var(--theme-text-primary);
         padding: 12px 16px;
         margin: 0 4px;
         border-radius: 10px;
         font-weight: 600;
-        transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         font-size: 14px;
         min-width: 48px;
-        position: relative;
-        overflow: hidden;
+        transition: all .3s cubic-bezier(.25,.46,.45,.94);
     }
 
         .pagination .page-link:hover {
-            background: var(--theme-primary);
-            color: white;
-            border-color: var(--theme-primary);
-            transform: translateY(-2px) scale(1.1);
-            box-shadow: 0 4px 12px rgba(139, 176, 247, 0.3);
+            background: var(--theme-light) !important;
+            color: var(--theme-text-primary);
+            border-color: #E4F0EE !important;
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 4px 12px rgba(34,56,73,.08);
         }
 
     .pagination .page-item.active .page-link {
-        background: var(--theme-accent);
-        border-color: var(--theme-accent);
-        color: white;
-        box-shadow: 0 4px 15px rgba(107, 143, 247, 0.5);
+        background: var(--theme-primary);
+        border-color: var(--theme-primary);
+        color: #fff;
+        box-shadow: 0 4px 14px rgba(59,167,160,.28);
         animation: activePagePulse 2s ease-in-out infinite;
     }
 
     @@keyframes activePagePulse {
-        0%, 100%
+        0%, 100% {
+            box-shadow: 0 4px 14px rgba(59,167,160,.28)
+        }
 
-    {
-        box-shadow: 0 4px 15px rgba(107, 143, 247, 0.5);
+        50% {
+            box-shadow: 0 6px 20px rgba(59,167,160,.40)
+        }
     }
 
-    50% {
-        box-shadow: 0 6px 20px rgba(107, 143, 247, 0.7);
-    }
-
-    }
-
-    /* 超連結樣式 */
+    /* 統計超連結：保留狀態色，hover 輕量化 */
     .stat-link {
         text-decoration: none;
-        padding: 4px 8px; 
-        border-radius: 6px; 
-        transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        padding: 4px 8px;
+        border-radius: 6px;
         display: inline-block;
-        min-width: 50px; 
+        min-width: 50px;
         border: none;
         font-weight: 700;
         font-size: 16px;
         position: relative;
         overflow: hidden;
         background: transparent;
+        transition: all .25s cubic-bezier(.25,.46,.45,.94);
     }
 
         .stat-link::before {
             content: '';
             position: absolute;
-            top: 0;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(0,0,0,.06), transparent);
             left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transition: left 0.5s;
+            transition: left .5s;
         }
 
         .stat-link:hover::before {
-            left: 100%;
+            left: 100%
         }
 
         .stat-link:hover {
-            transform: translateY(-1px) scale(1.03); 
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); 
+            transform: translateY(-1px) scale(1.02);
+            text-shadow: none;
         }
 
     .stat-pending {
         color: var(--status-pending) !important;
-        background: transparent; 
-        border: none; 
+        background: transparent;
+        border: none;
     }
 
         .stat-pending:hover {
-            background: rgba(220, 53, 69, 0.1); 
+            background: rgba(231,76,60,.10);
             color: var(--status-pending) !important;
-            border: none;
-            box-shadow: none; 
-            text-shadow: 0 2px 8px rgba(220, 53, 69, 0.3);
         }
 
     .stat-collected {
-        color: #22c55e !important;
+        color: var(--status-collected) !important;
         background: transparent;
-        border: none; 
+        border: none;
     }
 
         .stat-collected:hover {
-            background: rgba(34, 197, 94, 0.1);
-            color: #22c55e !important;
-            border: none;
-            box-shadow: none; 
-            text-shadow: 0 2px 8px rgba(34, 197, 94, 0.3);
+            background: rgba(46,204,113,.10);
+            color: var(--status-collected) !important;
         }
 
-    /* 住戶資訊 */
+    /* 住戶資訊與空狀態 */
     .resident-info {
         font-weight: 700;
         color: var(--theme-text-primary);
         font-size: 15px;
-        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        text-shadow: none;
     }
 
-    /* 空資料提示 */
     .empty-state {
         padding: 50px 20px;
         text-align: center;
@@ -620,15 +505,15 @@
             font-size: 56px;
             margin-bottom: 16px;
             display: block;
-            opacity: 0.5;
-            color: var(--theme-primary);
+            color: #B7E4E0 !important;
+            opacity: .7 !important;
             animation: pulse 2s ease-in-out infinite;
         }
 
         .empty-state h6 {
             font-size: 18px;
             margin-bottom: 8px;
-            font-weight: 600;
+            font-weight: 700;
             color: var(--theme-text-primary);
         }
 
@@ -637,60 +522,81 @@
             color: var(--theme-text-secondary);
         }
 
-    /* 響應式設計 */
-    @@media (max-width: 768px) {
-        .page-header
-
-    {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 16px;
+    .btn {
+        font-size: 14px;
+        font-weight: 600;
+        padding: 12px 20px;
+        border-radius: 12px;
+        position: relative;
+        overflow: hidden;
+        transition: all .4s cubic-bezier(.25,.46,.45,.94);
     }
 
-    .stats-card {
-        padding: 20px;
+        .btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,.28), transparent);
+            left: -100%;
+            transition: left .6s;
+        }
+
+        .btn:hover::before {
+            left: 100%
+        }
+
+        .btn:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 6px 20px rgba(0,0,0,.10);
+        }
+
+    /* 響應式 */
+    @@media (max-width:768px) {
+        .page-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .stats-card {
+            padding: 20px
+        }
+
+        .stats-number {
+            font-size: 1.8rem
+        }
     }
 
-    .stats-number {
-        font-size: 1.8rem;
-    }
+    @@media (max-width:576px) {
+        .stats-card {
+            padding: 18px
+        }
 
-    }
+        .stats-number {
+            font-size: 1.6rem
+        }
 
-    @@media (max-width: 576px) {
-        .stats-card
-
-    {
-        padding: 18px;
-    }
-
-    .stats-number {
-        font-size: 1.6rem;
-    }
-
-    .page-title {
-        font-size: 1.3rem;
-    }
-
+        .page-title {
+            font-size: 1.3rem
+        }
     }
 
     .fade-in {
-        animation: fadeIn 0.6s ease-out;
+        animation: fadeIn .6s ease-out
     }
 
     @@keyframes fadeIn {
-        from
+        from {
+            opacity: 0
+        }
 
-    {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-
+        to {
+            opacity: 1
+        }
     }
 </style>
+
+
 
 <div class="container-fluid">
     <div id="ResidentStats">
@@ -717,16 +623,16 @@
                 </div>
                 <div class="col-4 col-md-4">
                     <div class="stats-item">
-                        <div class="stats-number" style="color: #DC3545;">{{ totalUncollected }}</div>
-                        <h6 class="stats-label" style="color: #DC3545;">
+                        <div class="stats-number" style="color: #E74C3C;">{{ totalUncollected }}</div>
+                        <h6 class="stats-label" style="color: #E74C3C;">
                             <i class="bi bi-exclamation-triangle"></i>未領取包裹
                         </h6>
                     </div>
                 </div>
                 <div class="col-4 col-md-4">
                     <div class="stats-item">
-                        <div class="stats-number" style="color: #22c55e;">{{ totalCollected }}</div>
-                        <h6 class="stats-label" style="color: #22c55e;">
+                        <div class="stats-number" style="color: #2ECC71;">{{ totalCollected }}</div>
+                        <h6 class="stats-label" style="color: #2ECC71;">
                             <i class="bi bi-check-circle"></i>已領取包裹
                         </h6>
                     </div>
