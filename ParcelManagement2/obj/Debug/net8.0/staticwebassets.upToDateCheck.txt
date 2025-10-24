@@ -32,6 +32,8 @@ wwwroot\Content\bootstrap.rtl.min.css
 wwwroot\Content\bootstrap.rtl.min.css.map
 wwwroot\Content\Site.css
 wwwroot\css\site.css
+wwwroot\css\theme-colors.css
+wwwroot\css\theme.css
 wwwroot\favicon.ico
 wwwroot\js\site.js
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css

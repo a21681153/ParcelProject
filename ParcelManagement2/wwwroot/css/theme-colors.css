@@ -1,0 +1,17 @@
+﻿:root {
+    /* B4CAFA 主題色系 */
+    --theme-primary: #B4CAFA;
+    --theme-primary-dark: #8BB0F7;
+    --theme-primary-light: #D6E5FD;
+    --theme-secondary: #A8E6CF;
+    --theme-accent: #6B8FF7;
+    --theme-bg-main: linear-gradient(135deg, #F8FCFF 0%, #E8F4FD 100%);
+    --theme-border: #A0BDF8;
+    --theme-text-primary: #2C3E50;
+    --theme-text-secondary: #5A6C7D;
+    /* 功能色不變 */
+    --status-pending: #dc3545;
+    --status-collected: #28a745;
+    --status-warning: #ffc107;
+    --status-info: #17a2b8;
+}

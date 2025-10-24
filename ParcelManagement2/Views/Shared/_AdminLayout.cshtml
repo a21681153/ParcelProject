@@ -11,6 +11,27 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <style>
+        /* B4CAFA 主題色系變數 */
+        :root {
+            --theme-primary: #B4CAFA;
+            --theme-primary-dark: #8BB0F7;
+            --theme-primary-light: #D6E5FD;
+            --theme-secondary: #A8E6CF;
+            --theme-accent: #6B8FF7;
+            --theme-bg-main: linear-gradient(135deg, #F8FCFF 0%, #E8F4FD 100%);
+            --theme-border: #A0BDF8;
+            --theme-text-primary: #2C3E50;
+            --theme-text-secondary: #5A6C7D;
+            /* 功能色保持不變 */
+            --status-pending: #dc3545;
+            --status-collected: #28a745;
+            --status-warning: #ffc107;
+            --status-info: #17a2b8;
+            --navbar-height: 56px;
+            --content-padding: 18px;
+            --card-radius: 8px;
+        }
+
         * {
             box-sizing: border-box;
         }
@@ -22,32 +43,19 @@
         }
 
         body {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            background: var(--theme-bg-main);
             min-height: 100vh;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            font-size: 14px; /* ✅ 從 13px 稍微放大 */
-            padding-top: 56px; /* ✅ 從 50px 增加至 56px */
+            font-size: 14px;
+            padding-top: var(--navbar-height);
             overflow-x: hidden;
+            color: var(--theme-text-primary);
         }
 
-        :root {
-            --admin-primary: #1a1a1a;
-            --admin-primary-dark: #2a2a2a;
-            --admin-secondary: #404040;
-            --admin-light: #666;
-            --admin-accent: #0066cc;
-            --status-pending: #dc3545;
-            --status-collected: #28a745;
-            --navbar-height: 56px; /* ✅ 從 50px 增加至 56px */
-            --content-padding: 18px; /* ✅ 從 16px 稍微增加 */
-            --card-radius: 8px;
-            --border-color: #dee2e6;
-        }
-
-        /* ✅ 導航列優化 - 增加高度和間距 */
+        /* 導覽列樣式 */
         .navbar-admin {
-            background: linear-gradient(90deg, var(--admin-primary), var(--admin-secondary));
-            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+            background: linear-gradient(90deg, var(--theme-primary), var(--theme-primary-dark));
+            box-shadow: 0 2px 15px rgba(139, 176, 247, 0.3);
             height: var(--navbar-height);
             position: fixed;
             top: 0;
@@ -55,114 +63,131 @@
             right: 0;
             z-index: 1030;
             border: none;
+            backdrop-filter: blur(10px);
         }
 
             .navbar-admin .container-fluid {
                 height: 100%;
                 padding: 0 var(--content-padding);
                 max-width: none;
+                display: flex;
+                align-items: center;
             }
 
-        /* ✅ 品牌標識放大 */
         .navbar-brand {
-            font-size: 1.2rem; /* ✅ 從 1.1rem 放大 */
-            font-weight: 600;
-            color: white;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--theme-text-primary) !important;
             text-decoration: none;
             display: flex;
             align-items: center;
-            transition: all 0.2s ease;
-            margin-right: 20px; /* ✅ 增加右邊距 */
+            transition: all 0.3s ease;
+            margin-right: 20px;
+            text-shadow: 0 1px 3px rgba(255, 255, 255, 0.3);
         }
 
             .navbar-brand:hover {
-                color: #e6e6e6;
+                color: white !important;
                 transform: translateY(-1px);
             }
 
             .navbar-brand i {
-                margin-right: 8px; /* ✅ 從 6px 增加 */
-                font-size: 1.1rem; /* ✅ 從 1rem 放大 */
+                margin-right: 8px;
+                font-size: 1.1rem;
             }
 
-        /* ✅ 導航連結放大並增加間距 */
         .navbar-admin .nav-link {
-            color: white;
-            font-weight: 500;
-            padding: 8px 14px; /* ✅ 從 6px 10px 放大 */
-            border-radius: 6px; /* ✅ 從 4px 增加 */
-            transition: all 0.2s ease;
-            margin: 0 4px; /* ✅ 從 2px 增加至 4px */
+            color: var(--theme-text-primary);
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            margin: 0 4px;
             display: flex;
             align-items: center;
-            font-size: 13px; /* ✅ 從 12px 放大 */
-            white-space: nowrap; /* ✅ 防止文字換行 */
+            font-size: 13px;
+            white-space: nowrap;
+            border: 1px solid transparent;
         }
 
             .navbar-admin .nav-link:hover {
-                background: var(--admin-primary-dark);
+                background: rgba(255, 255, 255, 0.2);
                 color: white;
                 transform: translateY(-1px);
-                box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+                box-shadow: 0 4px 12px rgba(107, 143, 247, 0.3);
+                border-color: rgba(255, 255, 255, 0.3);
             }
 
             .navbar-admin .nav-link.active,
             .navbar-admin .nav-link.current-page {
-                background: var(--admin-accent);
+                background: var(--theme-accent);
                 color: white;
-                box-shadow: 0 2px 6px rgba(0,102,204,0.3);
+                box-shadow: 0 3px 10px rgba(107, 143, 247, 0.4);
             }
 
             .navbar-admin .nav-link i {
-                margin-right: 6px; /* ✅ 從 4px 增加 */
-                font-size: 0.9rem; /* ✅ 從 0.8rem 放大 */
+                margin-right: 6px;
+                font-size: 0.9rem;
             }
 
-        /* ✅ 導航項目間距調整 */
         .navbar-nav {
-            gap: 2px; /* ✅ 在導航項目之間增加間距 */
-        }
-
-        /* ✅ 用戶資訊優化 */
-        .user-info {
-            color: #e6e6e6;
-            font-size: 12px; /* ✅ 從 11px 放大 */
-            font-weight: 500;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 4px;
+            gap: 2px;
+            backdrop-filter: blur(5px);
             display: flex;
             align-items: center;
-            padding: 0 12px; /* ✅ 從 8px 增加 */
-            margin-right: 16px; /* ✅ 從 12px 增加 */
-            background: rgba(255,255,255,0.1); /* ✅ 添加背景 */
-            border-radius: 6px; /* ✅ 添加圓角 */
-            height: 36px; /* ✅ 固定高度 */
+            height: 44px;
+        }
+
+        .desktop-menu {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-left: auto;
+            height: 100%;
+        }
+        .user-info {
+            color: var(--theme-text-primary);
+            font-size: 12px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            padding: 0 15px;
+            margin-right: 0px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            height: 36px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
             .user-info i {
-                margin-right: 6px; /* ✅ 從 4px 增加 */
-                font-size: 1rem; /* ✅ 從 0.9rem 放大 */
+                margin-right: 6px;
+                font-size: 1rem;
             }
 
-        /* ✅ 登出按鈕放大 */
         .btn-logout {
             background: transparent;
-            border: 1.5px solid white; /* ✅ 從 1px 增加邊框 */
+            border: 2px solid rgba(255, 255, 255, 0.8);
             color: white;
-            font-weight: 500;
-            padding: 8px 12px; /* ✅ 從 4px 8px 大幅增加 */
-            border-radius: 6px; /* ✅ 從 4px 增加 */
-            transition: all 0.2s ease;
-            font-size: 12px; /* ✅ 從 11px 放大 */
-            height: 36px; /* ✅ 與用戶資訊同高 */
+            font-weight: 600;
+            padding: 8px 15px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-size: 12px;
+            height: 36px;
             display: flex;
             align-items: center;
             justify-content: center;
+            white-space: nowrap;
         }
 
             .btn-logout:hover {
                 background: white;
-                color: var(--admin-primary);
+                color: var(--theme-primary);
                 transform: translateY(-1px);
-                box-shadow: 0 2px 6px rgba(255,255,255,0.3);
+                box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
             }
 
             .btn-logout i {
@@ -170,143 +195,98 @@
                 font-size: 0.9rem;
             }
 
-        /* ✅ 漢堡選單按鈕優化 */
-        .navbar-toggler {
-            border: 1.5px solid white; /* ✅ 從 1px 增加 */
-            padding: 6px 8px; /* ✅ 從 4px 6px 增加 */
-            border-radius: 6px; /* ✅ 從 4px 增加 */
-            transition: all 0.2s ease;
-        }
-
-            .navbar-toggler:hover {
-                background: var(--admin-primary-dark);
-                transform: scale(1.05);
-            }
-
-        .navbar-toggler-icon {
-            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
-            width: 1.1em; /* ✅ 從 1em 放大 */
-            height: 1.1em; /* ✅ 從 1em 放大 */
-        }
-
-        /* ✅ 桌面版選單容器優化 */
-        .desktop-menu {
-            display: flex;
-            align-items: center;
-            gap: 8px; /* ✅ 在所有元素間增加間距 */
-            margin-left: auto;
-        }
-
-        /* ✅ Off-canvas 優化 */
+        /* 手機版側邊選單 */
         .offcanvas-admin {
-            background: linear-gradient(180deg, var(--admin-primary), var(--admin-secondary));
-            width: 240px; /* ✅ 從 220px 稍微增加 */
+            background: linear-gradient(180deg, var(--theme-primary), var(--theme-primary-dark));
+            width: 240px;
             border: none;
         }
 
             .offcanvas-admin .offcanvas-header {
                 justify-content: space-between;
-                padding: 18px; /* ✅ 從 16px 增加 */
-                border-bottom: 1px solid rgba(255,255,255,0.1);
+                padding: 18px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.15);
             }
 
             .offcanvas-admin .offcanvas-title {
-                font-size: 1.1rem; /* ✅ 從 1rem 放大 */
-                font-weight: 600;
+                font-size: 1.1rem;
+                font-weight: 700;
                 color: white;
                 display: flex;
                 align-items: center;
             }
 
                 .offcanvas-admin .offcanvas-title i {
-                    margin-right: 8px; /* ✅ 從 6px 增加 */
-                    font-size: 1.2rem; /* ✅ 從 1.1rem 放大 */
+                    margin-right: 8px;
+                    font-size: 1.2rem;
                 }
 
-        .btn-close-white {
-            filter: brightness(0) invert(1);
-            opacity: 0.8;
-            transition: all 0.2s ease;
-        }
-
-            .btn-close-white:hover {
-                opacity: 1;
-                transform: scale(1.1);
+            .offcanvas-admin .nav-pills .nav-link {
+                color: #1A2332; 
+                font-weight: 500;
+                padding: 12px 16px;
+                margin: 3px 12px;
+                border-radius: 8px;
+                transition: all 0.3s ease;
+                display: flex;
+                align-items: center;
+                border: 1px solid transparent;
+                font-size: 13px;
             }
 
-        /* ✅ 側邊選單導航放大 */
-        .offcanvas-admin .nav-pills .nav-link {
-            color: #e6e6e6;
-            font-weight: 500;
-            padding: 12px 16px; /* ✅ 從 8px 12px 放大 */
-            margin: 3px 12px; /* ✅ 從 2px 10px 增加 */
-            border-radius: 8px; /* ✅ 從 6px 增加 */
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            border: 1px solid transparent;
-            font-size: 13px; /* ✅ 從 12px 放大 */
-        }
+                .offcanvas-admin .nav-pills .nav-link:hover {
+                    background: rgba(255, 255, 255, 0.2);
+                    color: white;
+                    border-color: rgba(255, 255, 255, 0.2);
+                    transform: translateX(4px);
+                }
 
-            .offcanvas-admin .nav-pills .nav-link:hover {
-                background: var(--admin-primary-dark);
-                color: white;
-                border-color: rgba(255,255,255,0.2);
-                transform: translateX(4px);
-            }
+                .offcanvas-admin .nav-pills .nav-link.active,
+                .offcanvas-admin .nav-pills .nav-link.current-page {
+                    background: var(--theme-accent);
+                    color: white;
+                    border-color: var(--theme-accent);
+                }
 
-            .offcanvas-admin .nav-pills .nav-link.active,
-            .offcanvas-admin .nav-pills .nav-link.current-page {
-                background: var(--admin-accent);
-                color: white;
-                border-color: var(--admin-accent);
-            }
+                .offcanvas-admin .nav-pills .nav-link i {
+                    margin-right: 10px;
+                    font-size: 1rem;
+                    width: 18px;
+                    text-align: center;
+                }
 
-            .offcanvas-admin .nav-pills .nav-link i {
-                margin-right: 10px; /* ✅ 從 8px 增加 */
-                font-size: 1rem; /* ✅ 從 0.9rem 放大 */
-                width: 18px; /* ✅ 從 16px 增加 */
-                text-align: center;
-            }
-
-        /* ✅ 側邊選單用戶資訊優化 */
         .offcanvas-user-info {
-            color: #e6e6e6;
-            font-size: 12px; /* ✅ 從 11px 放大 */
+            color: #1A2332;
+            font-size: 12px;
             font-weight: 500;
-            padding: 12px 16px; /* ✅ 從 10px 12px 放大 */
-            margin: 8px 12px; /* ✅ 從 6px 10px 增加 */
-            background: rgba(255,255,255,0.1);
-            border-radius: 8px; /* ✅ 從 6px 增加 */
+            padding: 12px 16px;
+            margin: 8px 12px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
             display: flex;
             align-items: center;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
             .offcanvas-user-info i {
-                margin-right: 8px; /* ✅ 從 6px 增加 */
-                font-size: 1.1rem; /* ✅ 從 1rem 放大 */
+                margin-right: 8px;
+                font-size: 1.1rem;
             }
 
-        /* ✅ 側邊選單登出按鈕優化 */
         .offcanvas-admin .btn-logout {
-            margin: 12px; /* ✅ 從 10px 增加 */
-            width: calc(100% - 24px); /* ✅ 從 20px 增加 */
-            height: 40px; /* ✅ 固定高度 */
+            margin: 12px;
+            width: calc(100% - 24px);
+            height: 40px;
             justify-content: center;
             display: flex;
             align-items: center;
         }
 
-            .offcanvas-admin .btn-logout i {
-                margin-right: 8px; /* ✅ 從 6px 增加 */
-            }
-
-        /* ✅ 主內容區域 */
+        /* 主要內容區域 */
         .main-content {
             padding: 0;
             margin: 0;
-            background: transparent;
+            background: var(--theme-bg-main);
             width: 100%;
             min-height: calc(100vh - var(--navbar-height));
         }
@@ -318,88 +298,84 @@
                 width: 100%;
             }
 
-        /* ✅ 響應式設計調整 */
-        .mobile-responsive .navbar-brand {
+        /* 卡片樣式 */
+        .card-header {
+            background: var(--theme-primary-light);
+            border-bottom: 1px solid var(--theme-border);
+            color: var(--theme-text-primary);
+            font-weight: 600;
+        }
+
+        /* 響應式設計 */
+        @@media (max-width: 768px) {
+            .navbar-brand
+
+        {
             font-size: 1.1rem;
             margin-right: 12px;
         }
 
-        .mobile-responsive .navbar-admin .nav-link {
+        .navbar-admin .nav-link {
             padding: 6px 8px;
             font-size: 12px;
             margin: 0 2px;
         }
 
-        .mobile-responsive .main-content .container-fluid {
+        .main-content .container-fluid {
             padding: 14px;
         }
 
-        .small-responsive .navbar-brand {
+        }
+
+        @@media (max-width: 576px) {
+            .navbar-brand
+
+        {
             font-size: 1rem;
             margin-right: 8px;
         }
 
-        .small-responsive .user-info {
+        .user-info {
             font-size: 11px;
             padding: 0 8px;
             margin-right: 8px;
         }
 
-        .small-responsive .btn-logout {
+        .btn-logout {
             font-size: 11px;
             padding: 6px 8px;
         }
 
-        .small-responsive .main-content .container-fluid {
+        .main-content .container-fluid {
             padding: 10px;
+        }
+
         }
     </style>
 
-    <script>
-        function handleResponsive() {
-            const body = document.body;
-            const width = window.innerWidth;
-
-            body.classList.remove('mobile-responsive', 'small-responsive');
-
-            if (width <= 576) {
-                body.classList.add('small-responsive');
-            } else if (width <= 768) {
-                body.classList.add('mobile-responsive');
-            }
-        }
-
-        window.addEventListener('load', handleResponsive);
-        window.addEventListener('resize', handleResponsive);
-    </script>
     @RenderSection("styles", required: false)
 </head>
 <body>
-    <!-- ✅ 優化後的導覽列 -->
+    <!-- 導覽列 -->
     <nav class="navbar navbar-expand-lg navbar-dark navbar-admin">
         <div class="container-fluid">
-            <!-- Logo 和品牌名稱 -->
             <a class="navbar-brand" href="/Home/Index">
                 <i class="bi bi-building"></i>
                 社區包裹管理系統
             </a>
 
-            <!-- 漢堡選單按鈕 (小螢幕) -->
             <button class="navbar-toggler d-lg-none"
                     type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#adminMenu" aria-controls="adminMenu">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <!-- ✅ 桌面版選單 - 優化佈局和間距 -->
             <div class="d-none d-lg-flex desktop-menu">
-                <!-- 用戶資訊 -->
                 <div class="user-info">
                     <i class="bi bi-person-circle"></i>
                     您好，@User.Identity.Name
                 </div>
 
-                <!-- 導航連結 -->
                 <ul class="navbar-nav flex-row align-items-center">
                     <li class="nav-item">
                         <a class="nav-link" href="/Home/Index" id="nav-index">
@@ -413,7 +389,6 @@
                     </li>
                 </ul>
 
-                <!-- 登出按鈕 -->
                 <button id="btnLogoutLg" class="btn btn-logout">
                     <i class="bi bi-box-arrow-right"></i>登出
                 </button>
@@ -421,7 +396,7 @@
         </div>
     </nav>
 
-    <!-- ✅ 優化後的 Off-canvas 側邊選單 -->
+    <!-- 手機版側邊選單 -->
     <div class="offcanvas offcanvas-start offcanvas-admin d-lg-none"
          tabindex="-1" id="adminMenu" aria-labelledby="adminMenuLabel">
         <div class="offcanvas-header">
@@ -431,13 +406,11 @@
             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
         </div>
         <div class="offcanvas-body p-0">
-            <!-- 用戶資訊 -->
             <div class="offcanvas-user-info">
                 <i class="bi bi-person-circle"></i>
                 您好，@User.Identity.Name
             </div>
 
-            <!-- 導航選單 -->
             <ul class="nav nav-pills flex-column">
                 <li class="nav-item">
                     <a class="nav-link" href="/Home/Index" id="mobile-nav-index">
@@ -451,25 +424,22 @@
                 </li>
             </ul>
 
-            <!-- 登出按鈕 -->
             <button id="btnLogoutSm" class="btn btn-logout mt-3">
                 <i class="bi bi-box-arrow-right"></i>登出系統
             </button>
         </div>
     </div>
 
-    <!-- ✅ 主內容區域 -->
+    <!-- 主內容區域 -->
     <div class="main-content">
         @RenderBody()
     </div>
 
-    <!-- ✅ JavaScript 和腳本 -->
     @Html.AntiForgeryToken()
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="~/Scripts/common-jwt.js"></script>
 
-    <!-- ✅ 登出功能腳本 -->
     <script>
         const doLogout = () => {
             if (confirm('確定要登出系統嗎？')) {
@@ -483,23 +453,16 @@
 
         document.getElementById('btnLogoutLg')?.addEventListener('click', doLogout);
         document.getElementById('btnLogoutSm')?.addEventListener('click', doLogout);
-    </script>
 
-    <!-- ✅ 活動頁面指示器腳本 -->
-    <script>
         document.addEventListener('DOMContentLoaded', function() {
             const currentPath = window.location.pathname;
 
-            // 桌面版導航
             if (currentPath.includes('/Home/Index')) {
                 document.getElementById('nav-index')?.classList.add('current-page');
                 document.getElementById('mobile-nav-index')?.classList.add('current-page');
             } else if (currentPath.includes('/Home/Packages')) {
                 document.getElementById('nav-packages')?.classList.add('current-page');
                 document.getElementById('mobile-nav-packages')?.classList.add('current-page');
-            } else if (currentPath.includes('/Residents')) {
-                document.getElementById('nav-residents')?.classList.add('current-page');
-                document.getElementById('mobile-nav-residents')?.classList.add('current-page');
             }
         });
     </script>

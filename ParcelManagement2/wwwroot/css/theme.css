@@ -1,0 +1,59 @@
+﻿/* 全域主題色變數 */
+:root {
+    /* B4CAFA 主題色系 */
+    --theme-primary: #B4CAFA;
+    --theme-primary-dark: #8BB0F7;
+    --theme-primary-light: #D6E5FD;
+    --theme-secondary: #A8E6CF;
+    --theme-accent: #7CC3F0;
+    /* 背景色系 */
+    --theme-bg-main: linear-gradient(135deg, #E8F4FD 0%, #F0F9FF 50%, #F8F0FF 100%);
+    --theme-bg-light: #F8FCFF;
+    --theme-bg-card: rgba(255, 255, 255, 0.95);
+    /* 邊框與分隔線 */
+    --theme-border: #A0BDF8;
+    --theme-border-light: #D6E5FD;
+    /* 文字色彩（確保清晰可讀）*/
+    --theme-text-primary: #1A2332;
+    --theme-text-secondary: #4A5568;
+    --theme-text-muted: #718096;
+    /* 表頭與導航 */
+    --theme-header-bg: var(--theme-primary);
+    --theme-header-text: #1A2332;
+    --theme-nav-bg: var(--theme-primary-light);
+    /* 保持原有功能色 */
+    --status-success: #27ae60;
+    --status-warning: #f39c12;
+    --status-danger: #e74c3c;
+    --status-info: #17a2b8;
+    /* 陰影效果 */
+    --theme-shadow: 0 2px 10px rgba(139, 176, 247, 0.15);
+    --theme-shadow-hover: 0 4px 20px rgba(139, 176, 247, 0.25);
+}
+
+/* 全域樣式覆蓋 */
+body {
+    background: var(--theme-bg-main) !important;
+    background-attachment: fixed !important;
+}
+
+.card, .modal-content {
+    background: var(--theme-bg-card) !important;
+    border: 1px solid var(--theme-border-light) !important;
+    box-shadow: var(--theme-shadow) !important;
+}
+
+.table thead th {
+    background: var(--theme-header-bg) !important;
+    color: var(--theme-header-text) !important;
+}
+
+.nav-tabs .nav-link.active {
+    background: var(--theme-primary) !important;
+    border-color: var(--theme-primary) !important;
+    color: var(--theme-text-primary) !important;
+}
+
+.border-primary {
+    border-color: var(--theme-border) !important;
+}

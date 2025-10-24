@@ -11,387 +11,432 @@
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 
     <style>
-        /* ✅ CSS變數定義 - 比照Packages色系 */
         :root {
-            --admin-primary: #2c3e50;
-            --admin-secondary: #34495e;
-            --admin-primary-dark: #1a252f;
-            --admin-accent: #3498db;
-            --admin-light: #7f8c8d;
-            --border-color: #bdc3c7;
-            --card-radius: 12px;
+            --primary: #B4CAFA;
+            --primary-dark: #8BB0F7;
+            --primary-light: #D6E5FD;
+            --secondary: #A8E6CF;
+            --accent: #FFD93D;
+            --text-primary: #2C3E50;
+            --text-secondary: #5A6C7D;
+            --border-color: #A0BDF8;
+            --card-radius: 16px;
             --status-pending: #e74c3c;
             --status-collected: #27ae60;
         }
 
-        /* ✅ 重置所有邊距和填充 */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        /* ✅ HTML 和 Body 充滿全螢幕 */
         html, body {
             height: 100%;
             width: 100%;
             overflow-x: hidden;
         }
 
-        /* ✅ Body 背景和佈局 - 使用深色主題 */
         body {
-            background: linear-gradient(135deg, var(--admin-primary) 0%, var(--admin-secondary) 100%);
+            background: linear-gradient(135deg, #E8F4FD 0%, #F0F9FF 25%, #FEFCBF 50%, #E8F5E8 75%, #F8F0FF 100% );
+            background-attachment: fixed;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             display: flex;
             align-items: center;
             justify-content: center;
             min-height: 100vh;
             position: relative;
+            animation: backgroundShift 20s ease-in-out infinite;
         }
 
-        /* ✅ 登入容器 - 深色主題風格 */
+        @@keyframes backgroundShift {
+            0%, 100%
+
+        {
+            background: linear-gradient(135deg, #E8F4FD 0%, #F0F9FF 25%, #FEFCBF 50%, #E8F5E8 75%, #F8F0FF 100%);
+        }
+
+        50% {
+            background: linear-gradient(135deg, #F8F0FF 0%, #E8F5E8 25%, #E8F4FD 50%, #FEFCBF 75%, #F0F9FF 100%);
+        }
+
+        }
+
+        /* 大氣泡背景效果 */
+        .big-bubble {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: auto;
+            z-index: 1;
+            cursor: pointer;
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+            .big-bubble:nth-child(1) {
+                width: 200px;
+                height: 200px;
+                background: radial-gradient(circle at 30% 30%, rgba(180, 202, 250, 0.4), rgba(180, 202, 250, 0.1));
+                top: 15%;
+                left: 10%;
+                animation: floatBig 12s ease-in-out infinite;
+                backdrop-filter: blur(2px);
+            }
+
+            .big-bubble:nth-child(2) {
+                width: 150px;
+                height: 150px;
+                background: radial-gradient(circle at 30% 30%, rgba(168, 230, 207, 0.35), rgba(168, 230, 207, 0.1));
+                top: 20%;
+                right: 15%;
+                animation: floatBig 15s ease-in-out infinite reverse;
+                backdrop-filter: blur(2px);
+            }
+
+            .big-bubble:nth-child(3) {
+                width: 180px;
+                height: 180px;
+                background: radial-gradient(circle at 30% 30%, rgba(255, 217, 61, 0.3), rgba(255, 217, 61, 0.08));
+                bottom: 25%;
+                left: 15%;
+                animation: floatBig 18s ease-in-out infinite;
+                backdrop-filter: blur(2px);
+            }
+
+            .big-bubble:nth-child(4) {
+                width: 120px;
+                height: 120px;
+                background: radial-gradient(circle at 30% 30%, rgba(255, 182, 193, 0.4), rgba(255, 182, 193, 0.1));
+                bottom: 15%;
+                right: 20%;
+                animation: floatBig 14s ease-in-out infinite reverse;
+                backdrop-filter: blur(2px);
+            }
+
+            .big-bubble:hover {
+                transform: scale(1.3) translateY(-20px);
+                filter: brightness(1.2);
+                box-shadow: 0 20px 40px rgba(180, 202, 250, 0.3), inset 0 0 20px rgba(255, 255, 255, 0.3);
+            }
+
+            .big-bubble:active {
+                transform: scale(0.9);
+            }
+
+        @@keyframes floatBig {
+            0%, 100%
+
+        {
+            transform: translate(0, 0) scale(1);
+            opacity: 0.7;
+        }
+
+        25% {
+            transform: translate(30px, -40px) scale(1.1);
+            opacity: 0.9;
+        }
+
+        50% {
+            transform: translate(-20px, -30px) scale(0.9);
+            opacity: 0.6;
+        }
+
+        75% {
+            transform: translate(15px, -50px) scale(1.05);
+            opacity: 0.8;
+        }
+
+        }
+
         #LoginApp {
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(15px);
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(25px);
             border-radius: var(--card-radius);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-            padding: 40px;
+            box-shadow: 0 25px 50px rgba(139, 176, 247, 0.25), 0 10px 25px rgba(168, 230, 207, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 0 0 1px rgba(255, 255, 255, 0.3);
+            padding: 45px;
             width: 100%;
-            max-width: 420px;
+            max-width: 450px;
             margin: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
             position: relative;
-            z-index: 2;
+            z-index: 10;
+            border: 2px solid rgba(180, 202, 250, 0.2);
         }
 
-        /* ✅ 標題優化 - 使用主色調 */
         .login-title {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--admin-primary);
-            margin-bottom: 8px;
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary-dark);
+            margin-bottom: 12px;
             text-align: center;
+            text-shadow: 0 2px 8px rgba(139, 176, 247, 0.3);
+            letter-spacing: -0.5px;
         }
 
         .login-subtitle {
-            color: var(--admin-light);
-            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-size: 1rem;
             font-weight: 500;
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 35px;
+            opacity: 0.8;
         }
 
-        /* ✅ 表單標籤優化 */
         .form-label {
-            font-weight: 600;
-            color: var(--admin-primary);
-            font-size: 14px;
-            margin-bottom: 8px;
+            font-weight: 700;
+            color: var(--text-primary);
+            font-size: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        /* ✅ 輸入框優化 - 深色主題風格 */
+            .form-label::before {
+                content: '●';
+                color: var(--primary);
+                font-size: 12px;
+            }
+
         .form-control {
-            padding: 12px 16px;
+            padding: 16px 20px;
             border: 2px solid var(--border-color);
-            border-radius: 8px;
-            font-size: 15px;
-            transition: all 0.3s ease;
-            background: white;
-            color: var(--admin-primary);
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.4s ease;
+            background: rgba(255, 255, 255, 0.95);
+            color: var(--text-primary);
+            backdrop-filter: blur(10px);
+            box-shadow: inset 0 2px 4px rgba(180, 202, 250, 0.1);
         }
 
             .form-control:focus {
-                border-color: var(--admin-accent);
-                box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.15);
-                transform: translateY(-1px);
+                border-color: var(--primary);
+                box-shadow: 0 0 0 4px rgba(180, 202, 250, 0.2), 0 8px 25px rgba(139, 176, 247, 0.15), inset 0 2px 4px rgba(180, 202, 250, 0.1);
+                transform: translateY(-2px);
                 outline: none;
+                background: rgba(255, 255, 255, 0.98);
             }
 
             .form-control::placeholder {
-                color: var(--admin-light);
+                color: var(--text-secondary);
                 font-weight: 400;
+                opacity: 0.7;
             }
 
-        /* ✅ 表單組間距 */
+            .form-control:hover {
+                border-color: var(--primary-dark);
+                background: rgba(255, 255, 255, 0.98);
+                transform: translateY(-1px);
+                box-shadow: 0 4px 15px rgba(139, 176, 247, 0.1), inset 0 2px 4px rgba(180, 202, 250, 0.1);
+            }
+
         .mb-3 {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
-        /* ✅ 登入按鈕優化 - 使用主色系 */
         .btn-login {
-            background: linear-gradient(135deg, var(--admin-primary) 0%, var(--admin-secondary) 100%);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 50%, var(--secondary) 100%);
             border: none;
-            border-radius: 8px;
+            border-radius: 12px;
             color: white;
-            font-size: 16px;
-            font-weight: 600;
-            padding: 14px;
-            transition: all 0.3s ease;
+            font-size: 17px;
+            font-weight: 700;
+            padding: 16px;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             position: relative;
             overflow: hidden;
+            box-shadow: 0 6px 20px rgba(139, 176, 247, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
             .btn-login:hover {
-                background: linear-gradient(135deg, var(--admin-primary-dark) 0%, var(--admin-primary) 100%);
-                transform: translateY(-2px);
-                box-shadow: 0 10px 25px rgba(44, 62, 80, 0.3);
+                background: linear-gradient(135deg, var(--primary-dark) 0%, #6B8FF7 50%, var(--secondary) 100%);
+                transform: translateY(-3px) scale(1.02);
+                box-shadow: 0 12px 35px rgba(139, 176, 247, 0.5), 0 6px 20px rgba(168, 230, 207, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.4);
             }
 
             .btn-login:active {
-                transform: translateY(0);
+                transform: translateY(-1px) scale(1.01);
             }
 
             .btn-login:focus {
-                box-shadow: 0 0 0 3px rgba(44, 62, 80, 0.3);
+                box-shadow: 0 0 0 4px rgba(180, 202, 250, 0.3), 0 12px 35px rgba(139, 176, 247, 0.5);
                 outline: none;
             }
 
-            /* ✅ 載入按鈕狀態 */
             .btn-login:disabled {
-                background: var(--admin-light);
+                background: linear-gradient(135deg, #9CA3AF, #6B7280);
                 cursor: not-allowed;
                 transform: none;
             }
 
-        /* ✅ 載入 spinner 優化 */
         .spinner-border-sm {
-            width: 1rem;
-            height: 1rem;
+            width: 1.2rem;
+            height: 1.2rem;
         }
 
-        /* ✅ 錯誤訊息優化 - 使用主色系 */
         .alert-danger {
-            background: rgba(231, 76, 60, 0.1);
-            border: 1px solid var(--status-pending);
-            color: #c0392b;
-            border-radius: 8px;
+            background: rgba(239, 68, 68, 0.1);
+            border: 2px solid #FCA5A5;
+            color: #DC2626;
+            border-radius: 12px;
             font-size: 14px;
-            padding: 12px 16px;
+            padding: 16px 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.1);
         }
 
-        /* ✅ 帳號提示優化 - 使用主色系 */
         .login-hint {
             text-align: center;
-            margin-top: 25px;
-            padding: 15px;
-            background: rgba(52, 152, 219, 0.1);
-            border-radius: 8px;
-            border-left: 4px solid var(--admin-accent);
+            margin-top: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(180, 202, 250, 0.15), rgba(168, 230, 207, 0.1));
+            border-radius: 12px;
+            border: 2px solid rgba(180, 202, 250, 0.2);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
         }
+
+            .login-hint::before {
+                content: '💡';
+                position: absolute;
+                top: 10px;
+                right: 15px;
+                font-size: 18px;
+                opacity: 0.7;
+            }
 
             .login-hint small {
-                color: var(--admin-accent);
-                font-weight: 500;
+                color: var(--primary-dark);
+                font-weight: 600;
+                font-size: 14px;
             }
 
-        /* ✅ 版權資訊 - 深色主題 */
         .copyright {
             position: absolute;
-            bottom: 20px;
+            bottom: 25px;
             left: 50%;
             transform: translateX(-50%);
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 12px;
+            color: var(--text-primary);
+            font-size: 13px;
             text-align: center;
-            z-index: 1;
-            font-weight: 500;
+            z-index: 5;
+            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(255, 255, 255, 0.8);
+            opacity: 0.8;
         }
 
-        /* ✅ 裝飾性背景元素 - 深色主題 */
-        .bg-decoration {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.05);
-            z-index: 1;
-        }
-
-            .bg-decoration.top-left {
-                top: -100px;
-                left: -100px;
-                width: 200px;
-                height: 200px;
-                background: rgba(52, 152, 219, 0.1);
-            }
-
-            .bg-decoration.bottom-right {
-                bottom: -100px;
-                right: -100px;
-                width: 150px;
-                height: 150px;
-                background: rgba(255, 255, 255, 0.05);
-            }
-
-            /* ✅ 添加更多裝飾元素 */
-            .bg-decoration.middle-left {
-                top: 50%;
-                left: -50px;
-                width: 100px;
-                height: 100px;
-                background: rgba(52, 62, 80, 0.1);
-                transform: translateY(-50%);
-            }
-
-            .bg-decoration.top-right {
-                top: -50px;
-                right: -50px;
-                width: 120px;
-                height: 120px;
-                background: rgba(52, 152, 219, 0.08);
-            }
-
-        /* ✅ 輸入框聚焦效果增強 */
-        .form-control:hover {
-            border-color: var(--admin-secondary);
-        }
-
-        /* ✅ 按鈕載入狀態動畫 */
-        .btn-login .spinner-border {
-            color: rgba(255, 255, 255, 0.8);
-        }
-
-        /* ✅ 表單容器陰影效果 */
         #LoginApp::before {
             content: '';
             position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, var(--admin-accent), var(--admin-primary), var(--admin-secondary));
-            border-radius: calc(var(--card-radius) + 2px);
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary), var(--accent), var(--primary-light));
+            border-radius: calc(var(--card-radius) + 3px);
             z-index: -1;
             opacity: 0.1;
+            filter: blur(1px);
         }
 
-        /* ✅ 響應式設計 */
-        .mobile-responsive #LoginApp {
-            padding: 30px 25px;
+        .fade-in {
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @@media (max-width: 768px) {
+            .big-bubble:nth-child(1)
+
+        {
+            width: 120px;
+            height: 120px;
+        }
+
+        .big-bubble:nth-child(2) {
+            width: 100px;
+            height: 100px;
+        }
+
+        .big-bubble:nth-child(3) {
+            width: 110px;
+            height: 110px;
+        }
+
+        .big-bubble:nth-child(4) {
+            width: 80px;
+            height: 80px;
+        }
+
+        }
+
+        @@media (max-width: 480px) {
+            #LoginApp
+
+        {
+            padding: 35px 30px;
             margin: 15px;
-            border-radius: 10px;
+            border-radius: 14px;
         }
 
-        .mobile-responsive .login-title {
+        .login-title {
+            font-size: 1.7rem;
+        }
+
+        .form-control {
+            padding: 14px 18px;
+            font-size: 15px;
+        }
+
+        .btn-login {
+            padding: 14px;
+            font-size: 16px;
+        }
+
+        .big-bubble {
+            display: none;
+        }
+
+        }
+
+        @@media (max-width: 320px) {
+            #LoginApp
+
+        {
+            padding: 30px 25px;
+            margin: 10px;
+            border-radius: 12px;
+        }
+
+        .login-title {
             font-size: 1.5rem;
         }
 
-        .mobile-responsive .form-control {
-            padding: 10px 14px;
+        .form-control {
+            padding: 12px 16px;
             font-size: 14px;
         }
 
-        .mobile-responsive .btn-login {
+        .btn-login {
             padding: 12px;
             font-size: 15px;
         }
 
-        .small-responsive #LoginApp {
-            padding: 25px 20px;
-            margin: 10px;
-            border-radius: 8px;
-        }
-
-        .small-responsive .login-title {
-            font-size: 1.3rem;
-        }
-
-        .small-responsive .form-control {
-            padding: 8px 12px;
-            font-size: 13px;
-        }
-
-        .small-responsive .btn-login {
-            padding: 10px;
-            font-size: 14px;
-        }
-
-        /* ✅ 動畫效果 - 優化 */
-        .fade-in {
-            animation: fadeInUp 0.8s ease-out;
-        }
-
-        @@keyframes fadeInUp {
-            from
-
-        {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        }
-
-        .animated-fade {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-
-            .animated-fade.show {
-                opacity: 1;
-                transform: translateY(0);
-            }
-
-        /* ✅ 輸入框圖標效果 */
-        .input-group {
-            position: relative;
-        }
-
-        .input-icon {
-            position: absolute;
-            left: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--admin-light);
-            z-index: 3;
-            font-size: 16px;
-        }
-
-        .form-control.with-icon {
-            padding-left: 45px;
-        }
-
-        /* ✅ 登入按鈕懸浮效果 */
-        .btn-login::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transition: left 0.5s;
-        }
-
-        .btn-login:hover::before {
-            left: 100%;
-        }
-
-        /* ✅ 標題下劃線效果 */
-        .login-title::after {
-            content: '';
-            display: block;
-            width: 50px;
-            height: 3px;
-            background: var(--admin-accent);
-            margin: 10px auto;
-            border-radius: 2px;
         }
     </style>
+
+
+
 </head>
 <body>
-    <!-- ✅ 裝飾性背景元素 -->
-    <div class="bg-decoration top-left"></div>
-    <div class="bg-decoration bottom-right"></div>
-    <div class="bg-decoration middle-left"></div>
-    <div class="bg-decoration top-right"></div>
+    <div class="big-bubble"></div>
+    <div class="big-bubble"></div>
+    <div class="big-bubble"></div>
+    <div class="big-bubble"></div>
 
-    <!-- ✅ 登入應用容器 -->
+
     <div id="LoginApp" class="animated-fade">
-        <!-- ✅ 系統標題 -->
+
         <h1 class="login-title">系統登入</h1>
         <p class="login-subtitle">社區包裹管理系統</p>
 
@@ -438,22 +483,20 @@
             </button>
         </form>
 
-        <!-- ✅ 帳號提示區域 -->
+        <!-- 帳號提示區域 -->
         <div class="login-hint">
             <small class="text-muted">請使用您的系統帳號登入</small>
         </div>
     </div>
 
-    <!-- ✅ 版權資訊 -->
+    <!-- 版權資訊 -->
     <div class="copyright">
         © 2025 社區包裹管理系統. All rights reserved.
     </div>
 
-    <!-- ✅ JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
-        // ✅ 響應式處理
         function handleResponsive() {
             const body = document.body;
             const width = window.innerWidth;
@@ -467,7 +510,7 @@
             }
         }
 
-        // ✅ 頁面載入動畫
+        // 頁面載入動畫
         document.addEventListener('DOMContentLoaded', function() {
             handleResponsive();
             window.addEventListener('resize', handleResponsive);

@@ -4,228 +4,616 @@
 
 <script src="https://cdn.jsdelivr.net/npm/vue@3.2.31/dist/vue.global.prod.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+@{
+    ViewBag.Title = ViewBag.Title ?? "社區包裹統計首頁";
+}
+
+<script src="https://cdn.jsdelivr.net/npm/vue@3.2.31/dist/vue.global.prod.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 <style>
-    /* 頁面標題區域 */
+    :root {
+        --theme-primary: #B4CAFA;
+        --theme-primary-dark: #8BB0F7;
+        --theme-accent: #6B8FF7;
+        --theme-border: #A0BDF8;
+        --theme-text-primary: #1A2332;
+        --theme-text-secondary: #4A5568;
+        --status-pending: #dc3545;
+        --status-collected: #22c55e;
+        --card-radius: 16px;
+    }
+
+    /* 添加全局動畫效果 */
+    * {
+        transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
     .page-header {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        margin-bottom: 16px; 
-        padding: 0 4px;
+        margin-bottom: 24px;
+        padding: 0 8px;
+        animation: slideInFromTop 0.8s ease-out;
+    }
+
+    @@keyframes slideInFromTop {
+        from
+
+    {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
     }
 
     .page-title {
-        font-size: 1.4rem;
-        font-weight: 600;
-        color: var(--admin-primary);
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: var(--theme-text-primary);
         margin: 0;
         display: flex;
         align-items: center;
+        text-shadow: 0 2px 4px rgba(180, 202, 250, 0.3);
     }
 
         .page-title i {
-            margin-right: 10px;
-            color: var(--admin-accent);
-            font-size: 1.2rem;
+            margin-right: 12px;
+            color: var(--theme-accent);
+            font-size: 1.3rem;
+            animation: bounce 2s ease-in-out infinite;
         }
 
-    /* 統一的卡片設計 */
-    .admin-card {
-        background: white;
-        border: 1px solid var(--border-color);
-        border-radius: var(--card-radius);
-        box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-        transition: all 0.2s ease;
-        padding: 20px;
-        margin-bottom: 20px;
+    @@keyframes bounce {
+        0%, 100%
+
+    {
+        transform: translateY(0);
     }
 
-        .admin-card:hover {
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            transform: translateY(-1px);
+    50% {
+        transform: translateY(-5px);
+    }
+
+    }
+
+    .admin-card {
+        background: rgba(255, 255, 255, 0.95);
+        border: 1px solid var(--theme-border);
+        border-radius: var(--card-radius);
+        box-shadow: 0 4px 15px rgba(139, 176, 247, 0.2);
+        transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        padding: 24px;
+        margin-bottom: 24px;
+        backdrop-filter: blur(12px);
+        position: relative;
+        overflow: hidden;
+        animation: fadeInUp 0.6s ease-out;
+    }
+
+        .admin-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--theme-primary), var(--theme-accent), var(--status-collected));
+            animation: shimmer 3s ease-in-out infinite;
         }
+
+    @@keyframes shimmer {
+        0%
+
+    {
+        left: -100%;
+    }
+
+    50% {
+        left: 100%;
+    }
+
+    100% {
+        left: 100%;
+    }
+
+    }
+
+    @@keyframes fadeInUp {
+        from
+
+    {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    }
+
+    .admin-card:hover {
+        box-shadow: 0 8px 30px rgba(139, 176, 247, 0.3);
+        transform: translateY(-4px) scale(1.02);
+        border-color: var(--theme-accent);
+    }
 
     .admin-table-container {
-        background: white;
+        background: rgba(255, 255, 255, 0.95);
         border-radius: var(--card-radius);
         overflow: hidden;
-        box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-        border: 1px solid var(--border-color);
-        margin-bottom: 20px;
+        box-shadow: 0 4px 20px rgba(139, 176, 247, 0.25);
+        border: 1px solid var(--theme-border);
+        margin-bottom: 24px;
+        backdrop-filter: blur(12px);
+        animation: fadeInUp 0.8s ease-out;
+        animation-delay: 0.2s;
+        animation-fill-mode: both;
     }
 
-    /* 統計卡片 */
     .stats-card {
-        background: linear-gradient(135deg, var(--admin-primary), var(--admin-secondary));
+        background: linear-gradient(135deg, #5A6CF3 0%, #4C63D2 50%, #667EEA 100%);
         color: white;
         border-radius: var(--card-radius);
-        padding: 15px; 
-        margin-bottom: 14px; 
-        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        padding: 28px;
+        margin-bottom: 24px;
+        box-shadow: 0 8px 30px rgba(90, 108, 243, 0.4);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        position: relative;
+        overflow: hidden;
+        animation: fadeInUp 0.6s ease-out;
+        transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
+
+        .stats-card:hover {
+            transform: translateY(-2px) scale(1.01);
+            box-shadow: 0 12px 40px rgba(90, 108, 243, 0.5);
+        }
+
+        .stats-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 0%, rgba(255, 255, 255, 0.1) 50%, transparent 100%);
+            animation: wave 4s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+    @@keyframes wave {
+        0%, 100%
+
+    {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    }
+
     .stats-item {
-        padding: 10px 5px;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        border-radius: 12px;
+        padding: 16px 8px;
     }
+
+        .stats-item:hover {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
     .stats-number {
-        font-size: 1.5rem; 
-        font-weight:bold;
+        font-size: 2.2rem;
+        font-weight: 900;
         line-height: 1;
-        margin-bottom: 0.5rem; 
+        margin-bottom: 8px;
+        text-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+        color: white;
+        animation: countUp 0.8s ease-out;
+        transition: all 0.3s ease;
+    }
+
+    @@keyframes countUp {
+        from
+
+    {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    }
+
+    .stats-number:hover {
+        transform: scale(1.1);
     }
 
     .stats-label {
-        font-size: 0.85rem;
-        opacity: 0.9;
+        font-size: 0.95rem;
         margin: 0;
-        font-weight: 500;
-        line-height: 1.2;
+        font-weight: 600;
+        line-height: 1.3;
+        color: rgba(255, 255, 255, 0.95);
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
     }
 
-    /* 統計區域內間距調整 */
+        .stats-label i {
+            font-size: 1rem;
+            margin-right: 6px;
+            color: rgba(255, 255, 255, 0.9);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+    @@keyframes pulse {
+        0%, 100%
+
+    {
+        transform: scale(1);
+        opacity: 0.9;
+    }
+
+    50% {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+
+    }
+
+    /* 統計數字顏色 */
+    .stats-card .stats-number[style*="#DC3545"] {
+        color: #FFB3BA !important;
+        text-shadow: 0 3px 8px rgba(255, 179, 186, 0.4);
+        animation: glow-red 2s ease-in-out infinite alternate;
+    }
+
+    @@keyframes glow-red {
+        from
+
+    {
+            text-shadow: 0 3px 8px rgba(255, 179, 186, 0.4), 0 0 15px rgba(255, 179, 186, 0.3);
+    }
+
+    to {
+            text-shadow: 0 3px 8px rgba(255, 179, 186, 0.6), 0 0 20px rgba(255, 179, 186, 0.5);
+    }
+
+    }
+
+    .stats-card .stats-number[style*="#22c55e"] {
+        color: #90EE90 !important;
+        text-shadow: 0 3px 8px rgba(144, 238, 144, 0.4);
+        animation: glow-green 2s ease-in-out infinite alternate;
+    }
+
+    @@keyframes glow-green {
+        from
+
+    {
+            text-shadow: 0 3px 8px rgba(144, 238, 144, 0.4), 0 0 15px rgba(144, 238, 144, 0.3);
+    }
+
+    to {
+            text-shadow: 0 3px 8px rgba(144, 238, 144, 0.6), 0 0 20px rgba(144, 238, 144, 0.5);
+    }
+
+    }
+
+    .stats-card .stats-label[style*="#DC3545"] {
+        color: #FFB3BA !important;
+    }
+
+    .stats-card .stats-label[style*="#22c55e"] {
+        color: #90EE90 !important;
+    }
+
     .stats-card .row {
         margin: 0;
     }
 
     .stats-card .col-md-4 {
-        padding: 8px 15px; 
+        padding: 12px 16px;
     }
 
-    /* 統計圖標優化 */
-    .stats-label i {
-        font-size: 0.8rem; /* 圖標 */
-        margin-right: 0.3rem; /* 圖標間距 */
+    /* 表格樣式 */
+    .table {
+        animation: fadeIn 1s ease-out;
     }
 
-    /* 表格大小 */
-    .table th,
-    .table td {
-        vertical-align: middle;
-        text-align: center;
-        padding: 16px 12px;
-        border: 1px solid #e9ecef;
-        font-size: 15px;
-        line-height: 1.4;
-    }
-
-    .table th {
-        background: var(--admin-primary);
-        color: white;
-        font-weight: 600;
-        white-space: nowrap;
-        border-color: var(--admin-primary);
-        font-size: 15px;
-    }
-
-        .table th i {
-            margin-right: 8px;
+        .table th,
+        .table td {
             vertical-align: middle;
-            font-size: 14px;
+            text-align: center;
+            padding: 18px 14px;
+            border: 1px solid var(--theme-border);
+            font-size: 15px;
+            line-height: 1.4;
+            transition: all 0.3s ease;
         }
+
+        .table th {
+            background: linear-gradient(135deg, var(--theme-primary), var(--theme-primary-dark));
+            color: var(--theme-text-primary);
+            font-weight: 700;
+            white-space: nowrap;
+            border-color: var(--theme-primary);
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+            .table th::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+                animation: headerShine 3s ease-in-out infinite;
+            }
+
+    @@keyframes headerShine {
+        0%
+
+    {
+        left: -100%;
+    }
+
+    50% {
+        left: 100%;
+    }
+
+    100% {
+        left: 100%;
+    }
+
+    }
+
+    .table th i {
+        margin-right: 8px;
+        vertical-align: middle;
+        font-size: 16px;
+        animation: wiggle 3s ease-in-out infinite;
+    }
+
+    @@keyframes wiggle {
+        0%, 100%
+
+    {
+        transform: rotate(0deg);
+    }
+
+    25% {
+        transform: rotate(2deg);
+    }
+
+    75% {
+        transform: rotate(-2deg);
+    }
+
+    }
 
     .table tbody tr {
-        transition: all 0.2s ease;
+        transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        background: rgba(255, 255, 255, 0.8);
+        animation: slideInFromLeft 0.6s ease-out;
+        animation-fill-mode: both;
     }
 
-        .table tbody tr:hover {
-            background-color: rgba(0,102,204,0.05);
-            transform: translateY(-1px);
+        .table tbody tr:nth-child(odd) {
+            animation-delay: 0.1s;
         }
 
-    /* 統計連結大小 */
-    .stat-link {
-        text-decoration: none;
-        padding: 6px 12px;
-        border-radius: 6px;
-        transition: all 0.2s ease;
-        display: inline-block;
-        min-width: 60px;
-    }
-
-        .stat-link:hover {
-            transform: scale(1.05);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        .table tbody tr:nth-child(even) {
+            animation-delay: 0.2s;
         }
 
-    .stat-pending {
-        color: var(--status-pending);
-        font-weight: 600;
-        font-size: 16px;
+    @@keyframes slideInFromLeft {
+        from
+
+    {
+        opacity: 0;
+        transform: translateX(-20px);
     }
 
-    .stat-collected {
-        color: var(--status-collected);
-        font-weight: 600;
-        font-size: 16px;
+    to {
+        opacity: 1;
+        transform: translateX(0);
     }
 
-    .resident-info {
-        font-weight: 600;
-        color: var(--admin-primary);
-        font-size: 15px;
     }
 
-    /* 分頁控制項大小 */
-    .pagination .page-link {
-        background: white;
-        border: 1px solid var(--border-color);
-        color: var(--admin-primary);
-        padding: 10px 14px;
-        margin: 0 2px;
-        border-radius: 6px;
-        font-weight: 500;
-        transition: all 0.2s ease;
-        font-size: 14px;
-        min-width: 44px;
+    .table tbody tr:hover {
+        background: linear-gradient(135deg, rgba(180, 202, 250, 0.2), rgba(107, 143, 247, 0.1));
+        transform: translateY(-2px) scale(1.01);
+        box-shadow: 0 4px 15px rgba(139, 176, 247, 0.2);
     }
 
-        .pagination .page-link:hover {
-            background: var(--admin-primary-dark);
-            color: white;
-            border-color: var(--admin-primary-dark);
-            transform: translateY(-1px);
-        }
-
-    .pagination .page-item.active .page-link {
-        background: var(--admin-primary);
-        border-color: var(--admin-primary);
-        color: white;
-    }
-
-    .pagination .page-item.disabled .page-link {
-        background: #f8f9fa;
-        color: #6c757d;
-        border-color: #dee2e6;
-    }
-
-    /* 按鈕大小 */
+    /* 按鈕樣式 */
     .btn {
         font-size: 14px;
-        font-weight: 500;
-        transition: all 0.2s ease;
-        padding: 10px 16px;
+        font-weight: 600;
+        transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        padding: 12px 20px;
+        border-radius: 12px;
+        position: relative;
+        overflow: hidden;
     }
 
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
         .btn:hover {
-            transform: translateY(-1px);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
         }
 
     .btn-outline-primary {
-        border-color: var(--admin-accent);
-        color: var(--admin-accent);
+        border-color: var(--theme-accent);
+        color: var(--theme-accent);
+        background: rgba(255, 255, 255, 0.9);
+        border-width: 2px;
     }
 
         .btn-outline-primary:hover {
-            background: var(--admin-accent);
-            border-color: var(--admin-accent);
+            background: var(--theme-accent);
+            border-color: var(--theme-accent);
             color: white;
+            box-shadow: 0 6px 25px rgba(107, 143, 247, 0.4);
         }
 
-    /* 空資料提示大小 */
+    /* 分頁控制 */
+    .pagination .page-link {
+        background: rgba(255, 255, 255, 0.9);
+        border: 2px solid var(--theme-border);
+        color: var(--theme-text-primary);
+        padding: 12px 16px;
+        margin: 0 4px;
+        border-radius: 10px;
+        font-weight: 600;
+        transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        font-size: 14px;
+        min-width: 48px;
+        position: relative;
+        overflow: hidden;
+    }
+
+        .pagination .page-link:hover {
+            background: var(--theme-primary);
+            color: white;
+            border-color: var(--theme-primary);
+            transform: translateY(-2px) scale(1.1);
+            box-shadow: 0 4px 12px rgba(139, 176, 247, 0.3);
+        }
+
+    .pagination .page-item.active .page-link {
+        background: var(--theme-accent);
+        border-color: var(--theme-accent);
+        color: white;
+        box-shadow: 0 4px 15px rgba(107, 143, 247, 0.5);
+        animation: activePagePulse 2s ease-in-out infinite;
+    }
+
+    @@keyframes activePagePulse {
+        0%, 100%
+
+    {
+        box-shadow: 0 4px 15px rgba(107, 143, 247, 0.5);
+    }
+
+    50% {
+        box-shadow: 0 6px 20px rgba(107, 143, 247, 0.7);
+    }
+
+    }
+
+    /* 超連結樣式 */
+    .stat-link {
+        text-decoration: none;
+        padding: 4px 8px; 
+        border-radius: 6px; 
+        transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        display: inline-block;
+        min-width: 50px; 
+        border: none;
+        font-weight: 700;
+        font-size: 16px;
+        position: relative;
+        overflow: hidden;
+        background: transparent;
+    }
+
+        .stat-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .stat-link:hover::before {
+            left: 100%;
+        }
+
+        .stat-link:hover {
+            transform: translateY(-1px) scale(1.03); 
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); 
+        }
+
+    .stat-pending {
+        color: var(--status-pending) !important;
+        background: transparent; 
+        border: none; 
+    }
+
+        .stat-pending:hover {
+            background: rgba(220, 53, 69, 0.1); 
+            color: var(--status-pending) !important;
+            border: none;
+            box-shadow: none; 
+            text-shadow: 0 2px 8px rgba(220, 53, 69, 0.3);
+        }
+
+    .stat-collected {
+        color: #22c55e !important;
+        background: transparent;
+        border: none; 
+    }
+
+        .stat-collected:hover {
+            background: rgba(34, 197, 94, 0.1);
+            color: #22c55e !important;
+            border: none;
+            box-shadow: none; 
+            text-shadow: 0 2px 8px rgba(34, 197, 94, 0.3);
+        }
+
+    /* 住戶資訊 */
+    .resident-info {
+        font-weight: 700;
+        color: var(--theme-text-primary);
+        font-size: 15px;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    /* 空資料提示 */
     .empty-state {
         padding: 50px 20px;
         text-align: center;
-        color: var(--admin-light);
+        color: var(--theme-text-secondary);
+        animation: fadeIn 1s ease-out;
     }
 
         .empty-state i {
@@ -233,151 +621,92 @@
             margin-bottom: 16px;
             display: block;
             opacity: 0.5;
+            color: var(--theme-primary);
+            animation: pulse 2s ease-in-out infinite;
         }
 
         .empty-state h6 {
             font-size: 18px;
             margin-bottom: 8px;
             font-weight: 600;
+            color: var(--theme-text-primary);
         }
 
         .empty-state small {
             font-size: 14px;
+            color: var(--theme-text-secondary);
         }
 
-    /* 重新整理按鈕圖標 */
-    .btn i {
-        font-size: 14px;
-        margin-right: 6px;
-    }
+    /* 響應式設計 */
+    @@media (max-width: 768px) {
+        .page-header
 
-    /* 響應式設計調整 */
-    .mobile-responsive .page-header {
+    {
         flex-direction: column;
         align-items: flex-start;
-        gap: 12px;
+        gap: 16px;
     }
 
-    .mobile-responsive .admin-card {
-        padding: 16px;
-        margin-bottom: 16px;
+    .stats-card {
+        padding: 20px;
     }
 
-    .mobile-responsive .stats-card {
-        padding: 10px 5px; 
-        margin-bottom: 12px;
-    }
-    .mobile-responsive .stats-item{
-        padding:8px 2px;
-    }
-    .mobile-responsive .stats-number {
-        font-size: 13px; /* 移動端統計數字 */
-        margin-bottom:0.3rem;
+    .stats-number {
+        font-size: 1.8rem;
     }
 
-    .mobile-responsive .stats-label {
-        font-size: 13px; /* 移動端標籤 */
-        line-height: 1.1;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
     }
 
-    .mobile-responsive .stats-card .col-md-4 {
-        padding: 6px 12px; /* 移動端間距 */
+    @@media (max-width: 576px) {
+        .stats-card
+
+    {
+        padding: 18px;
     }
 
-    .mobile-responsive .table th,
-    .mobile-responsive .table td {
-        padding: 12px 8px;
-        font-size: 14px;
+    .stats-number {
+        font-size: 1.6rem;
     }
 
-    .mobile-responsive .pagination .page-link {
-        padding: 8px 10px;
-        font-size: 13px;
+    .page-title {
+        font-size: 1.3rem;
     }
 
-    .small-responsive .admin-card {
-        padding: 14px;
-        margin-bottom: 14px;
     }
 
-    .small-responsive .stats-card {
-        padding: 10px; 
-        margin-bottom: 10px;
+    .fade-in {
+        animation: fadeIn 0.6s ease-out;
     }
 
-    .small-responsive .stats-number {
-        font-size: 1.3rem; 
+    @@keyframes fadeIn {
+        from
+
+    {
+        opacity: 0;
     }
 
-    .small-responsive .stats-label {
-        font-size: 13px; 
+    to {
+        opacity: 1;
     }
 
-    .small-responsive .stats-card .col-md-4 {
-        padding: 5px 10px; 
     }
-
-    .small-responsive .table th,
-    .small-responsive .table td {
-        padding: 10px 6px;
-        font-size: 13px;
-    }
-
-    .small-responsive .pagination .page-link {
-        padding: 6px 8px;
-        font-size: 12px;
-    }
-
-    .small-responsive .page-title {
-        font-size: 1.2rem;
-    }
-
-    /*數字和文字對比優化 */
-    .stat-pending,
-    .stat-collected {
-        text-shadow: 0 1px 2px rgba(0,0,0,0.1);
-    }
-
-    /* 表格行高度優化 */
-    .table tbody tr {
-        min-height: 60px;
-    }
-
-    .table tbody td {
-        min-height: 50px;
-    }
-
-    /* 統計卡片與表格的視覺平衡 */
-    .stats-card + .admin-table-container {
-        margin-top: 0; /* 確保緊密銜接 */
-    }
-
 </style>
 
 <div class="container-fluid">
     <div id="ResidentStats">
-        <!-- 標題區域 -->
         <div class="page-header">
             <h3 class="page-title">
                 <i class="bi bi-graph-up"></i>
                 @ViewBag.Title
             </h3>
-
-            <!-- 重新整理按鈕 -->
             <button type="button" class="btn btn-outline-primary" v-on:click="fetchStats">
-                <i class="bi bi-arrow-clockwise me-2"></i>
+                <i class="bi bi-arrow-clockwise"></i>
                 重新整理
             </button>
         </div>
 
-        <!-- 統計摘要 -->
         <div class="stats-card" v-if="stats.length > 0">
-            <!-- 在移動端也保持一行顯示 -->
             <div class="row text-center g-2">
-                <!-- 總住戶數 -->
                 <div class="col-4 col-md-4">
                     <div class="stats-item">
                         <div class="stats-number">{{ stats.length }}</div>
@@ -386,22 +715,18 @@
                         </h6>
                     </div>
                 </div>
-
-                <!-- 未取包裹 -->
                 <div class="col-4 col-md-4">
                     <div class="stats-item">
-                        <div class="stats-number" style="color: #ffcdd2;">{{ totalUncollected }}</div>
-                        <h6 class="stats-label" style="color: #ffcdd2;">
+                        <div class="stats-number" style="color: #DC3545;">{{ totalUncollected }}</div>
+                        <h6 class="stats-label" style="color: #DC3545;">
                             <i class="bi bi-exclamation-triangle"></i>未領取包裹
                         </h6>
                     </div>
                 </div>
-
-                <!-- 已取包裹 -->
                 <div class="col-4 col-md-4">
                     <div class="stats-item">
-                        <div class="stats-number" style="color: #c8e6c9;">{{ totalCollected }}</div>
-                        <h6 class="stats-label" style="color: #c8e6c9;">
+                        <div class="stats-number" style="color: #22c55e;">{{ totalCollected }}</div>
+                        <h6 class="stats-label" style="color: #22c55e;">
                             <i class="bi bi-check-circle"></i>已領取包裹
                         </h6>
                     </div>
@@ -409,21 +734,14 @@
             </div>
         </div>
 
-        <!-- 統計表格 -->
         <div class="admin-table-container">
             <div class="table-responsive">
                 <table class="table table-hover align-middle mb-0">
                     <thead class="sticky-top">
                         <tr>
-                            <th>
-                                <i class="bi bi-person"></i>住戶資訊
-                            </th>
-                            <th>
-                                <i class="bi bi-exclamation-triangle"></i>未領取包裹
-                            </th>
-                            <th>
-                                <i class="bi bi-check-circle"></i>已領取包裹
-                            </th>
+                            <th><i class="bi bi-person"></i>住戶資訊</th>
+                            <th><i class="bi bi-exclamation-triangle"></i>未領取包裹</th>
+                            <th><i class="bi bi-check-circle"></i>已領取包裹</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -432,23 +750,21 @@
                                 <span class="resident-info">{{r.condo_id}} - {{ r.red_name }}</span>
                             </td>
                             <td>
-                                <a href="#" class="stat-link" v-on:click.prevent="goToResident(r.red_id, '未取')">
-                                    <span class="stat-pending">{{ r.uncollected }}</span> 件
+                                <a href="#" class="stat-link stat-pending" v-on:click.prevent="goToResident(r.red_id, '未取')">
+                                    {{ r.uncollected }} 件
                                 </a>
                             </td>
                             <td>
-                                <a href="#" class="stat-link" v-on:click.prevent="goToResident(r.red_id, '已取')">
-                                    <span class="stat-collected">{{ r.collected }}</span> 件
+                                <a href="#" class="stat-link stat-collected" v-on:click.prevent="goToResident(r.red_id, '已取')">
+                                    {{ r.collected }} 件
                                 </a>
                             </td>
                         </tr>
-
-                        <!-- 空資料提示 -->
                         <tr v-if="pagedStats.length === 0">
                             <td colspan="3" class="empty-state">
                                 <i class="bi bi-inbox"></i>
                                 <h6 class="mb-2">目前無統計資料</h6>
-                                <small class="text-secondary">請稍後再試或聯繫管理員</small>
+                                <small>請稍後再試或聯繫管理員</small>
                             </td>
                         </tr>
                     </tbody>
@@ -456,25 +772,19 @@
             </div>
         </div>
 
-        <!-- ✅ 分頁控制 -->
         <nav v-if="totalPages > 1" class="mt-4">
             <ul class="pagination justify-content-center">
-                <!-- 上一頁 -->
                 <li :class="['page-item', { disabled: currentPage === 1 }]">
                     <a class="page-link" href="#" v-on:click.prevent="setPage(currentPage-1)">
                         <i class="bi bi-chevron-left me-1"></i>上一頁
                     </a>
                 </li>
-
-                <!-- 頁碼 -->
                 <li v-for="n in visiblePages" :key="n"
                     :class="['page-item', { active: n === currentPage, disabled: n === '...' }]">
                     <a class="page-link" href="#" v-on:click.prevent="n !== '...' && setPage(n)">
                         {{ n }}
                     </a>
                 </li>
-
-                <!-- 下一頁 -->
                 <li :class="['page-item', { disabled: currentPage === totalPages }]">
                     <a class="page-link" href="#" v-on:click.prevent="setPage(currentPage+1)">
                         下一頁<i class="bi bi-chevron-right ms-1"></i>

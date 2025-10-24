@@ -1,0 +1,287 @@
+=== 環境: Development ===
+=== 開發環境: True ===
+=== 正式環境: False ===
+dbug: Microsoft.AspNetCore.Mvc.Razor.Compilation.DefaultViewCompiler[3]
+      Initializing Razor view compiler with compiled view: '/Views/Account/AccessDenied.cshtml'.
+dbug: Microsoft.AspNetCore.Mvc.Razor.Compilation.DefaultViewCompiler[3]
+      Initializing Razor view compiler with compiled view: '/Views/Account/Login.cshtml'.
+dbug: Microsoft.AspNetCore.Mvc.Razor.Compilation.DefaultViewCompiler[3]
+      Initializing Razor view compiler with compiled view: '/Views/Home/Index.cshtml'.
+dbug: Microsoft.AspNetCore.Mvc.Razor.Compilation.DefaultViewCompiler[3]
+      Initializing Razor view compiler with compiled view: '/Views/Home/Index_back.cshtml'.
+dbug: Microsoft.AspNetCore.Mvc.Razor.Compilation.DefaultViewCompiler[3]
+      Initializing Razor view compiler with compiled view: '/Views/Home/Packages.cshtml'.
+dbug: Microsoft.AspNetCore.Mvc.Razor.Compilation.DefaultViewCompiler[3]
+      Initializing Razor view compiler with compiled view: '/Views/Home/Privacy.cshtml'.
+dbug: Microsoft.AspNetCore.Mvc.Razor.Compilation.DefaultViewCompiler[3]
+      Initializing Razor view compiler with compiled view: '/Views/Resident/Edit.cshtml'.
+dbug: Microsoft.AspNetCore.Mvc.Razor.Compilation.DefaultViewCompiler[3]
+      Initializing Razor view compiler with compiled view: '/Views/Resident/Home.cshtml'.
+dbug: Microsoft.AspNetCore.Mvc.Razor.Compilation.DefaultViewCompiler[3]
+      Initializing Razor view compiler with compiled view: '/Views/Resident/MyPackages.cshtml'.
+dbug: Microsoft.AspNetCore.Mvc.Razor.Compilation.DefaultViewCompiler[3]
+      Initializing Razor view compiler with compiled view: '/Views/Resident/PackagePhoto.cshtml'.
+dbug: Microsoft.AspNetCore.Mvc.Razor.Compilation.DefaultViewCompiler[3]
+      Initializing Razor view compiler with compiled view: '/Views/Shared/Error.cshtml'.
+dbug: Microsoft.AspNetCore.Mvc.Razor.Compilation.DefaultViewCompiler[3]
+      Initializing Razor view compiler with compiled view: '/Views/Shared/_AdminLayout.cshtml'.
+dbug: Microsoft.AspNetCore.Mvc.Razor.Compilation.DefaultViewCompiler[3]
+      Initializing Razor view compiler with compiled view: '/Views/Shared/_Layout.cshtml'.
+dbug: Microsoft.AspNetCore.Mvc.Razor.Compilation.DefaultViewCompiler[3]
+      Initializing Razor view compiler with compiled view: '/Views/Shared/_ResidentLayout.cshtml'.
+dbug: Microsoft.AspNetCore.Mvc.Razor.Compilation.DefaultViewCompiler[3]
+      Initializing Razor view compiler with compiled view: '/Views/Shared/_ValidationScriptsPartial.cshtml'.
+dbug: Microsoft.AspNetCore.Mvc.Razor.Compilation.DefaultViewCompiler[3]
+      Initializing Razor view compiler with compiled view: '/Views/_ViewImports.cshtml'.
+dbug: Microsoft.AspNetCore.Mvc.Razor.Compilation.DefaultViewCompiler[3]
+      Initializing Razor view compiler with compiled view: '/Views/_ViewStart.cshtml'.
+dbug: Microsoft.AspNetCore.Mvc.Razor.Compilation.DefaultViewCompiler[3]
+      Initializing Razor view compiler with compiled view: '/Views/Shared/_Layout_back.cshtml'.
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.ModelBinderFactory[12]
+      Registered model binder providers, in the following order: Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BinderTypeModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ServicesModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.HeaderModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FloatingPointTypeModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.EnumTypeModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DateTimeModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.TryParseModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CancellationTokenModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ByteArrayModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormFileModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormCollectionModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.KeyValuePairModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DictionaryModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ArrayModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CollectionModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ComplexObjectModelBinderProvider
+dbug: Microsoft.Extensions.Hosting.Internal.Host[1]
+      Hosting starting
+info: Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager[63]
+      User profile is available. Using 'C:\Users\a2168\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+dbug: Microsoft.AspNetCore.DataProtection.Repositories.FileSystemXmlRepository[37]
+      Reading data from file 'C:\Users\a2168\AppData\Local\ASP.NET\DataProtection-Keys\key-c7681aa5-906a-4dd8-a60e-cad062d4e942.xml'.
+dbug: Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager[18]
+      Found key {c7681aa5-906a-4dd8-a60e-cad062d4e942}.
+dbug: Microsoft.AspNetCore.DataProtection.KeyManagement.DefaultKeyResolver[13]
+      Considering key {c7681aa5-906a-4dd8-a60e-cad062d4e942} with expiration date 2025-12-26 16:17:59Z as default key.
+dbug: Microsoft.AspNetCore.DataProtection.TypeForwardingActivator[0]
+      Forwarded activator type request from Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+dbug: Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor[51]
+      Decrypting secret element using Windows DPAPI.
+dbug: Microsoft.AspNetCore.DataProtection.TypeForwardingActivator[0]
+      Forwarded activator type request from Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+dbug: Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.CngCbcAuthenticatedEncryptorFactory[4]
+      Opening CNG algorithm 'AES' from provider '(null)' with chaining mode CBC.
+dbug: Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.CngCbcAuthenticatedEncryptorFactory[3]
+      Opening CNG algorithm 'SHA256' from provider '(null)' with HMAC.
+dbug: Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingProvider[2]
+      Using key {c7681aa5-906a-4dd8-a60e-cad062d4e942} as the default key.
+dbug: Microsoft.AspNetCore.DataProtection.Internal.DataProtectionHostedService[65]
+      Key ring with default key {c7681aa5-906a-4dd8-a60e-cad062d4e942} was loaded during application startup.
+dbug: Microsoft.AspNetCore.Watch.BrowserRefresh.BlazorWasmHotReloadMiddleware[0]
+      Middleware loaded
+dbug: Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserScriptMiddleware[0]
+      Middleware loaded. Script /_framework/aspnetcore-browser-refresh.js (16511 B).
+dbug: Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserScriptMiddleware[0]
+      Middleware loaded. Script /_framework/blazor-hotreload.js (799 B).
+dbug: Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserRefreshMiddleware[0]
+      Middleware loaded: DOTNET_MODIFIABLE_ASSEMBLIES=debug, __ASPNETCORE_BROWSER_TOOLS=true
+dbug: Microsoft.AspNetCore.Hosting.Diagnostics[13]
+      Loaded hosting startup assembly ParcelProject
+dbug: Microsoft.AspNetCore.Hosting.Diagnostics[13]
+      Loaded hosting startup assembly Microsoft.WebTools.ApiEndpointDiscovery
+dbug: Microsoft.AspNetCore.Hosting.Diagnostics[13]
+      Loaded hosting startup assembly Microsoft.AspNetCore.Watch.BrowserRefresh
+dbug: Microsoft.AspNetCore.Hosting.Diagnostics[13]
+      Loaded hosting startup assembly Microsoft.WebTools.BrowserLink.Net
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 GET https://localhost:44353/ - - -
+info: Microsoft.Hosting.Lifetime[0]
+      Application started. Press Ctrl+C to shut down.
+info: Microsoft.Hosting.Lifetime[0]
+      Hosting environment: Development
+info: Microsoft.Hosting.Lifetime[0]
+      Content root path: E:\專題\ParcelProject\ParcelManagement2
+dbug: Microsoft.Extensions.Hosting.Internal.Host[2]
+      Hosting started
+dbug: Microsoft.AspNetCore.HostFiltering.HostFilteringMiddleware[0]
+      Wildcard detected, all requests with hosts will be allowed.
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[4]
+      The request path / does not match a supported file type
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1001]
+      1 candidate(s) found for the request path '/'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'ParcelManagement2.Controllers.AccountController.Login (ParcelProject)' with route pattern '{controller=Account}/{action=Login}/{id?}' is valid for the request path '/'
+dbug: Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware[1]
+      Request matched endpoint 'ParcelManagement2.Controllers.AccountController.Login (ParcelProject)'
+dbug: Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler[9]
+      AuthenticationScheme: Cookies was not authenticated.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'ParcelManagement2.Controllers.AccountController.Login (ParcelProject)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[102]
+      Route matched with {action = "Login", controller = "Account"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Login(System.String) on controller ParcelManagement2.Controllers.AccountController (ParcelProject).
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of authorization filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of resource filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of action filters (in the following order): Microsoft.AspNetCore.Mvc.Filters.ControllerActionFilter (Order: -2147483648), Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of exception filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of result filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Executing controller factory for controller ParcelManagement2.Controllers.AccountController (ParcelProject)
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed controller factory for controller ParcelManagement2.Controllers.AccountController (ParcelProject)
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder[22]
+      Attempting to bind parameter 'returnUrl' of type 'System.String' ...
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinder[44]
+      Attempting to bind parameter 'returnUrl' of type 'System.String' using the name '' in request data ...
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinder[16]
+      Could not find a value in the request with name '' for binding parameter 'returnUrl' of type 'System.String'.
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinder[45]
+      Done attempting to bind parameter 'returnUrl' of type 'System.String'.
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder[23]
+      Done attempting to bind parameter 'returnUrl' of type 'System.String'.
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder[26]
+      Attempting to validate the bound parameter 'returnUrl' of type 'System.String' ...
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder[27]
+      Done attempting to validate the bound parameter 'returnUrl' of type 'System.String'.
+dbug: Microsoft.AspNetCore.Mvc.Razor.RazorViewEngine[1]
+      View lookup cache miss for view 'Login' in controller 'Account'.
+info: Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor[1]
+      Executing ViewResult, running view Login.
+dbug: Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor[2]
+      The view path '/Views/Account/Login.cshtml' was found in 5.0391ms.
+dbug: Microsoft.AspNetCore.Antiforgery.DefaultAntiforgery[5]
+      A new antiforgery cookie token was created.
+dbug: Microsoft.WebTools.BrowserLink.Net.BrowserLinkMiddleware[1]
+      Response markup is scheduled to include Browser Link script injection.
+dbug: Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserRefreshMiddleware[1]
+      Response markup is scheduled to include browser refresh script injection.
+info: Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor[4]
+      Executed ViewResult - view Login executed in 48.2238ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[105]
+      Executed action ParcelManagement2.Controllers.AccountController.Login (ParcelProject) in 96.7772ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'ParcelManagement2.Controllers.AccountController.Login (ParcelProject)'
+dbug: Microsoft.WebTools.BrowserLink.Net.BrowserLinkMiddleware[2]
+      Response markup was updated to include Browser Link script injection.
+dbug: Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserRefreshMiddleware[2]
+      Response markup was updated to include browser refresh script injection.
+dbug: Microsoft.AspNetCore.Server.IIS.Core.IISHttpServer[1]
+      Connection ID "18374686484771897378" disconnecting.
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 GET https://localhost:44353/ - 200 - text/html;+charset=utf-8 815.1384ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 GET https://localhost:44353/_vs/browserLink - - -
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 GET https://localhost:44353/_framework/aspnetcore-browser-refresh.js - - -
+dbug: Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserScriptMiddleware[0]
+      Script injected: /_framework/aspnetcore-browser-refresh.js
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 GET https://localhost:44353/_framework/aspnetcore-browser-refresh.js - 200 16511 application/javascript;+charset=utf-8 8.6151ms
+dbug: Microsoft.AspNetCore.Server.IIS.Core.IISHttpServer[1]
+      Connection ID "18158513732722884699" disconnecting.
+dbug: Microsoft.AspNetCore.Server.IIS.Core.IISHttpServer[1]
+      Connection ID "18374686549196406801" disconnecting.
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 GET https://localhost:44353/_vs/browserLink - 200 - text/javascript;+charset=UTF-8 54.8132ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 GET https://localhost:44353/ - - -
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[4]
+      The request path / does not match a supported file type
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1001]
+      1 candidate(s) found for the request path '/'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'ParcelManagement2.Controllers.AccountController.Login (ParcelProject)' with route pattern '{controller=Account}/{action=Login}/{id?}' is valid for the request path '/'
+dbug: Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware[1]
+      Request matched endpoint 'ParcelManagement2.Controllers.AccountController.Login (ParcelProject)'
+dbug: Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler[9]
+      AuthenticationScheme: Cookies was not authenticated.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'ParcelManagement2.Controllers.AccountController.Login (ParcelProject)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[102]
+      Route matched with {action = "Login", controller = "Account"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Login(System.String) on controller ParcelManagement2.Controllers.AccountController (ParcelProject).
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of authorization filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of resource filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of action filters (in the following order): Microsoft.AspNetCore.Mvc.Filters.ControllerActionFilter (Order: -2147483648), Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of exception filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of result filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Executing controller factory for controller ParcelManagement2.Controllers.AccountController (ParcelProject)
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed controller factory for controller ParcelManagement2.Controllers.AccountController (ParcelProject)
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder[22]
+      Attempting to bind parameter 'returnUrl' of type 'System.String' ...
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinder[44]
+      Attempting to bind parameter 'returnUrl' of type 'System.String' using the name '' in request data ...
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinder[16]
+      Could not find a value in the request with name '' for binding parameter 'returnUrl' of type 'System.String'.
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinder[45]
+      Done attempting to bind parameter 'returnUrl' of type 'System.String'.
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder[23]
+      Done attempting to bind parameter 'returnUrl' of type 'System.String'.
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder[26]
+      Attempting to validate the bound parameter 'returnUrl' of type 'System.String' ...
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder[27]
+      Done attempting to validate the bound parameter 'returnUrl' of type 'System.String'.
+dbug: Microsoft.AspNetCore.Mvc.Razor.RazorViewEngine[1]
+      View lookup cache miss for view 'Login' in controller 'Account'.
+dbug: Microsoft.AspNetCore.Mvc.Razor.Compilation.DefaultViewCompiler[3]
+      Initializing Razor view compiler with compiled view: '/Views/Account/AccessDenied.cshtml'.
+dbug: Microsoft.AspNetCore.Mvc.Razor.Compilation.DefaultViewCompiler[3]
+      Initializing Razor view compiler with compiled view: '/Views/Account/Login.cshtml'.
+dbug: Microsoft.AspNetCore.Mvc.Razor.Compilation.DefaultViewCompiler[3]
+      Initializing Razor view compiler with compiled view: '/Views/Home/Index.cshtml'.
+dbug: Microsoft.AspNetCore.Mvc.Razor.Compilation.DefaultViewCompiler[3]
+      Initializing Razor view compiler with compiled view: '/Views/Home/Index_back.cshtml'.
+dbug: Microsoft.AspNetCore.Mvc.Razor.Compilation.DefaultViewCompiler[3]
+      Initializing Razor view compiler with compiled view: '/Views/Home/Packages.cshtml'.
+dbug: Microsoft.AspNetCore.Mvc.Razor.Compilation.DefaultViewCompiler[3]
+      Initializing Razor view compiler with compiled view: '/Views/Home/Privacy.cshtml'.
+dbug: Microsoft.AspNetCore.Mvc.Razor.Compilation.DefaultViewCompiler[3]
+      Initializing Razor view compiler with compiled view: '/Views/Resident/Edit.cshtml'.
+dbug: Microsoft.AspNetCore.Mvc.Razor.Compilation.DefaultViewCompiler[3]
+      Initializing Razor view compiler with compiled view: '/Views/Resident/Home.cshtml'.
+dbug: Microsoft.AspNetCore.Mvc.Razor.Compilation.DefaultViewCompiler[3]
+      Initializing Razor view compiler with compiled view: '/Views/Resident/MyPackages.cshtml'.
+dbug: Microsoft.AspNetCore.Mvc.Razor.Compilation.DefaultViewCompiler[3]
+      Initializing Razor view compiler with compiled view: '/Views/Resident/PackagePhoto.cshtml'.
+dbug: Microsoft.AspNetCore.Mvc.Razor.Compilation.DefaultViewCompiler[3]
+      Initializing Razor view compiler with compiled view: '/Views/Shared/Error.cshtml'.
+dbug: Microsoft.AspNetCore.Mvc.Razor.Compilation.DefaultViewCompiler[3]
+      Initializing Razor view compiler with compiled view: '/Views/Shared/_AdminLayout.cshtml'.
+dbug: Microsoft.AspNetCore.Mvc.Razor.Compilation.DefaultViewCompiler[3]
+      Initializing Razor view compiler with compiled view: '/Views/Shared/_Layout.cshtml'.
+dbug: Microsoft.AspNetCore.Mvc.Razor.Compilation.DefaultViewCompiler[3]
+      Initializing Razor view compiler with compiled view: '/Views/Shared/_ResidentLayout.cshtml'.
+dbug: Microsoft.AspNetCore.Mvc.Razor.Compilation.DefaultViewCompiler[3]
+      Initializing Razor view compiler with compiled view: '/Views/Shared/_ValidationScriptsPartial.cshtml'.
+dbug: Microsoft.AspNetCore.Mvc.Razor.Compilation.DefaultViewCompiler[3]
+      Initializing Razor view compiler with compiled view: '/Views/_ViewImports.cshtml'.
+dbug: Microsoft.AspNetCore.Mvc.Razor.Compilation.DefaultViewCompiler[3]
+      Initializing Razor view compiler with compiled view: '/Views/_ViewStart.cshtml'.
+dbug: Microsoft.AspNetCore.Mvc.Razor.Compilation.DefaultViewCompiler[3]
+      Initializing Razor view compiler with compiled view: '/Views/Shared/_Layout_back.cshtml'.
+info: Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor[1]
+      Executing ViewResult, running view Login.
+dbug: Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor[2]
+      The view path '/Views/Account/Login.cshtml' was found in 19.8523ms.
+dbug: Microsoft.AspNetCore.Antiforgery.DefaultAntiforgery[6]
+      An antiforgery cookie token was reused.
+dbug: Microsoft.WebTools.BrowserLink.Net.BrowserLinkMiddleware[1]
+      Response markup is scheduled to include Browser Link script injection.
+dbug: Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserRefreshMiddleware[1]
+      Response markup is scheduled to include browser refresh script injection.
+info: Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor[4]
+      Executed ViewResult - view Login executed in 32.0261ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[105]
+      Executed action ParcelManagement2.Controllers.AccountController.Login (ParcelProject) in 42.6249ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'ParcelManagement2.Controllers.AccountController.Login (ParcelProject)'
+dbug: Microsoft.WebTools.BrowserLink.Net.BrowserLinkMiddleware[2]
+      Response markup was updated to include Browser Link script injection.
+dbug: Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserRefreshMiddleware[2]
+      Response markup was updated to include browser refresh script injection.
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 GET https://localhost:44353/ - 200 - text/html;+charset=utf-8 72.7255ms
+dbug: Microsoft.AspNetCore.Server.IIS.Core.IISHttpServer[1]
+      Connection ID "18014398561826898010" disconnecting.
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 GET https://localhost:44353/_vs/browserLink - - -
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 GET https://localhost:44353/_framework/aspnetcore-browser-refresh.js - - -
+dbug: Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserScriptMiddleware[0]
+ 
