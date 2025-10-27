@@ -10,22 +10,22 @@
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 <style>
-    /* 基本變數設定 */
     :root {
-        --resident-primary: #2c3e50;
-        --resident-secondary: #34495e;
-        --resident-primary-dark: #1a252f;
-        --resident-accent: #3498db;
-        --resident-light: #7f8c8d;
-        --border-color: #bdc3c7;
+        --resident-primary: #3F9E95; 
+        --resident-secondary: #7FCFC3;
+        --resident-primary-dark: #2F847C;
+        --resident-accent: #CFC7BB;
+        --resident-light: #9FB1B1;
+        --border-color: #E7E3DA;
         --card-radius: 12px;
-        --status-pending: #e74c3c;
-        --status-collected: #27ae60;
-        --text-primary: #2c3e50;
+
+        --status-pending: #E74C3C;
+        --status-collected: #2ECC71;
+        --text-primary: #1E2A2A;
         --text-secondary: #6c757d;
     }
 
-    /* 主容器優化 */
+    /* 主容器 */
     .resident-container {
         padding: 15px;
         margin: 0;
@@ -132,7 +132,6 @@
             background: var(--resident-primary);
             color: white;
         }
-
     /* 佈局容器 */
     .layout-container {
         display: flex;
@@ -178,8 +177,6 @@
             box-shadow: 0 4px 16px rgba(0,0,0,0.12);
             transform: translateY(-2px);
         }
-
-        /*左欄卡片高度重新分配 */
         .resident-card.half-height {
             flex: 1;
             display: flex;
@@ -201,7 +198,6 @@
             min-height: 300px; 
         }
 
-        /*右欄包裹卡片充滿空間 */
         .resident-card.full-height {
             flex: 1;
             height: 100%;
@@ -311,7 +307,7 @@
                 background: var(--resident-light);
                 border-radius: 4px;
             }
-            /* 確保卡片內容充滿空間 */
+
             .resident-card.full-height .card-content,
             .resident-card.residents-card .card-content,
             .resident-card.mails-card .card-content {
@@ -353,7 +349,6 @@
         overflow: hidden;
     }
 
-    /* 表格容器充滿卡片 */
     .resident-table-container {
         background: white;
         border-radius: 8px;
@@ -365,7 +360,6 @@
         flex-direction: column;
     }
 
-    /* 表格wrapper充滿表格容器 */
     .table-wrapper {
         flex: 1;
         overflow-y: auto;
@@ -373,7 +367,6 @@
         flex-direction: column;
     }
 
-    /* 表格充滿wrapper */
     .resident-table {
         margin: 0;
         border: none;
@@ -385,7 +378,6 @@
         height: 100%;
     }
 
-        /* 表格主體填滿空間 */
         .resident-table tbody {
             height: 100%;
         }
@@ -414,7 +406,7 @@
         }
 
         .resident-table tbody tr:hover td {
-            background-color: rgba(44, 62, 80, 0.05);
+            background-color: rgba(63,158,149,.08);
         }
 
         .resident-table tbody tr:last-child td {
@@ -465,16 +457,17 @@
             opacity: 0.8;
         }
 
-    /* 包裹/信件狀態樣式 */
+    /* 狀態樣式 */
     .package-id {
-        background: #f8f9fa;
-        padding: 6px 10px;
-        border-radius: 4px;
-        font-family: 'Courier New', monospace;
+        background: transparent !important;
+        padding: 0 !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        font-family: inherit !important;
         font-size: 14px;
-        font-weight: 600;
-        border: 1px solid var(--border-color);
-        color: var(--text-primary);
+        font-weight: 700;
+        border: 0 !important;
+        color: var(--text-primary) !important;
         display: inline-block;
     }
 
@@ -536,8 +529,11 @@
     }
 
     .resident-phone {
-        color: var(--resident-light);
-        font-size: 14px;
+        color: var(--text-primary);
+        letter-spacing: .2px;
+        padding: 4px 12px;
+        font-size: 16px;
+        font-weight: 700;
         font-family: 'Courier New', monospace;
     }
 
@@ -973,7 +969,7 @@
 
         .no-photo-placeholder:hover {
             background: #f1f3f4 !important;
-            border-color: #0066cc !important;
+            border-color: var(--resident-primary) !important;
         }
 
     /* 照片載入失敗回退樣式 */
@@ -985,7 +981,7 @@
             color: #004499 !important;
             transform: scale(1.1);
         }
-    /* 信件通知條樣式 */
+    /* 信件通知樣式 */
     .mail-notification-bar {
         background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
         color: white;
@@ -1038,7 +1034,7 @@
             transform: translateY(-1px);
         }
 
-    /* 信件詳情面板 */
+    /* 信件詳情 */
     .mail-details-panel {
         padding: 0 20px 20px 20px;
         border-top: 1px solid rgba(255, 255, 255, 0.2);
@@ -1135,6 +1131,7 @@
     20%, 40%, 60%, 80% {
         transform: rotate(10deg);
     }
+    }
      @@keyframes packagePulse {
          0%, 100%
 
@@ -1146,8 +1143,6 @@
     50% {
         transform: scale(1.05);
         opacity: 1;
-    }
-
     }
     }
 </style>
@@ -1166,7 +1161,6 @@
             <div class="condo-info">
                 <i class="bi bi-geo-alt me-2"></i>戶號：@Model.Condo_Id
             </div>
-
             <!-- 成員選擇器 (僅在有多個成員時顯示) -->
             @if (Model.HasMultipleMembers)
             {
@@ -1183,6 +1177,18 @@
             }
         </div>
     </div>
+    @{
+        var photoCount = Model?.ProfilePhotoCount ?? (ViewBag.ProfilePhotoCount as int? ?? 0);
+    }
+    @if (photoCount < 5)
+    {
+        <div class="alert alert-warning d-flex align-items-center" role="alert" style="border-left:4px solid #E74C3C;">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+            為了完整識別，請上傳滿 <strong>5</strong> 張個人照片，您目前有 <strong>@photoCount</strong> 張，
+            尚缺 <strong>@(5 - photoCount)</strong> 張。
+            <a href="/Resident/Edit" class="btn btn-sm btn-primary ms-3">前往上傳</a>
+        </div>
+    }
     <div v-if="mails && mails.length > 0" class="mail-notification-bar">
         <div class="notification-content">
             <div class="notification-icon">
@@ -1192,34 +1198,13 @@
                 <h6>貴戶有信件，請查收</h6>
                 <small>共有 {{ mails.length }} 封信件待領取</small>
             </div>
-            <div class="notification-action">
-                <button class="btn btn-sm btn-outline-light" v-on:click="toggleMailDetails">
-                    <i class="bi" :class="showMailDetails ? 'bi-chevron-up' : 'bi-chevron-down'"></i>
-                    {{ showMailDetails ? '收起' : '詳情' }}
-                </button>
-            </div>
-        </div>
-
-        <!-- 信件詳情面板 -->
-        <div v-if="showMailDetails" class="mail-details-panel">
-            <div class="row g-2">
-                <div v-for="mail in mails" :key="mail.pack_id" class="col-md-6 col-lg-4">
-                    <div class="mail-item-card">
-                        <div class="mail-info">
-                            <code class="mail-id">{{ mail.pack_id }}</code>
-                            <span class="mail-type">{{ mail.pack_name || '信件' }}</span>
-                        </div>
-                        <small class="recipient-name">{{ mail.red_name }}</small>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
-    <!-- 主要內容區域 - 左右兩欄佈局 -->
+    <!-- 主要內容區域 -->
     <div class="layout-container">
         <!-- 左欄：戶內住戶 + 待領取信件 -->
         <div class="left-column">
-            <!-- 戶內住戶資訊 - 加入特定類別並固定高度 -->
+            <!-- 戶內住戶資訊 -->
             <div class="resident-card residents-card">
                 <h3 class="card-title">
                     <i class="bi bi-people"></i>戶內住戶
@@ -1236,7 +1221,6 @@
                                     </tr>
                                 </thead>
                                 <tbody id="tblResidents">
-                                    <!-- 將由 JS 產生 -->
                                 </tbody>
                             </table>
                         </div>
@@ -1391,7 +1375,7 @@
                     <div id="no-photos" class="text-center" style="display: none; padding: 40px 20px;">
                         <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
                             <i class="bi bi-box-seam package-icon-animation"
-                               style="font-size: 64px; color: #0066cc; margin-bottom: 15px; display: block;"></i>
+                               style="font-size: 64px; color: var(--resident-primary); margin-bottom: 15px; display: block;"></i>
                             <h6 style="font-size: 16px; font-weight: 600; color: #495057; margin-bottom: 6px;">
                                 此包裹暫無照片
                             </h6>
@@ -1408,7 +1392,7 @@
 
 @section scripts {
     <script>
-        /* --------- 戶內所有住戶清單 --------- */
+        /* 戶內所有住戶清單 */
         (function () {
             const data = @Html.Raw(jsonResidents);
             const tbody = document.getElementById('tblResidents');
@@ -1436,9 +1420,7 @@
             tbody.innerHTML = rows;
         })();
 
-        /* --------- Vue 應用程式 --------- */
         const { createApp } = Vue;
-
         createApp({
             data: function() {
                 return {
@@ -1605,12 +1587,12 @@
                                                      style="width: 750px; height: 300px; object-fit: cover; cursor: zoom-in;
                                                             border: 2px solid #dee2e6; transition: all 0.3s ease;"
                                                      onclick="openFullscreen(this)"
-                                                     onmouseover="this.style.borderColor='#0066cc'; this.style.transform='scale(1.02)';"
+                                                     onmouseover="this.style.borderColor='var(--resident-primary)'; this.style.transform='scale(1.02)';"
                                                      onmouseout="this.style.transform=''; this.style.borderColor='#dee2e6';"
                                                      onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                                                 <div style="display:none; flex-direction:column; align-items:center; justify-content:center;
                                                      height:300px; color:#6c757d; background:#f8f9fa; border-radius:8px; border: 2px solid #dee2e6;">
-                                                    <i class="bi bi-box-seam" style="font-size:60px; color:#0066cc; margin-bottom:15px;
+                                                    <i class="bi bi-box-seam" style="font-size:60px; color:var(--resident-primary); margin-bottom:15px;
                                                        animation:packagePulse 2s ease-in-out infinite;"></i>
                                                     <p style="margin:0; font-size:14px;">照片載入失敗</p>
                                                 </div>

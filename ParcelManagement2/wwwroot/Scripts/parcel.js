@@ -1,11 +1,10 @@
-﻿/* ===== JWT 自動掛載 ===== */
+﻿/*   JWT 自動掛載   */
 (function () {
     const tk = localStorage.getItem('jwt');
     if (tk) {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + tk;
     }
 })();
-/* ---------- 共用小工具 ---------- */
 function toJson(raw) {
     try { return (typeof raw === 'string') ? JSON.parse(raw) : raw; }
     catch { showMessage('伺服器回傳格式錯誤', 'warn'); return []; }
@@ -109,7 +108,7 @@ function showMessage(message, msgType, fx) {
             warn: { title: '警告', color: 'orange', confirm: 'hidden', quit: 'hidden', ack: 'visible' },
             success: { title: '成功', color: 'green', confirm: 'hidden', quit: 'hidden', ack: 'visible' }
         }[msgType];
-        // 訊息框最大寬度 400px，最小 240px，自動高度
+
         const msgMaxWidth = 400, msgMinWidth = 240;
         const msgTop = Math.round((window.innerHeight - 200) / 4);
         const msgLeft = Math.round((window.innerWidth - msgMaxWidth) / 2);
@@ -149,7 +148,7 @@ function showMessage(message, msgType, fx) {
         quit && (quit.onclick = () => box.remove());
     }, 100);
 }
-/* ---------- Vue ---------- */
+
 const prodObj = Vue.createApp({
     data() {
         return {
@@ -158,7 +157,8 @@ const prodObj = Vue.createApp({
             //----包裹相關資料----
             Pack_Type: '',
             Red_Id: '',
-            selectedPhoto: null,
+            selectedPhoto: '',
+            PhotoFile: null,
             showRemarksError: false,
             //----
             ProdTypeList: [],      // 包裹類別清單
@@ -166,7 +166,7 @@ const prodObj = Vue.createApp({
             ProductList: [],       // 包裹清單
             QueryOpt: 'ALL',       // 下拉 (ALL / UNDONE / RESIDENT)
             SelectRed: '',       // 住戶下拉選中的 red_id
-            SelectStatus: '',       // 新增：包裹狀態
+            SelectStatus: '',       // 包裹狀態
             hasUrlParams: false,    //URL 參數標記
             urlRedId: null,
             urlStatus: null
@@ -191,6 +191,7 @@ const prodObj = Vue.createApp({
         } else {
             this.GetAllProductData();
         }
+
     },
 
     methods: {
@@ -250,29 +251,66 @@ const prodObj = Vue.createApp({
                 : 'package-status-collected status-badge-collected';
             return `${baseClass} ${statusClass}`;
         },
+        // 重新上傳：打開檔案選擇器
+        reuploadPhoto() {
+            const input = (this.$refs && this.$refs.photoUpload) || document.getElementById('photoUpload');
+            if (input) input.click();
+        },
         // 處理照片選擇
         handlePhotoSelect(event) {
-            const file = event.target.files[0];
-            if (file) {
+            const file = event.target.files && event.target.files[0];
+            if (!file) {
+                this.PhotoFile = null;
+                this.selectedPhoto = '';
+                const nameBox = document.getElementById('photoFileName');
+                if (nameBox) nameBox.textContent = '未選擇任何檔案';
+                return;
+            }
                 // 檢查檔案類型
                 const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
                 if (!allowedTypes.includes(file.type)) {
                     showMessage("請選擇 JPG、PNG 或 GIF 格式的圖片", "warn");
                     event.target.value = '';
-                    this.selectedPhoto = null;
+                    this.PhotoFile = null;
+                    this.selectedPhoto = '';
+                    const nameBox = document.getElementById('photoFileName');
+                    if (nameBox) nameBox.textContent = '未選擇任何檔案';
                     return;
                 }
-
                 // 檢查檔案大小 (5MB)
-                if (file.size > 5 * 1024 * 1024) {
-                    showMessage("圖片大小不能超過 5MB", "warn");
-                    event.target.value = '';
-                    this.selectedPhoto = null;
-                    return;
-                }
-
-                this.selectedPhoto = file;
+            if (file.size > 5 * 1024 * 1024) {
+                showMessage("圖片大小不能超過 5MB", "warn");
+                event.target.value = '';
+                this.PhotoFile = null;
+                this.selectedPhoto = '';
+                const nameBox = document.getElementById('photoFileName');
+                if (nameBox) nameBox.textContent = '未選擇任何檔案';
+                return;
             }
+            this.PhotoFile = file;
+            this.selectedPhoto = file.name;
+
+            const nameBox = document.getElementById('photoFileName');
+            if (nameBox) {
+                const pretty = file.name.length > 60 ? (file.name.slice(0, 57) + '…') : file.name;
+                nameBox.textContent = pretty;
+            }
+        },
+        clearUpload() {
+            this.PhotoFile = null;
+            this.selectedPhoto = '' ;
+            const input = (this.$refs && this.$refs.photoUpload)
+                        || document.getElementById('photoUpload');
+            if (input) {
+                input.value = '';
+
+                input.type = 'text';
+                input.type = 'file';
+            }
+            this.Pack_Type = '';     // 包裹類別
+            this.Red_Id = '';        // 收件住戶
+            this.Remarks = '';
+            this.showRemarksError = false;
         },
         // 查看包裹照片
         viewPackagePhoto(item) {
@@ -410,7 +448,7 @@ const prodObj = Vue.createApp({
             }
             console.log('convertRec - remarks:', { original: r.remarks, converted: remarksValue });
             return {
-                pack_id: r.pack_id,       // 顯示用
+                pack_id: r.pack_id,     
                 pack_name: r.pack_name,
                 red_name: r.red_name,
                 condo_id: r.condo_id,
@@ -418,7 +456,7 @@ const prodObj = Vue.createApp({
                 pickup_datetime: r.pickup_datetime || '',
                 remarks: remarksValue,
                 photo_path: r.photo_path || '',
-                Pack_Id: r.pack_id,       // 後端需要
+                Pack_Id: r.pack_id,      
                 Pack_Type: r.pack_type,
                 Flag_Update: false,
                 Flag_Del: false
@@ -500,7 +538,7 @@ const prodObj = Vue.createApp({
                     showMessage('載入未領取包裹失敗', 'warn');
                 });
         },
-        /* ==== 住戶下拉選取 ==== */
+        /*   住戶下拉選取   */
         SearchByResident() {
             if (this.SelectRed === '') return;
             axios.post('/Home/GetPackagesByResident', {
@@ -517,7 +555,7 @@ const prodObj = Vue.createApp({
                 })
                 .catch(() => showMessage("連線錯誤", "warn"));
         },
-        /* ==== 功能下拉切換 ==== */
+        /*   功能下拉切換   */
         HandleQuery() {
             this.ProductList = [];
             if (!this.hasUrlParams) {
@@ -557,13 +595,9 @@ const prodObj = Vue.createApp({
             formData.append('Red_Id', this.Red_Id);
             formData.append('Remarks', this.Remarks || '');
 
-            if (this.selectedPhoto) {
-                formData.append('photo', this.selectedPhoto);
+            if (this.PhotoFile) {
+                formData.append('photo', this.PhotoFile, this.PhotoFile.name);
             }
-            for (let pair of formData.entries()) {
-                console.log(pair[0] + ': ' + pair[1]);
-            }
-
             // 使用 FormData 上傳
             axios.post('/Home/AddProduct', formData, {
                 headers: {
@@ -575,12 +609,17 @@ const prodObj = Vue.createApp({
                 if (js[0].msg === 'OK') {
                     showMessage("包裹已新增", "success");
                     this.GetAllProductData();
+
                     this.Pack_Type = this.Red_Id = this.Remarks = '';
                     this.showRemarksError = false;
-                    this.selectedPhoto = null;
+
+                    this.PhotoFile = null;
+                    this.selectedPhoto = '';
                     // 清除文件選擇器
                     const fileInput = document.getElementById('photoUpload');
                     if (fileInput) fileInput.value = '';
+                    const nameBox = document.getElementById('photoFileName');
+                    if (nameBox) nameBox.textContent = '未選擇任何檔案';
                 }
             }).catch(() => showMessage("連線錯誤", "warn"));
         },
@@ -616,7 +655,7 @@ const prodObj = Vue.createApp({
                     showMessage('載入歷史紀錄失敗', 'warn');
                 })
         },
-        /* ====== 歷史單筆復原 ====== */
+        /*   歷史單筆復原   */
         RestoreOne(row) {
             if (!confirm(`確定復原 ${row.pack_id} 嗎？`)) return;
             axios.post('/Home/RestorePackage',
@@ -647,7 +686,7 @@ const prodObj = Vue.createApp({
                 showMessage('連線錯誤', 'warn');
             });
         },
-        /* ====== 歷史單筆清除 ====== */
+        /*   歷史單筆清除   */
         RemoveOne(row) {
             if (!confirm(`確定要永久清除 ${row.pack_id} 嗎？此操作無法復原！`)) return;
             axios.post('/Home/RemovePackage', { id: row.pack_id })
@@ -663,7 +702,7 @@ const prodObj = Vue.createApp({
                 })
                 .catch(() => showMessage('連線錯誤', 'warn'));
         },
-        // ---- 新增批次儲存 ----
+        //  批次儲存 
         UpdatePackages() {
             // 收集被勾選資料
             const rows = this.ProductList.filter(r => r.Flag_Update || r.Flag_Del);

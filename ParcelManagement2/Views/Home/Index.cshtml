@@ -6,23 +6,22 @@
 
 <style>
     :root {
-        /* ===== 薄荷曼波 · 柔和版 ===== */
-        --theme-primary: #7FCFC3; /* 更柔的薄荷青 */
-        --theme-primary-dark: #3F9E95; /* 深薄荷（表頭/強調，仍保留對比） */
-        --theme-accent: #CFC7BB; /* 暖灰（分隔/點綴） */
-        --theme-light: #F4F1E7; /* 奶油米（背景） */
-        --theme-border: #E7E3DA; /* 柔和邊框 */
-        --theme-text-primary: #1E2A2A; /* 主字深色 */
-        --theme-text-secondary: #5C6B6B; /* 次字藍灰 */
-        /* 狀態色保留原設定（不要改數字顏色） */
+        --theme-primary: #7FCFC3; 
+        --theme-primary-dark: #3F9E95;
+        --theme-accent: #CFC7BB;
+        --theme-light: #F4F1E7; 
+        --theme-border: #E7E3DA; 
+        --theme-text-primary: #1E2A2A; 
+        --theme-text-secondary: #5C6B6B; 
+
         --status-pending: #E74C3C;
         --status-collected: #2ECC71;
-        /* 按鈕色固定為原本值，不做變更 */
+
         --btn-outline: #4ECDC4;
         --card-radius: 16px;
     }
 
-    /* 動畫（保留） */
+    /* 動畫 */
     * {
         transition: all .3s cubic-bezier(.25,.46,.45,.94);
     }
@@ -154,7 +153,7 @@
             animation: bounce 2s ease-in-out infinite;
         }
 
-    /* 統計卡：奶油米底＋更淡薄荷掃光 */
+    /* 統計卡：奶油米底+更淡薄荷掃光 */
     .stats-card {
         background: linear-gradient(180deg,#F8F6EF 0%, var(--theme-light) 100%);
         color: var(--theme-text-primary);
@@ -237,7 +236,6 @@
         animation-fill-mode: both;
     }
 
-    /* 表頭：深薄荷底＋白字（對比足、色感更柔） */
     .table thead th {
         background: linear-gradient(180deg, var(--theme-primary-dark) 0%, #388F87 100%);
         color: #FFF;
@@ -293,7 +291,7 @@
             box-shadow: 0 4px 12px rgba(30,42,42,.07);
         }
 
-    /* 清單數字：純文字可點，不要按鈕感（顏色由 inline 控制） */
+    /* 清單數字 */
     .stat-link {
         text-decoration: none;
         padding: 0;
@@ -359,7 +357,7 @@
             color: var(--theme-text-secondary);
         }
 
-    /* 按鈕（顏色固定為原本 #4ECDC4，不做設計改動） */
+    /* 按鈕 */
     .btn {
         font-size: 14px;
         font-weight: 600;
@@ -403,7 +401,7 @@
             transform: translateY(-2px) scale(1.05);
         }
 
-    /* 導覽列：去橘化，改成更柔的薄荷系 */
+    /* 導覽列*/
     .navbar, .navbar.bg-light {
         background: linear-gradient(180deg, #8AD6CB 0%, var(--theme-primary-dark) 100%) !important;
         border-bottom: 1px solid rgba(255,255,255,.22) !important;
@@ -430,7 +428,7 @@
                 color: #FFF !important;
             }
 
-    /* 分頁：與主題協調（柔化陰影） */
+    /* 分頁*/
     .pagination .page-link {
         background: #FFF;
         border: 1px solid var(--theme-border);
@@ -681,7 +679,6 @@
             }
         }
     });
-
     app.mount('#ResidentStats');
 </script>
 

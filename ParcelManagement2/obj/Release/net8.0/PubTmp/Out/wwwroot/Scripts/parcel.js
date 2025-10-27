@@ -158,7 +158,8 @@ const prodObj = Vue.createApp({
             //----包裹相關資料----
             Pack_Type: '',
             Red_Id: '',
-            selectedPhoto: null,
+            selectedPhoto: '',
+            PhotoFile: null,
             showRemarksError: false,
             //----
             ProdTypeList: [],      // 包裹類別清單
@@ -191,6 +192,7 @@ const prodObj = Vue.createApp({
         } else {
             this.GetAllProductData();
         }
+
     },
 
     methods: {
@@ -250,29 +252,66 @@ const prodObj = Vue.createApp({
                 : 'package-status-collected status-badge-collected';
             return `${baseClass} ${statusClass}`;
         },
+        // 重新上傳：打開檔案選擇器
+        reuploadPhoto() {
+            const input = (this.$refs && this.$refs.photoUpload) || document.getElementById('photoUpload');
+            if (input) input.click();
+        },
         // 處理照片選擇
         handlePhotoSelect(event) {
-            const file = event.target.files[0];
-            if (file) {
+            const file = event.target.files && event.target.files[0];
+            if (!file) {
+                this.PhotoFile = null;
+                this.selectedPhoto = '';
+                const nameBox = document.getElementById('photoFileName');
+                if (nameBox) nameBox.textContent = '未選擇任何檔案';
+                return;
+            }
                 // 檢查檔案類型
                 const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
                 if (!allowedTypes.includes(file.type)) {
                     showMessage("請選擇 JPG、PNG 或 GIF 格式的圖片", "warn");
                     event.target.value = '';
-                    this.selectedPhoto = null;
+                    this.PhotoFile = null;
+                    this.selectedPhoto = '';
+                    const nameBox = document.getElementById('photoFileName');
+                    if (nameBox) nameBox.textContent = '未選擇任何檔案';
                     return;
                 }
-
                 // 檢查檔案大小 (5MB)
-                if (file.size > 5 * 1024 * 1024) {
-                    showMessage("圖片大小不能超過 5MB", "warn");
-                    event.target.value = '';
-                    this.selectedPhoto = null;
-                    return;
-                }
-
-                this.selectedPhoto = file;
+            if (file.size > 5 * 1024 * 1024) {
+                showMessage("圖片大小不能超過 5MB", "warn");
+                event.target.value = '';
+                this.PhotoFile = null;
+                this.selectedPhoto = '';
+                const nameBox = document.getElementById('photoFileName');
+                if (nameBox) nameBox.textContent = '未選擇任何檔案';
+                return;
             }
+            this.PhotoFile = file;
+            this.selectedPhoto = file.name;
+
+            const nameBox = document.getElementById('photoFileName');
+            if (nameBox) {
+                const pretty = file.name.length > 60 ? (file.name.slice(0, 57) + '…') : file.name;
+                nameBox.textContent = pretty;
+            }
+        },
+        clearUpload() {
+            this.PhotoFile = null;
+            this.selectedPhoto = '' ;
+            const input = (this.$refs && this.$refs.photoUpload)
+                        || document.getElementById('photoUpload');
+            if (input) {
+                input.value = '';
+
+                input.type = 'text';
+                input.type = 'file';
+            }
+            this.Pack_Type = '';     // 包裹類別
+            this.Red_Id = '';        // 收件住戶
+            this.Remarks = '';
+            this.showRemarksError = false;
         },
         // 查看包裹照片
         viewPackagePhoto(item) {
@@ -557,13 +596,9 @@ const prodObj = Vue.createApp({
             formData.append('Red_Id', this.Red_Id);
             formData.append('Remarks', this.Remarks || '');
 
-            if (this.selectedPhoto) {
-                formData.append('photo', this.selectedPhoto);
+            if (this.PhotoFile) {
+                formData.append('photo', this.PhotoFile, this.PhotoFile.name);
             }
-            for (let pair of formData.entries()) {
-                console.log(pair[0] + ': ' + pair[1]);
-            }
-
             // 使用 FormData 上傳
             axios.post('/Home/AddProduct', formData, {
                 headers: {
@@ -575,12 +610,17 @@ const prodObj = Vue.createApp({
                 if (js[0].msg === 'OK') {
                     showMessage("包裹已新增", "success");
                     this.GetAllProductData();
+
                     this.Pack_Type = this.Red_Id = this.Remarks = '';
                     this.showRemarksError = false;
-                    this.selectedPhoto = null;
+
+                    this.PhotoFile = null;
+                    this.selectedPhoto = '';
                     // 清除文件選擇器
                     const fileInput = document.getElementById('photoUpload');
                     if (fileInput) fileInput.value = '';
+                    const nameBox = document.getElementById('photoFileName');
+                    if (nameBox) nameBox.textContent = '未選擇任何檔案';
                 }
             }).catch(() => showMessage("連線錯誤", "warn"));
         },

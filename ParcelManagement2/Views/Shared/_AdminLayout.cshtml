@@ -11,426 +11,262 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <style>
-        /* B4CAFA 主題色系變數 */
         :root {
-            --theme-primary: #B4CAFA;
-            --theme-primary-dark: #8BB0F7;
-            --theme-primary-light: #D6E5FD;
-            --theme-secondary: #A8E6CF;
-            --theme-accent: #6B8FF7;
-            --theme-bg-main: linear-gradient(135deg, #F8FCFF 0%, #E8F4FD 100%);
-            --theme-border: #A0BDF8;
-            --theme-text-primary: #2C3E50;
-            --theme-text-secondary: #5A6C7D;
-            /* 功能色保持不變 */
-            --status-pending: #dc3545;
-            --status-collected: #28a745;
-            --status-warning: #ffc107;
-            --status-info: #17a2b8;
-            --navbar-height: 56px;
-            --content-padding: 18px;
-            --card-radius: 8px;
+            --admin-primary: #3F9E95;
+            --admin-secondary: #7FCFC3;
+            --admin-primary-dark: #2F847C;
+            --admin-accent: #CFC7BB;
+            --admin-light: #9FB1B1;
+            --cream: #F7F3EA;
+            --border-color: #E7E3DA;
+            --text: #1E2A2A;
+            --card-radius: 14px;
+            --navbar-h: 56px;
         }
 
         * {
-            box-sizing: border-box;
+            box-sizing: border-box
         }
 
         html, body {
-            margin: 0;
-            padding: 0;
-            height: 100%;
+            height: 100%
         }
 
         body {
-            background: var(--theme-bg-main);
-            min-height: 100vh;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            color: var(--text);
+            background: linear-gradient(180deg,#F7FBFA 0%, #EEF7F6 100%);
+            font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
             font-size: 14px;
-            padding-top: var(--navbar-height);
+            padding-top: var(--navbar-h);
             overflow-x: hidden;
-            color: var(--theme-text-primary);
         }
 
-        /* 導覽列樣式 */
+        /* 導覽列 */
         .navbar-admin {
-            background: linear-gradient(90deg, var(--theme-primary), var(--theme-primary-dark));
-            box-shadow: 0 2px 15px rgba(139, 176, 247, 0.3);
-            height: var(--navbar-height);
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1030;
-            border: none;
-            backdrop-filter: blur(10px);
+            height: var(--navbar-h);
+            background: linear-gradient(90deg,var(--admin-primary),var(--admin-secondary));
+            border: 0;
+            box-shadow: 0 2px 12px rgba(63,158,149,.15);
         }
 
-            .navbar-admin .container-fluid {
-                height: 100%;
-                padding: 0 var(--content-padding);
-                max-width: none;
+            .navbar-admin .navbar-brand {
+                font-weight: 800;
+                color: #fff !important;
                 display: flex;
                 align-items: center;
+                gap: .5rem;
             }
 
-        .navbar-brand {
-            font-size: 1.2rem;
+            .navbar-admin .nav-link {
+                color: #fff;
+                font-weight: 700;
+                border-radius: 8px;
+                padding: .5rem .75rem;
+                margin: 0 .125rem;
+                transition: .15s ease;
+                opacity: .95;
+            }
+
+                .navbar-admin .nav-link:hover {
+                    opacity: 1;
+                    background: rgba(255,255,255,.12)
+                }
+
+                .navbar-admin .nav-link.current {
+                    background: #ffffff24
+                }
+
+        .user-info {
+            color: #fff;
             font-weight: 700;
-            color: var(--theme-text-primary) !important;
-            text-decoration: none;
+            font-size: 12px;
             display: flex;
             align-items: center;
-            transition: all 0.3s ease;
-            margin-right: 20px;
-            text-shadow: 0 1px 3px rgba(255, 255, 255, 0.3);
+            gap: .4rem;
+            padding: .35rem .6rem;
+            border-radius: 8px;
+            background: #ffffff22;
         }
 
-            .navbar-brand:hover {
-                color: white !important;
-                transform: translateY(-1px);
-            }
-
-            .navbar-brand i {
-                margin-right: 8px;
-                font-size: 1.1rem;
-            }
-
-        .navbar-admin .nav-link {
-            color: var(--theme-text-primary);
-            font-weight: 600;
-            padding: 8px 16px;
+        .btn-logout {
+            color: #fff;
+            border: 1px solid #fff;
+            background: transparent;
+            font-weight: 700;
+            font-size: 12px;
+            padding: .4rem .7rem;
             border-radius: 8px;
-            transition: all 0.3s ease;
-            margin: 0 4px;
-            display: flex;
-            align-items: center;
-            font-size: 13px;
-            white-space: nowrap;
+        }
+
+            .btn-logout:hover {
+                background: #fff;
+                color: var(--admin-primary)
+            }
+
+        /* 手機側欄  */
+        .offcanvas-admin {
+            width: 248px;
+            border: 0;
+            background: linear-gradient(180deg,var(--admin-primary),var(--admin-primary-dark));
+            color: #fff;
+        }
+
+            .offcanvas-admin .nav-link {
+                color: #fff;
+                font-weight: 700;
+                border-radius: 10px
+            }
+
+                .offcanvas-admin .nav-link.current,
+                .offcanvas-admin .nav-link:hover {
+                    background: #ffffff26
+                }
+
+        /*   主內容   */
+        .main-content {
+            min-height: calc(100vh - var(--navbar-h))
+        }
+
+            .main-content .container-fluid {
+                padding: 20px
+            }
+        .cream-card {
+            background: linear-gradient(135deg,#FFFDF7 0%,var(--cream) 100%);
+            border: 1px solid var(--border-color);
+            border-radius: var(--card-radius);
+        }
+
+        /*   響應式   */
+        @@media (max-width:992px) {
+            .user-info
+
+        {
+            display: none
+        }
+
+        }
+        /* 「目前頁面」狀態 */
+        .navbar-admin .nav-link {
+            position: relative;
+            transition: transform .12s ease, box-shadow .12s ease, background-color .12s ease, color .12s ease;
             border: 1px solid transparent;
         }
 
             .navbar-admin .nav-link:hover {
-                background: rgba(255, 255, 255, 0.2);
-                color: white;
                 transform: translateY(-1px);
-                box-shadow: 0 4px 12px rgba(107, 143, 247, 0.3);
-                border-color: rgba(255, 255, 255, 0.3);
+                box-shadow: 0 6px 16px rgba(255,255,255,.22);
             }
 
-            .navbar-admin .nav-link.active,
-            .navbar-admin .nav-link.current-page {
-                background: var(--theme-accent);
-                color: white;
-                box-shadow: 0 3px 10px rgba(107, 143, 247, 0.4);
-            }
-
-            .navbar-admin .nav-link i {
-                margin-right: 6px;
-                font-size: 0.9rem;
-            }
-
-        .navbar-nav {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            padding: 4px;
-            gap: 2px;
-            backdrop-filter: blur(5px);
-            display: flex;
-            align-items: center;
-            height: 44px;
-        }
-
-        .desktop-menu {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-left: auto;
-            height: 100%;
-        }
-        .user-info {
-            color: var(--theme-text-primary);
-            font-size: 12px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            padding: 0 15px;
-            margin-right: 0px;
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 8px;
-            height: 36px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-            .user-info i {
-                margin-right: 6px;
-                font-size: 1rem;
-            }
-
-        .btn-logout {
-            background: transparent;
-            border: 2px solid rgba(255, 255, 255, 0.8);
-            color: white;
-            font-weight: 600;
-            padding: 8px 15px;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            font-size: 12px;
-            height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            white-space: nowrap;
-        }
-
-            .btn-logout:hover {
-                background: white;
-                color: var(--theme-primary);
+            .navbar-admin .nav-link.current,
+            .navbar-admin .nav-link[aria-current="page"] {
+                background: #fff !important;
+                color: var(--admin-primary) !important;
+                border-color: #fff !important;
+                box-shadow: 0 6px 18px rgba(255,255,255,.35), 0 2px 6px rgba(0,0,0,.08);
                 transform: translateY(-1px);
-                box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
             }
 
-            .btn-logout i {
-                margin-right: 4px;
-                font-size: 0.9rem;
-            }
-
-        /* 手機版側邊選單 */
-        .offcanvas-admin {
-            background: linear-gradient(180deg, var(--theme-primary), var(--theme-primary-dark));
-            width: 240px;
-            border: none;
-        }
-
-            .offcanvas-admin .offcanvas-header {
-                justify-content: space-between;
-                padding: 18px;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-            }
-
-            .offcanvas-admin .offcanvas-title {
-                font-size: 1.1rem;
-                font-weight: 700;
-                color: white;
-                display: flex;
-                align-items: center;
-            }
-
-                .offcanvas-admin .offcanvas-title i {
-                    margin-right: 8px;
-                    font-size: 1.2rem;
+                .navbar-admin .nav-link.current::after,
+                .navbar-admin .nav-link[aria-current="page"]::after {
+                    content: "";
+                    position: absolute;
+                    left: 12px;
+                    right: 12px;
+                    bottom: -8px;
+                    height: 4px;
+                    background: #fff;
+                    border-radius: 4px;
                 }
 
-            .offcanvas-admin .nav-pills .nav-link {
-                color: #1A2332; 
-                font-weight: 500;
-                padding: 12px 16px;
-                margin: 3px 12px;
-                border-radius: 8px;
-                transition: all 0.3s ease;
-                display: flex;
-                align-items: center;
-                border: 1px solid transparent;
-                font-size: 13px;
+        /*  手機側欄目前頁面（更明顯的白色 Pills）  */
+        .offcanvas-admin .nav-link {
+            transition: background-color .12s ease, color .12s ease, box-shadow .12s ease;
+            border: 1px solid transparent;
+        }
+
+            .offcanvas-admin .nav-link.current,
+            .offcanvas-admin .nav-link[aria-current="page"] {
+                background: #fff !important;
+                color: var(--admin-primary) !important;
+                box-shadow: inset 0 0 0 2px #fff, 0 6px 16px rgba(0,0,0,.12);
+                font-weight: 800;
             }
 
-                .offcanvas-admin .nav-pills .nav-link:hover {
-                    background: rgba(255, 255, 255, 0.2);
-                    color: white;
-                    border-color: rgba(255, 255, 255, 0.2);
-                    transform: translateX(4px);
-                }
-
-                .offcanvas-admin .nav-pills .nav-link.active,
-                .offcanvas-admin .nav-pills .nav-link.current-page {
-                    background: var(--theme-accent);
-                    color: white;
-                    border-color: var(--theme-accent);
-                }
-
-                .offcanvas-admin .nav-pills .nav-link i {
-                    margin-right: 10px;
-                    font-size: 1rem;
-                    width: 18px;
-                    text-align: center;
-                }
-
-        .offcanvas-user-info {
-            color: #1A2332;
-            font-size: 12px;
-            font-weight: 500;
-            padding: 12px 16px;
-            margin: 8px 12px;
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-            .offcanvas-user-info i {
-                margin-right: 8px;
-                font-size: 1.1rem;
+            .navbar-admin .nav-link:focus-visible,
+            .offcanvas-admin .nav-link:focus-visible {
+                outline: 2px solid #fff;
+                outline-offset: 2px;
+                box-shadow: 0 0 0 3px rgba(255,255,255,.35);
             }
 
-        .offcanvas-admin .btn-logout {
-            margin: 12px;
-            width: calc(100% - 24px);
-            height: 40px;
-            justify-content: center;
-            display: flex;
-            align-items: center;
-        }
-
-        /* 主要內容區域 */
-        .main-content {
-            padding: 0;
-            margin: 0;
-            background: var(--theme-bg-main);
-            width: 100%;
-            min-height: calc(100vh - var(--navbar-height));
-        }
-
-            .main-content .container-fluid {
-                padding: var(--content-padding);
-                margin: 0;
-                max-width: none;
-                width: 100%;
-            }
-
-        /* 卡片樣式 */
-        .card-header {
-            background: var(--theme-primary-light);
-            border-bottom: 1px solid var(--theme-border);
-            color: var(--theme-text-primary);
-            font-weight: 600;
-        }
-
-        /* 響應式設計 */
-        @@media (max-width: 768px) {
-            .navbar-brand
-
-        {
-            font-size: 1.1rem;
-            margin-right: 12px;
-        }
-
-        .navbar-admin .nav-link {
-            padding: 6px 8px;
-            font-size: 12px;
-            margin: 0 2px;
-        }
-
-        .main-content .container-fluid {
-            padding: 14px;
-        }
-
-        }
-
-        @@media (max-width: 576px) {
-            .navbar-brand
-
-        {
-            font-size: 1rem;
-            margin-right: 8px;
-        }
-
-        .user-info {
-            font-size: 11px;
-            padding: 0 8px;
-            margin-right: 8px;
-        }
-
-        .btn-logout {
-            font-size: 11px;
-            padding: 6px 8px;
-        }
-
-        .main-content .container-fluid {
-            padding: 10px;
-        }
-
-        }
     </style>
 
     @RenderSection("styles", required: false)
 </head>
 <body>
     <!-- 導覽列 -->
-    <nav class="navbar navbar-expand-lg navbar-dark navbar-admin">
+    <nav class="navbar navbar-expand-lg navbar-admin fixed-top">
         <div class="container-fluid">
             <a class="navbar-brand" href="/Home/Index">
-                <i class="bi bi-building"></i>
-                社區包裹管理系統
+                <i class="bi bi-building"></i> 社區包裹管理系統
             </a>
 
-            <button class="navbar-toggler d-lg-none"
+            <button class="navbar-toggler text-white border-0"
                     type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#adminMenu" aria-controls="adminMenu">
-                <span class="navbar-toggler-icon"></span>
+                <i class="bi bi-list" style="font-size:1.4rem;"></i>
             </button>
 
-            <div class="d-none d-lg-flex desktop-menu">
+            <div class="d-none d-lg-flex align-items-center gap-2 ms-auto">
                 <div class="user-info">
-                    <i class="bi bi-person-circle"></i>
-                    您好，@User.Identity.Name
+                    <i class="bi bi-person-circle"></i> 您好，@User.Identity.Name
                 </div>
-
-                <ul class="navbar-nav flex-row align-items-center">
+                <ul class="navbar-nav flex-row">
                     <li class="nav-item">
-                        <a class="nav-link" href="/Home/Index" id="nav-index">
-                            <i class="bi bi-graph-up"></i>總覽
+                        <a id="nav-index" class="nav-link" href="/Home/Index">
+                            <i class="bi bi-graph-up"></i> 總覽
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/Home/Packages" id="nav-packages">
-                            <i class="bi bi-box-seam"></i>包裹
+                        <a id="nav-packages" class="nav-link" href="/Home/Packages">
+                            <i class="bi bi-box-seam"></i> 包裹
                         </a>
                     </li>
                 </ul>
-
                 <button id="btnLogoutLg" class="btn btn-logout">
-                    <i class="bi bi-box-arrow-right"></i>登出
+                    <i class="bi bi-box-arrow-right"></i> 登出
                 </button>
             </div>
         </div>
     </nav>
 
-    <!-- 手機版側邊選單 -->
-    <div class="offcanvas offcanvas-start offcanvas-admin d-lg-none"
-         tabindex="-1" id="adminMenu" aria-labelledby="adminMenuLabel">
+    <!-- 手機側邊選單 -->
+    <div class="offcanvas offcanvas-start offcanvas-admin d-lg-none" tabindex="-1" id="adminMenu">
         <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="adminMenuLabel">
-                <i class="bi bi-list"></i>功能選單
-            </h5>
+            <h6 class="m-0 fw-bold"><i class="bi bi-collection me-1"></i> 功能選單</h6>
             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
         </div>
-        <div class="offcanvas-body p-0">
-            <div class="offcanvas-user-info">
-                <i class="bi bi-person-circle"></i>
-                您好，@User.Identity.Name
+        <div class="offcanvas-body">
+            <div class="mb-3 p-2 rounded-3" style="background:#ffffff22">
+                <i class="bi bi-person-circle me-1"></i> 您好，@User.Identity.Name
             </div>
-
-            <ul class="nav nav-pills flex-column">
-                <li class="nav-item">
-                    <a class="nav-link" href="/Home/Index" id="mobile-nav-index">
-                        <i class="bi bi-graph-up"></i>總覽首頁
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/Home/Packages" id="mobile-nav-packages">
-                        <i class="bi bi-box-seam"></i>包裹管理
-                    </a>
-                </li>
-            </ul>
-
-            <button id="btnLogoutSm" class="btn btn-logout mt-3">
-                <i class="bi bi-box-arrow-right"></i>登出系統
+            <div class="nav flex-column gap-1">
+                <a id="m-index" class="nav-link px-3 py-2" href="/Home/Index">
+                    <i class="bi bi-graph-up me-1"></i> 總覽首頁
+                </a>
+                <a id="m-packages" class="nav-link px-3 py-2" href="/Home/Packages">
+                    <i class="bi bi-box-seam me-1"></i> 包裹管理
+                </a>
+            </div>
+            <hr class="border-white-25" />
+            <button id="btnLogoutSm" class="btn btn-logout w-100">
+                <i class="bi bi-box-arrow-right"></i> 登出系統
             </button>
         </div>
     </div>
 
-    <!-- 主內容區域 -->
+    <!-- 主內容 -->
     <div class="main-content">
         @RenderBody()
     </div>
@@ -441,6 +277,7 @@
     <script src="~/Scripts/common-jwt.js"></script>
 
     <script>
+        // 登出
         const doLogout = () => {
             if (confirm('確定要登出系統嗎？')) {
                 axios.post('/Account/Logout').finally(() => {
@@ -450,21 +287,21 @@
                 });
             }
         };
-
         document.getElementById('btnLogoutLg')?.addEventListener('click', doLogout);
         document.getElementById('btnLogoutSm')?.addEventListener('click', doLogout);
 
-        document.addEventListener('DOMContentLoaded', function() {
-            const currentPath = window.location.pathname;
-
-            if (currentPath.includes('/Home/Index')) {
-                document.getElementById('nav-index')?.classList.add('current-page');
-                document.getElementById('mobile-nav-index')?.classList.add('current-page');
-            } else if (currentPath.includes('/Home/Packages')) {
-                document.getElementById('nav-packages')?.classList.add('current-page');
-                document.getElementById('mobile-nav-packages')?.classList.add('current-page');
-            }
-        });
+        // 目前頁籤高亮
+        (function () {
+            const p = location.pathname.toLowerCase();
+            const add = id => {
+              const el = document.getElementById(id);
+              if(!el) return;
+              el.classList.add('current');
+              el.setAttribute('aria-current','page');
+            };
+            if (p.includes('/home/packages')) { add('nav-packages'); add('m-packages'); }
+            else { add('nav-index'); add('m-index'); }
+        })();
     </script>
 
     @RenderSection("scripts", required: false)

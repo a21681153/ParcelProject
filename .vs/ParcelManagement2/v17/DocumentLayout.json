@@ -3,64 +3,44 @@
   "WorkspaceRootPath": "E:\\\u5C08\u984C\\ParcelProject\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|e:\\\u5C08\u984C\\parcelproject\\parcelmanagement2\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|solutionrelative:parcelmanagement2\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|e:\\\u5C08\u984C\\parcelproject\\parcelmanagement2\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|solutionrelative:parcelmanagement2\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|e:\\\u5C08\u984C\\parcelproject\\parcelmanagement2\\views\\shared\\_adminlayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|solutionrelative:parcelmanagement2\\views\\shared\\_adminlayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|e:\\\u5C08\u984C\\parcelproject\\parcelmanagement2\\views\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|solutionrelative:parcelmanagement2\\views\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|e:\\\u5C08\u984C\\parcelproject\\parcelmanagement2\\wwwroot\\css\\theme-colors.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|solutionrelative:parcelmanagement2\\wwwroot\\css\\theme-colors.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+      "AbsoluteMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|e:\\\u5C08\u984C\\parcelproject\\parcelmanagement2\\views\\shared\\error.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|solutionrelative:parcelmanagement2\\views\\shared\\error.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|e:\\\u5C08\u984C\\parcelproject\\parcelmanagement2\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|solutionrelative:parcelmanagement2\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|e:\\\u5C08\u984C\\parcelproject\\parcelmanagement2\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|solutionrelative:parcelmanagement2\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|e:\\\u5C08\u984C\\parcelproject\\parcelmanagement2\\views\\shared\\_residentlayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|solutionrelative:parcelmanagement2\\views\\shared\\_residentlayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|e:\\\u5C08\u984C\\parcelproject\\parcelmanagement2\\views\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|solutionrelative:parcelmanagement2\\views\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|e:\\\u5C08\u984C\\parcelproject\\parcelmanagement2\\views\\account\\accessdenied.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|solutionrelative:parcelmanagement2\\views\\account\\accessdenied.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|e:\\\u5C08\u984C\\parcelproject\\parcelmanagement2\\parcelproject.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|solutionrelative:parcelmanagement2\\parcelproject.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|e:\\\u5C08\u984C\\parcelproject\\parcelmanagement2\\views\\resident\\home.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|solutionrelative:parcelmanagement2\\views\\resident\\home.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|e:\\\u5C08\u984C\\parcelproject\\parcelmanagement2\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|solutionrelative:parcelmanagement2\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|e:\\\u5C08\u984C\\parcelproject\\parcelmanagement2\\controllers\\residentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|solutionrelative:parcelmanagement2\\controllers\\residentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|e:\\\u5C08\u984C\\parcelproject\\parcelmanagement2\\wwwroot\\scripts\\parcel.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|solutionrelative:parcelmanagement2\\wwwroot\\scripts\\parcel.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|e:\\\u5C08\u984C\\parcelproject\\parcelmanagement2\\views\\resident\\mypackages.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|solutionrelative:parcelmanagement2\\views\\resident\\mypackages.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|e:\\\u5C08\u984C\\parcelproject\\parcelmanagement2\\views\\resident\\home.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|solutionrelative:parcelmanagement2\\views\\resident\\home.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|e:\\\u5C08\u984C\\parcelproject\\parcelmanagement2\\views\\resident\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|solutionrelative:parcelmanagement2\\views\\resident\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|e:\\\u5C08\u984C\\parcelproject\\parcelmanagement2\\wwwroot\\scripts\\parcel.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|solutionrelative:parcelmanagement2\\wwwroot\\scripts\\parcel.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+      "AbsoluteMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|e:\\\u5C08\u984C\\parcelproject\\parcelmanagement2\\models\\residenthomevm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|solutionrelative:parcelmanagement2\\models\\residenthomevm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|e:\\\u5C08\u984C\\parcelproject\\parcelmanagement2\\controllers\\residentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|solutionrelative:parcelmanagement2\\controllers\\residentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|e:\\\u5C08\u984C\\parcelproject\\parcelmanagement2\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|solutionrelative:parcelmanagement2\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|e:\\\u5C08\u984C\\parcelproject\\parcelmanagement2\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
@@ -86,152 +66,156 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 7,
           "Children": [
             {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:130:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:132:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:133:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:134:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "theme-colors.css",
-              "DocumentMoniker": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\wwwroot\\css\\theme-colors.css",
-              "RelativeDocumentMoniker": "ParcelManagement2\\wwwroot\\css\\theme-colors.css",
-              "ToolTip": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\wwwroot\\css\\theme-colors.css",
-              "RelativeToolTip": "ParcelManagement2\\wwwroot\\css\\theme-colors.css",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Program.cs",
+              "RelativeDocumentMoniker": "ParcelManagement2\\Program.cs",
+              "ToolTip": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Program.cs",
+              "RelativeToolTip": "ParcelManagement2\\Program.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2025-10-24T05:40:58.552Z",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-25T14:37:09.631Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "_AdminLayout.cshtml",
-              "DocumentMoniker": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Views\\Shared\\_AdminLayout.cshtml",
-              "RelativeDocumentMoniker": "ParcelManagement2\\Views\\Shared\\_AdminLayout.cshtml",
-              "ToolTip": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Views\\Shared\\_AdminLayout.cshtml",
-              "RelativeToolTip": "ParcelManagement2\\Views\\Shared\\_AdminLayout.cshtml",
-              "ViewState": "AgIAAPQAAAAAAAAAAAAjwAIBAAAbAAAAAAAAAA==",
+              "Title": "_ViewStart.cshtml",
+              "DocumentMoniker": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Views\\_ViewStart.cshtml",
+              "RelativeDocumentMoniker": "ParcelManagement2\\Views\\_ViewStart.cshtml",
+              "ToolTip": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Views\\_ViewStart.cshtml",
+              "RelativeToolTip": "ParcelManagement2\\Views\\_ViewStart.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-24T05:30:17.961Z",
+              "WhenOpened": "2025-10-25T14:36:56.135Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "_Layout.cshtml",
-              "DocumentMoniker": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Views\\Shared\\_Layout.cshtml",
-              "RelativeDocumentMoniker": "ParcelManagement2\\Views\\Shared\\_Layout.cshtml",
-              "ToolTip": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Views\\Shared\\_Layout.cshtml",
-              "RelativeToolTip": "ParcelManagement2\\Views\\Shared\\_Layout.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAfAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "Error.cshtml",
+              "DocumentMoniker": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Views\\Shared\\Error.cshtml",
+              "RelativeDocumentMoniker": "ParcelManagement2\\Views\\Shared\\Error.cshtml",
+              "ToolTip": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Views\\Shared\\Error.cshtml",
+              "RelativeToolTip": "ParcelManagement2\\Views\\Shared\\Error.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-24T05:29:16.713Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Views\\Home\\Index.cshtml",
-              "RelativeDocumentMoniker": "ParcelManagement2\\Views\\Home\\Index.cshtml",
-              "ToolTip": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Views\\Home\\Index.cshtml",
-              "RelativeToolTip": "ParcelManagement2\\Views\\Home\\Index.cshtml",
-              "ViewState": "AgIAAKMBAAAAAAAAAAAYwO0BAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-23T14:16:51.343Z",
+              "WhenOpened": "2025-10-25T14:36:54.832Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "_ResidentLayout.cshtml",
-              "DocumentMoniker": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Views\\Shared\\_ResidentLayout.cshtml",
-              "RelativeDocumentMoniker": "ParcelManagement2\\Views\\Shared\\_ResidentLayout.cshtml",
-              "ToolTip": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Views\\Shared\\_ResidentLayout.cshtml",
-              "RelativeToolTip": "ParcelManagement2\\Views\\Shared\\_ResidentLayout.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAD4AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-24T05:21:07.496Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "site.css",
-              "DocumentMoniker": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\wwwroot\\css\\site.css",
-              "RelativeDocumentMoniker": "ParcelManagement2\\wwwroot\\css\\site.css",
-              "ToolTip": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\wwwroot\\css\\site.css",
-              "RelativeToolTip": "ParcelManagement2\\wwwroot\\css\\site.css",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAADMAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2025-10-23T14:51:45.446Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "ParcelProject",
-              "DocumentMoniker": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\ParcelProject.csproj",
-              "RelativeDocumentMoniker": "ParcelManagement2\\ParcelProject.csproj",
-              "ToolTip": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\ParcelProject.csproj",
-              "RelativeToolTip": "ParcelManagement2\\ParcelProject.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-10-23T14:56:14.627Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "AccessDenied.cshtml",
-              "DocumentMoniker": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Views\\Account\\AccessDenied.cshtml",
-              "RelativeDocumentMoniker": "ParcelManagement2\\Views\\Account\\AccessDenied.cshtml",
-              "ToolTip": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Views\\Account\\AccessDenied.cshtml",
-              "RelativeToolTip": "ParcelManagement2\\Views\\Account\\AccessDenied.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-23T14:52:19.775Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "Login.cshtml",
-              "DocumentMoniker": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Views\\Account\\Login.cshtml",
-              "RelativeDocumentMoniker": "ParcelManagement2\\Views\\Account\\Login.cshtml",
-              "ToolTip": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Views\\Account\\Login.cshtml",
-              "RelativeToolTip": "ParcelManagement2\\Views\\Account\\Login.cshtml",
-              "ViewState": "AgIAACAAAAAAAAAAAAAAACwAAAAgAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-23T14:52:18.944Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
               "Title": "Home.cshtml",
               "DocumentMoniker": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Views\\Resident\\Home.cshtml",
               "RelativeDocumentMoniker": "ParcelManagement2\\Views\\Resident\\Home.cshtml",
               "ToolTip": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Views\\Resident\\Home.cshtml",
               "RelativeToolTip": "ParcelManagement2\\Views\\Resident\\Home.cshtml",
-              "ViewState": "AgIAAJIBAAAAAAAAAAAjwLcBAAAWAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACMAAAALAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-22T18:59:29.264Z"
+              "WhenOpened": "2025-10-22T18:59:29.264Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 3,
+              "Title": "parcel.js",
+              "DocumentMoniker": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\wwwroot\\Scripts\\parcel.js",
+              "RelativeDocumentMoniker": "ParcelManagement2\\wwwroot\\Scripts\\parcel.js",
+              "ToolTip": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\wwwroot\\Scripts\\parcel.js",
+              "RelativeToolTip": "ParcelManagement2\\wwwroot\\Scripts\\parcel.js",
+              "ViewState": "AgIAANkCAAAAAAAAAADgv8ACAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2025-10-18T14:03:34.753Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "MyPackages.cshtml",
+              "DocumentMoniker": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Views\\Resident\\MyPackages.cshtml",
+              "RelativeDocumentMoniker": "ParcelManagement2\\Views\\Resident\\MyPackages.cshtml",
+              "ToolTip": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Views\\Resident\\MyPackages.cshtml",
+              "RelativeToolTip": "ParcelManagement2\\Views\\Resident\\MyPackages.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAMoAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-10-22T17:36:24.158Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ResidentController.cs",
+              "DocumentMoniker": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Controllers\\ResidentController.cs",
+              "RelativeDocumentMoniker": "ParcelManagement2\\Controllers\\ResidentController.cs",
+              "ToolTip": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Controllers\\ResidentController.cs",
+              "RelativeToolTip": "ParcelManagement2\\Controllers\\ResidentController.cs",
+              "ViewState": "AgIAAE4CAAAAAAAAAADwv10CAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-22T17:55:21.986Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "Edit.cshtml",
               "DocumentMoniker": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Views\\Resident\\Edit.cshtml",
               "RelativeDocumentMoniker": "ParcelManagement2\\Views\\Resident\\Edit.cshtml",
               "ToolTip": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Views\\Resident\\Edit.cshtml",
               "RelativeToolTip": "ParcelManagement2\\Views\\Resident\\Edit.cshtml",
-              "ViewState": "AgIAANABAAAAAAAAAAAAwO0BAABoAAAAAAAAAA==",
+              "ViewState": "AgIAAE4DAAAAAAAAAAAAAB4CAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-23T13:55:43.356Z"
+              "WhenOpened": "2025-10-23T13:55:43.356Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 7,
+              "Title": "ResidentHomeVm.cs",
+              "DocumentMoniker": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Models\\ResidentHomeVm.cs",
+              "RelativeDocumentMoniker": "ParcelManagement2\\Models\\ResidentHomeVm.cs",
+              "ToolTip": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Models\\ResidentHomeVm.cs",
+              "RelativeToolTip": "ParcelManagement2\\Models\\ResidentHomeVm.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-25T13:23:03.121Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
               "Title": "HomeController.cs",
               "DocumentMoniker": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Controllers\\HomeController.cs",
               "RelativeDocumentMoniker": "ParcelManagement2\\Controllers\\HomeController.cs",
@@ -243,43 +227,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "MyPackages.cshtml",
-              "DocumentMoniker": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Views\\Resident\\MyPackages.cshtml",
-              "RelativeDocumentMoniker": "ParcelManagement2\\Views\\Resident\\MyPackages.cshtml",
-              "ToolTip": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Views\\Resident\\MyPackages.cshtml",
-              "RelativeToolTip": "ParcelManagement2\\Views\\Resident\\MyPackages.cshtml",
-              "ViewState": "AgIAAMIBAAAAAAAAAAAAwNUBAAA0AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-22T17:36:24.158Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "ResidentController.cs",
-              "DocumentMoniker": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Controllers\\ResidentController.cs",
-              "RelativeDocumentMoniker": "ParcelManagement2\\Controllers\\ResidentController.cs",
-              "ToolTip": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Controllers\\ResidentController.cs",
-              "RelativeToolTip": "ParcelManagement2\\Controllers\\ResidentController.cs",
-              "ViewState": "AgIAAHoCAAAAAAAAAAAnwBECAAA0AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-22T17:55:21.986Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "parcel.js",
-              "DocumentMoniker": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\wwwroot\\Scripts\\parcel.js",
-              "RelativeDocumentMoniker": "ParcelManagement2\\wwwroot\\Scripts\\parcel.js",
-              "ToolTip": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\wwwroot\\Scripts\\parcel.js",
-              "RelativeToolTip": "ParcelManagement2\\wwwroot\\Scripts\\parcel.js",
-              "ViewState": "AgIAADsBAAAAAAAAAAAiwEsBAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2025-10-18T14:03:34.753Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 10,
               "Title": "appsettings.json",
               "DocumentMoniker": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\appsettings.json",
               "RelativeDocumentMoniker": "ParcelManagement2\\appsettings.json",
@@ -291,7 +239,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 11,
               "Title": "web.config",
               "DocumentMoniker": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\web.config",
               "RelativeDocumentMoniker": "ParcelManagement2\\web.config",
@@ -303,7 +251,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 13,
               "Title": "appsettings.Development.json",
               "DocumentMoniker": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\appsettings.Development.json",
               "RelativeDocumentMoniker": "ParcelManagement2\\appsettings.Development.json",
@@ -315,7 +263,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 12,
               "Title": "appsettings.Production.json",
               "DocumentMoniker": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\appsettings.Production.json",
               "RelativeDocumentMoniker": "ParcelManagement2\\appsettings.Production.json",

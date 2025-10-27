@@ -5,78 +5,187 @@
     <meta charset="utf-8" />
     <title>@ViewBag.Title - 住戶專區</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <!-- 核心樣式 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
     <style>
         :root {
-            --resident-layout-primary: #B4CAFA;
-            --resident-layout-secondary: #8BB0F7;
-            --resident-layout-accent: #A8E6CF;
-            --resident-layout-border: #A0BDF8;
-            --resident-layout-bg: #F8FCFF;
-            --text-primary: #2C3E50;
+            --admin-primary: #3F9E95;
+            --admin-secondary: #7FCFC3;
+            --admin-primary-dark: #2F847C;
+            --admin-accent: #CFC7BB;
+            --admin-light: #9FB1B1;
+            --cream: #F7F3EA;
+            --border-color: #E7E3DA;
+            --text: #1E2A2A;
+            --card-radius: 14px;
+            --navbar-h: 56px;
         }
 
-        /* 住戶導航列 */
-        .resident-navbar {
-            background: linear-gradient(90deg, var(--resident-layout-primary), var(--resident-layout-secondary)) !important;
-            border-bottom: 3px solid var(--resident-layout-accent);
-            box-shadow: 0 4px 20px rgba(139, 176, 247, 0.2);
+        * {
+            box-sizing: border-box;
         }
 
-            .resident-navbar .navbar-brand,
-            .resident-navbar .nav-link {
-                color: white !important;
-                font-weight: 600;
-                transition: all 0.3s ease;
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+            color: var(--text);
+            background: linear-gradient(180deg,#F7FBFA 0%, #EEF7F6 100%);
+            font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+            font-size: 14px;
+            padding-top: var(--navbar-h);
+            overflow-x: hidden;
+        }
+
+        /* 導覽列*/
+        .navbar-resident {
+            height: var(--navbar-h);
+            background: linear-gradient(90deg,var(--admin-primary),var(--admin-secondary));
+            border: 0;
+            box-shadow: 0 2px 12px rgba(63,158,149,.15);
+        }
+
+            .navbar-resident .navbar-brand {
+                font-weight: 800;
+                color: #fff !important;
+                display: flex;
+                align-items: center;
+                gap: .5rem;
             }
 
-                .resident-navbar .nav-link:hover {
-                    color: var(--resident-layout-accent) !important;
-                    background: rgba(255, 255, 255, 0.1);
-                    border-radius: 6px;
+            .navbar-resident .nav-link {
+                color: #fff;
+                font-weight: 700;
+                border-radius: 8px;
+                padding: .5rem .75rem;
+                margin: 0 .125rem;
+                transition: .15s ease;
+                opacity: .95;
+                position: relative;
+                border: 1px solid transparent;
+            }
+
+                .navbar-resident .nav-link:hover {
+                    opacity: 1;
+                    background: rgba(255,255,255,.12);
+                    transform: translateY(-1px);
+                    box-shadow: 0 6px 16px rgba(255,255,255,.22);
+                }
+
+                .navbar-resident .nav-link.current,
+                .navbar-resident .nav-link[aria-current="page"] {
+                    background: #fff !important;
+                    color: var(--admin-primary) !important;
+                    border-color: #fff !important;
+                    box-shadow: 0 6px 18px rgba(255,255,255,.35), 0 2px 6px rgba(0,0,0,.08);
                     transform: translateY(-1px);
                 }
 
-                .resident-navbar .nav-link.active {
-                    background: rgba(255, 255, 255, 0.2);
-                    border-radius: 6px;
+                    .navbar-resident .nav-link.current::after,
+                    .navbar-resident .nav-link[aria-current="page"]::after {
+                        content: "";
+                        position: absolute;
+                        left: 12px;
+                        right: 12px;
+                        bottom: -8px;
+                        height: 4px;
+                        background: #fff;
+                        border-radius: 4px;
+                    }
+
+        .user-info {
+            color: #fff;
+            font-weight: 700;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: .4rem;
+            padding: .35rem .6rem;
+            border-radius: 8px;
+            background: #ffffff22;
+        }
+
+        .btn-logout {
+            color: #fff;
+            border: 1px solid #fff;
+            background: transparent;
+            font-weight: 700;
+            font-size: 12px;
+            padding: .4rem .7rem;
+            border-radius: 8px;
+        }
+
+            .btn-logout:hover {
+                background: #fff;
+                color: var(--admin-primary);
+            }
+
+        /*手機側欄*/
+        .offcanvas-resident {
+            width: 248px;
+            border: 0;
+            background: linear-gradient(180deg,var(--admin-primary),var(--admin-primary-dark));
+            color: #fff;
+        }
+
+            .offcanvas-resident .offcanvas-header {
+                border-bottom: 1px solid #ffffff22;
+            }
+
+            .offcanvas-resident .nav-link {
+                color: #fff;
+                font-weight: 700;
+                border-radius: 10px;
+                transition: background-color .12s ease, color .12s ease, box-shadow .12s ease;
+                border: 1px solid transparent;
+                padding: .6rem .9rem;
+            }
+
+                .offcanvas-resident .nav-link:hover {
+                    background: #ffffff26;
                 }
 
-        /* 主要內容背景 */
+                .offcanvas-resident .nav-link.current,
+                .offcanvas-resident .nav-link[aria-current="page"] {
+                    background: #fff !important;
+                    color: var(--admin-primary) !important;
+                    box-shadow: inset 0 0 0 2px #fff, 0 6px 16px rgba(0,0,0,.12);
+                    font-weight: 800;
+                }
+
+            .offcanvas-resident .offcanvas-user-info {
+                background: #ffffff22;
+                padding: .6rem .75rem;
+                border-radius: 10px;
+                margin: .5rem;
+            }
+
+        /*   主內容   */
         .main-content {
-            background: linear-gradient(135deg, var(--resident-layout-bg) 0%, #E8F4FD 100%);
-            background-attachment: fixed;
-            min-height: 100vh;
+            min-height: calc(100vh - var(--navbar-h));
+        }
+
+            .main-content .container-fluid {
+                padding: 20px;
+            }
+
+        /*   響應式   */
+        @@media (max-width: 992px) {
+            .user-info
+
+        {
+            display: none;
+        }
+
         }
     </style>
-
-    <script>
-        function handleResponsive() {
-            const body = document.body;
-            const width = window.innerWidth;
-
-            body.classList.remove('mobile-responsive', 'small-responsive');
-
-            if (width <= 576) {
-                body.classList.add('small-responsive');
-            } else if (width <= 768) {
-                body.classList.add('mobile-responsive');
-            }
-        }
-
-        window.addEventListener('load', handleResponsive);
-        window.addEventListener('resize', handleResponsive);
-    </script>
-
-
 </head>
 <body>
     <!-- 導覽列 -->
-    <nav class="navbar navbar-expand-lg navbar-dark navbar-resident">
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-resident fixed-top">
         <div class="container-fluid">
             <!-- Logo 和品牌名稱 -->
             <a class="navbar-brand" href="/Resident/Home">
@@ -85,14 +194,14 @@
             </a>
 
             <!-- 漢堡選單按鈕 (小螢幕) -->
-            <button class="navbar-toggler d-lg-none"
+            <button class="navbar-toggler text-white border-0 d-lg-none"
                     type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#residentMenu" aria-controls="residentMenu">
-                <span class="navbar-toggler-icon"></span>
+                <i class="bi bi-list" style="font-size:1.4rem;"></i>
             </button>
 
-            <!-- 桌面版選單-->
-            <div class="d-none d-lg-flex desktop-menu">
+            <!-- 桌面版選單 -->
+            <div class="d-none d-lg-flex align-items-center gap-2 ms-auto">
                 <!-- 用戶資訊 -->
                 <div class="user-info">
                     <i class="bi bi-person-circle"></i>
@@ -103,12 +212,12 @@
                 <ul class="navbar-nav flex-row align-items-center">
                     <li class="nav-item">
                         <a class="nav-link" href="/Resident/Home" id="nav-home">
-                            <i class="bi bi-house"></i>首頁
+                            <i class="bi bi-house"></i>  首頁
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/Resident/MyPackages" id="nav-parcels">
-                            <i class="bi bi-box-seam"></i>我的包裹
+                            <i class="bi bi-box-seam"></i>  我的包裹
                         </a>
                     </li>
                 </ul>
@@ -125,20 +234,21 @@
     <div class="offcanvas offcanvas-start offcanvas-resident d-lg-none"
          tabindex="-1" id="residentMenu" aria-labelledby="residentMenuLabel">
         <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="residentMenuLabel">
-                <i class="bi bi-list"></i>功能選單
-            </h5>
+            <h6 class="m-0 fw-bold" id="residentMenuLabel">
+                <i class="bi bi-collection me-1"></i> 功能選單
+            </h6>
             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
         </div>
+
         <div class="offcanvas-body p-0">
             <!-- 用戶資訊 -->
-            <div class="offcanvas-user-info">
+            <div class="offcanvas-user-info mx-2 mt-2">
                 <i class="bi bi-person-circle"></i>
                 您好，@User.Identity.Name
             </div>
 
             <!-- 導航選單 -->
-            <ul class="nav nav-pills flex-column">
+            <ul class="nav nav-pills flex-column gap-1 p-2">
                 <li class="nav-item">
                     <a class="nav-link" href="/Resident/Home" id="mobile-nav-home">
                         <i class="bi bi-house"></i>住戶首頁
@@ -152,9 +262,11 @@
             </ul>
 
             <!-- 登出按鈕 -->
-            <button id="btnLogoutSm" class="btn btn-logout mt-3">
-                <i class="bi bi-box-arrow-right"></i>登出
-            </button>
+            <div class="px-2">
+                <button id="btnLogoutSm" class="btn btn-logout w-100 mt-2">
+                    <i class="bi bi-box-arrow-right"></i>登出
+                </button>
+            </div>
         </div>
     </div>
 
@@ -172,18 +284,35 @@
 
     <script>
         // 登出
-        function doLogout(){
-            if(confirm('確定要登出嗎？')){
-                axios.post('/Account/Logout').finally(()=>{
+        function doLogout() {
+            if (confirm('確定要登出嗎？')) {
+                axios.post('/Account/Logout').finally(() => {
                     localStorage.removeItem('jwt');
                     delete axios.defaults.headers.common.Authorization;
-                    location.href='/Account/Login';
+                    location.href = '/Account/Login';
                 });
             }
         }
-        document.getElementById('btnLogoutLg')?.addEventListener('click',doLogout);
-        document.getElementById('btnLogoutSm')?.addEventListener('click',doLogout);
+        document.getElementById('btnLogoutLg')?.addEventListener('click', doLogout);
+        document.getElementById('btnLogoutSm')?.addEventListener('click', doLogout);
+
+        // 目前頁籤高亮
+        (function () {
+            const p = location.pathname.toLowerCase();
+            const setCurrent = id => {
+                const el = document.getElementById(id);
+                if (!el) return;
+                el.classList.add('current');
+                el.setAttribute('aria-current', 'page');
+            };
+            if (p.includes('/resident/mypackages')) {
+                setCurrent('nav-parcels'); setCurrent('mobile-nav-parcels');
+            } else {
+                setCurrent('nav-home'); setCurrent('mobile-nav-home');
+            }
+        })();
     </script>
+
     @RenderSection("scripts", required: false)
 </body>
 </html>

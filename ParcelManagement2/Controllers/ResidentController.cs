@@ -70,6 +70,11 @@ namespace ParcelManagement2.Controllers
                     selectedResident = residents.Rows[0];
                     HttpContext.Session.SetString("SelectedResidentId", selectedResident["red_id"].ToString() ?? "");
                 }
+                int photoCount = 0;
+                if (!string.IsNullOrEmpty(selectedResidentId))
+                {
+                    photoCount = GetResidentPhotoCount(selectedResidentId);
+                }
                 var vm = new ResidentHomeVm
                 {
                     UserName = username,
@@ -77,11 +82,13 @@ namespace ParcelManagement2.Controllers
                     ResidentId = selectedResident?["red_id"]?.ToString() ?? string.Empty,
                     FullName = selectedResident?["red_name"]?.ToString() ?? string.Empty,
                     Phone = selectedResident?["phone"]?.ToString() ?? string.Empty,
-                    HasMultipleMembers = hasMultipleMembers
+                    HasMultipleMembers = hasMultipleMembers,
+                    ProfilePhotoCount = photoCount
                 };
 
                 ViewBag.JsonList = _dbConn.DataTableToJsonString(residents);
                 ViewBag.SelectedResidentId = selectedResidentId;
+                ViewBag.ProfilePhotoCount = photoCount;
                 return View(vm);
             }
             catch (Exception ex)
@@ -581,6 +588,37 @@ namespace ParcelManagement2.Controllers
             {
                 _logger.LogError(ex, "獲取包裹照片失敗");
                 return Json(new { success = false, message = "獲取包裹照片失敗", error = ex.Message });
+            }
+        }
+        // 取得住戶已上傳照片數（0~5）
+        private int GetResidentPhotoCount(string residentId)
+        {
+            try
+            {
+                const string sql = @"
+            SELECT 
+                (CASE WHEN photo_1 IS NOT NULL THEN 1 ELSE 0 END) +
+                (CASE WHEN photo_2 IS NOT NULL THEN 1 ELSE 0 END) +
+                (CASE WHEN photo_3 IS NOT NULL THEN 1 ELSE 0 END) +
+                (CASE WHEN photo_4 IS NOT NULL THEN 1 ELSE 0 END) +
+                (CASE WHEN photo_5 IS NOT NULL THEN 1 ELSE 0 END) AS cnt
+            FROM Photo
+            WHERE red_id = @residentId";
+
+                var parameters = new Dictionary<string, object>
+        {
+            { "@residentId", residentId }
+        };
+
+                DataTable dt = _dbConn.GetDataTable(sql, parameters);
+                if (dt.Rows.Count == 0 || dt.Rows[0]["cnt"] == DBNull.Value) return 0;
+
+                return Convert.ToInt32(dt.Rows[0]["cnt"]);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "GetResidentPhotoCount 失敗, residentId={ResidentId}", residentId);
+                return 0;
             }
         }
         private string GetImageMimeType(byte[] imageData)

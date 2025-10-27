@@ -62,7 +62,7 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
 {
     options.MinimumSameSitePolicy = SameSiteMode.Lax; // 開發環境使用 Lax
     options.HttpOnly = Microsoft.AspNetCore.CookiePolicy.HttpOnlyPolicy.Always;
-    // ** 開發環境允許 HTTP，正式環境使用 HTTPS **
+    // 開發環境允許 HTTP，正式環境使用 HTTPS
     options.Secure = isDevelopment
         ? CookieSecurePolicy.None
         : CookieSecurePolicy.SameAsRequest;

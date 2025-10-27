@@ -31,7 +31,7 @@ wwwroot\Content\bootstrap.rtl.css.map
 wwwroot\Content\bootstrap.rtl.min.css
 wwwroot\Content\bootstrap.rtl.min.css.map
 wwwroot\Content\Site.css
-wwwroot\css\site.css
+wwwroot\css\theme-colors.css
 wwwroot\favicon.ico
 wwwroot\js\site.js
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
@@ -121,7 +121,7 @@ wwwroot\Scripts\jquery.validate.unobtrusive.min.js
 wwwroot\Scripts\login.js
 wwwroot\Scripts\modernizr-2.8.3.js
 wwwroot\Scripts\newFile.js
-wwwroot\Scripts\parcel.js
+wwwroot\css\site.css
 wwwroot\Scripts\vue.global.prod.js
 wwwroot\Scripts\vue.js
 wwwroot\Scripts\vue.min.js
@@ -135,3 +135,8 @@ wwwroot\uploads\packages\251018P0001_20251018221151.jpg
 wwwroot\uploads\packages\251018P0004_20251018222709.jpg
 wwwroot\uploads\packages\251022P0002_20251022153123.jpeg
 wwwroot\uploads\packages\251023P0001_20251023004006.jpeg
+wwwroot\css\theme.css
+wwwroot\Scripts\parcel.js
+wwwroot\uploads\packages\251025P0001_20251025182618.png
+wwwroot\uploads\packages\251025P0002_20251025191102.jpg
+wwwroot\uploads\packages\251025P0003_20251025192114.jpeg

@@ -1,0 +1,1766 @@
+=== 環境: Development ===
+=== 開發環境: True ===
+=== 正式環境: False ===
+dbug: Microsoft.AspNetCore.Mvc.Razor.Compilation.DefaultViewCompiler[3]
+      Initializing Razor view compiler with compiled view: '/Views/Account/AccessDenied.cshtml'.
+dbug: Microsoft.AspNetCore.Mvc.Razor.Compilation.DefaultViewCompiler[3]
+      Initializing Razor view compiler with compiled view: '/Views/Account/Login.cshtml'.
+dbug: Microsoft.AspNetCore.Mvc.Razor.Compilation.DefaultViewCompiler[3]
+      Initializing Razor view compiler with compiled view: '/Views/Home/Index.cshtml'.
+dbug: Microsoft.AspNetCore.Mvc.Razor.Compilation.DefaultViewCompiler[3]
+      Initializing Razor view compiler with compiled view: '/Views/Home/Index_back.cshtml'.
+dbug: Microsoft.AspNetCore.Mvc.Razor.Compilation.DefaultViewCompiler[3]
+      Initializing Razor view compiler with compiled view: '/Views/Home/Packages.cshtml'.
+dbug: Microsoft.AspNetCore.Mvc.Razor.Compilation.DefaultViewCompiler[3]
+      Initializing Razor view compiler with compiled view: '/Views/Home/Privacy.cshtml'.
+dbug: Microsoft.AspNetCore.Mvc.Razor.Compilation.DefaultViewCompiler[3]
+      Initializing Razor view compiler with compiled view: '/Views/Resident/Edit.cshtml'.
+dbug: Microsoft.AspNetCore.Mvc.Razor.Compilation.DefaultViewCompiler[3]
+      Initializing Razor view compiler with compiled view: '/Views/Resident/Home.cshtml'.
+dbug: Microsoft.AspNetCore.Mvc.Razor.Compilation.DefaultViewCompiler[3]
+      Initializing Razor view compiler with compiled view: '/Views/Resident/MyPackages.cshtml'.
+dbug: Microsoft.AspNetCore.Mvc.Razor.Compilation.DefaultViewCompiler[3]
+      Initializing Razor view compiler with compiled view: '/Views/Resident/PackagePhoto.cshtml'.
+dbug: Microsoft.AspNetCore.Mvc.Razor.Compilation.DefaultViewCompiler[3]
+      Initializing Razor view compiler with compiled view: '/Views/Shared/Error.cshtml'.
+dbug: Microsoft.AspNetCore.Mvc.Razor.Compilation.DefaultViewCompiler[3]
+      Initializing Razor view compiler with compiled view: '/Views/Shared/_AdminLayout.cshtml'.
+dbug: Microsoft.AspNetCore.Mvc.Razor.Compilation.DefaultViewCompiler[3]
+      Initializing Razor view compiler with compiled view: '/Views/Shared/_Layout.cshtml'.
+dbug: Microsoft.AspNetCore.Mvc.Razor.Compilation.DefaultViewCompiler[3]
+      Initializing Razor view compiler with compiled view: '/Views/Shared/_ResidentLayout.cshtml'.
+dbug: Microsoft.AspNetCore.Mvc.Razor.Compilation.DefaultViewCompiler[3]
+      Initializing Razor view compiler with compiled view: '/Views/Shared/_ValidationScriptsPartial.cshtml'.
+dbug: Microsoft.AspNetCore.Mvc.Razor.Compilation.DefaultViewCompiler[3]
+      Initializing Razor view compiler with compiled view: '/Views/_ViewImports.cshtml'.
+dbug: Microsoft.AspNetCore.Mvc.Razor.Compilation.DefaultViewCompiler[3]
+      Initializing Razor view compiler with compiled view: '/Views/_ViewStart.cshtml'.
+dbug: Microsoft.AspNetCore.Mvc.Razor.Compilation.DefaultViewCompiler[3]
+      Initializing Razor view compiler with compiled view: '/Views/Shared/_Layout_back.cshtml'.
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.ModelBinderFactory[12]
+      Registered model binder providers, in the following order: Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BinderTypeModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ServicesModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.HeaderModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FloatingPointTypeModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.EnumTypeModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DateTimeModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.TryParseModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CancellationTokenModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ByteArrayModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormFileModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormCollectionModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.KeyValuePairModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DictionaryModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ArrayModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CollectionModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ComplexObjectModelBinderProvider
+dbug: Microsoft.Extensions.Hosting.Internal.Host[1]
+      Hosting starting
+info: Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager[63]
+      User profile is available. Using 'C:\Users\a2168\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+dbug: Microsoft.AspNetCore.DataProtection.Repositories.FileSystemXmlRepository[37]
+      Reading data from file 'C:\Users\a2168\AppData\Local\ASP.NET\DataProtection-Keys\key-c7681aa5-906a-4dd8-a60e-cad062d4e942.xml'.
+dbug: Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager[18]
+      Found key {c7681aa5-906a-4dd8-a60e-cad062d4e942}.
+dbug: Microsoft.AspNetCore.DataProtection.KeyManagement.DefaultKeyResolver[13]
+      Considering key {c7681aa5-906a-4dd8-a60e-cad062d4e942} with expiration date 2025-12-26 16:17:59Z as default key.
+dbug: Microsoft.AspNetCore.DataProtection.TypeForwardingActivator[0]
+      Forwarded activator type request from Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+dbug: Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor[51]
+      Decrypting secret element using Windows DPAPI.
+dbug: Microsoft.AspNetCore.DataProtection.TypeForwardingActivator[0]
+      Forwarded activator type request from Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+dbug: Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.CngCbcAuthenticatedEncryptorFactory[4]
+      Opening CNG algorithm 'AES' from provider '(null)' with chaining mode CBC.
+dbug: Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.CngCbcAuthenticatedEncryptorFactory[3]
+      Opening CNG algorithm 'SHA256' from provider '(null)' with HMAC.
+dbug: Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingProvider[2]
+      Using key {c7681aa5-906a-4dd8-a60e-cad062d4e942} as the default key.
+dbug: Microsoft.AspNetCore.DataProtection.Internal.DataProtectionHostedService[65]
+      Key ring with default key {c7681aa5-906a-4dd8-a60e-cad062d4e942} was loaded during application startup.
+dbug: Microsoft.AspNetCore.Watch.BrowserRefresh.BlazorWasmHotReloadMiddleware[0]
+      Middleware loaded
+dbug: Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserScriptMiddleware[0]
+      Middleware loaded. Script /_framework/aspnetcore-browser-refresh.js (16511 B).
+dbug: Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserScriptMiddleware[0]
+      Middleware loaded. Script /_framework/blazor-hotreload.js (799 B).
+dbug: Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserRefreshMiddleware[0]
+      Middleware loaded: DOTNET_MODIFIABLE_ASSEMBLIES=debug, __ASPNETCORE_BROWSER_TOOLS=true
+dbug: Microsoft.AspNetCore.Hosting.Diagnostics[13]
+      Loaded hosting startup assembly ParcelProject
+dbug: Microsoft.AspNetCore.Hosting.Diagnostics[13]
+      Loaded hosting startup assembly Microsoft.WebTools.ApiEndpointDiscovery
+dbug: Microsoft.AspNetCore.Hosting.Diagnostics[13]
+      Loaded hosting startup assembly Microsoft.AspNetCore.Watch.BrowserRefresh
+dbug: Microsoft.AspNetCore.Hosting.Diagnostics[13]
+      Loaded hosting startup assembly Microsoft.WebTools.BrowserLink.Net
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 GET https://localhost:44353/ - - -
+info: Microsoft.Hosting.Lifetime[0]
+      Application started. Press Ctrl+C to shut down.
+info: Microsoft.Hosting.Lifetime[0]
+      Hosting environment: Development
+info: Microsoft.Hosting.Lifetime[0]
+      Content root path: E:\專題\ParcelProject\ParcelManagement2
+dbug: Microsoft.Extensions.Hosting.Internal.Host[2]
+      Hosting started
+dbug: Microsoft.AspNetCore.HostFiltering.HostFilteringMiddleware[0]
+      Wildcard detected, all requests with hosts will be allowed.
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[4]
+      The request path / does not match a supported file type
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1001]
+      1 candidate(s) found for the request path '/'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'ParcelManagement2.Controllers.AccountController.Login (ParcelProject)' with route pattern '{controller=Account}/{action=Login}/{id?}' is valid for the request path '/'
+dbug: Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware[1]
+      Request matched endpoint 'ParcelManagement2.Controllers.AccountController.Login (ParcelProject)'
+dbug: Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler[8]
+      AuthenticationScheme: Cookies was successfully authenticated.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'ParcelManagement2.Controllers.AccountController.Login (ParcelProject)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[102]
+      Route matched with {action = "Login", controller = "Account"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Login(System.String) on controller ParcelManagement2.Controllers.AccountController (ParcelProject).
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of authorization filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of resource filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of action filters (in the following order): Microsoft.AspNetCore.Mvc.Filters.ControllerActionFilter (Order: -2147483648), Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of exception filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of result filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Executing controller factory for controller ParcelManagement2.Controllers.AccountController (ParcelProject)
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed controller factory for controller ParcelManagement2.Controllers.AccountController (ParcelProject)
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder[22]
+      Attempting to bind parameter 'returnUrl' of type 'System.String' ...
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinder[44]
+      Attempting to bind parameter 'returnUrl' of type 'System.String' using the name '' in request data ...
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinder[16]
+      Could not find a value in the request with name '' for binding parameter 'returnUrl' of type 'System.String'.
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinder[45]
+      Done attempting to bind parameter 'returnUrl' of type 'System.String'.
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder[23]
+      Done attempting to bind parameter 'returnUrl' of type 'System.String'.
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder[26]
+      Attempting to validate the bound parameter 'returnUrl' of type 'System.String' ...
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder[27]
+      Done attempting to validate the bound parameter 'returnUrl' of type 'System.String'.
+dbug: Microsoft.AspNetCore.Mvc.Razor.RazorViewEngine[1]
+      View lookup cache miss for view 'Login' in controller 'Account'.
+info: Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor[1]
+      Executing ViewResult, running view Login.
+dbug: Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor[2]
+      The view path '/Views/Account/Login.cshtml' was found in 4.5756ms.
+dbug: Microsoft.AspNetCore.Antiforgery.DefaultAntiforgery[5]
+      A new antiforgery cookie token was created.
+dbug: Microsoft.WebTools.BrowserLink.Net.BrowserLinkMiddleware[1]
+      Response markup is scheduled to include Browser Link script injection.
+dbug: Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserRefreshMiddleware[1]
+      Response markup is scheduled to include browser refresh script injection.
+info: Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor[4]
+      Executed ViewResult - view Login executed in 130.0294ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[105]
+      Executed action ParcelManagement2.Controllers.AccountController.Login (ParcelProject) in 170.0634ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'ParcelManagement2.Controllers.AccountController.Login (ParcelProject)'
+dbug: Microsoft.WebTools.BrowserLink.Net.BrowserLinkMiddleware[2]
+      Response markup was updated to include Browser Link script injection.
+dbug: Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserRefreshMiddleware[2]
+      Response markup was updated to include browser refresh script injection.
+dbug: Microsoft.AspNetCore.Server.IIS.Core.IISHttpServer[1]
+      Connection ID "18374686510541701225" disconnecting.
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 GET https://localhost:44353/ - 200 - text/html;+charset=utf-8 344.6011ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 GET https://localhost:44353/_vs/browserLink - - -
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 GET https://localhost:44353/_framework/aspnetcore-browser-refresh.js - - -
+dbug: Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserScriptMiddleware[0]
+      Script injected: /_framework/aspnetcore-browser-refresh.js
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 GET https://localhost:44353/_framework/aspnetcore-browser-refresh.js - 200 16511 application/javascript;+charset=utf-8 6.6161ms
+dbug: Microsoft.AspNetCore.Server.IIS.Core.IISHttpServer[1]
+      Connection ID "18086456142979924077" disconnecting.
+dbug: Microsoft.AspNetCore.Server.IIS.Core.IISHttpServer[1]
+      Connection ID "18374686557786341428" disconnecting.
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 GET https://localhost:44353/_vs/browserLink - 200 - text/javascript;+charset=UTF-8 40.6207ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST https://localhost:44353/Account/Login - application/json 42
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[1]
+      POST requests are not supported
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1001]
+      2 candidate(s) found for the request path '/Account/Login'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'ParcelManagement2.Controllers.AccountController.Login (ParcelProject)' with route pattern '{controller=Account}/{action=Login}/{id?}' is valid for the request path '/Account/Login'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'ParcelManagement2.Controllers.AccountController.Login (ParcelProject)' with route pattern '{controller=Account}/{action=Login}/{id?}' is valid for the request path '/Account/Login'
+dbug: Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware[1]
+      Request matched endpoint 'ParcelManagement2.Controllers.AccountController.Login (ParcelProject)'
+dbug: Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler[8]
+      AuthenticationScheme: Cookies was successfully authenticated.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'ParcelManagement2.Controllers.AccountController.Login (ParcelProject)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[102]
+      Route matched with {action = "Login", controller = "Account"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.JsonResult] Login(LoginDto) on controller ParcelManagement2.Controllers.AccountController (ParcelProject).
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of authorization filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of resource filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of action filters (in the following order): Microsoft.AspNetCore.Mvc.Filters.ControllerActionFilter (Order: -2147483648), Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of exception filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of result filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Executing controller factory for controller ParcelManagement2.Controllers.AccountController (ParcelProject)
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed controller factory for controller ParcelManagement2.Controllers.AccountController (ParcelProject)
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder[22]
+      Attempting to bind parameter 'dto' of type 'ParcelManagement2.Models.Request.AccountRequest+LoginDto' ...
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinder[44]
+      Attempting to bind parameter 'dto' of type 'ParcelManagement2.Models.Request.AccountRequest+LoginDto' using the name '' in request data ...
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinder[1]
+      Selected input formatter 'Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonInputFormatter' for content type 'application/json'.
+dbug: Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonInputFormatter[2]
+      JSON input formatter succeeded, deserializing to type 'ParcelManagement2.Models.Request.AccountRequest+LoginDto'
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinder[45]
+      Done attempting to bind parameter 'dto' of type 'ParcelManagement2.Models.Request.AccountRequest+LoginDto'.
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder[23]
+      Done attempting to bind parameter 'dto' of type 'ParcelManagement2.Models.Request.AccountRequest+LoginDto'.
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder[26]
+      Attempting to validate the bound parameter 'dto' of type 'ParcelManagement2.Models.Request.AccountRequest+LoginDto' ...
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder[27]
+      Done attempting to validate the bound parameter 'dto' of type 'ParcelManagement2.Models.Request.AccountRequest+LoginDto'.
+info: ParcelManagement2.Controllers.AccountController[0]
+      登入嘗試開始
+info: ParcelManagement2.Controllers.AccountController[0]
+      ModelState valid=True
+info: ParcelManagement2.Controllers.AccountController[0]
+      接收到的資料 - Username: test001, Password: True
+info: ParcelManagement2.Controllers.AccountController[0]
+      登入成功 - Username: test001, Role: Admin
+info: Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler[10]
+      AuthenticationScheme: Cookies signed in.
+dbug: Microsoft.AspNetCore.Routing.DefaultLinkGenerator[100]
+      Found the endpoints Route: {controller=Account}/{action=Login}/{id?} for address (action=[Index],controller=[Home])
+dbug: Microsoft.AspNetCore.Routing.DefaultLinkGenerator[102]
+      Successfully processed template {controller=Account}/{action=Login}/{id?} for Route: {controller=Account}/{action=Login}/{id?} resulting in /Home/Index and 
+dbug: Microsoft.AspNetCore.Routing.DefaultLinkGenerator[105]
+      Link generation succeeded for endpoints Route: {controller=Account}/{action=Login}/{id?} with result /Home/Index
+info: ParcelManagement2.Controllers.AccountController[0]
+      登入完成，導向: /Home/Index
+info: Microsoft.AspNetCore.Mvc.Infrastructure.SystemTextJsonResultExecutor[1]
+      Executing JsonResult, writing value of type '<>f__AnonymousType2`4[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[<>f__AnonymousType3`2[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], ParcelProject, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[105]
+      Executed action ParcelManagement2.Controllers.AccountController.Login (ParcelProject) in 409.0621ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'ParcelManagement2.Controllers.AccountController.Login (ParcelProject)'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 POST https://localhost:44353/Account/Login - 200 - application/json;+charset=utf-8 434.9689ms
+dbug: Microsoft.AspNetCore.Server.IIS.Core.IISHttpServer[1]
+      Connection ID "18302628895028936831" disconnecting.
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 GET https://localhost:44353/Home/Index - - -
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[4]
+      The request path /Home/Index does not match a supported file type
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1001]
+      1 candidate(s) found for the request path '/Home/Index'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'ParcelManagement2.Controllers.HomeController.Index (ParcelProject)' with route pattern '{controller=Account}/{action=Login}/{id?}' is valid for the request path '/Home/Index'
+dbug: Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware[1]
+      Request matched endpoint 'ParcelManagement2.Controllers.HomeController.Index (ParcelProject)'
+dbug: Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler[8]
+      AuthenticationScheme: Cookies was successfully authenticated.
+dbug: Microsoft.AspNetCore.Authorization.DefaultAuthorizationService[1]
+      Authorization was successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'ParcelManagement2.Controllers.HomeController.Index (ParcelProject)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[102]
+      Route matched with {action = "Index", controller = "Home"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller ParcelManagement2.Controllers.HomeController (ParcelProject).
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of authorization filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of resource filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of action filters (in the following order): Microsoft.AspNetCore.Mvc.Filters.ControllerActionFilter (Order: -2147483648), Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of exception filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of result filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Executing controller factory for controller ParcelManagement2.Controllers.HomeController (ParcelProject)
+dbug: ParcelManagement2.Models.DBConn[0]
+      資料庫連線字串已設定
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed controller factory for controller ParcelManagement2.Controllers.HomeController (ParcelProject)
+dbug: Microsoft.AspNetCore.Mvc.Razor.RazorViewEngine[1]
+      View lookup cache miss for view 'Index' in controller 'Home'.
+info: Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor[1]
+      Executing ViewResult, running view Index.
+dbug: Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor[2]
+      The view path '/Views/Home/Index.cshtml' was found in 2.4968ms.
+dbug: Microsoft.AspNetCore.Antiforgery.DefaultAntiforgery[6]
+      An antiforgery cookie token was reused.
+dbug: Microsoft.WebTools.BrowserLink.Net.BrowserLinkMiddleware[1]
+      Response markup is scheduled to include Browser Link script injection.
+dbug: Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserRefreshMiddleware[1]
+      Response markup is scheduled to include browser refresh script injection.
+info: Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor[4]
+      Executed ViewResult - view Index executed in 29.1231ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[105]
+      Executed action ParcelManagement2.Controllers.HomeController.Index (ParcelProject) in 38.1568ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'ParcelManagement2.Controllers.HomeController.Index (ParcelProject)'
+dbug: Microsoft.WebTools.BrowserLink.Net.BrowserLinkMiddleware[2]
+      Response markup was updated to include Browser Link script injection.
+dbug: Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserRefreshMiddleware[2]
+      Response markup was updated to include browser refresh script injection.
+dbug: Microsoft.AspNetCore.Server.IIS.Core.IISHttpServer[1]
+      Connection ID "17654110583047323960" disconnecting.
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 GET https://localhost:44353/Home/Index - 200 - text/html;+charset=utf-8 68.0683ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 GET https://localhost:44353/_framework/aspnetcore-browser-refresh.js - - -
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 GET https://localhost:44353/_vs/browserLink - - -
+dbug: Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserScriptMiddleware[0]
+      Script injected: /_framework/aspnetcore-browser-refresh.js
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 GET https://localhost:44353/_framework/aspnetcore-browser-refresh.js - 200 16511 application/javascript;+charset=utf-8 4.0515ms
+dbug: Microsoft.AspNetCore.Server.IIS.Core.IISHttpServer[1]
+      Connection ID "18302628946568544332" disconnecting.
+dbug: Microsoft.AspNetCore.Server.IIS.Core.IISHttpServer[1]
+      Connection ID "18014398561826898066" disconnecting.
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 GET https://localhost:44353/_vs/browserLink - 200 - text/javascript;+charset=UTF-8 18.1246ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST https://localhost:44353/Home/GetResidentPackageStats - - 0
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[1]
+      POST requests are not supported
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1001]
+      1 candidate(s) found for the request path '/Home/GetResidentPackageStats'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'ParcelManagement2.Controllers.HomeController.GetResidentPackageStats (ParcelProject)' with route pattern '{controller=Account}/{action=Login}/{id?}' is valid for the request path '/Home/GetResidentPackageStats'
+dbug: Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware[1]
+      Request matched endpoint 'ParcelManagement2.Controllers.HomeController.GetResidentPackageStats (ParcelProject)'
+dbug: Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler[8]
+      AuthenticationScheme: Cookies was successfully authenticated.
+dbug: Microsoft.AspNetCore.Authorization.DefaultAuthorizationService[1]
+      Authorization was successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'ParcelManagement2.Controllers.HomeController.GetResidentPackageStats (ParcelProject)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[102]
+      Route matched with {action = "GetResidentPackageStats", controller = "Home"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult GetResidentPackageStats() on controller ParcelManagement2.Controllers.HomeController (ParcelProject).
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of authorization filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of resource filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of action filters (in the following order): Microsoft.AspNetCore.Mvc.Filters.ControllerActionFilter (Order: -2147483648), Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of exception filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of result filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Executing controller factory for controller ParcelManagement2.Controllers.HomeController (ParcelProject)
+dbug: ParcelManagement2.Models.DBConn[0]
+      資料庫連線字串已設定
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed controller factory for controller ParcelManagement2.Controllers.HomeController (ParcelProject)
+dbug: ParcelManagement2.Models.DBConn[0]
+      查詢成功，返回 28 行數據
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ContentResultExecutor[1]
+      Executing ContentResult with HTTP Response ContentType of application/json
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[105]
+      Executed action ParcelManagement2.Controllers.HomeController.GetResidentPackageStats (ParcelProject) in 39.6607ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'ParcelManagement2.Controllers.HomeController.GetResidentPackageStats (ParcelProject)'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 POST https://localhost:44353/Home/GetResidentPackageStats - 200 2790 application/json 67.0428ms
+dbug: Microsoft.AspNetCore.Server.IIS.Core.IISHttpServer[1]
+      Connection ID "18374686553491374151" disconnecting.
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST https://localhost:44353/Home/GetResidentPackageStats - - 0
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[1]
+      POST requests are not supported
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1001]
+      1 candidate(s) found for the request path '/Home/GetResidentPackageStats'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'ParcelManagement2.Controllers.HomeController.GetResidentPackageStats (ParcelProject)' with route pattern '{controller=Account}/{action=Login}/{id?}' is valid for the request path '/Home/GetResidentPackageStats'
+dbug: Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware[1]
+      Request matched endpoint 'ParcelManagement2.Controllers.HomeController.GetResidentPackageStats (ParcelProject)'
+dbug: Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler[8]
+      AuthenticationScheme: Cookies was successfully authenticated.
+dbug: Microsoft.AspNetCore.Authorization.DefaultAuthorizationService[1]
+      Authorization was successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'ParcelManagement2.Controllers.HomeController.GetResidentPackageStats (ParcelProject)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[102]
+      Route matched with {action = "GetResidentPackageStats", controller = "Home"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult GetResidentPackageStats() on controller ParcelManagement2.Controllers.HomeController (ParcelProject).
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of authorization filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of resource filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of action filters (in the following order): Microsoft.AspNetCore.Mvc.Filters.ControllerActionFilter (Order: -2147483648), Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of exception filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of result filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Executing controller factory for controller ParcelManagement2.Controllers.HomeController (ParcelProject)
+dbug: ParcelManagement2.Models.DBConn[0]
+      資料庫連線字串已設定
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed controller factory for controller ParcelManagement2.Controllers.HomeController (ParcelProject)
+dbug: ParcelManagement2.Models.DBConn[0]
+      查詢成功，返回 28 行數據
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ContentResultExecutor[1]
+      Executing ContentResult with HTTP Response ContentType of application/json
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[105]
+      Executed action ParcelManagement2.Controllers.HomeController.GetResidentPackageStats (ParcelProject) in 38.4078ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'ParcelManagement2.Controllers.HomeController.GetResidentPackageStats (ParcelProject)'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 POST https://localhost:44353/Home/GetResidentPackageStats - 200 2790 application/json 67.7931ms
+dbug: Microsoft.AspNetCore.Server.IIS.Core.IISHttpServer[1]
+      Connection ID "18158513741312819529" disconnecting.
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 GET https://localhost:44353/Home/Packages - - -
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[4]
+      The request path /Home/Packages does not match a supported file type
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1001]
+      1 candidate(s) found for the request path '/Home/Packages'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'ParcelManagement2.Controllers.HomeController.Packages (ParcelProject)' with route pattern '{controller=Account}/{action=Login}/{id?}' is valid for the request path '/Home/Packages'
+dbug: Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware[1]
+      Request matched endpoint 'ParcelManagement2.Controllers.HomeController.Packages (ParcelProject)'
+dbug: Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler[8]
+      AuthenticationScheme: Cookies was successfully authenticated.
+dbug: Microsoft.AspNetCore.Authorization.DefaultAuthorizationService[1]
+      Authorization was successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'ParcelManagement2.Controllers.HomeController.Packages (ParcelProject)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[102]
+      Route matched with {action = "Packages", controller = "Home"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Packages() on controller ParcelManagement2.Controllers.HomeController (ParcelProject).
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of authorization filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of resource filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of action filters (in the following order): Microsoft.AspNetCore.Mvc.Filters.ControllerActionFilter (Order: -2147483648), Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of exception filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of result filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Executing controller factory for controller ParcelManagement2.Controllers.HomeController (ParcelProject)
+dbug: ParcelManagement2.Models.DBConn[0]
+      資料庫連線字串已設定
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed controller factory for controller ParcelManagement2.Controllers.HomeController (ParcelProject)
+dbug: Microsoft.AspNetCore.Mvc.Razor.RazorViewEngine[1]
+      View lookup cache miss for view 'Packages' in controller 'Home'.
+info: Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor[1]
+      Executing ViewResult, running view Packages.
+dbug: Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor[2]
+      The view path '/Views/Home/Packages.cshtml' was found in 4.1163ms.
+dbug: Microsoft.AspNetCore.Antiforgery.DefaultAntiforgery[6]
+      An antiforgery cookie token was reused.
+dbug: Microsoft.WebTools.BrowserLink.Net.BrowserLinkMiddleware[1]
+      Response markup is scheduled to include Browser Link script injection.
+dbug: Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserRefreshMiddleware[1]
+      Response markup is scheduled to include browser refresh script injection.
+info: Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor[4]
+      Executed ViewResult - view Packages executed in 27.2544ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[105]
+      Executed action ParcelManagement2.Controllers.HomeController.Packages (ParcelProject) in 37.7377ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'ParcelManagement2.Controllers.HomeController.Packages (ParcelProject)'
+dbug: Microsoft.WebTools.BrowserLink.Net.BrowserLinkMiddleware[2]
+      Response markup was updated to include Browser Link script injection.
+dbug: Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserRefreshMiddleware[2]
+      Response markup was updated to include browser refresh script injection.
+dbug: Microsoft.AspNetCore.Server.IIS.Core.IISHttpServer[1]
+      Connection ID "18158513724132950146" disconnecting.
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 GET https://localhost:44353/Home/Packages - 200 - text/html;+charset=utf-8 81.1356ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 GET https://localhost:44353/_framework/aspnetcore-browser-refresh.js - - -
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 GET https://localhost:44353/_vs/browserLink - - -
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 GET https://localhost:44353/Scripts/parcel.js - - -
+dbug: Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserScriptMiddleware[0]
+      Script injected: /_framework/aspnetcore-browser-refresh.js
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 GET https://localhost:44353/_framework/aspnetcore-browser-refresh.js - 200 16511 application/javascript;+charset=utf-8 12.9697ms
+dbug: Microsoft.AspNetCore.Server.IIS.Core.IISHttpServer[1]
+      Connection ID "18374686536311504973" disconnecting.
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[6]
+      The file /Scripts/parcel.js was not modified
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[8]
+      Handled. Status code: 304 File: /Scripts/parcel.js
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 GET https://localhost:44353/Scripts/parcel.js - 304 - text/javascript 33.7154ms
+dbug: Microsoft.AspNetCore.Server.IIS.Core.IISHttpServer[1]
+      Connection ID "18086456151569858733" disconnecting.
+dbug: Microsoft.AspNetCore.Server.IIS.Core.IISHttpServer[1]
+      Connection ID "18014398561826898068" disconnecting.
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 GET https://localhost:44353/_vs/browserLink - 200 - text/javascript;+charset=UTF-8 41.9009ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST https://localhost:44353/Home/GetAllProduct - - 0
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST https://localhost:44353/Home/BuildResidentList - - 0
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST https://localhost:44353/Home/BuildProdTypeList - - 0
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[1]
+      POST requests are not supported
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[1]
+      POST requests are not supported
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[1]
+      POST requests are not supported
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1001]
+      1 candidate(s) found for the request path '/Home/BuildResidentList'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1001]
+      1 candidate(s) found for the request path '/Home/BuildProdTypeList'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'ParcelManagement2.Controllers.HomeController.BuildResidentList (ParcelProject)' with route pattern '{controller=Account}/{action=Login}/{id?}' is valid for the request path '/Home/BuildResidentList'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST https://localhost:44353/Home/GetAllProduct - - 0
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'ParcelManagement2.Controllers.HomeController.BuildProdTypeList (ParcelProject)' with route pattern '{controller=Account}/{action=Login}/{id?}' is valid for the request path '/Home/BuildProdTypeList'
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[1]
+      POST requests are not supported
+dbug: Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware[1]
+      Request matched endpoint 'ParcelManagement2.Controllers.HomeController.BuildResidentList (ParcelProject)'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1001]
+      1 candidate(s) found for the request path '/Home/GetAllProduct'
+dbug: Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware[1]
+      Request matched endpoint 'ParcelManagement2.Controllers.HomeController.BuildProdTypeList (ParcelProject)'
+dbug: Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler[8]
+      AuthenticationScheme: Cookies was successfully authenticated.
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1001]
+      1 candidate(s) found for the request path '/Home/GetAllProduct'
+dbug: Microsoft.AspNetCore.Authorization.DefaultAuthorizationService[1]
+      Authorization was successful.
+dbug: Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler[8]
+      AuthenticationScheme: Cookies was successfully authenticated.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'ParcelManagement2.Controllers.HomeController.BuildResidentList (ParcelProject)'
+dbug: Microsoft.AspNetCore.Authorization.DefaultAuthorizationService[1]
+      Authorization was successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'ParcelManagement2.Controllers.HomeController.BuildProdTypeList (ParcelProject)'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'ParcelManagement2.Controllers.HomeController.GetAllProduct (ParcelProject)' with route pattern '{controller=Account}/{action=Login}/{id?}' is valid for the request path '/Home/GetAllProduct'
+dbug: Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware[1]
+      Request matched endpoint 'ParcelManagement2.Controllers.HomeController.GetAllProduct (ParcelProject)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[102]
+      Route matched with {action = "BuildResidentList", controller = "Home"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.JsonResult] BuildResidentList() on controller ParcelManagement2.Controllers.HomeController (ParcelProject).
+dbug: Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler[8]
+      AuthenticationScheme: Cookies was successfully authenticated.
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of authorization filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of resource filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Authorization.DefaultAuthorizationService[1]
+      Authorization was successful.
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of action filters (in the following order): Microsoft.AspNetCore.Mvc.Filters.ControllerActionFilter (Order: -2147483648), Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'ParcelManagement2.Controllers.HomeController.GetAllProduct (ParcelProject)'
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of exception filters (in the following order): None
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[102]
+      Route matched with {action = "BuildProdTypeList", controller = "Home"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.JsonResult] BuildProdTypeList() on controller ParcelManagement2.Controllers.HomeController (ParcelProject).
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of result filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of authorization filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Executing controller factory for controller ParcelManagement2.Controllers.HomeController (ParcelProject)
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of resource filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[102]
+      Route matched with {action = "GetAllProduct", controller = "Home"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.JsonResult] GetAllProduct() on controller ParcelManagement2.Controllers.HomeController (ParcelProject).
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of action filters (in the following order): Microsoft.AspNetCore.Mvc.Filters.ControllerActionFilter (Order: -2147483648), Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)
+dbug: ParcelManagement2.Models.DBConn[0]
+      資料庫連線字串已設定
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of exception filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed controller factory for controller ParcelManagement2.Controllers.HomeController (ParcelProject)
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of result filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Executing controller factory for controller ParcelManagement2.Controllers.HomeController (ParcelProject)
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of authorization filters (in the following order): None
+dbug: ParcelManagement2.Models.DBConn[0]
+      資料庫連線字串已設定
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of resource filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed controller factory for controller ParcelManagement2.Controllers.HomeController (ParcelProject)
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of action filters (in the following order): Microsoft.AspNetCore.Mvc.Filters.ControllerActionFilter (Order: -2147483648), Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of exception filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of result filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'ParcelManagement2.Controllers.HomeController.GetAllProduct (ParcelProject)' with route pattern '{controller=Account}/{action=Login}/{id?}' is valid for the request path '/Home/GetAllProduct'
+dbug: Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware[1]
+      Request matched endpoint 'ParcelManagement2.Controllers.HomeController.GetAllProduct (ParcelProject)'
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Executing controller factory for controller ParcelManagement2.Controllers.HomeController (ParcelProject)
+dbug: Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler[8]
+      AuthenticationScheme: Cookies was successfully authenticated.
+dbug: ParcelManagement2.Models.DBConn[0]
+      資料庫連線字串已設定
+dbug: Microsoft.AspNetCore.Authorization.DefaultAuthorizationService[1]
+      Authorization was successful.
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed controller factory for controller ParcelManagement2.Controllers.HomeController (ParcelProject)
+dbug: ParcelManagement2.Models.DBConn[0]
+      查詢成功，返回 28 行數據
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'ParcelManagement2.Controllers.HomeController.GetAllProduct (ParcelProject)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.SystemTextJsonResultExecutor[1]
+      Executing JsonResult, writing value of type 'System.Text.Json.JsonElement'.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[102]
+      Route matched with {action = "GetAllProduct", controller = "Home"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.JsonResult] GetAllProduct() on controller ParcelManagement2.Controllers.HomeController (ParcelProject).
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of authorization filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of resource filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of action filters (in the following order): Microsoft.AspNetCore.Mvc.Filters.ControllerActionFilter (Order: -2147483648), Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[105]
+      Executed action ParcelManagement2.Controllers.HomeController.BuildResidentList (ParcelProject) in 93.0181ms
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of exception filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of result filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'ParcelManagement2.Controllers.HomeController.BuildResidentList (ParcelProject)'
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Executing controller factory for controller ParcelManagement2.Controllers.HomeController (ParcelProject)
+dbug: ParcelManagement2.Models.DBConn[0]
+      查詢成功，返回 140 行數據
+dbug: Microsoft.AspNetCore.Server.IIS.Core.IISHttpServer[1]
+      Connection ID "18158513724132950148" disconnecting.
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 POST https://localhost:44353/Home/BuildResidentList - 200 - application/json;+charset=utf-8 203.9670ms
+dbug: ParcelManagement2.Models.DBConn[0]
+      資料庫連線字串已設定
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed controller factory for controller ParcelManagement2.Controllers.HomeController (ParcelProject)
+info: Microsoft.AspNetCore.Mvc.Infrastructure.SystemTextJsonResultExecutor[1]
+      Executing JsonResult, writing value of type 'System.Text.Json.JsonElement'.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[105]
+      Executed action ParcelManagement2.Controllers.HomeController.GetAllProduct (ParcelProject) in 92.5028ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'ParcelManagement2.Controllers.HomeController.GetAllProduct (ParcelProject)'
+dbug: ParcelManagement2.Models.DBConn[0]
+      查詢成功，返回 2 行數據
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 POST https://localhost:44353/Home/GetAllProduct - 200 - application/json;+charset=utf-8 266.0875ms
+dbug: Microsoft.AspNetCore.Server.IIS.Core.IISHttpServer[1]
+      Connection ID "18230571326760812952" disconnecting.
+dbug: ParcelManagement2.Models.DBConn[0]
+      查詢成功，返回 140 行數據
+info: Microsoft.AspNetCore.Mvc.Infrastructure.SystemTextJsonResultExecutor[1]
+      Executing JsonResult, writing value of type 'System.Text.Json.JsonElement'.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.SystemTextJsonResultExecutor[1]
+      Executing JsonResult, writing value of type 'System.Text.Json.JsonElement'.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[105]
+      Executed action ParcelManagement2.Controllers.HomeController.GetAllProduct (ParcelProject) in 87.056ms
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[105]
+      Executed action ParcelManagement2.Controllers.HomeController.BuildProdTypeList (ParcelProject) in 177.8798ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'ParcelManagement2.Controllers.HomeController.GetAllProduct (ParcelProject)'
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'ParcelManagement2.Controllers.HomeController.BuildProdTypeList (ParcelProject)'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 POST https://localhost:44353/Home/GetAllProduct - 200 - application/json;+charset=utf-8 288.5698ms
+dbug: Microsoft.AspNetCore.Server.IIS.Core.IISHttpServer[1]
+      Connection ID "18014398548941996100" disconnecting.
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 POST https://localhost:44353/Home/BuildProdTypeList - 200 - application/json;+charset=utf-8 310.7431ms
+dbug: Microsoft.AspNetCore.Server.IIS.Core.IISHttpServer[1]
+      Connection ID "18086456142979924079" disconnecting.
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST https://localhost:44353/Home/AddProduct - multipart/form-data;+boundary=----WebKitFormBoundary4yxM6j9FdccgXXk6 10901
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[1]
+      POST requests are not supported
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1001]
+      1 candidate(s) found for the request path '/Home/AddProduct'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'ParcelManagement2.Controllers.HomeController.AddProduct (ParcelProject)' with route pattern '{controller=Account}/{action=Login}/{id?}' is valid for the request path '/Home/AddProduct'
+dbug: Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware[1]
+      Request matched endpoint 'ParcelManagement2.Controllers.HomeController.AddProduct (ParcelProject)'
+dbug: Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler[8]
+      AuthenticationScheme: Cookies was successfully authenticated.
+dbug: Microsoft.AspNetCore.Authorization.DefaultAuthorizationService[1]
+      Authorization was successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'ParcelManagement2.Controllers.HomeController.AddProduct (ParcelProject)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[102]
+      Route matched with {action = "AddProduct", controller = "Home"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] AddProduct() on controller ParcelManagement2.Controllers.HomeController (ParcelProject).
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of authorization filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of resource filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of action filters (in the following order): Microsoft.AspNetCore.Mvc.Filters.ControllerActionFilter (Order: -2147483648), Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of exception filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of result filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Executing controller factory for controller ParcelManagement2.Controllers.HomeController (ParcelProject)
+dbug: ParcelManagement2.Models.DBConn[0]
+      資料庫連線字串已設定
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed controller factory for controller ParcelManagement2.Controllers.HomeController (ParcelProject)
+info: ParcelManagement2.Controllers.HomeController[0]
+      新增包裹: Pack_Type=M02, Red_Id=R1010202
+info: ParcelManagement2.Controllers.HomeController[0]
+      產生包裹編號: 251025P0003
+info: ParcelManagement2.Controllers.HomeController[0]
+      照片上傳成功: /uploads/packages/251025P0003_20251025192114.jpeg
+dbug: ParcelManagement2.Models.DBConn[0]
+      SQL 執行成功，影響 1 行
+info: ParcelManagement2.Controllers.HomeController[0]
+      插入結果: OK
+info: ParcelManagement2.Controllers.HomeController[0]
+      包裹類型: M02, 名稱: 包裹, 是否推播: True
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request POST http://localhost:5181/api/LineBot/push
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request POST http://localhost:5181/api/LineBot/push
+fail: ParcelManagement2.Controllers.HomeController[0]
+      LINE 推播發生錯誤
+      System.Net.Http.HttpRequestException: 無法連線，因為目標電腦拒絕連線。 (localhost:5181)
+       ---> System.Net.Sockets.SocketException (10061): 無法連線，因為目標電腦拒絕連線。
+         at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+         at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+         at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+         at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+         --- End of inner exception stack trace ---
+         at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+         at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+         at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+         at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+         at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+         at System.Net.Http.HttpConnectionPool.HttpConnectionWaiter`1.WaitForConnectionWithTelemetryAsync(HttpRequestMessage request, HttpConnectionPool pool, Boolean async, CancellationToken requestCancellationToken)
+         at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+         at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+         at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+         at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+         at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+         at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+         at ParcelManagement2.Controllers.HomeController.SendLineNotification(String packId, String condoId) in E:\專題\ParcelProject\ParcelManagement2\Controllers\HomeController.cs:line 274
+info: Microsoft.AspNetCore.Mvc.Infrastructure.SystemTextJsonResultExecutor[1]
+      Executing JsonResult, writing value of type '<>f__AnonymousType8`2[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]][]'.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[105]
+      Executed action ParcelManagement2.Controllers.HomeController.AddProduct (ParcelProject) in 4413.8119ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'ParcelManagement2.Controllers.HomeController.AddProduct (ParcelProject)'
+dbug: Microsoft.AspNetCore.Server.IIS.Core.IISHttpServer[1]
+      Connection ID "18374686562081308774" disconnecting.
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 POST https://localhost:44353/Home/AddProduct - 200 - application/json;+charset=utf-8 4462.9586ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST https://localhost:44353/Home/GetAllProduct - - 0
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[1]
+      POST requests are not supported
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1001]
+      1 candidate(s) found for the request path '/Home/GetAllProduct'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'ParcelManagement2.Controllers.HomeController.GetAllProduct (ParcelProject)' with route pattern '{controller=Account}/{action=Login}/{id?}' is valid for the request path '/Home/GetAllProduct'
+dbug: Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware[1]
+      Request matched endpoint 'ParcelManagement2.Controllers.HomeController.GetAllProduct (ParcelProject)'
+dbug: Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler[8]
+      AuthenticationScheme: Cookies was successfully authenticated.
+dbug: Microsoft.AspNetCore.Authorization.DefaultAuthorizationService[1]
+      Authorization was successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'ParcelManagement2.Controllers.HomeController.GetAllProduct (ParcelProject)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[102]
+      Route matched with {action = "GetAllProduct", controller = "Home"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.JsonResult] GetAllProduct() on controller ParcelManagement2.Controllers.HomeController (ParcelProject).
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of authorization filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of resource filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of action filters (in the following order): Microsoft.AspNetCore.Mvc.Filters.ControllerActionFilter (Order: -2147483648), Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of exception filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of result filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Executing controller factory for controller ParcelManagement2.Controllers.HomeController (ParcelProject)
+dbug: ParcelManagement2.Models.DBConn[0]
+      資料庫連線字串已設定
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed controller factory for controller ParcelManagement2.Controllers.HomeController (ParcelProject)
+dbug: ParcelManagement2.Models.DBConn[0]
+      查詢成功，返回 141 行數據
+info: Microsoft.AspNetCore.Mvc.Infrastructure.SystemTextJsonResultExecutor[1]
+      Executing JsonResult, writing value of type 'System.Text.Json.JsonElement'.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[105]
+      Executed action ParcelManagement2.Controllers.HomeController.GetAllProduct (ParcelProject) in 41.3724ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'ParcelManagement2.Controllers.HomeController.GetAllProduct (ParcelProject)'
+dbug: Microsoft.AspNetCore.Server.IIS.Core.IISHttpServer[1]
+      Connection ID "18230571326760812954" disconnecting.
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 POST https://localhost:44353/Home/GetAllProduct - 200 - application/json;+charset=utf-8 65.9892ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 GET https://localhost:44353/Home/GetPackagePhoto?packId=251025P0003 - - -
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[4]
+      The request path /Home/GetPackagePhoto does not match a supported file type
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1001]
+      1 candidate(s) found for the request path '/Home/GetPackagePhoto'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'ParcelManagement2.Controllers.HomeController.GetPackagePhoto (ParcelProject)' with route pattern '{controller=Account}/{action=Login}/{id?}' is valid for the request path '/Home/GetPackagePhoto'
+dbug: Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware[1]
+      Request matched endpoint 'ParcelManagement2.Controllers.HomeController.GetPackagePhoto (ParcelProject)'
+dbug: Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler[8]
+      AuthenticationScheme: Cookies was successfully authenticated.
+dbug: Microsoft.AspNetCore.Authorization.DefaultAuthorizationService[1]
+      Authorization was successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'ParcelManagement2.Controllers.HomeController.GetPackagePhoto (ParcelProject)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[102]
+      Route matched with {action = "GetPackagePhoto", controller = "Home"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetPackagePhoto(System.String) on controller ParcelManagement2.Controllers.HomeController (ParcelProject).
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of authorization filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of resource filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of action filters (in the following order): Microsoft.AspNetCore.Mvc.Filters.ControllerActionFilter (Order: -2147483648), Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of exception filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of result filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Executing controller factory for controller ParcelManagement2.Controllers.HomeController (ParcelProject)
+dbug: ParcelManagement2.Models.DBConn[0]
+      資料庫連線字串已設定
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed controller factory for controller ParcelManagement2.Controllers.HomeController (ParcelProject)
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder[22]
+      Attempting to bind parameter 'packId' of type 'System.String' ...
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinder[44]
+      Attempting to bind parameter 'packId' of type 'System.String' using the name 'packId' in request data ...
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinder[45]
+      Done attempting to bind parameter 'packId' of type 'System.String'.
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder[23]
+      Done attempting to bind parameter 'packId' of type 'System.String'.
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder[26]
+      Attempting to validate the bound parameter 'packId' of type 'System.String' ...
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder[27]
+      Done attempting to validate the bound parameter 'packId' of type 'System.String'.
+dbug: ParcelManagement2.Models.DBConn[0]
+      查詢成功，返回 1 行數據
+info: Microsoft.AspNetCore.Mvc.Infrastructure.SystemTextJsonResultExecutor[1]
+      Executing JsonResult, writing value of type '<>f__AnonymousType12`2[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Collections.Generic.List`1[[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[105]
+      Executed action ParcelManagement2.Controllers.HomeController.GetPackagePhoto (ParcelProject) in 43.4279ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'ParcelManagement2.Controllers.HomeController.GetPackagePhoto (ParcelProject)'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 GET https://localhost:44353/Home/GetPackagePhoto?packId=251025P0003 - 200 - application/json;+charset=utf-8 77.3625ms
+dbug: Microsoft.AspNetCore.Server.IIS.Core.IISHttpServer[1]
+      Connection ID "18158513724132950150" disconnecting.
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 GET https://localhost:44353/uploads/packages/251025P0003_20251025192114.jpeg - - -
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/uploads/packages/251025P0003_20251025192114.jpeg'. Physical path: 'E:\專題\ParcelProject\ParcelManagement2\wwwroot\uploads\packages\251025P0003_20251025192114.jpeg'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 GET https://localhost:44353/uploads/packages/251025P0003_20251025192114.jpeg - 200 10422 image/jpeg 13.0282ms
+dbug: Microsoft.AspNetCore.Server.IIS.Core.IISHttpServer[1]
+      Connection ID "18086456147274891436" disconnecting.
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST https://localhost:44353/Home/GetUndeliveredPackages - - 0
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[1]
+      POST requests are not supported
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1001]
+      1 candidate(s) found for the request path '/Home/GetUndeliveredPackages'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'ParcelManagement2.Controllers.HomeController.GetUndeliveredPackages (ParcelProject)' with route pattern '{controller=Account}/{action=Login}/{id?}' is valid for the request path '/Home/GetUndeliveredPackages'
+dbug: Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware[1]
+      Request matched endpoint 'ParcelManagement2.Controllers.HomeController.GetUndeliveredPackages (ParcelProject)'
+dbug: Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler[8]
+      AuthenticationScheme: Cookies was successfully authenticated.
+dbug: Microsoft.AspNetCore.Authorization.DefaultAuthorizationService[1]
+      Authorization was successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'ParcelManagement2.Controllers.HomeController.GetUndeliveredPackages (ParcelProject)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[102]
+      Route matched with {action = "GetUndeliveredPackages", controller = "Home"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.JsonResult] GetUndeliveredPackages() on controller ParcelManagement2.Controllers.HomeController (ParcelProject).
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of authorization filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of resource filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of action filters (in the following order): Microsoft.AspNetCore.Mvc.Filters.ControllerActionFilter (Order: -2147483648), Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of exception filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of result filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Executing controller factory for controller ParcelManagement2.Controllers.HomeController (ParcelProject)
+dbug: ParcelManagement2.Models.DBConn[0]
+      資料庫連線字串已設定
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed controller factory for controller ParcelManagement2.Controllers.HomeController (ParcelProject)
+dbug: ParcelManagement2.Models.DBConn[0]
+      查詢成功，返回 133 行數據
+info: Microsoft.AspNetCore.Mvc.Infrastructure.SystemTextJsonResultExecutor[1]
+      Executing JsonResult, writing value of type 'System.Text.Json.JsonElement'.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[105]
+      Executed action ParcelManagement2.Controllers.HomeController.GetUndeliveredPackages (ParcelProject) in 39.5955ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'ParcelManagement2.Controllers.HomeController.GetUndeliveredPackages (ParcelProject)'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 POST https://localhost:44353/Home/GetUndeliveredPackages - 200 - application/json;+charset=utf-8 76.6025ms
+dbug: Microsoft.AspNetCore.Server.IIS.Core.IISHttpServer[1]
+      Connection ID "17942340916249362451" disconnecting.
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST https://localhost:44353/Home/GetPackagesByResident - application/json 32
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[1]
+      POST requests are not supported
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1001]
+      1 candidate(s) found for the request path '/Home/GetPackagesByResident'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'ParcelManagement2.Controllers.HomeController.GetPackagesByResident (ParcelProject)' with route pattern '{controller=Account}/{action=Login}/{id?}' is valid for the request path '/Home/GetPackagesByResident'
+dbug: Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware[1]
+      Request matched endpoint 'ParcelManagement2.Controllers.HomeController.GetPackagesByResident (ParcelProject)'
+dbug: Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler[8]
+      AuthenticationScheme: Cookies was successfully authenticated.
+dbug: Microsoft.AspNetCore.Authorization.DefaultAuthorizationService[1]
+      Authorization was successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'ParcelManagement2.Controllers.HomeController.GetPackagesByResident (ParcelProject)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[102]
+      Route matched with {action = "GetPackagesByResident", controller = "Home"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetPackagesByResident(System.Text.Json.JsonElement) on controller ParcelManagement2.Controllers.HomeController (ParcelProject).
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of authorization filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of resource filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of action filters (in the following order): Microsoft.AspNetCore.Mvc.Filters.ControllerActionFilter (Order: -2147483648), Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of exception filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of result filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Executing controller factory for controller ParcelManagement2.Controllers.HomeController (ParcelProject)
+dbug: ParcelManagement2.Models.DBConn[0]
+      資料庫連線字串已設定
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed controller factory for controller ParcelManagement2.Controllers.HomeController (ParcelProject)
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder[22]
+      Attempting to bind parameter 'requestData' of type 'System.Text.Json.JsonElement' ...
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinder[44]
+      Attempting to bind parameter 'requestData' of type 'System.Text.Json.JsonElement' using the name '' in request data ...
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinder[1]
+      Selected input formatter 'Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonInputFormatter' for content type 'application/json'.
+dbug: Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonInputFormatter[2]
+      JSON input formatter succeeded, deserializing to type 'System.Text.Json.JsonElement'
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinder[45]
+      Done attempting to bind parameter 'requestData' of type 'System.Text.Json.JsonElement'.
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder[23]
+      Done attempting to bind parameter 'requestData' of type 'System.Text.Json.JsonElement'.
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder[26]
+      Attempting to validate the bound parameter 'requestData' of type 'System.Text.Json.JsonElement' ...
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder[27]
+      Done attempting to validate the bound parameter 'requestData' of type 'System.Text.Json.JsonElement'.
+info: ParcelManagement2.Controllers.HomeController[0]
+      查詢住戶包裹: RedId=R1010201, Status=
+dbug: ParcelManagement2.Models.DBConn[0]
+      查詢成功，返回 6 行數據
+info: Microsoft.AspNetCore.Mvc.Infrastructure.SystemTextJsonResultExecutor[1]
+      Executing JsonResult, writing value of type 'System.Text.Json.JsonElement'.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[105]
+      Executed action ParcelManagement2.Controllers.HomeController.GetPackagesByResident (ParcelProject) in 49.3103ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'ParcelManagement2.Controllers.HomeController.GetPackagesByResident (ParcelProject)'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 POST https://localhost:44353/Home/GetPackagesByResident - 200 - application/json;+charset=utf-8 77.6063ms
+dbug: Microsoft.AspNetCore.Server.IIS.Core.IISHttpServer[1]
+      Connection ID "18302628946568544336" disconnecting.
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST https://localhost:44353/Home/GetPackagesByResident - application/json 38
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[1]
+      POST requests are not supported
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1001]
+      1 candidate(s) found for the request path '/Home/GetPackagesByResident'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'ParcelManagement2.Controllers.HomeController.GetPackagesByResident (ParcelProject)' with route pattern '{controller=Account}/{action=Login}/{id?}' is valid for the request path '/Home/GetPackagesByResident'
+dbug: Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware[1]
+      Request matched endpoint 'ParcelManagement2.Controllers.HomeController.GetPackagesByResident (ParcelProject)'
+dbug: Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler[8]
+      AuthenticationScheme: Cookies was successfully authenticated.
+dbug: Microsoft.AspNetCore.Authorization.DefaultAuthorizationService[1]
+      Authorization was successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'ParcelManagement2.Controllers.HomeController.GetPackagesByResident (ParcelProject)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[102]
+      Route matched with {action = "GetPackagesByResident", controller = "Home"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetPackagesByResident(System.Text.Json.JsonElement) on controller ParcelManagement2.Controllers.HomeController (ParcelProject).
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of authorization filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of resource filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of action filters (in the following order): Microsoft.AspNetCore.Mvc.Filters.ControllerActionFilter (Order: -2147483648), Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of exception filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of result filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Executing controller factory for controller ParcelManagement2.Controllers.HomeController (ParcelProject)
+dbug: ParcelManagement2.Models.DBConn[0]
+      資料庫連線字串已設定
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed controller factory for controller ParcelManagement2.Controllers.HomeController (ParcelProject)
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder[22]
+      Attempting to bind parameter 'requestData' of type 'System.Text.Json.JsonElement' ...
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinder[44]
+      Attempting to bind parameter 'requestData' of type 'System.Text.Json.JsonElement' using the name '' in request data ...
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinder[1]
+      Selected input formatter 'Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonInputFormatter' for content type 'application/json'.
+dbug: Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonInputFormatter[2]
+      JSON input formatter succeeded, deserializing to type 'System.Text.Json.JsonElement'
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinder[45]
+      Done attempting to bind parameter 'requestData' of type 'System.Text.Json.JsonElement'.
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder[23]
+      Done attempting to bind parameter 'requestData' of type 'System.Text.Json.JsonElement'.
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder[26]
+      Attempting to validate the bound parameter 'requestData' of type 'System.Text.Json.JsonElement' ...
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder[27]
+      Done attempting to validate the bound parameter 'requestData' of type 'System.Text.Json.JsonElement'.
+info: ParcelManagement2.Controllers.HomeController[0]
+      查詢住戶包裹: RedId=R1010201, Status=未取
+dbug: ParcelManagement2.Models.DBConn[0]
+      查詢成功，返回 4 行數據
+info: Microsoft.AspNetCore.Mvc.Infrastructure.SystemTextJsonResultExecutor[1]
+      Executing JsonResult, writing value of type 'System.Text.Json.JsonElement'.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[105]
+      Executed action ParcelManagement2.Controllers.HomeController.GetPackagesByResident (ParcelProject) in 36.1691ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'ParcelManagement2.Controllers.HomeController.GetPackagesByResident (ParcelProject)'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 POST https://localhost:44353/Home/GetPackagesByResident - 200 - application/json;+charset=utf-8 64.3458ms
+dbug: Microsoft.AspNetCore.Server.IIS.Core.IISHttpServer[1]
+      Connection ID "18158513711248048150" disconnecting.
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST https://localhost:44353/Home/GetPackagesByResident - application/json 38
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[1]
+      POST requests are not supported
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1001]
+      1 candidate(s) found for the request path '/Home/GetPackagesByResident'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'ParcelManagement2.Controllers.HomeController.GetPackagesByResident (ParcelProject)' with route pattern '{controller=Account}/{action=Login}/{id?}' is valid for the request path '/Home/GetPackagesByResident'
+dbug: Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware[1]
+      Request matched endpoint 'ParcelManagement2.Controllers.HomeController.GetPackagesByResident (ParcelProject)'
+dbug: Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler[8]
+      AuthenticationScheme: Cookies was successfully authenticated.
+dbug: Microsoft.AspNetCore.Authorization.DefaultAuthorizationService[1]
+      Authorization was successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'ParcelManagement2.Controllers.HomeController.GetPackagesByResident (ParcelProject)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[102]
+      Route matched with {action = "GetPackagesByResident", controller = "Home"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetPackagesByResident(System.Text.Json.JsonElement) on controller ParcelManagement2.Controllers.HomeController (ParcelProject).
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of authorization filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of resource filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of action filters (in the following order): Microsoft.AspNetCore.Mvc.Filters.ControllerActionFilter (Order: -2147483648), Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of exception filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of result filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Executing controller factory for controller ParcelManagement2.Controllers.HomeController (ParcelProject)
+dbug: ParcelManagement2.Models.DBConn[0]
+      資料庫連線字串已設定
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed controller factory for controller ParcelManagement2.Controllers.HomeController (ParcelProject)
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder[22]
+      Attempting to bind parameter 'requestData' of type 'System.Text.Json.JsonElement' ...
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinder[44]
+      Attempting to bind parameter 'requestData' of type 'System.Text.Json.JsonElement' using the name '' in request data ...
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinder[1]
+      Selected input formatter 'Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonInputFormatter' for content type 'application/json'.
+dbug: Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonInputFormatter[2]
+      JSON input formatter succeeded, deserializing to type 'System.Text.Json.JsonElement'
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinder[45]
+      Done attempting to bind parameter 'requestData' of type 'System.Text.Json.JsonElement'.
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder[23]
+      Done attempting to bind parameter 'requestData' of type 'System.Text.Json.JsonElement'.
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder[26]
+      Attempting to validate the bound parameter 'requestData' of type 'System.Text.Json.JsonElement' ...
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder[27]
+      Done attempting to validate the bound parameter 'requestData' of type 'System.Text.Json.JsonElement'.
+info: ParcelManagement2.Controllers.HomeController[0]
+      查詢住戶包裹: RedId=R1010201, Status=已取
+dbug: ParcelManagement2.Models.DBConn[0]
+      查詢成功，返回 2 行數據
+info: Microsoft.AspNetCore.Mvc.Infrastructure.SystemTextJsonResultExecutor[1]
+      Executing JsonResult, writing value of type 'System.Text.Json.JsonElement'.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[105]
+      Executed action ParcelManagement2.Controllers.HomeController.GetPackagesByResident (ParcelProject) in 33.7991ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'ParcelManagement2.Controllers.HomeController.GetPackagesByResident (ParcelProject)'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 POST https://localhost:44353/Home/GetPackagesByResident - 200 - application/json;+charset=utf-8 69.9942ms
+dbug: Microsoft.AspNetCore.Server.IIS.Core.IISHttpServer[1]
+      Connection ID "17942340916249362453" disconnecting.
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST https://localhost:44353/Home/GetDeletedPackages - - 0
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[1]
+      POST requests are not supported
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1001]
+      1 candidate(s) found for the request path '/Home/GetDeletedPackages'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'ParcelManagement2.Controllers.HomeController.GetDeletedPackages (ParcelProject)' with route pattern '{controller=Account}/{action=Login}/{id?}' is valid for the request path '/Home/GetDeletedPackages'
+dbug: Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware[1]
+      Request matched endpoint 'ParcelManagement2.Controllers.HomeController.GetDeletedPackages (ParcelProject)'
+dbug: Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler[8]
+      AuthenticationScheme: Cookies was successfully authenticated.
+dbug: Microsoft.AspNetCore.Authorization.DefaultAuthorizationService[1]
+      Authorization was successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'ParcelManagement2.Controllers.HomeController.GetDeletedPackages (ParcelProject)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[102]
+      Route matched with {action = "GetDeletedPackages", controller = "Home"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDeletedPackages() on controller ParcelManagement2.Controllers.HomeController (ParcelProject).
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of authorization filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of resource filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of action filters (in the following order): Microsoft.AspNetCore.Mvc.Filters.ControllerActionFilter (Order: -2147483648), Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of exception filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of result filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Executing controller factory for controller ParcelManagement2.Controllers.HomeController (ParcelProject)
+dbug: ParcelManagement2.Models.DBConn[0]
+      資料庫連線字串已設定
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed controller factory for controller ParcelManagement2.Controllers.HomeController (ParcelProject)
+dbug: ParcelManagement2.Models.DBConn[0]
+      查詢成功，返回 0 行數據
+info: Microsoft.AspNetCore.Mvc.Infrastructure.SystemTextJsonResultExecutor[1]
+      Executing JsonResult, writing value of type '<>f__AnonymousType10`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]][]'.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[105]
+      Executed action ParcelManagement2.Controllers.HomeController.GetDeletedPackages (ParcelProject) in 30.3573ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'ParcelManagement2.Controllers.HomeController.GetDeletedPackages (ParcelProject)'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 POST https://localhost:44353/Home/GetDeletedPackages - 200 - application/json;+charset=utf-8 64.2115ms
+dbug: Microsoft.AspNetCore.Server.IIS.Core.IISHttpServer[1]
+      Connection ID "18302628946568544338" disconnecting.
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 GET https://localhost:44353/Home/Index - - -
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[4]
+      The request path /Home/Index does not match a supported file type
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1001]
+      1 candidate(s) found for the request path '/Home/Index'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'ParcelManagement2.Controllers.HomeController.Index (ParcelProject)' with route pattern '{controller=Account}/{action=Login}/{id?}' is valid for the request path '/Home/Index'
+dbug: Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware[1]
+      Request matched endpoint 'ParcelManagement2.Controllers.HomeController.Index (ParcelProject)'
+dbug: Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler[8]
+      AuthenticationScheme: Cookies was successfully authenticated.
+dbug: Microsoft.AspNetCore.Authorization.DefaultAuthorizationService[1]
+      Authorization was successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'ParcelManagement2.Controllers.HomeController.Index (ParcelProject)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[102]
+      Route matched with {action = "Index", controller = "Home"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller ParcelManagement2.Controllers.HomeController (ParcelProject).
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of authorization filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of resource filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of action filters (in the following order): Microsoft.AspNetCore.Mvc.Filters.ControllerActionFilter (Order: -2147483648), Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of exception filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of result filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Executing controller factory for controller ParcelManagement2.Controllers.HomeController (ParcelProject)
+dbug: ParcelManagement2.Models.DBConn[0]
+      資料庫連線字串已設定
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed controller factory for controller ParcelManagement2.Controllers.HomeController (ParcelProject)
+dbug: Microsoft.AspNetCore.Mvc.Razor.RazorViewEngine[2]
+      View lookup cache hit for view 'Index' in controller 'Home'.
+info: Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor[1]
+      Executing ViewResult, running view Index.
+dbug: Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor[2]
+      The view path '/Views/Home/Index.cshtml' was found in 2.9803ms.
+dbug: Microsoft.AspNetCore.Antiforgery.DefaultAntiforgery[6]
+      An antiforgery cookie token was reused.
+dbug: Microsoft.WebTools.BrowserLink.Net.BrowserLinkMiddleware[1]
+      Response markup is scheduled to include Browser Link script injection.
+dbug: Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserRefreshMiddleware[1]
+      Response markup is scheduled to include browser refresh script injection.
+info: Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor[4]
+      Executed ViewResult - view Index executed in 9.7033ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[105]
+      Executed action ParcelManagement2.Controllers.HomeController.Index (ParcelProject) in 14.8878ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'ParcelManagement2.Controllers.HomeController.Index (ParcelProject)'
+dbug: Microsoft.WebTools.BrowserLink.Net.BrowserLinkMiddleware[2]
+      Response markup was updated to include Browser Link script injection.
+dbug: Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserRefreshMiddleware[2]
+      Response markup was updated to include browser refresh script injection.
+dbug: Microsoft.AspNetCore.Server.IIS.Core.IISHttpServer[1]
+      Connection ID "18086456151569858735" disconnecting.
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 GET https://localhost:44353/_framework/aspnetcore-browser-refresh.js - - -
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 GET https://localhost:44353/Home/Index - 200 - text/html;+charset=utf-8 76.3793ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 GET https://localhost:44353/_vs/browserLink - - -
+dbug: Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserScriptMiddleware[0]
+      Script injected: /_framework/aspnetcore-browser-refresh.js
+dbug: Microsoft.AspNetCore.Server.IIS.Core.IISHttpServer[1]
+      Connection ID "18086456138684956962" disconnecting.
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 GET https://localhost:44353/_framework/aspnetcore-browser-refresh.js - 200 16511 application/javascript;+charset=utf-8 26.6561ms
+dbug: Microsoft.AspNetCore.Server.IIS.Core.IISHttpServer[1]
+      Connection ID "18230571326760812956" disconnecting.
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 GET https://localhost:44353/_vs/browserLink - 200 - text/javascript;+charset=UTF-8 52.0029ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST https://localhost:44353/Home/GetResidentPackageStats - - 0
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[1]
+      POST requests are not supported
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1001]
+      1 candidate(s) found for the request path '/Home/GetResidentPackageStats'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'ParcelManagement2.Controllers.HomeController.GetResidentPackageStats (ParcelProject)' with route pattern '{controller=Account}/{action=Login}/{id?}' is valid for the request path '/Home/GetResidentPackageStats'
+dbug: Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware[1]
+      Request matched endpoint 'ParcelManagement2.Controllers.HomeController.GetResidentPackageStats (ParcelProject)'
+dbug: Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler[8]
+      AuthenticationScheme: Cookies was successfully authenticated.
+dbug: Microsoft.AspNetCore.Authorization.DefaultAuthorizationService[1]
+      Authorization was successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'ParcelManagement2.Controllers.HomeController.GetResidentPackageStats (ParcelProject)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[102]
+      Route matched with {action = "GetResidentPackageStats", controller = "Home"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult GetResidentPackageStats() on controller ParcelManagement2.Controllers.HomeController (ParcelProject).
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of authorization filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of resource filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of action filters (in the following order): Microsoft.AspNetCore.Mvc.Filters.ControllerActionFilter (Order: -2147483648), Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of exception filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of result filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Executing controller factory for controller ParcelManagement2.Controllers.HomeController (ParcelProject)
+dbug: ParcelManagement2.Models.DBConn[0]
+      資料庫連線字串已設定
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed controller factory for controller ParcelManagement2.Controllers.HomeController (ParcelProject)
+dbug: ParcelManagement2.Models.DBConn[0]
+      查詢成功，返回 28 行數據
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ContentResultExecutor[1]
+      Executing ContentResult with HTTP Response ContentType of application/json
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[105]
+      Executed action ParcelManagement2.Controllers.HomeController.GetResidentPackageStats (ParcelProject) in 33.4794ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'ParcelManagement2.Controllers.HomeController.GetResidentPackageStats (ParcelProject)'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 POST https://localhost:44353/Home/GetResidentPackageStats - 200 2791 application/json 166.2408ms
+dbug: Microsoft.AspNetCore.Server.IIS.Core.IISHttpServer[1]
+      Connection ID "18158513711248048152" disconnecting.
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 GET https://localhost:44353/Home/Packages - - -
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[4]
+      The request path /Home/Packages does not match a supported file type
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1001]
+      1 candidate(s) found for the request path '/Home/Packages'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'ParcelManagement2.Controllers.HomeController.Packages (ParcelProject)' with route pattern '{controller=Account}/{action=Login}/{id?}' is valid for the request path '/Home/Packages'
+dbug: Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware[1]
+      Request matched endpoint 'ParcelManagement2.Controllers.HomeController.Packages (ParcelProject)'
+dbug: Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler[8]
+      AuthenticationScheme: Cookies was successfully authenticated.
+dbug: Microsoft.AspNetCore.Authorization.DefaultAuthorizationService[1]
+      Authorization was successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'ParcelManagement2.Controllers.HomeController.Packages (ParcelProject)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[102]
+      Route matched with {action = "Packages", controller = "Home"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Packages() on controller ParcelManagement2.Controllers.HomeController (ParcelProject).
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of authorization filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of resource filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of action filters (in the following order): Microsoft.AspNetCore.Mvc.Filters.ControllerActionFilter (Order: -2147483648), Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of exception filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of result filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Executing controller factory for controller ParcelManagement2.Controllers.HomeController (ParcelProject)
+dbug: ParcelManagement2.Models.DBConn[0]
+      資料庫連線字串已設定
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed controller factory for controller ParcelManagement2.Controllers.HomeController (ParcelProject)
+dbug: Microsoft.AspNetCore.Mvc.Razor.RazorViewEngine[2]
+      View lookup cache hit for view 'Packages' in controller 'Home'.
+info: Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor[1]
+      Executing ViewResult, running view Packages.
+dbug: Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor[2]
+      The view path '/Views/Home/Packages.cshtml' was found in 2.6374ms.
+dbug: Microsoft.AspNetCore.Antiforgery.DefaultAntiforgery[6]
+      An antiforgery cookie token was reused.
+dbug: Microsoft.WebTools.BrowserLink.Net.BrowserLinkMiddleware[1]
+      Response markup is scheduled to include Browser Link script injection.
+dbug: Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserRefreshMiddleware[1]
+      Response markup is scheduled to include browser refresh script injection.
+info: Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor[4]
+      Executed ViewResult - view Packages executed in 10.8368ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[105]
+      Executed action ParcelManagement2.Controllers.HomeController.Packages (ParcelProject) in 16.6882ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'ParcelManagement2.Controllers.HomeController.Packages (ParcelProject)'
+dbug: Microsoft.WebTools.BrowserLink.Net.BrowserLinkMiddleware[2]
+      Response markup was updated to include Browser Link script injection.
+dbug: Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserRefreshMiddleware[2]
+      Response markup was updated to include browser refresh script injection.
+dbug: Microsoft.AspNetCore.Server.IIS.Core.IISHttpServer[1]
+      Connection ID "18014398561826898070" disconnecting.
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 GET https://localhost:44353/Home/Packages - 200 - text/html;+charset=utf-8 108.1752ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 GET https://localhost:44353/_framework/aspnetcore-browser-refresh.js - - -
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 GET https://localhost:44353/_vs/browserLink - - -
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 GET https://localhost:44353/Scripts/parcel.js - - -
+dbug: Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserScriptMiddleware[0]
+      Script injected: /_framework/aspnetcore-browser-refresh.js
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[6]
+      The file /Scripts/parcel.js was not modified
+dbug: Microsoft.AspNetCore.Server.IIS.Core.IISHttpServer[1]
+      Connection ID "18230571339645714564" disconnecting.
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 GET https://localhost:44353/_framework/aspnetcore-browser-refresh.js - 200 16511 application/javascript;+charset=utf-8 20.3897ms
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[8]
+      Handled. Status code: 304 File: /Scripts/parcel.js
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 GET https://localhost:44353/Scripts/parcel.js - 304 - text/javascript 26.1776ms
+dbug: Microsoft.AspNetCore.Server.IIS.Core.IISHttpServer[1]
+      Connection ID "17942340916249362455" disconnecting.
+dbug: Microsoft.AspNetCore.Server.IIS.Core.IISHttpServer[1]
+      Connection ID "18014398561826898072" disconnecting.
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 GET https://localhost:44353/_vs/browserLink - 200 - text/javascript;+charset=UTF-8 42.1086ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST https://localhost:44353/Home/GetAllProduct - - 0
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST https://localhost:44353/Home/BuildResidentList - - 0
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST https://localhost:44353/Home/BuildProdTypeList - - 0
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST https://localhost:44353/Home/GetAllProduct - - 0
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[1]
+      POST requests are not supported
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[1]
+      POST requests are not supported
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1001]
+      1 candidate(s) found for the request path '/Home/BuildProdTypeList'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'ParcelManagement2.Controllers.HomeController.BuildProdTypeList (ParcelProject)' with route pattern '{controller=Account}/{action=Login}/{id?}' is valid for the request path '/Home/BuildProdTypeList'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1001]
+      1 candidate(s) found for the request path '/Home/GetAllProduct'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'ParcelManagement2.Controllers.HomeController.GetAllProduct (ParcelProject)' with route pattern '{controller=Account}/{action=Login}/{id?}' is valid for the request path '/Home/GetAllProduct'
+dbug: Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware[1]
+      Request matched endpoint 'ParcelManagement2.Controllers.HomeController.BuildProdTypeList (ParcelProject)'
+dbug: Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware[1]
+      Request matched endpoint 'ParcelManagement2.Controllers.HomeController.GetAllProduct (ParcelProject)'
+dbug: Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler[8]
+      AuthenticationScheme: Cookies was successfully authenticated.
+dbug: Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler[8]
+      AuthenticationScheme: Cookies was successfully authenticated.
+dbug: Microsoft.AspNetCore.Authorization.DefaultAuthorizationService[1]
+      Authorization was successful.
+dbug: Microsoft.AspNetCore.Authorization.DefaultAuthorizationService[1]
+      Authorization was successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'ParcelManagement2.Controllers.HomeController.GetAllProduct (ParcelProject)'
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'ParcelManagement2.Controllers.HomeController.BuildProdTypeList (ParcelProject)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[102]
+      Route matched with {action = "GetAllProduct", controller = "Home"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.JsonResult] GetAllProduct() on controller ParcelManagement2.Controllers.HomeController (ParcelProject).
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[102]
+      Route matched with {action = "BuildProdTypeList", controller = "Home"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.JsonResult] BuildProdTypeList() on controller ParcelManagement2.Controllers.HomeController (ParcelProject).
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of authorization filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of authorization filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of resource filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of resource filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of action filters (in the following order): Microsoft.AspNetCore.Mvc.Filters.ControllerActionFilter (Order: -2147483648), Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of action filters (in the following order): Microsoft.AspNetCore.Mvc.Filters.ControllerActionFilter (Order: -2147483648), Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of exception filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of exception filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of result filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of result filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Executing controller factory for controller ParcelManagement2.Controllers.HomeController (ParcelProject)
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Executing controller factory for controller ParcelManagement2.Controllers.HomeController (ParcelProject)
+dbug: ParcelManagement2.Models.DBConn[0]
+      資料庫連線字串已設定
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed controller factory for controller ParcelManagement2.Controllers.HomeController (ParcelProject)
+dbug: ParcelManagement2.Models.DBConn[0]
+      資料庫連線字串已設定
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed controller factory for controller ParcelManagement2.Controllers.HomeController (ParcelProject)
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[1]
+      POST requests are not supported
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1001]
+      1 candidate(s) found for the request path '/Home/GetAllProduct'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'ParcelManagement2.Controllers.HomeController.GetAllProduct (ParcelProject)' with route pattern '{controller=Account}/{action=Login}/{id?}' is valid for the request path '/Home/GetAllProduct'
+dbug: Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware[1]
+      Request matched endpoint 'ParcelManagement2.Controllers.HomeController.GetAllProduct (ParcelProject)'
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[1]
+      POST requests are not supported
+dbug: Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler[8]
+      AuthenticationScheme: Cookies was successfully authenticated.
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1001]
+      1 candidate(s) found for the request path '/Home/BuildResidentList'
+dbug: ParcelManagement2.Models.DBConn[0]
+      查詢成功，返回 2 行數據
+dbug: Microsoft.AspNetCore.Authorization.DefaultAuthorizationService[1]
+      Authorization was successful.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.SystemTextJsonResultExecutor[1]
+      Executing JsonResult, writing value of type 'System.Text.Json.JsonElement'.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'ParcelManagement2.Controllers.HomeController.GetAllProduct (ParcelProject)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[102]
+      Route matched with {action = "GetAllProduct", controller = "Home"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.JsonResult] GetAllProduct() on controller ParcelManagement2.Controllers.HomeController (ParcelProject).
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[105]
+      Executed action ParcelManagement2.Controllers.HomeController.BuildProdTypeList (ParcelProject) in 32.4218ms
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'ParcelManagement2.Controllers.HomeController.BuildResidentList (ParcelProject)' with route pattern '{controller=Account}/{action=Login}/{id?}' is valid for the request path '/Home/BuildResidentList'
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'ParcelManagement2.Controllers.HomeController.BuildProdTypeList (ParcelProject)'
+dbug: Microsoft.AspNetCore.Server.IIS.Core.IISHttpServer[1]
+      Connection ID "18158513711248048154" disconnecting.
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 POST https://localhost:44353/Home/BuildProdTypeList - 200 - application/json;+charset=utf-8 135.1320ms
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of authorization filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of resource filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware[1]
+      Request matched endpoint 'ParcelManagement2.Controllers.HomeController.BuildResidentList (ParcelProject)'
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of action filters (in the following order): Microsoft.AspNetCore.Mvc.Filters.ControllerActionFilter (Order: -2147483648), Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)
+dbug: Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler[8]
+      AuthenticationScheme: Cookies was successfully authenticated.
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of exception filters (in the following order): None
+dbug: ParcelManagement2.Models.DBConn[0]
+      查詢成功，返回 141 行數據
+dbug: Microsoft.AspNetCore.Authorization.DefaultAuthorizationService[1]
+      Authorization was successful.
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of result filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Executing controller factory for controller ParcelManagement2.Controllers.HomeController (ParcelProject)
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'ParcelManagement2.Controllers.HomeController.BuildResidentList (ParcelProject)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[102]
+      Route matched with {action = "BuildResidentList", controller = "Home"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.JsonResult] BuildResidentList() on controller ParcelManagement2.Controllers.HomeController (ParcelProject).
+dbug: ParcelManagement2.Models.DBConn[0]
+      資料庫連線字串已設定
+info: Microsoft.AspNetCore.Mvc.Infrastructure.SystemTextJsonResultExecutor[1]
+      Executing JsonResult, writing value of type 'System.Text.Json.JsonElement'.
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed controller factory for controller ParcelManagement2.Controllers.HomeController (ParcelProject)
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of authorization filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of resource filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of action filters (in the following order): Microsoft.AspNetCore.Mvc.Filters.ControllerActionFilter (Order: -2147483648), Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of exception filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of result filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[105]
+      Executed action ParcelManagement2.Controllers.HomeController.GetAllProduct (ParcelProject) in 85.828ms
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Executing controller factory for controller ParcelManagement2.Controllers.HomeController (ParcelProject)
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'ParcelManagement2.Controllers.HomeController.GetAllProduct (ParcelProject)'
+dbug: ParcelManagement2.Models.DBConn[0]
+      資料庫連線字串已設定
+dbug: Microsoft.AspNetCore.Server.IIS.Core.IISHttpServer[1]
+      Connection ID "18086456117210120193" disconnecting.
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 POST https://localhost:44353/Home/GetAllProduct - 200 - application/json;+charset=utf-8 188.5252ms
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed controller factory for controller ParcelManagement2.Controllers.HomeController (ParcelProject)
+dbug: ParcelManagement2.Models.DBConn[0]
+      查詢成功，返回 141 行數據
+info: Microsoft.AspNetCore.Mvc.Infrastructure.SystemTextJsonResultExecutor[1]
+      Executing JsonResult, writing value of type 'System.Text.Json.JsonElement'.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[105]
+      Executed action ParcelManagement2.Controllers.HomeController.GetAllProduct (ParcelProject) in 53.1655ms
+dbug: ParcelManagement2.Models.DBConn[0]
+      查詢成功，返回 28 行數據
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'ParcelManagement2.Controllers.HomeController.GetAllProduct (ParcelProject)'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 POST https://localhost:44353/Home/GetAllProduct - 200 - application/json;+charset=utf-8 227.6265ms
+info: Microsoft.AspNetCore.Mvc.Infrastructure.SystemTextJsonResultExecutor[1]
+      Executing JsonResult, writing value of type 'System.Text.Json.JsonElement'.
+dbug: Microsoft.AspNetCore.Server.IIS.Core.IISHttpServer[1]
+      Connection ID "17942340963494002841" disconnecting.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[105]
+      Executed action ParcelManagement2.Controllers.HomeController.BuildResidentList (ParcelProject) in 73.7754ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'ParcelManagement2.Controllers.HomeController.BuildResidentList (ParcelProject)'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 POST https://localhost:44353/Home/BuildResidentList - 200 - application/json;+charset=utf-8 275.4428ms
+dbug: Microsoft.AspNetCore.Server.IIS.Core.IISHttpServer[1]
+      Connection ID "18302628899323904056" disconnecting.
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 GET https://localhost:44353/Home/Index - - -
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[4]
+      The request path /Home/Index does not match a supported file type
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1001]
+      1 candidate(s) found for the request path '/Home/Index'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'ParcelManagement2.Controllers.HomeController.Index (ParcelProject)' with route pattern '{controller=Account}/{action=Login}/{id?}' is valid for the request path '/Home/Index'
+dbug: Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware[1]
+      Request matched endpoint 'ParcelManagement2.Controllers.HomeController.Index (ParcelProject)'
+dbug: Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler[8]
+      AuthenticationScheme: Cookies was successfully authenticated.
+dbug: Microsoft.AspNetCore.Authorization.DefaultAuthorizationService[1]
+      Authorization was successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'ParcelManagement2.Controllers.HomeController.Index (ParcelProject)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[102]
+      Route matched with {action = "Index", controller = "Home"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller ParcelManagement2.Controllers.HomeController (ParcelProject).
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of authorization filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of resource filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of action filters (in the following order): Microsoft.AspNetCore.Mvc.Filters.ControllerActionFilter (Order: -2147483648), Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of exception filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of result filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Executing controller factory for controller ParcelManagement2.Controllers.HomeController (ParcelProject)
+dbug: ParcelManagement2.Models.DBConn[0]
+      資料庫連線字串已設定
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed controller factory for controller ParcelManagement2.Controllers.HomeController (ParcelProject)
+dbug: Microsoft.AspNetCore.Mvc.Razor.RazorViewEngine[2]
+      View lookup cache hit for view 'Index' in controller 'Home'.
+info: Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor[1]
+      Executing ViewResult, running view Index.
+dbug: Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor[2]
+      The view path '/Views/Home/Index.cshtml' was found in 3.411ms.
+dbug: Microsoft.AspNetCore.Antiforgery.DefaultAntiforgery[6]
+      An antiforgery cookie token was reused.
+dbug: Microsoft.WebTools.BrowserLink.Net.BrowserLinkMiddleware[1]
+      Response markup is scheduled to include Browser Link script injection.
+dbug: Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserRefreshMiddleware[1]
+      Response markup is scheduled to include browser refresh script injection.
+info: Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor[4]
+      Executed ViewResult - view Index executed in 11.0264ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[105]
+      Executed action ParcelManagement2.Controllers.HomeController.Index (ParcelProject) in 17.5ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'ParcelManagement2.Controllers.HomeController.Index (ParcelProject)'
+dbug: Microsoft.WebTools.BrowserLink.Net.BrowserLinkMiddleware[2]
+      Response markup was updated to include Browser Link script injection.
+dbug: Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserRefreshMiddleware[2]
+      Response markup was updated to include browser refresh script injection.
+dbug: Microsoft.AspNetCore.Server.IIS.Core.IISHttpServer[1]
+      Connection ID "18302628946568544340" disconnecting.
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 GET https://localhost:44353/Home/Index - 200 - text/html;+charset=utf-8 77.0160ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST https://localhost:44353/Home/GetResidentPackageStats - - 0
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 GET https://localhost:44353/_framework/aspnetcore-browser-refresh.js - - -
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[1]
+      POST requests are not supported
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 GET https://localhost:44353/_vs/browserLink - - -
+dbug: Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserScriptMiddleware[0]
+      Script injected: /_framework/aspnetcore-browser-refresh.js
+dbug: Microsoft.AspNetCore.Server.IIS.Core.IISHttpServer[1]
+      Connection ID "18302628899323904058" disconnecting.
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 GET https://localhost:44353/_framework/aspnetcore-browser-refresh.js - 200 16511 application/javascript;+charset=utf-8 40.5094ms
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1001]
+      1 candidate(s) found for the request path '/Home/GetResidentPackageStats'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 GET https://localhost:44353/_vs/browserLink - 200 - text/javascript;+charset=UTF-8 54.0873ms
+dbug: Microsoft.AspNetCore.Server.IIS.Core.IISHttpServer[1]
+      Connection ID "18086456117210120195" disconnecting.
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'ParcelManagement2.Controllers.HomeController.GetResidentPackageStats (ParcelProject)' with route pattern '{controller=Account}/{action=Login}/{id?}' is valid for the request path '/Home/GetResidentPackageStats'
+dbug: Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware[1]
+      Request matched endpoint 'ParcelManagement2.Controllers.HomeController.GetResidentPackageStats (ParcelProject)'
+dbug: Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler[8]
+      AuthenticationScheme: Cookies was successfully authenticated.
+dbug: Microsoft.AspNetCore.Authorization.DefaultAuthorizationService[1]
+      Authorization was successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'ParcelManagement2.Controllers.HomeController.GetResidentPackageStats (ParcelProject)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[102]
+      Route matched with {action = "GetResidentPackageStats", controller = "Home"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult GetResidentPackageStats() on controller ParcelManagement2.Controllers.HomeController (ParcelProject).
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of authorization filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of resource filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of action filters (in the following order): Microsoft.AspNetCore.Mvc.Filters.ControllerActionFilter (Order: -2147483648), Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of exception filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of result filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Executing controller factory for controller ParcelManagement2.Controllers.HomeController (ParcelProject)
+dbug: ParcelManagement2.Models.DBConn[0]
+      資料庫連線字串已設定
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed controller factory for controller ParcelManagement2.Controllers.HomeController (ParcelProject)
+dbug: ParcelManagement2.Models.DBConn[0]
+      查詢成功，返回 28 行數據
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ContentResultExecutor[1]
+      Executing ContentResult with HTTP Response ContentType of application/json
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[105]
+      Executed action ParcelManagement2.Controllers.HomeController.GetResidentPackageStats (ParcelProject) in 34.4243ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'ParcelManagement2.Controllers.HomeController.GetResidentPackageStats (ParcelProject)'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 POST https://localhost:44353/Home/GetResidentPackageStats - 200 2791 application/json 190.2640ms
+dbug: Microsoft.AspNetCore.Server.IIS.Core.IISHttpServer[1]
+      Connection ID "18086456104325218386" disconnecting.
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST https://localhost:44353/Account/Logout - - 0
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[1]
+      POST requests are not supported
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1001]
+      1 candidate(s) found for the request path '/Account/Logout'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'ParcelManagement2.Controllers.AccountController.Logout (ParcelProject)' with route pattern '{controller=Account}/{action=Login}/{id?}' is valid for the request path '/Account/Logout'
+dbug: Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware[1]
+      Request matched endpoint 'ParcelManagement2.Controllers.AccountController.Logout (ParcelProject)'
+dbug: Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler[8]
+      AuthenticationScheme: Cookies was successfully authenticated.
+dbug: Microsoft.AspNetCore.Authorization.DefaultAuthorizationService[1]
+      Authorization was successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'ParcelManagement2.Controllers.AccountController.Logout (ParcelProject)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[102]
+      Route matched with {action = "Logout", controller = "Account"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Logout() on controller ParcelManagement2.Controllers.AccountController (ParcelProject).
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of authorization filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of resource filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of action filters (in the following order): Microsoft.AspNetCore.Mvc.Filters.ControllerActionFilter (Order: -2147483648), Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of exception filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of result filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Executing controller factory for controller ParcelManagement2.Controllers.AccountController (ParcelProject)
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed controller factory for controller ParcelManagement2.Controllers.AccountController (ParcelProject)
+info: Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler[11]
+      AuthenticationScheme: Cookies signed out.
+info: ParcelManagement2.Controllers.AccountController[0]
+      使用者登出: test001
+info: Microsoft.AspNetCore.Mvc.Infrastructure.SystemTextJsonResultExecutor[1]
+      Executing JsonResult, writing value of type '<>f__AnonymousType4`2[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[105]
+      Executed action ParcelManagement2.Controllers.AccountController.Logout (ParcelProject) in 10.1194ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'ParcelManagement2.Controllers.AccountController.Logout (ParcelProject)'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 POST https://localhost:44353/Account/Logout - 200 - application/json;+charset=utf-8 47.8054ms
+dbug: Microsoft.AspNetCore.Server.IIS.Core.IISHttpServer[1]
+      Connection ID "18158513724132950152" disconnecting.
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 GET https://localhost:44353/Account/Login - - -
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[4]
+      The request path /Account/Login does not match a supported file type
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1001]
+      1 candidate(s) found for the request path '/Account/Login'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'ParcelManagement2.Controllers.AccountController.Login (ParcelProject)' with route pattern '{controller=Account}/{action=Login}/{id?}' is valid for the request path '/Account/Login'
+dbug: Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware[1]
+      Request matched endpoint 'ParcelManagement2.Controllers.AccountController.Login (ParcelProject)'
+dbug: Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler[9]
+      AuthenticationScheme: Cookies was not authenticated.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'ParcelManagement2.Controllers.AccountController.Login (ParcelProject)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[102]
+      Route matched with {action = "Login", controller = "Account"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Login(System.String) on controller ParcelManagement2.Controllers.AccountController (ParcelProject).
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of authorization filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of resource filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of action filters (in the following order): Microsoft.AspNetCore.Mvc.Filters.ControllerActionFilter (Order: -2147483648), Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of exception filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of result filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Executing controller factory for controller ParcelManagement2.Controllers.AccountController (ParcelProject)
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed controller factory for controller ParcelManagement2.Controllers.AccountController (ParcelProject)
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder[22]
+      Attempting to bind parameter 'returnUrl' of type 'System.String' ...
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinder[44]
+      Attempting to bind parameter 'returnUrl' of type 'System.String' using the name '' in request data ...
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinder[16]
+      Could not find a value in the request with name '' for binding parameter 'returnUrl' of type 'System.String'.
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinder[45]
+      Done attempting to bind parameter 'returnUrl' of type 'System.String'.
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder[23]
+      Done attempting to bind parameter 'returnUrl' of type 'System.String'.
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder[26]
+      Attempting to validate the bound parameter 'returnUrl' of type 'System.String' ...
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder[27]
+      Done attempting to validate the bound parameter 'returnUrl' of type 'System.String'.
+dbug: Microsoft.AspNetCore.Mvc.Razor.RazorViewEngine[2]
+      View lookup cache hit for view 'Login' in controller 'Account'.
+info: Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor[1]
+      Executing ViewResult, running view Login.
+dbug: Mi
