@@ -289,6 +289,106 @@ namespace ParcelManagement2.Controllers
                 // 不影響主要流程,只記錄錯誤
             }
         }
+        // 取得該包裹所屬戶的所有住戶
+        [HttpPost]
+        public async Task<IActionResult> GetResidentsByPackId([FromBody] JsonElement requestData)
+        {
+            try
+            {
+                string packId = requestData.GetProperty("packId").GetString() ?? "";
+
+                _logger.LogInformation("查詢包裹住戶: PackId={PackId}", packId);
+
+                string sql = @"
+                    SELECT r.red_id, r.red_name, r.condo_id
+                    FROM Resident r
+                    WHERE r.condo_id = (
+                    SELECT r2.condo_id 
+                    FROM Boxdetail b
+                    INNER JOIN Resident r2 ON b.red_id = r2.red_id
+                    WHERE b.pack_id = @packId
+                    )
+                    ORDER BY r.red_name";
+
+                var parameters = new Dictionary<string, object> { ["@packId"] = packId };
+                DataTable dataTable = await _dbConn.GetDataTableAsync(sql, parameters);
+
+                if (dataTable.Rows.Count > 0)
+                {
+                    string jsonResult = _dbConn.DataTableToJsonString(dataTable);
+                    var resultObject = System.Text.Json.JsonSerializer.Deserialize<object>(jsonResult);
+                    return Json(resultObject);
+                }
+                else
+                {
+                    return Json(new[] { new { msg = "ZERO" } });
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "取得住戶清單失敗");
+                return Json(new[] { new { msg = "FAIL", err = ex.Message } });
+            }
+        }// 確認包裹領取
+        [HttpPost]
+        public async Task<IActionResult> ConfirmPackagePickup([FromBody] JsonElement requestData)
+        {
+            try
+            {
+                string packId = requestData.GetProperty("packId").GetString() ?? "";
+                string redId = "";
+
+                if (requestData.TryGetProperty("redId", out var redIdProp))
+                {
+                    redId = redIdProp.GetString() ?? "";
+                }
+
+                if (string.IsNullOrEmpty(packId))
+                {
+                    return Json(new[] { new { msg = "FAIL", err = "包裹編號不能為空" } });
+                }
+                string collectorName = "";
+                if (!string.IsNullOrEmpty(redId))
+                {
+                    const string getNameByRedIdSql = "SELECT red_name FROM Resident WHERE red_id = @redId";
+                    var nameDt = await _dbConn.GetDataTableAsync(getNameByRedIdSql,
+                        new Dictionary<string, object> { ["@redId"] = redId });
+                    if (nameDt.Rows.Count > 0)
+                        collectorName = nameDt.Rows[0]["red_name"]?.ToString() ?? "";
+                }
+                else
+                {
+                    const string getNameByPackIdSql = @"
+                        SELECT r.red_name
+                        FROM Boxdetail b
+                        LEFT JOIN Resident r ON r.red_id = b.red_id
+                        WHERE b.pack_id = @packId";
+                    var nameDt = await _dbConn.GetDataTableAsync(getNameByPackIdSql,
+                        new Dictionary<string, object> { ["@packId"] = packId });
+                    if (nameDt.Rows.Count > 0)
+                        collectorName = nameDt.Rows[0]["red_name"]?.ToString() ?? "";
+                }
+
+                string sql = "UPDATE Boxdetail SET status = 1, pickup_datetime = GETDATE(), collector_name = @collectorName WHERE pack_id = @packId";
+                var parameters = new Dictionary<string, object> { ["@packId"] = packId , ["@collectorName"] = (object?)collectorName ?? DBNull.Value };
+
+                string result = await _dbConn.ExecSQLAsync(sql, parameters);
+
+                if (result == "OK")
+                {
+                    return Json(new[] { new { msg = "OK", collector = collectorName } });
+                }
+                else
+                {
+                    return Json(new[] { new { msg = "FAIL", err = "更新失敗: " + result } });
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "確認領取失敗");
+                return Json(new[] { new { msg = "FAIL", err = ex.Message } });
+            }
+        }
         // 建立包裹類別下拉選單 (對應Mail表格)
         [HttpPost]
         public async Task<JsonResult> BuildProdTypeList()

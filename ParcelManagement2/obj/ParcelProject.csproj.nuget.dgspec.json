@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\專題\\ParcelProject\\ParcelManagement2\\ParcelProject.csproj": {}
+    "E:\\專題\\ParcelManagement2\\ParcelManagement2\\ParcelProject.csproj": {}
   },
   "projects": {
-    "E:\\專題\\ParcelProject\\ParcelManagement2\\ParcelProject.csproj": {
+    "E:\\專題\\ParcelManagement2\\ParcelManagement2\\ParcelProject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\專題\\ParcelProject\\ParcelManagement2\\ParcelProject.csproj",
+        "projectUniqueName": "E:\\專題\\ParcelManagement2\\ParcelManagement2\\ParcelProject.csproj",
         "projectName": "ParcelProject",
-        "projectPath": "E:\\專題\\ParcelProject\\ParcelManagement2\\ParcelProject.csproj",
+        "projectPath": "E:\\專題\\ParcelManagement2\\ParcelManagement2\\ParcelProject.csproj",
         "packagesPath": "C:\\Users\\a2168\\.nuget\\packages\\",
-        "outputPath": "E:\\專題\\ParcelProject\\ParcelManagement2\\obj\\",
+        "outputPath": "E:\\專題\\ParcelManagement2\\ParcelManagement2\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

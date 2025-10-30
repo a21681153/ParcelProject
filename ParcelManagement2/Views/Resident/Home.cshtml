@@ -1228,7 +1228,7 @@
                 </div>
             </div>
 
-            <!-- 待領取信件 - 加入特定類別並充滿剩餘空間 -->
+            <!-- 待領取信件  -->
             <div class="resident-card mails-card">
                 <h3 class="card-title">
                     <i class="bi bi-envelope"></i>待領取信件
@@ -1334,55 +1334,41 @@
 <div class="modal fade" id="packagePhotoModal" tabindex="-1" aria-labelledby="packagePhotoModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div class="modal-header py-1 px-2">
-                <h6 class="modal-title" id="packagePhotoModalLabel">
-                    <i class="bi bi-camera me-1"></i>包裹照片
-                </h6>
+            <div class="modal-header">
+                <h5 class="modal-title" id="packagePhotoModalLabel">
+                    <i class="bi bi-camera me-2"></i>包裹照片
+                </h5>
                 <button type="button" class="btn-close btn-sm" data-bs-dismiss="modal" aria-label="關閉"></button>
             </div>
-
-            <div class="modal-body p-1">
-                <div class="package-info-compact mb-2">
-                    <div class="row g-1">
-                        <div class="col-3">
-                            <small class="text-muted d-block">編號</small>
-                            <strong id="modal-package-id" class="small">-</strong>
+            <div class="modal-body">
+                <div id="package-info" style="display:none; background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 20px;font-size:18px">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p class="mb-2"><strong>包裹編號：</strong><code id="modal-package-id"></code></p>
+                            <p class="mb-2"><strong>類別：</strong><span id="modal-package-name"></span></p>
                         </div>
-                        <div class="col-3">
-                            <small class="text-muted d-block">類別</small>
-                            <span id="modal-package-name" class="small">-</span>
-                        </div>
-                        <div class="col-3">
-                            <small class="text-muted d-block">收件人</small>
-                            <span id="modal-recipient" class="small">-</span>
-                        </div>
-                        <div class="col-3">
-                            <small class="text-muted d-block">到貨時間</small>
-                            <span id="modal-create-time" class="small">-</span>
+                        <div class="col-md-6">
+                            <p class="mb-2"><strong>收件人：</strong><span id="modal-recipient"></span></p>
+                            <p class="mb-2"><strong>送達時間：</strong><span id="modal-create-time"></span></p>
                         </div>
                     </div>
                 </div>
-                <div id="photo-gallery-container">
-                    <div id="photo-gallery">
-                    </div>
-                    <div id="photo-loading" class="text-center" style="display: none; padding: 30px 0;">
-                        <div class="spinner-border text-primary" role="status">
-                            <span class="visually-hidden">載入中...</span>
-                        </div>
-                        <p class="mt-2 small">正在載入照片...</p>
-                    </div>
+                <div id="photo-loading" class="text-center" style="display:none;">
+                    <div class="spinner-border text-primary" role="status"></div>
+                    <p class="mt-2">正在載入照片...</p>
+                </div>
+                <div id="photo-gallery"></div>
                     <!-- 無照片狀態 -->
-                    <div id="no-photos" class="text-center" style="display: none; padding: 40px 20px;">
-                        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
-                            <i class="bi bi-box-seam package-icon-animation"
-                               style="font-size: 64px; color: var(--resident-primary); margin-bottom: 15px; display: block;"></i>
-                            <h6 style="font-size: 16px; font-weight: 600; color: #495057; margin-bottom: 6px;">
-                                此包裹暫無照片
-                            </h6>
-                            <small style="font-size: 12px; color: #6c757d;">
-                                建議收取包裹時拍照記錄
-                            </small>
-                        </div>
+                <div id="no-photos" class="text-center" style="display: none; padding: 40px 20px;">
+                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                        <i class="bi bi-box-seam package-icon-animation"
+                            style="font-size: 64px; color: var(--resident-primary); margin-bottom: 15px; display: block;"></i>
+                        <h6 style="font-size: 16px; font-weight: 600; color: #495057; margin-bottom: 6px;">
+                            此包裹暫無照片
+                        </h6>
+                        <small style="font-size: 12px; color: #6c757d;">
+                            建議收取包裹時拍照記錄
+                        </small>
                     </div>
                 </div>
             </div>
@@ -1545,6 +1531,7 @@
                     document.getElementById('photo-loading').style.display = 'block';
                     document.getElementById('photo-gallery').innerHTML = '';
                     document.getElementById('no-photos').style.display = 'none';
+                    document.getElementById('package-info').style.display = 'none';
 
                     // 開啟模態視窗
                     var modal = new bootstrap.Modal(document.getElementById('packagePhotoModal'));
@@ -1566,6 +1553,7 @@
 
                         if (res.data.success) {
                             // 填入包裹資訊
+                            document.getElementById('package-info').style.display = 'block';
                             document.getElementById('modal-package-id').textContent = res.data.packageId;
                             document.getElementById('modal-package-name').textContent = res.data.packageName;
                             document.getElementById('modal-recipient').textContent =
@@ -1580,28 +1568,28 @@
 
                                     return `
                                         <div class="photo-item mb-3" style="text-align:center;">
-                                            <div style="position:relative; display:inline-block; width:750px">
-                                                <img src="${photoUrl}"
-                                                     alt="包裹照片 ${index + 1}"
-                                                     class="img-fluid rounded shadow"
-                                                     style="width: 750px; height: 300px; object-fit: cover; cursor: zoom-in;
-                                                            border: 2px solid #dee2e6; transition: all 0.3s ease;"
-                                                     onclick="openFullscreen(this)"
-                                                     onmouseover="this.style.borderColor='var(--resident-primary)'; this.style.transform='scale(1.02)';"
-                                                     onmouseout="this.style.transform=''; this.style.borderColor='#dee2e6';"
-                                                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                                                <div style="display:none; flex-direction:column; align-items:center; justify-content:center;
-                                                     height:300px; color:#6c757d; background:#f8f9fa; border-radius:8px; border: 2px solid #dee2e6;">
+                                        <div style="position:relative; display:inline-block; max-width:100%;">
+                                            <img src="${photoUrl}"
+                                                 alt="包裹照片 ${index + 1}"
+                                                 class="img-fluid rounded shadow"
+                                                 style="max-width; height: 500px; cursor: zoom-in;
+                                                        border: 2px solid #dee2e6; transition: all 0.3s ease;"
+                                                 onclick="openFullscreen(this)"
+                                                 onmouseover="this.style.borderColor='var(--primary-color)'; this.style.transform='scale(1.02)';"
+                                                 onmouseout="this.style.transform=''; this.style.borderColor='#dee2e6';"
+                                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                            <div style="display:none; flex-direction:column; align-items:center; justify-content:center;
+                                                     width:750px;height:300px; color:#6c757d; background:#f8f9fa; border-radius:8px; border: 2px solid #dee2e6;">
                                                     <i class="bi bi-box-seam" style="font-size:60px; color:var(--resident-primary); margin-bottom:15px;
                                                        animation:packagePulse 2s ease-in-out infinite;"></i>
                                                     <p style="margin:0; font-size:14px;">照片載入失敗</p>
                                                 </div>
-                                                <div style="position:absolute; bottom:5px; left:5px; right:5px; background:rgba(0,0,0,0.7);
-                                                     color:white; padding:6px 10px; border-radius:6px; text-align:center;">
-                                                    <small style="font-size:11px; font-weight:600;">${photoType} ${index + 1}</small>
-                                                </div>
+                                            <div style="position:absolute; bottom:5px; left:5px; right:5px; background:rgba(0,0,0,0.7);
+                                                 color:white; padding:6px 10px; border-radius:6px; text-align:center;">
+                                                <small style="font-size:11px; font-weight:600;">${photoType} ${index + 1}</small>
                                             </div>
-                                        </div>`;
+                                        </div>
+                                    </div>`;
                             }).join('');
                             document.getElementById('photo-gallery').innerHTML = galleryHtml;
                         } else {

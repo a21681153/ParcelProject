@@ -429,7 +429,6 @@
                 </table>
             </div>
         </div>
-
         <!-- 領取紀錄 -->
         <div v-show="activeTab === 'history'">
             <div v-if="historyLoading" class="loading">
@@ -475,10 +474,24 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title"><i class="bi bi-camera me-2"></i>包裹照片</h5>
+                <h5 class="modal-title" id="packagePhotoModalLabel">
+                    <i class="bi bi-camera me-2"></i>包裹照片
+                </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
+                <div id="package-info" style="display:none; background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 20px;font-size:18px">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p class="mb-2"><strong>包裹編號：</strong><code id="modal-package-id"></code></p>
+                            <p class="mb-2"><strong>類別：</strong><span id="modal-package-name"></span></p>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="mb-2"><strong>收件人：</strong><span id="modal-recipient"></span></p>
+                            <p class="mb-0"><strong>送達時間：</strong><span id="modal-create-time"></span></p>
+                        </div>
+                    </div>
+                </div>
                 <div id="photo-loading" class="text-center" style="display:none;">
                     <div class="spinner-border text-primary" role="status"></div>
                     <p class="mt-2">正在載入照片...</p>
@@ -496,7 +509,25 @@
 @section scripts {
     <script>
         const { createApp } = Vue;
+        function openFullscreen(img) {
+            const fullscreenDiv = document.createElement('div');
+            fullscreenDiv.style.cssText = `
+                position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+                background: rgba(0,0,0,0.95); z-index: 9999; display: flex;
+                align-items: center; justify-content: center; cursor: zoom-out;
+            `;
 
+            const fullImg = document.createElement('img');
+            fullImg.src = img.src;
+            fullImg.style.cssText = 'max-width: 95%; max-height: 95%; object-fit: contain;';
+
+            fullscreenDiv.appendChild(fullImg);
+            fullscreenDiv.onclick = function() {
+                document.body.removeChild(fullscreenDiv);
+            };
+
+            document.body.appendChild(fullscreenDiv);
+        }
         createApp({
           data() {
             return {
@@ -558,42 +589,107 @@
               const diff = Math.abs(new Date() - new Date(createTime));
               return Math.ceil(diff / (1000*60*60*24));
             },
-            viewPackagePhoto(packageId){
-              if(!packageId){ this.showMessage('包裹編號不能為空','error'); return; }
-              document.getElementById('photo-loading').style.display='block';
-              document.getElementById('photo-gallery').innerHTML='';
-              document.getElementById('no-photos').style.display='none';
-              new bootstrap.Modal(document.getElementById('packagePhotoModal')).show();
-              document.querySelector('#packagePhotoModal .modal-title').innerHTML = '<i class="bi bi-camera me-2"></i>包裹照片 - ' + packageId;
-              axios.post('/Resident/GetPackagePhotos', { PackageId: packageId.toString() }, { headers:{ 'Content-Type':'application/json' }})
-                .then(res=>{
-                  document.getElementById('photo-loading').style.display='none';
-                  if(res.data && res.data.success && res.data.photos && res.data.photos.length>0){
-                    const html = res.data.photos.map((url, i)=>`
-                      <div class="photo-item">
-                        <div style="position:relative;">
-                          <img src="${url}" alt="包裹照片 ${i+1}" class="img-fluid rounded shadow"
-                               style="max-width:100%;height:300px;object-fit:cover;cursor:zoom-in;border:2px solid #dee2e6;transition:all .3s ease;"
-                               onclick="this.style.transform=this.style.transform?'':'scale(1.3)';this.style.zIndex=this.style.zIndex?'':'9999';this.style.position=this.style.position?'':'relative';"
-                               onmouseover="this.style.borderColor='#0066cc';this.style.transform='scale(1.02)';"
-                               onmouseout="if(!this.style.transform.includes('1.3')){this.style.transform='';this.style.borderColor='#dee2e6';}"
-                               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-                          <div style="display:none;align-items:center;justify-content:center;height:300px;color:#6c757d;background:#f8f9fa;border-radius:8px;border:2px solid #dee2e6;">
-                            <i class="bi bi-box-seam" style="font-size:60px;color:#0066cc;margin-bottom:15px;"></i>
-                            <p style="margin:0;font-size:14px;">照片載入失敗</p>
-                            <small style="color:#999;margin-top:5px;">包裹編號: ${packageId}</small>
-                          </div>
-                          <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.7));color:#fff;padding:8px 12px;border-radius:0 0 6px 6px;">
-                            <small style="font-size:12px;font-weight:600;">${url.startsWith('data:image/')?'系統照片':'檔案照片'} ${i+1}</small>
-                          </div>
-                        </div>
-                      </div>`).join('');
-                    document.getElementById('photo-gallery').innerHTML = html;
-                  }else{
-                    document.getElementById('no-photos').style.display='block';
-                  }
+            // 查看包裹照片功能
+                viewPackagePhoto(packageId) {
+                console.log('查看包裹照片:', packageId);
+
+                if (!packageId) {
+                    alert('包裹編號不能為空');
+                    return;
+                }
+
+                // 顯示載入狀態
+                document.getElementById('photo-loading').style.display = 'block';
+                document.getElementById('photo-gallery').innerHTML = '';
+                document.getElementById('no-photos').style.display = 'none';
+                document.getElementById('package-info').style.display = 'none';
+
+                // 開啟模態視窗
+                const modal = new bootstrap.Modal(document.getElementById('packagePhotoModal'));
+                modal.show();
+
+                // 模態視窗標題
+                document.getElementById('packagePhotoModalLabel').innerHTML =
+                    '<i class="bi bi-camera me-2"></i>包裹照片 - ' + packageId;
+
+                // 呼叫 API
+                axios.post('/Resident/GetPackagePhotos', {
+                    packageId: packageId.toString()
+                }, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
                 })
-                .catch(()=>{ document.getElementById('photo-loading').style.display='none'; document.getElementById('no-photos').style.display='block'; });
+                .then(function(res) {
+                    console.log('API 回應:', res.data); 
+
+                    document.getElementById('photo-loading').style.display = 'none';
+
+                    if (res.data && res.data.success) {
+                        // 顯示包裹資訊
+                        document.getElementById('package-info').style.display = 'block';
+                        document.getElementById('modal-package-id').textContent = res.data.packageId || '-';
+                        document.getElementById('modal-package-name').textContent = res.data.packageName || '-';
+                        document.getElementById('modal-recipient').textContent =
+                            (res.data.recipientName || '') + ' (' + (res.data.recipientId || '') + ')';
+                        document.getElementById('modal-create-time').textContent = res.data.createTime || '-';
+                        //  顯示照片
+                        if (res.data.photos && res.data.photos.length > 0) {
+                            let galleryHtml = res.data.photos.map(function(photoUrl, index) {
+                                const isBase64 = photoUrl.startsWith('data:image/');
+                                const photoType = isBase64 ? '系統照片' : '檔案照片';
+
+                                return `
+                                    <div class="photo-item mb-3" style="text-align:center;">
+                                        <div style="position:relative; display:inline-block; max-width:100%;">
+                                            <img src="${photoUrl}"
+                                                 alt="包裹照片 ${index + 1}"
+                                                 class="img-fluid rounded shadow"
+                                                 style="max-width; height: 500px; cursor: zoom-in;
+                                                        border: 2px solid #dee2e6; transition: all 0.3s ease;"
+                                                 onclick="openFullscreen(this)"
+                                                 onmouseover="this.style.borderColor='var(--primary-color)'; this.style.transform='scale(1.02)';"
+                                                 onmouseout="this.style.transform=''; this.style.borderColor='#dee2e6';"
+                                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                            <div style="display:none; flex-direction:column; align-items:center; justify-content:center;
+                                                     width:750px;height:300px; color:#6c757d; background:#f8f9fa; border-radius:8px; border: 2px solid #dee2e6;">
+                                                    <i class="bi bi-box-seam" style="font-size:60px; color:var(--resident-primary); margin-bottom:15px;
+                                                       animation:packagePulse 2s ease-in-out infinite;"></i>
+                                                    <p style="margin:0; font-size:14px;">照片載入失敗</p>
+                                                </div>
+                                            <div style="position:absolute; bottom:5px; left:5px; right:5px; background:rgba(0,0,0,0.7);
+                                                 color:white; padding:6px 10px; border-radius:6px; text-align:center;">
+                                                <small style="font-size:11px; font-weight:600;">${photoType} ${index + 1}</small>
+                                            </div>
+                                        </div>
+                                    </div>`;
+                            }).join('');
+
+                            document.getElementById('photo-gallery').innerHTML = galleryHtml;
+                        } else {
+                            document.getElementById('no-photos').style.display = 'block';
+                        }
+                    } else {
+                        console.error('API 回傳失敗:', res.data);
+                        document.getElementById('no-photos').style.display = 'block';
+                    }
+                })
+                .catch(function(error) {
+                    console.error('載入包裹照片錯誤:', error);
+                    document.getElementById('photo-loading').style.display = 'none';
+                    document.getElementById('no-photos').style.display = 'block';
+
+                    if (error.response) {
+                        console.error('伺服器回應錯誤:', error.response.status, error.response.data);
+                        alert('載入照片失敗：' + (error.response.data?.message || '伺服器錯誤'));
+                    } else if (error.request) {
+                        console.error('請求未收到回應:', error.request);
+                        alert('載入照片失敗：無法連線到伺服器');
+                    } else {
+                        console.error('請求設定錯誤:', error.message);
+                        alert('載入照片失敗：' + error.message);
+                    }
+                });
             },
             showMessage(msg,type){ alert((type==='success'?'✓ ':'✗ ')+msg); }
           }

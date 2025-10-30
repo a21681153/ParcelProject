@@ -40,6 +40,13 @@
             overflow-x: hidden;
         }
 
+        .resident-link {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
         /* 導覽列*/
         .navbar-resident {
             height: var(--navbar-h);
@@ -99,7 +106,7 @@
         .user-info {
             color: #fff;
             font-weight: 700;
-            font-size: 12px;
+            font-size: 16px;
             display: flex;
             align-items: center;
             gap: .4rem;
@@ -204,8 +211,9 @@
             <div class="d-none d-lg-flex align-items-center gap-2 ms-auto">
                 <!-- 用戶資訊 -->
                 <div class="user-info">
-                    <i class="bi bi-person-circle"></i>
-                    您好，@User.Identity.Name
+                    <i class="bi bi-person-circle"></i><a href="/Resident/Edit" id="nav-user-info" class=" resident-link">
+                        您好，@User.Identity.Name
+                    </a>
                 </div>
 
                 <!-- 導航連結 -->
@@ -243,8 +251,9 @@
         <div class="offcanvas-body p-0">
             <!-- 用戶資訊 -->
             <div class="offcanvas-user-info mx-2 mt-2">
-                <i class="bi bi-person-circle"></i>
+                <i class="bi bi-person-circle"></i><a href="/Resident/Edit" id="mobile-nav-user-info" class="resident-link">
                 您好，@User.Identity.Name
+                </a>
             </div>
 
             <!-- 導航選單 -->
@@ -307,8 +316,10 @@
             };
             if (p.includes('/resident/mypackages')) {
                 setCurrent('nav-parcels'); setCurrent('mobile-nav-parcels');
-            } else {
+            } else if(p.includes('/resident/home')) {
                 setCurrent('nav-home'); setCurrent('mobile-nav-home');
+            } else{
+                setCurrent('nav-user-info'); setCurrent('mobile-nav-user-info');
             }
         })();
     </script>

@@ -123,7 +123,6 @@ wwwroot\Scripts\jquery.validate.unobtrusive.min.js
 wwwroot\Scripts\login.js
 wwwroot\Scripts\modernizr-2.8.3.js
 wwwroot\Scripts\newFile.js
-wwwroot\Scripts\parcel.js
 wwwroot\Scripts\vue.global.prod.js
 wwwroot\Scripts\vue.js
 wwwroot\Scripts\vue.min.js
@@ -140,3 +139,4 @@ wwwroot\uploads\packages\251023P0001_20251023004006.jpeg
 wwwroot\uploads\packages\251025P0001_20251025182618.png
 wwwroot\uploads\packages\251025P0002_20251025191102.jpg
 wwwroot\uploads\packages\251025P0003_20251025192114.jpeg
+wwwroot\Scripts\parcel.js

@@ -122,7 +122,7 @@ namespace ParcelManagement2.Controllers
                     ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(30)
                 });
 
-                // 8. 生成 JWT (如果需要)
+                // 8. 生成 JWT 
                 var jwt = GenerateTokenForAccount(acct);
 
                 // 9. 決定導向 URL

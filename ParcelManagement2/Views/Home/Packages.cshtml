@@ -793,6 +793,98 @@
             .edit-form .actions .btn:active {
                 transform: translateY(0);
             }
+
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+
+    .modal-content {
+        background: white;
+        border-radius: 8px;
+        min-width: 400px;
+        max-width: 500px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+
+    .modal-header {
+        padding: 20px;
+        border-bottom: 1px solid #dee2e6;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+        .modal-header h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+    .pickup-modal-content {
+        background: white;
+        border-radius: 12px;
+        min-width: 450px;
+        max-width: 500px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        overflow: hidden;
+    }
+
+    .pickup-modal-header {
+        background: var(--admin-primary);
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: white;
+    }
+
+        .pickup-modal-header h3 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+    .close-btn {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 28px;
+        cursor: pointer;
+        padding: 0;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1;
+    }
+
+        .close-btn:hover {
+            opacity: 0.8;
+        }
+
+    .modal-body {
+        padding: 20px;
+    }
+
+    .modal-footer {
+        padding: 15px 20px;
+        border-top: 1px solid #dee2e6;
+        text-align: right;
+    }
+
+        .modal-footer .btn {
+            margin-left: 10px;
+        }
 </style>
 
 <div class="container-fluid py-4" id="ProductItem" style="padding:20px!important;margin:0!important;">
@@ -1035,7 +1127,8 @@
                         <th style="width:10%;"><i class="bi bi-box"></i>類別</th>
                         <th style="width:10%;"><i class="bi bi-person"></i>住戶</th>
                         <th style="width:10%;"><i class="bi bi-clipboard-check"></i>狀態</th>
-                        <th v-if="QueryOpt!=='HISTORY'" style="width:30%;font-size:14px;color:#999;"><i style="font-size:14px;font-style:italic;"> 備註</i></th>
+                        <th v-if="QueryOpt!=='HISTORY'" style="width:22%;font-size:14px;color:#999;"><i style="font-size:14px;font-style:italic;"> 備註</i></th>
+                        <th v-if="QueryOpt!=='HISTORY'&& !display_edit" style="width:8%; font-size:14px;">是否領取</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -1108,9 +1201,18 @@
                                 </span>
                             </div>
                         </td>
-
                         <td v-if="QueryOpt!=='HISTORY'" style="text-align:center;">
                             <span class="remarks-cell" :title="item.remarks || '-'">{{ item.remarks || '-' }}</span>
+                        </td>
+                        <td>
+                            <button v-if = "!display_edit"
+                                    class="btn btn-sm"
+                                    :class="(item.status==0 || item.status==='0') ? 'btn-success' : 'btn-secondary'"
+                                    v-bind:disabled="picking || !(item.status==0 || item.status==='0')"
+                                    v-on:click ="handlePickup(item)">
+                                <span v-if="item.status==0 || item.status==='0'">領取</span>
+                                <span v-else>已領取</span>
+                            </button>
                         </td>
                     </tr>
 
@@ -1216,7 +1318,53 @@
             </div>
         </div>
     </div>
+    <!-- 選擇領取人 Modal -->
+    <div v-if="showResidentModal"
+         style="position:fixed; inset:0; background:#0006; display:flex; align-items:center; justify-content:center; z-index:2000;">
+        <div style="width:min(520px,90vw); background:#fff; border-radius:12px; box-shadow:0 10px 30px #0005;">
+            <div style="padding:14px 18px; background:var(--admin-primary); color:#fff; border-radius:12px 12px 0 0;">
+                <strong>選擇領取人</strong>
+            </div>
+            <div style="padding:16px 20px; max-height:60vh; overflow:auto;">
+                <p style="margin:0 0 10px;">請選擇包裹領取人：</p>
+                <div v-for="r in pickupResidents" :key="r.red_id" style="padding:8px 10px; border:1px solid #e6e6e6; border-radius:8px; margin-bottom:8px;">
+                    <label style="display:flex; align-items:center; gap:10px; cursor:pointer;">
+                        <input type="radio" name="pickupRed" :value="r.red_id" v-model="selectedRedId">
+                            <div style="font-weight:600;">{{ r.red_name }}</div>
+                            <small style="color:#777;">{{ r.red_id }}</small>
+                    </label>
+                </div>
+            </div>
+            <div style="display:flex; justify-content:flex-end; gap:10px; padding:12px 16px;">
+                <button class="btn btn-outline-secondary btn-sm" v-on:click ="closePickupModal()">取消</button>
+                <button class="btn btn-primary btn-sm" v-on:click ="confirmResidentSelection()">確認</button>
+            </div>
+        </div>
+    </div>
+    <!-- 確認領取 Modal -->
+    <div v-if="showConfirmModal"
+         style="position:fixed; inset:0; background:#0006; display:flex; align-items:center; justify-content:center; z-index:2000;">
+        <div style="width:min(480px,90vw); background:#fff; border-radius:12px; box-shadow:0 10px 30px #0005;">
+            <div style="padding:14px 18px; background:var(--admin-primary); color:#fff; border-radius:12px 12px 0 0;">
+                <strong>確認領取</strong>
+            </div>
+            <div style="padding:18px 20px;">
+                <p style="margin:0 0 10px;">
+                    是否確認該戶
+                    <template v-if="pickupResidents && pickupResidents.length===1">
+                        「{{ pickupResidents[0].red_name }}」
+                    </template>
+                    已領取包裹（{{ currentPickupPackage?.pack_id }}）？
+                </p>
+            </div>
+            <div style="display:flex; justify-content:flex-end; gap:10px; padding:12px 16px;">
+                <button class="btn btn-outline-secondary btn-sm" v-on:click ="closePickupModal()">取消</button>
+                <button class="btn btn-success btn-sm" v-on:click ="confirmPickup()">確認領取</button>
+            </div>
+        </div>
+    </div>
 </div>
+
 
 <script src="~/Scripts/parcel.js"></script>
 
@@ -1250,7 +1398,6 @@
           ink.remove();
         }, 650);
       }
-
       // 點擊 .btn 與 .status-pill 時觸發 ripple
       document.addEventListener('click', function (e) {
         const el = e.target.closest('.btn, .status-pill');
@@ -1259,7 +1406,6 @@
         addRipple(e, el);
       });
     })();
-
     // 觀察表格更新，重新套用列動畫延遲
     (function () {
       const tableBody = document.querySelector('.admin-table-container tbody');

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "7RomvguxzTE=",
+  "dgSpecHash": "oy4U8I0aRSc=",
   "success": true,
-  "projectFilePath": "E:\\專題\\ParcelProject\\ParcelManagement2\\ParcelProject.csproj",
+  "projectFilePath": "E:\\專題\\ParcelManagement2\\ParcelManagement2\\ParcelProject.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\a2168\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\a2168\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
@@ -51,9 +51,9 @@
       "code": "NU1903",
       "level": "Warning",
       "message": "套件 'Microsoft.Data.SqlClient' 5.1.2 具有已知的 高 嚴重性弱點，https://github.com/advisories/GHSA-98g6-xh36-x2p7。",
-      "projectPath": "E:\\專題\\ParcelProject\\ParcelManagement2\\ParcelProject.csproj",
+      "projectPath": "E:\\專題\\ParcelManagement2\\ParcelManagement2\\ParcelProject.csproj",
       "warningLevel": 1,
-      "filePath": "E:\\專題\\ParcelProject\\ParcelManagement2\\ParcelProject.csproj",
+      "filePath": "E:\\專題\\ParcelManagement2\\ParcelManagement2\\ParcelProject.csproj",
       "libraryId": "Microsoft.Data.SqlClient",
       "targetGraphs": [
         "net8.0"
