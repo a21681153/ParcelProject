@@ -37,7 +37,7 @@ namespace ParcelManagement2.Controllers
             _webHostEnvironment = webHostEnvironment;
             _appSettings = appSettings.Value;
             _httpClient = httpClient; 
-            _lineBotApiUrl = _configuration["LineBotApiUrl"] ?? "http://localhost:5181"; // ** 新增：從設定檔讀取 LINE Bot API URL **
+            _lineBotApiUrl = _configuration["LineBotApiUrl"] ?? "http://localhost:5181"; // 從設定檔讀取 LINE Bot API URL 
         }
         public IActionResult Index()
         {
@@ -79,7 +79,7 @@ namespace ParcelManagement2.Controllers
                 Directory.CreateDirectory(uploadDir);
 
             // 生成唯一檔名
-            string fileName = $"{packId}_{DateTime.Now:yyyyMMddHHmmss}{fileExtension}";
+            string fileName = $"{packId}_{DateTime.Now:yyyyMMdd}{fileExtension}";
             string filePath = Path.Combine(uploadDir, fileName);
 
             // 保存文件
@@ -123,11 +123,13 @@ namespace ParcelManagement2.Controllers
             try
             {
                 string? packTypeValue = Request.Form["Pack_Type"];
+                string? CondoIdValue = Request.Form["CondoId"];
                 string? redIdValue = Request.Form["Red_Id"];
                 string? remarksValue = Request.Form["Remarks"];
                 IFormFile? photoFile = Request.Form.Files.GetFile("photo");
 
                 string Pack_Type = packTypeValue ?? "";
+                string Condo_Id= CondoIdValue ?? "";
                 string Red_Id = redIdValue ?? "";
                 string Remarks = string.IsNullOrWhiteSpace(remarksValue) ? "-" : remarksValue.Trim();
 
@@ -136,6 +138,18 @@ namespace ParcelManagement2.Controllers
                 if (string.IsNullOrEmpty(Pack_Type) || string.IsNullOrEmpty(Red_Id))
                 {
                     return Json(new[] { new { msg = "FAIL", err = "類別及住戶必選" } });
+                }
+
+                if (string.IsNullOrEmpty(Condo_Id))
+                {
+                    const string getCondoIdSql = "SELECT condo_id FROM Resident WHERE red_id = @redId";
+                    var condoDt = await _dbConn.GetDataTableAsync(getCondoIdSql,
+                        new Dictionary<string, object> { ["@redId"] = Red_Id });
+
+                    if (condoDt.Rows.Count > 0)
+                    {
+                        Condo_Id = condoDt.Rows[0]["condo_id"]?.ToString() ?? string.Empty;
+                    }
                 }
 
                 // 產生流水號
@@ -159,14 +173,15 @@ namespace ParcelManagement2.Controllers
 
                 const string sqlstr = @"
                     INSERT INTO Boxdetail 
-                    (pack_id, pack_type, red_id, status, create_time, deleted, photo_path,remarks) 
+                    (pack_id, pack_type,condo_id, red_id, status, create_time, deleted, photo_path,remarks) 
                     VALUES 
-                    (@id, @type, @rid, 0, GETDATE(), 0, @photo, @remarks)";
+                    (@id, @type,@condoid, @rid, 0, GETDATE(), 0, @photo, @remarks)";
 
                 var parameters = new Dictionary<string, object>
                 {
                     ["@id"] = newPackId,
                     ["@type"] = Pack_Type,
+                    ["@condoid"] = Condo_Id,
                     ["@rid"] = Red_Id,
                     ["@photo"] = photoPath,
                     ["@remarks"] = Remarks
@@ -184,7 +199,7 @@ namespace ParcelManagement2.Controllers
                         if (!string.IsNullOrEmpty(condoId))
                         {
                             // 呼叫 LINE Bot 推播 API 
-                            await SendLineNotification(newPackId, condoId);
+                            await SendLineNotification(newPackId, condoId, Red_Id, Pack_Type);
                         }
                     }
                     return Json(new[] { new { msg = "OK", pack_id = newPackId } });
@@ -200,32 +215,46 @@ namespace ParcelManagement2.Controllers
                 return Json(new[] { new { msg = "FAIL", err = ex.Message } });
             }
         }
-        private async Task<bool> ShouldSendNotification(string packType)
+        private Task<bool> ShouldSendNotification(string packType)
+        {
+            var ok = string.Equals(packType, "M01", StringComparison.OrdinalIgnoreCase) // 信件
+                || string.Equals(packType, "M02", StringComparison.OrdinalIgnoreCase); // 包裹
+            return Task.FromResult(ok);
+        }
+        //呼叫 LINE Bot 推播 API 
+        private async Task SendLineNotification(string packId, string condoId, string? redId = null, string? packType = null)
         {
             try
             {
-                using var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection"));
-                await connection.OpenAsync();
+                var requestData = new
+                {
+                    PackId = packId,
+                    CondoId = condoId,
+                    RedId = redId,
+                    packType = packType,
+                    SharedKey = _configuration["LineBot:SharedKey"]
+                };
 
-                using var command = new SqlCommand(
-                    "SELECT pack_name FROM Mail WHERE pack_type = @packType",
-                    connection);
-                command.Parameters.AddWithValue("@packType", packType);
+                string jsonContent = JsonConvert.SerializeObject(requestData);
+                var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
-                var packName = (await command.ExecuteScalarAsync())?.ToString();
+                // 呼叫 LINE Bot API
+                string apiUrl = $"{_lineBotApiUrl}/api/LineBot/push";
+                var response = await _httpClient.PostAsync(apiUrl, content);
 
-                bool isPackage = packName == "包裹";
-
-                _logger.LogInformation("包裹類型: {PackType}, 名稱: {PackName}, 是否推播: {ShouldNotify}",
-                    packType, packName, isPackage);
-
-                return isPackage;
+                if (response.IsSuccessStatusCode)
+                {
+                    string responseBody = await response.Content.ReadAsStringAsync();
+                    _logger.LogInformation("LINE 推播成功: {Response}", responseBody);
+                }
+                else
+                {
+                    _logger.LogWarning("LINE 推播失敗: StatusCode={StatusCode}", response.StatusCode);
+                }
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "檢查包裹類型失敗: {PackType}", packType);
-                // 發生錯誤時預設不推播,避免誤發通知
-                return false;
+                _logger.LogError(ex, "LINE 推播發生錯誤");
             }
         }
         private async Task<string> GetCondoIdByRedId(string redId)
@@ -253,40 +282,37 @@ namespace ParcelManagement2.Controllers
                 return "";
             }
         }
-        //呼叫 LINE Bot 推播 API 
-        private async Task SendLineNotification(string packId, string condoId)
+        [HttpPost]
+        public async Task<IActionResult> GetResidentsByCondoId([FromBody] JsonElement requestData)
         {
             try
             {
-                // 準備要發送的資料
-                var requestData = new
+                string condoId = requestData.GetProperty("condoId").GetString() ?? "";
+
+                string sql = @"
+                        SELECT red_id, red_name, condo_id
+                        FROM Resident
+                        WHERE condo_id = @condoId
+                        ORDER BY red_name";
+
+                var parameters = new Dictionary<string, object> { ["@condoId"] = condoId };
+                DataTable dataTable = await _dbConn.GetDataTableAsync(sql, parameters);
+
+                if (dataTable.Rows.Count > 0)
                 {
-                    PackId = packId,
-                    CondoId = condoId
-                };
-
-                // 序列化為 JSON
-                string jsonContent = JsonConvert.SerializeObject(requestData);
-                var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
-
-                // 呼叫 LINE Bot API
-                string apiUrl = $"{_lineBotApiUrl}/api/LineBot/push";
-                var response = await _httpClient.PostAsync(apiUrl, content);
-
-                if (response.IsSuccessStatusCode)
-                {
-                    string responseBody = await response.Content.ReadAsStringAsync();
-                    _logger.LogInformation("LINE 推播成功: {Response}", responseBody);
+                    string jsonResult = _dbConn.DataTableToJsonString(dataTable);
+                    var resultObject = System.Text.Json.JsonSerializer.Deserialize<object>(jsonResult);
+                    return Json(resultObject);
                 }
                 else
                 {
-                    _logger.LogWarning("LINE 推播失敗: StatusCode={StatusCode}", response.StatusCode);
+                    return Json(new[] { new { msg = "ZERO" } });
                 }
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "LINE 推播發生錯誤");
-                // 不影響主要流程,只記錄錯誤
+                _logger.LogError(ex, "取得住戶清單失敗");
+                return Json(new[] { new { msg = "FAIL", err = ex.Message } });
             }
         }
         // 取得該包裹所屬戶的所有住戶
@@ -300,15 +326,16 @@ namespace ParcelManagement2.Controllers
                 _logger.LogInformation("查詢包裹住戶: PackId={PackId}", packId);
 
                 string sql = @"
+                    ;WITH C AS (
+                        SELECT TOP 1 COALESCE(b.condo_id, r2.condo_id) AS condo_id
+                        FROM Boxdetail b
+                        LEFT JOIN Resident r2 ON r2.red_id = b.red_id
+                        WHERE b.pack_id = @packId
+                    )
                     SELECT r.red_id, r.red_name, r.condo_id
                     FROM Resident r
-                    WHERE r.condo_id = (
-                    SELECT r2.condo_id 
-                    FROM Boxdetail b
-                    INNER JOIN Resident r2 ON b.red_id = r2.red_id
-                    WHERE b.pack_id = @packId
-                    )
-                    ORDER BY r.red_name";
+                    WHERE r.condo_id = (SELECT condo_id FROM C)
+                    ORDER BY r.red_name;";
 
                 var parameters = new Dictionary<string, object> { ["@packId"] = packId };
                 DataTable dataTable = await _dbConn.GetDataTableAsync(sql, parameters);
@@ -336,47 +363,90 @@ namespace ParcelManagement2.Controllers
             try
             {
                 string packId = requestData.GetProperty("packId").GetString() ?? "";
-                string redId = "";
-
-                if (requestData.TryGetProperty("redId", out var redIdProp))
-                {
-                    redId = redIdProp.GetString() ?? "";
-                }
+                string redIdFromClient = requestData.TryGetProperty("redId", out var redIdProp)
+            ? (redIdProp.GetString() ?? "")
+            : "";
 
                 if (string.IsNullOrEmpty(packId))
                 {
                     return Json(new[] { new { msg = "FAIL", err = "包裹編號不能為空" } });
                 }
-                string collectorName = "";
-                if (!string.IsNullOrEmpty(redId))
-                {
-                    const string getNameByRedIdSql = "SELECT red_name FROM Resident WHERE red_id = @redId";
-                    var nameDt = await _dbConn.GetDataTableAsync(getNameByRedIdSql,
-                        new Dictionary<string, object> { ["@redId"] = redId });
-                    if (nameDt.Rows.Count > 0)
-                        collectorName = nameDt.Rows[0]["red_name"]?.ToString() ?? "";
-                }
-                else
-                {
-                    const string getNameByPackIdSql = @"
-                        SELECT r.red_name
-                        FROM Boxdetail b
-                        LEFT JOIN Resident r ON r.red_id = b.red_id
-                        WHERE b.pack_id = @packId";
-                    var nameDt = await _dbConn.GetDataTableAsync(getNameByPackIdSql,
-                        new Dictionary<string, object> { ["@packId"] = packId });
-                    if (nameDt.Rows.Count > 0)
-                        collectorName = nameDt.Rows[0]["red_name"]?.ToString() ?? "";
-                }
+                const string getBoxSql = @"
+                    SELECT red_id, condo_id 
+                    FROM Boxdetail WHERE pack_id = @packId";
+                var boxDt = await _dbConn.GetDataTableAsync(getBoxSql, new Dictionary<string, object> { ["@packId"] = packId });
 
-                string sql = "UPDATE Boxdetail SET status = 1, pickup_datetime = GETDATE(), collector_name = @collectorName WHERE pack_id = @packId";
-                var parameters = new Dictionary<string, object> { ["@packId"] = packId , ["@collectorName"] = (object?)collectorName ?? DBNull.Value };
+                if (boxDt.Rows.Count == 0)
+                    return Json(new[] { new { msg = "FAIL", err = "查無此包裹" } });
+
+                string redIdInBox = boxDt.Rows[0]["red_id"]?.ToString() ?? "";
+                string condoIdInBox = boxDt.Rows[0]["condo_id"]?.ToString() ?? "";
+
+                // 決定本次要使用的 redId
+                string effectiveRedId = !string.IsNullOrWhiteSpace(redIdFromClient)
+                    ? redIdFromClient
+                    : redIdInBox;
+
+                // 2) 如果仍然拿不到 redId，就用 condo_id 撈出所有住戶讓前端選
+                if (string.IsNullOrWhiteSpace(effectiveRedId))
+                {
+                    if (string.IsNullOrWhiteSpace(condoIdInBox))
+                        return Json(new[] { new { msg = "FAIL", err = "此包裹缺少對應戶號(CondoId)，無法尋找住戶" } });
+
+                    const string getResidentsSql = @"
+                        SELECT red_id, red_name 
+                        FROM Resident 
+                        WHERE condo_id = @condoId
+                        ORDER BY red_name";
+
+                    var residentsDt = await _dbConn.GetDataTableAsync(
+                        getResidentsSql,
+                        new Dictionary<string, object> { ["@condoId"] = condoIdInBox });
+
+                    // 回傳需要前端選擇 redId 的訊息與候選清單
+                    var residentList = residentsDt.AsEnumerable()
+                        .Select(r => new {
+                            red_id = r["red_id"]?.ToString() ?? "",
+                            red_name = r["red_name"]?.ToString() ?? ""
+                        })
+                        .ToList();
+
+                    if (residentList.Count == 0)
+                        return Json(new[] { new { msg = "FAIL", err = "此戶(CondoId)下沒有住戶可供選擇" } });
+
+                    return Json(new
+                    {
+                        msg = "NEED_REDID",
+                        condoId = condoIdInBox,
+                        residents = residentList
+                    });
+                }
+                string collectorName = "";
+                const string getNameByRedIdSql = "SELECT red_name FROM Resident WHERE red_id = @redId";
+                var nameDt = await _dbConn.GetDataTableAsync(getNameByRedIdSql,
+                    new Dictionary<string, object> { ["@redId"] = effectiveRedId });
+
+                if (nameDt.Rows.Count > 0)
+                    collectorName = nameDt.Rows[0]["red_name"]?.ToString() ?? "";
+
+                string sql = 
+                    @"UPDATE Boxdetail
+                    SET status = 1,
+                    pickup_datetime = GETDATE(),
+                    collector_name = @collectorName, 
+                    red_id = CASE WHEN (red_id IS NULL OR LTRIM(RTRIM(red_id)) = '') THEN @redId ELSE red_id END
+                    WHERE pack_id = @packId";
+                var parameters = new Dictionary<string, object> {
+                    ["@packId"] = packId ,
+                    ["@collectorName"] = (object?)collectorName ?? DBNull.Value,
+                    ["@redId"] = effectiveRedId
+                };
 
                 string result = await _dbConn.ExecSQLAsync(sql, parameters);
 
                 if (result == "OK")
                 {
-                    return Json(new[] { new { msg = "OK", collector = collectorName } });
+                    return Json(new[] { new { msg = "OK", collector = collectorName, redId = effectiveRedId } });
                 }
                 else
                 {
@@ -524,7 +594,7 @@ namespace ParcelManagement2.Controllers
                 _logger.LogInformation("查詢住戶包裹: RedId={RedId}, Status={Status}", redId, statusFilter);
 
                 string sql = @"
-                    SELECT b.pack_id, b.pack_type, b.red_id, b.status, b.create_time, b.pickup_datetime, b.photo_path, 
+                    SELECT b.pack_id, b.pack_type, b.red_id,b.condo_id, b.status, b.create_time, b.pickup_datetime, b.photo_path, 
                            b.remarks,
                            m.pack_name, r.red_name, r.phone, r.condo_id
                     FROM Boxdetail b
@@ -642,7 +712,7 @@ namespace ParcelManagement2.Controllers
             try
             {
                 string sql = @"
-                    SELECT b.pack_id, b.pack_type, b.red_id, b.status, b.create_time, b.photo_path,
+                    SELECT b.pack_id, b.pack_type, b.red_id,b.condo_id, b.status, b.create_time, b.photo_path,
                            b.remarks,
                            m.pack_name, r.red_name, r.phone, r.condo_id
                     FROM Boxdetail b
@@ -677,7 +747,7 @@ namespace ParcelManagement2.Controllers
             try
             {
                 string sql = @"
-                    SELECT b.pack_id, b.pack_type, b.red_id, b.status, b.create_time, b.pickup_datetime, b.photo_path,
+                    SELECT b.pack_id, b.pack_type, b.red_id,b.condo_id, b.status, b.create_time, b.pickup_datetime, b.photo_path,
                            b.remarks,
                            m.pack_name, r.red_name, r.phone, r.condo_id
                     FROM Boxdetail b
@@ -711,7 +781,7 @@ namespace ParcelManagement2.Controllers
             try
             {
                 string sql = @"
-                    SELECT b.pack_id, b.pack_type, b.red_id, b.status, b.create_time, b.pickup_datetime, b.photo_path,
+                    SELECT b.pack_id, b.pack_type, b.red_id, b.status,b.condo_id, b.create_time, b.pickup_datetime, b.photo_path,
                            b.remarks,
                            m.pack_name, r.red_name, r.phone, r.condo_id
                     FROM Boxdetail b
@@ -811,7 +881,8 @@ namespace ParcelManagement2.Controllers
                         SUM(CASE WHEN b.status = 0 AND ISNULL(b.deleted,0)=0 THEN 1 ELSE 0 END) AS uncollected,
                         SUM(CASE WHEN b.status = 1 AND ISNULL(b.deleted,0)=0 THEN 1 ELSE 0 END) AS collected
                     FROM Resident r
-                    LEFT JOIN Boxdetail b ON r.red_id = b.red_id
+                    LEFT JOIN Boxdetail b 
+                        ON (b.red_id = r.red_id OR (b.red_id IS NULL OR LTRIM(RTRIM(b.red_id))='') AND b.condo_id = r.condo_id)
                     GROUP BY r.red_id, r.condo_id, r.red_name
                     ORDER BY r.condo_id
                 ";

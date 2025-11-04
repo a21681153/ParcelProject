@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "E:\\\u5C08\u984C\\ParcelProject\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|e:\\\u5C08\u984C\\parcelproject\\parcelmanagement2\\views\\home\\packages.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|solutionrelative:parcelmanagement2\\views\\home\\packages.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|e:\\\u5C08\u984C\\parcelproject\\parcelmanagement2\\views\\account\\accessdenied.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{9AE78EB3-D28A-43A3-8126-ACEDEEBF9D5F}|ParcelManagement2\\ParcelProject.csproj|solutionrelative:parcelmanagement2\\views\\account\\accessdenied.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
@@ -70,21 +74,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 7,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "AccessDenied.cshtml",
-              "DocumentMoniker": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Views\\Account\\AccessDenied.cshtml",
-              "RelativeDocumentMoniker": "ParcelManagement2\\Views\\Account\\AccessDenied.cshtml",
-              "ToolTip": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Views\\Account\\AccessDenied.cshtml",
-              "RelativeToolTip": "ParcelManagement2\\Views\\Account\\AccessDenied.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAA7AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-28T15:01:55.366Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
@@ -115,7 +106,33 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 0,
+              "Title": "Packages.cshtml",
+              "DocumentMoniker": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Views\\Home\\Packages.cshtml",
+              "RelativeDocumentMoniker": "ParcelManagement2\\Views\\Home\\Packages.cshtml",
+              "ToolTip": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Views\\Home\\Packages.cshtml",
+              "RelativeToolTip": "ParcelManagement2\\Views\\Home\\Packages.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAGMFAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-10-30T04:02:47.941Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AccessDenied.cshtml",
+              "DocumentMoniker": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Views\\Account\\AccessDenied.cshtml",
+              "RelativeDocumentMoniker": "ParcelManagement2\\Views\\Account\\AccessDenied.cshtml",
+              "ToolTip": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Views\\Account\\AccessDenied.cshtml",
+              "RelativeToolTip": "ParcelManagement2\\Views\\Account\\AccessDenied.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAABaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-10-28T15:01:55.366Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "Program.cs",
               "DocumentMoniker": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Program.cs",
               "RelativeDocumentMoniker": "ParcelManagement2\\Program.cs",
@@ -123,12 +140,11 @@
               "RelativeToolTip": "ParcelManagement2\\Program.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-25T14:37:09.631Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-25T14:37:09.631Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "_ViewStart.cshtml",
               "DocumentMoniker": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Views\\_ViewStart.cshtml",
               "RelativeDocumentMoniker": "ParcelManagement2\\Views\\_ViewStart.cshtml",
@@ -136,12 +152,11 @@
               "RelativeToolTip": "ParcelManagement2\\Views\\_ViewStart.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-25T14:36:56.135Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-25T14:36:56.135Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "Error.cshtml",
               "DocumentMoniker": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Views\\Shared\\Error.cshtml",
               "RelativeDocumentMoniker": "ParcelManagement2\\Views\\Shared\\Error.cshtml",
@@ -149,12 +164,11 @@
               "RelativeToolTip": "ParcelManagement2\\Views\\Shared\\Error.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-25T14:36:54.832Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-25T14:36:54.832Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "Home.cshtml",
               "DocumentMoniker": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Views\\Resident\\Home.cshtml",
               "RelativeDocumentMoniker": "ParcelManagement2\\Views\\Resident\\Home.cshtml",
@@ -166,7 +180,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "parcel.js",
               "DocumentMoniker": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\wwwroot\\Scripts\\parcel.js",
               "RelativeDocumentMoniker": "ParcelManagement2\\wwwroot\\Scripts\\parcel.js",
@@ -178,7 +192,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "MyPackages.cshtml",
               "DocumentMoniker": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Views\\Resident\\MyPackages.cshtml",
               "RelativeDocumentMoniker": "ParcelManagement2\\Views\\Resident\\MyPackages.cshtml",
@@ -186,12 +200,11 @@
               "RelativeToolTip": "ParcelManagement2\\Views\\Resident\\MyPackages.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAMoAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-22T17:36:24.158Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-22T17:36:24.158Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "ResidentController.cs",
               "DocumentMoniker": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Controllers\\ResidentController.cs",
               "RelativeDocumentMoniker": "ParcelManagement2\\Controllers\\ResidentController.cs",
@@ -203,7 +216,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "Edit.cshtml",
               "DocumentMoniker": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Views\\Resident\\Edit.cshtml",
               "RelativeDocumentMoniker": "ParcelManagement2\\Views\\Resident\\Edit.cshtml",
@@ -215,7 +228,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "ResidentHomeVm.cs",
               "DocumentMoniker": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Models\\ResidentHomeVm.cs",
               "RelativeDocumentMoniker": "ParcelManagement2\\Models\\ResidentHomeVm.cs",
@@ -227,7 +240,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "HomeController.cs",
               "DocumentMoniker": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\Controllers\\HomeController.cs",
               "RelativeDocumentMoniker": "ParcelManagement2\\Controllers\\HomeController.cs",
@@ -239,7 +252,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 12,
               "Title": "appsettings.json",
               "DocumentMoniker": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\appsettings.json",
               "RelativeDocumentMoniker": "ParcelManagement2\\appsettings.json",
@@ -251,7 +264,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 13,
               "Title": "web.config",
               "DocumentMoniker": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\web.config",
               "RelativeDocumentMoniker": "ParcelManagement2\\web.config",
@@ -263,7 +276,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 15,
               "Title": "appsettings.Development.json",
               "DocumentMoniker": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\appsettings.Development.json",
               "RelativeDocumentMoniker": "ParcelManagement2\\appsettings.Development.json",
@@ -275,7 +288,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 14,
               "Title": "appsettings.Production.json",
               "DocumentMoniker": "E:\\\u5C08\u984C\\ParcelProject\\ParcelManagement2\\appsettings.Production.json",
               "RelativeDocumentMoniker": "ParcelManagement2\\appsettings.Production.json",

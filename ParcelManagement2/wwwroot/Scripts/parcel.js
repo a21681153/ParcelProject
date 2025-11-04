@@ -278,7 +278,6 @@ const prodObj = Vue.createApp({
                 .finally(() => this.picking = false);
         },
 
-
         // 確認選擇的領取人
         confirmResidentSelection() {
             if (!this.selectedRedId) {
@@ -547,11 +546,16 @@ const prodObj = Vue.createApp({
                 remarksValue = String(remarksValue).trim();
             }
             console.log('convertRec - remarks:', { original: r.remarks, converted: remarksValue });
+            let hasRedId = r.red_id && r.red_id !== null && String(r.red_id).trim() !== '';
+            let displayName = r.red_name || '';
+            let displayCondoId = r.condo_id || '-';
             return {
                 pack_id: r.pack_id,
                 pack_name: r.pack_name,
-                red_name: r.red_name,
-                condo_id: r.condo_id,
+                red_id: r.red_id || null,
+                red_name: displayName,
+                condo_id: displayCondoId,
+                hasRedId: hasRedId,
                 status: statusValue,
                 pickup_datetime: r.pickup_datetime || '',
                 remarks: remarksValue,

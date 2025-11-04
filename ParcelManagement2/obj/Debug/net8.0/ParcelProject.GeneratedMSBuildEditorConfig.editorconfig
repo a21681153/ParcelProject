@@ -40,10 +40,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQYWNrYWdlcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/專題/ParcelManagement2/ParcelManagement2/Views/Home/Privacy.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
 [E:/專題/ParcelManagement2/ParcelManagement2/Views/Resident/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzaWRlbnRcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -87,7 +83,3 @@ build_metadata.AdditionalFiles.CssScope =
 [E:/專題/ParcelManagement2/ParcelManagement2/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
-
-[E:/專題/ParcelManagement2/ParcelManagement2/Views/Shared/_Layout_back.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXRfYmFjay5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = b-hpxvmt7ku6

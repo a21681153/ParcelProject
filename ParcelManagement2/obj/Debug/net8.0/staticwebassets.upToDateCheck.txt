@@ -139,4 +139,7 @@ wwwroot\uploads\packages\251023P0001_20251023004006.jpeg
 wwwroot\uploads\packages\251025P0001_20251025182618.png
 wwwroot\uploads\packages\251025P0002_20251025191102.jpg
 wwwroot\uploads\packages\251025P0003_20251025192114.jpeg
+wwwroot\uploads\packages\251101P0005_20251101.jpg
+wwwroot\uploads\packages\251101P0008_20251101.jpg
+wwwroot\uploads\packages\251101P0009_20251101.jpg
 wwwroot\Scripts\parcel.js

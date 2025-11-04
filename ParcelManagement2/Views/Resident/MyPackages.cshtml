@@ -9,297 +9,97 @@
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 <style>
-    :root {
-        --primary-color: #3F9E95;
-        --secondary-color: #7FCFC3;
-        --accent-color: #2F847C;
-        --success-color: #2ECC71;
-        --warning-color: #E6B566;
-        --danger-color: #E74C3C;
-        --light-color: #9FB1B1;
-        --border-color: #E7E3DA;
-        --card-radius: 14px;
-    }
+:root{
+  --primary-color:#3F9E95;
+  --secondary-color:#7FCFC3;
+  --accent-color:#2F847C;
+  --success-color:#2ECC71;
+  --warning-color:#E6B566;
+  --danger-color:#E74C3C;
+  --light-color:#9FB1B1;
+  --border-color:#E7E3DA;
+  --card-radius:14px;
+}
 
-    /*版面基礎 */
-    .packages-container {
-        padding: 20px;
-        background: linear-gradient(180deg,#F7FBFA 0%, #EEF7F6 100%);
-        min-height: 100vh;
-    }
+/*版面基礎 */
+.packages-container{padding:20px;min-height:100vh;background:linear-gradient(180deg,#F7FBFA 0%,#EEF7F6 100%);}
+.header-card{background:linear-gradient(90deg,var(--primary-color),var(--secondary-color));color:#fff;border-radius:var(--card-radius);padding:25px;margin-bottom:25px;box-shadow:0 6px 18px rgba(63,158,149,.18);border:1px solid #ffffff33;}
+.header-title{font-size:1.5rem;font-weight:700;margin-bottom:10px;}
+.header-subtitle{opacity:.9;margin-bottom:0;}
 
-    .header-card {
-        background: linear-gradient(90deg,var(--primary-color),var(--secondary-color));
-        color: #fff;
-        border-radius: var(--card-radius);
-        padding: 25px;
-        margin-bottom: 25px;
-        box-shadow: 0 6px 18px rgba(63,158,149,.18);
-        border: 1px solid #ffffff33;
-    }
+/* 成員選擇 */
+.member-selector{margin-top:15px;padding-top:15px;border-top:1px solid rgba(255,255,255,.2);}
+.member-select{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.3);color:#fff;border-radius:6px;padding:8px 12px;font-size:14px;max-width:250px;}
+.member-select:focus{background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.5);outline:none;}
+.member-select option{background:var(--primary-color);color:#fff;}
 
-    .header-title {
-        font-size: 1.5rem;
-        font-weight: 700;
-        margin-bottom: 10px;
-    }
+/* 分頁導覽 */
+.nav-tabs{border-bottom:2px solid var(--border-color);margin-bottom:20px;display:flex;flex-wrap:wrap;gap:0;}
+.nav-tabs .nav-link{border:none;border-bottom:3px solid transparent;color:#2a3a3a99;font-weight:600;padding:15px 25px;transition:.12s;}
+.nav-tabs .nav-link:hover{color:var(--primary-color);border-bottom-color:var(--secondary-color);transform:translateY(-1px);}
+.nav-tabs .nav-link.active{color:var(--primary-color);border-bottom-color:var(--primary-color);background:transparent;font-weight:800;}
 
-    .header-subtitle {
-        opacity: .9;
-        margin-bottom: 0;
-    }
+/* 卡片與表格 */
+.content-card{background:#fff;border-radius:var(--card-radius);box-shadow:0 2px 10px rgba(0,0,0,.1);overflow:hidden;}
 
-    /* 成員選擇 */
-    .member-selector {
-        margin-top: 15px;
-        padding-top: 15px;
-        border-top: 1px solid rgba(255,255,255,.2);
-    }
+/* 表格在窄螢幕可水平滑動 */
+.content-card{overflow-x:auto;}
+.packages-table{margin:0;border-collapse:separate;border-spacing:0;width:100%;}
+/* 讓欄位不被擠壓，必要時出現水平捲軸 */
+.packages-table{min-width:1000px;}
+.packages-table thead th{background:linear-gradient(180deg,var(--primary-color),#388F87);color:#fff;font-weight:600;padding:15px 12px;text-align:center;border:none;font-size:14px;position:sticky;top:0;z-index:1;}
+.packages-table tbody td{padding:14px;text-align:center;border-bottom:1px solid var(--border-color);vertical-align:middle;font-size:16px;white-space:nowrap;}
+.packages-table tbody tr:hover td{background-color:rgba(127,207,195,.12);}
+.packages-table tbody tr:last-child td{border-bottom:none;}
+/* 長編號避免撐寬 */
+.packages-table td code{word-break:break-all;}
 
-    .member-select {
-        background: rgba(255,255,255,.1);
-        border: 1px solid rgba(255,255,255,.3);
-        color: #fff;
-        border-radius: 6px;
-        padding: 8px 12px;
-        font-size: 14px;
-        max-width: 250px;
-    }
+/* 類型（包裹/信件） */
+.type-badge{padding:4px 8px;border-radius:10px;font-size:14px;font-weight:700;border:1px solid transparent;display:inline-block;}
+.type-package{background:#E7F7F4;color:#2C7E77;border-color:#2C7E77;}
+.type-mail{background:#FFF3E0;color:#C76B16;border-color:#E5924A;}
 
-        .member-select:focus {
-            background: rgba(255,255,255,.15);
-            border-color: rgba(255,255,255,.5);
-            outline: none;
-        }
+/* 狀態（未取/已取） */
+.status-badge{padding:6px 12px;border-radius:15px;font-size:14px;font-weight:700;display:inline-block;border:1px solid;box-shadow:0 1px 0 rgba(0,0,0,.04);}
+.status-pending{background:#fff5f5;color:var(--danger-color);border-color:var(--danger-color);cursor:pointer;text-decoration:none;}
+.status-collected{background:#f0fff4;color:var(--success-color);border-color:var(--success-color);cursor:default;}
+.status-pending:hover{background:var(--danger-color);color:#fff;transform:scale(1.05);box-shadow:0 2px 8px rgba(231,76,60,.3);}
 
-        .member-select option {
-            background: var(--primary-color);
-            color: #fff;
-        }
+/* 主要按鈕 */
+.btn.btn-primary{background:var(--primary-color);border-color:var(--primary-color);}
+.btn.btn-primary:hover{background:var(--accent-color);border-color:var(--accent-color);}
 
-    .nav-tabs {
-        border-bottom: 2px solid var(--border-color);
-        margin-bottom: 20px;
-    }
+/* 模態相片 */
+#photo-gallery{max-height:60vh;overflow-y:auto;padding:15px;}
+.photo-item img{border:2px solid #dee2e6;border-radius:8px;transition:transform .3s ease;}
+.photo-item img:hover{border-color:var(--primary-color);}
+#photo-loading,#no-photos{padding:40px 20px;text-align:center;color:var(--light-color);}
+#no-photos i{font-size:3rem;opacity:.3;margin-bottom:15px;display:block;}
 
-        .nav-tabs .nav-link {
-            border: none;
-            border-bottom: 3px solid transparent;
-            color: #2a3a3a99;
-            font-weight: 600;
-            padding: 15px 25px;
-            transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease, color .12s ease;
-        }
+/* 載入/空狀態 */
+.loading,.empty-state{text-align:center;padding:60px 20px;color:var(--light-color);}
+.loading i,.empty-state i{font-size:48px;margin-bottom:15px;display:block;opacity:.5;}
+.loading i{animation:spin 1s linear infinite;}
+@@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
 
-            .nav-tabs .nav-link:hover {
-                color: var(--primary-color);
-                border-bottom-color: var(--secondary-color);
-                transform: translateY(-1px);
-            }
-
-            .nav-tabs .nav-link.active {
-                color: var(--primary-color);
-                border-bottom-color: var(--primary-color);
-                background: transparent;
-                font-weight: 800;
-            }
-
-    /* 卡片與表格 */
-    .content-card {
-        background: #fff;
-        border-radius: var(--card-radius);
-        box-shadow: 0 2px 10px rgba(0,0,0,.1);
-        overflow: hidden;
-    }
-
-    .packages-table {
-        margin: 0;
-        border-collapse: separate;
-        border-spacing: 0;
-        width: 100%;
-    }
-
-        .packages-table thead th {
-            background: linear-gradient(180deg,var(--primary-color),#388F87);
-            color: #fff;
-            font-weight: 600;
-            padding: 15px 12px;
-            text-align: center;
-            border: none;
-            font-size: 14px;
-        }
-
-        .packages-table tbody td {
-            padding: 14px;
-            text-align: center;
-            border-bottom: 1px solid var(--border-color);
-            vertical-align: middle;
-            font-size: 16px;
-        }
-
-        .packages-table tbody tr:hover td {
-            background-color: rgba(127,207,195,.12);
-        }
-
-        .packages-table tbody tr:last-child td {
-            border-bottom: none;
-        }
-
-    /* 類型（包裹/信件） */
-    .type-badge {
-        padding: 4px 8px;
-        border-radius: 10px;
-        font-size: 14px;
-        font-weight: 700;
-        border: 1px solid transparent;
-        display: inline-block;
-    }
-
-    .type-package {
-        background: #E7F7F4;
-        color: #2C7E77;
-        border-color: #2C7E77;
-    }
-
-    .type-mail {
-        background: #FFF3E0;
-        color: #C76B16;
-        border-color: #E5924A;
-    }
-
-    /* 狀態（未取/已取） */
-    .status-badge {
-        padding: 6px 12px;
-        border-radius: 15px;
-        font-size: 14px;
-        font-weight: 700;
-        display: inline-block;
-        border: 1px solid;
-        box-shadow: 0 1px 0 rgba(0,0,0,.04);
-    }
-
-    .status-pending {
-        background: #fff5f5;
-        color: var(--danger-color);
-        border-color: var(--danger-color);
-        cursor: pointer;
-        text-decoration: none;
-    }
-
-    .status-collected {
-        background: #f0fff4;
-        color: var(--success-color);
-        border-color: var(--success-color);
-        cursor: default;
-    }
-
-    .status-pending:hover {
-        background: var(--danger-color);
-        color: #fff;
-        transform: scale(1.05);
-        box-shadow: 0 2px 8px rgba(231,76,60,.3);
-    }
-
-    /* 按鈕 */
-    .btn.btn-primary {
-        background: var(--primary-color);
-        border-color: var(--primary-color);
-    }
-
-        .btn.btn-primary:hover {
-            background: var(--accent-color);
-            border-color: var(--accent-color);
-        }
-
-    /* 模態相片 */
-    .photo-item {
-        text-align: center;
-        margin-bottom: 20px;
-    }
-
-        .photo-item img {
-            transition: transform .3s ease;
-            border: 2px solid #dee2e6;
-            border-radius: 8px;
-        }
-
-            .photo-item img:hover {
-                border-color: var(--primary-color);
-            }
-
-    #photo-gallery {
-        max-height: 60vh;
-        overflow-y: auto;
-        padding: 15px;
-    }
-
-    #photo-loading, #no-photos {
-        padding: 40px 20px;
-        text-align: center;
-        color: var(--light-color);
-    }
-
-        #no-photos i {
-            font-size: 3rem;
-            opacity: .3;
-            margin-bottom: 15px;
-            display: block;
-        }
-
-    /* 載入動畫 */
-    @@keyframes spin {
-        0%
-
-    {
-        transform: rotate(0)
-    }
-
-    100% {
-        transform: rotate(360deg)
-    }
-
-    }
-
-    .loading, .empty-state {
-        text-align: center;
-        padding: 60px 20px;
-        color: var(--light-color);
-    }
-
-        .loading i, .empty-state i {
-            font-size: 48px;
-            margin-bottom: 15px;
-            display: block;
-            opacity: .5;
-        }
-
-        .loading i {
-            animation: spin 1s linear infinite;
-        }
-
-    /* RWD */
-    @@media (max-width: 768px) {
-        .packages-container
-
-    {
-        padding: 15px;
-    }
-
-    .header-card {
-        padding: 20px;
-    }
-
-    .nav-tabs .nav-link {
-        padding: 12px 15px;
-        font-size: 14px;
-    }
-
-    .packages-table thead th, .packages-table tbody td {
-        padding: 10px 8px;
-        font-size: 14px;
-    }
-
-    }
+/* ===== RWD ===== */
+@@media (max-width:1200px){
+  /* 中等螢幕就允許水平滑動，避免欄位擠壓 */
+  .packages-table{min-width:920px;}
+}
+@@media (max-width:768px){
+  .packages-container{padding:15px;}
+  .header-card{padding:20px;}
+  .nav-tabs .nav-link{padding:12px 16px;}
+  /* 表格仍維持可滑動，略降最小寬度 */
+  .packages-table{min-width:820px;}
+  .member-select{max-width:100%;}
+}
+@@media (max-width:576px){
+  .packages-container{padding:12px;}
+  .packages-table{min-width:760px;}
+  .nav-tabs .nav-link{padding:10px 14px;}
+}
 </style>
 
 <div class="packages-container" id="MyPackagesApp">
@@ -319,7 +119,7 @@
         }
     </div>
 
-    <ul class="nav nav-tabs" role="tablist">
+    <div class="nav nav-tabs" role="tablist" >
         <li class="nav-item">
             <a class="nav-link" v-on:class="{ active: activeTab === 'all' }" v-on:click="switchTab('all')" href="#all-packages">
                 <i class="bi bi-list-ul me-2"></i>所有包裹
@@ -338,7 +138,7 @@
                 <span v-if="collectedHistory.length > 0" class="badge bg-success ms-2">{{ collectedHistory.length }}</span>
             </a>
         </li>
-    </ul>
+    </div>
 
     <div class="content-card">
         <!-- 所有包裹 -->
@@ -370,13 +170,24 @@
                                     {{ item.item_type }}
                                 </span>
                             </td>
-                            <td>{{ item.red_name }}</td>
+                            <!-- 處理信件沒有 red_name 的情況 -->
+                            <td>
+                                <template v-if="item.red_name">
+                                    {{ item.red_name }}
+                                </template>
+                                <template v-else>
+                                    <span style="color: #6c757d; font-style: italic;">
+                                        {{ item.condo_id }}
+                                    </span>
+                                </template>
+                            </td>
                             <td>{{ formatDateTime(item.create_time) }}</td>
                             <td>
                                 <span class="status-badge"
                                       v-bind:class="item.status == 0 ? 'status-pending' : 'status-collected'"
                                       v-on:click="item.status == 0 ? viewPackagePhoto(item.pack_id) : null"
-                                      :title="item.status == 0 ? '點擊查看包裹照片' : ''">
+                                      :title="item.status == 0 ? '點擊查看包裹照片' : ''"
+                                      :style="item.status == 0 ? 'cursor: pointer;' : ''">
                                     {{ item.status_text }}
                                 </span>
                             </td>
@@ -416,7 +227,16 @@
                                     {{ item.item_type }}
                                 </span>
                             </td>
-                            <td>{{ item.red_name }}</td>
+                            <td>
+                                <template v-if="item.red_name">
+                                    {{ item.red_name }}
+                                </template>
+                                <template v-else>
+                                    <span style="color: #6c757d; font-style: italic;">
+                                        {{ item.condo_id }}
+                                    </span>
+                                </template>
+                            </td>
                             <td>{{ formatDateTime(item.create_time) }}</td>
                             <td>{{ calculateDays(item.create_time) }} 天</td>
                             <td>
@@ -457,7 +277,16 @@
                                     {{ item.item_type }}
                                 </span>
                             </td>
-                            <td>{{ item.red_name }}</td>
+                            <td>
+                                <template v-if="item.red_name">
+                                    {{ item.red_name }}
+                                </template>
+                                <template v-else>
+                                    <span style="color: #6c757d; font-style: italic;">
+                                        {{ item.condo_id }}
+                                    </span>
+                                </template>
+                            </td>
                             <td>{{ formatDateTime(item.create_time) }}</td>
                             <td>{{ formatDateTime(item.pickup_datetime) }}</td>
                             <td>{{ item.collector_name || '-' }}</td>
@@ -630,8 +459,10 @@
                         document.getElementById('package-info').style.display = 'block';
                         document.getElementById('modal-package-id').textContent = res.data.packageId || '-';
                         document.getElementById('modal-package-name').textContent = res.data.packageName || '-';
-                        document.getElementById('modal-recipient').textContent =
-                            (res.data.recipientName || '') + ' (' + (res.data.recipientId || '') + ')';
+                        var recipientDisplay = res.data.recipientId
+                                ? res.data.recipientName + ' (' + res.data.recipientId + ')'
+                                : (res.data.condoId || '未指定');
+                            document.getElementById('modal-recipient').textContent = recipientDisplay;
                         document.getElementById('modal-create-time').textContent = res.data.createTime || '-';
                         //  顯示照片
                         if (res.data.photos && res.data.photos.length > 0) {

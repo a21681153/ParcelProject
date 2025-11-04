@@ -1,5 +1,31 @@
 [
   {
+    "ContainingType": "ParcelProject.Controllers.Api.MailboxController",
+    "Method": "AutoCollectLetters",
+    "RelativePath": "api/Mailbox/auto-collect",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "req",
+        "Type": "ParcelProject.Controllers.Api.MailboxController\u002BAutoCollectRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "ParcelProject.Controllers.Api.MailboxController\u002BAutoCollectResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "ParcelManagement2.Controllers.SimpleDatabaseController",
     "Method": "CheckAccountStructure",
     "RelativePath": "api/SimpleDatabase/account-structure",

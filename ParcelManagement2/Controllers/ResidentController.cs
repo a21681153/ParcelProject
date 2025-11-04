@@ -144,7 +144,6 @@ namespace ParcelManagement2.Controllers
                 return View("Error");
             }
         }
-
         // 取得所有包裹（包含包裹和信件）
         [HttpPost]
         public IActionResult GetAllPackages()
@@ -161,54 +160,42 @@ namespace ParcelManagement2.Controllers
 
                 string? selectedResidentId = HttpContext.Session.GetString("SelectedResidentId");
 
-                string sql;
+                string sql = @"
+                    SELECT bd.pack_id,
+                           bd.pack_type,
+                           bd.red_id,
+                           bd.condo_id,
+                           bd.status,
+                           bd.create_time,
+                           bd.pickup_datetime,
+                           bd.collector_name,
+                           m.pack_name,
+                           r.red_name,
+                           CASE WHEN bd.status = 0 THEN N'未領取' ELSE N'已領取' END as status_text,
+                           CASE WHEN m.pack_name LIKE '%信件%' THEN N'信件' ELSE N'包裹' END as item_type
+                    FROM   Boxdetail bd
+                    INNER JOIN Mail m ON m.pack_type = bd.pack_type
+                    LEFT JOIN Resident r ON r.red_id = bd.red_id
+                    WHERE  bd.deleted = 0
+                      AND  bd.condo_id = @condoId";
+
                 var parameters = new Dictionary<string, object>
-        {
-            { "@condoId", acct.Condo_Id ?? "" }
-        };
+                {
+                    { "@condoId", acct.Condo_Id ?? "" }
+                };
 
                 if (!string.IsNullOrEmpty(selectedResidentId))
                 {
-                    sql = @"
-                SELECT bd.pack_id,
-                       bd.create_time,
-                       bd.pickup_datetime,
-                       CASE WHEN bd.status = 0 THEN N'未領取' ELSE N'已領取' END as status_text,
-                       bd.status,
-                       r.red_name,
-                       m.pack_name,
-                       CASE WHEN m.pack_name LIKE '%信件%' OR m.pack_name LIKE '%郵件%' 
-                            THEN N'信件' ELSE N'包裹' END as item_type,
-                       bd.collector_name
-                FROM   Boxdetail bd
-                INNER JOIN Resident r ON r.red_id = bd.red_id
-                INNER JOIN Mail m ON m.pack_type = bd.pack_type
-                WHERE  bd.deleted = 0
-                  AND  r.condo_id = @condoId
-                  AND  r.red_id = @residentId
-                ORDER BY bd.create_time DESC";
+                    sql += @"
+                        AND (
+                          bd.red_id = @residentId 
+                          OR bd.red_id IS NULL
+                          OR m.pack_name LIKE '%信件%'
+                      )";
                     parameters.Add("@residentId", selectedResidentId);
                 }
-                else
-                {
-                    sql = @"
-                SELECT bd.pack_id,
-                       bd.create_time,
-                       bd.pickup_datetime,
-                       CASE WHEN bd.status = 0 THEN N'未領取' ELSE N'已領取' END as status_text,
-                       bd.status,
-                       r.red_name,
-                       m.pack_name,
-                       CASE WHEN m.pack_name LIKE '%信件%' OR m.pack_name LIKE '%郵件%' 
-                            THEN N'信件' ELSE N'包裹' END as item_type,
-                       bd.collector_name
-                FROM   Boxdetail bd
-                INNER JOIN Resident r ON r.red_id = bd.red_id
-                INNER JOIN Mail m ON m.pack_type = bd.pack_type
-                WHERE  bd.deleted = 0
-                  AND  r.condo_id = @condoId
-                ORDER BY bd.create_time DESC";
-                }
+
+                sql += " ORDER BY bd.create_time DESC";
 
                 DataTable result = _dbConn.GetDataTable(sql, parameters);
                 return Content(_dbConn.DataTableToJsonString(result), "application/json");
@@ -220,7 +207,7 @@ namespace ParcelManagement2.Controllers
             }
         }
 
-        // ✅ 取得領取紀錄（只顯示已領取的）
+        //  取得領取紀錄（只顯示已領取的）
         [HttpPost]
         public IActionResult GetCollectedHistory()
         {
@@ -236,54 +223,43 @@ namespace ParcelManagement2.Controllers
 
                 string? selectedResidentId = HttpContext.Session.GetString("SelectedResidentId");
 
-                string sql;
-                var parameters = new Dictionary<string, object>
-        {
-            { "@condoId", acct.Condo_Id ?? "" }
-        };
+                string sql = @"
+                    SELECT bd.pack_id,
+                           bd.pack_type,
+                           bd.condo_id,
+                           bd.red_id,
+                           bd.status,
+                           bd.create_time,
+                           bd.pickup_datetime,
+                           bd.collector_name,
+                           r.red_name,
+                           m.pack_name,
+                           N'已領取' AS status_text,
+                           CASE WHEN m.pack_name LIKE '%信件%' THEN N'信件' 
+                                ELSE N'包裹' 
+                           END as item_type
+                    FROM   Boxdetail bd
+                    INNER JOIN Mail m ON m.pack_type = bd.pack_type
+                    LEFT JOIN Resident r ON r.red_id = bd.red_id
+                    WHERE  bd.deleted = 0
+                      AND  bd.status = 1
+                      AND  bd.condo_id = @condoId";
 
+                var parameters = new Dictionary<string, object>
+                {
+                    { "@condoId", acct.Condo_Id ?? "" }
+                };
                 if (!string.IsNullOrEmpty(selectedResidentId))
                 {
-                    sql = @"
-                SELECT bd.pack_id,
-                       bd.create_time,
-                       bd.pickup_datetime,
-                       r.red_name,
-                       m.pack_name,
-                       CASE WHEN m.pack_name LIKE '%信件%' OR m.pack_name LIKE '%郵件%' 
-                            THEN N'信件' ELSE N'包裹' END as item_type,
-                       DATEDIFF(day, bd.create_time, bd.pickup_datetime) as storage_days,
-                       bd.collector_name
-                FROM   Boxdetail bd
-                INNER JOIN Resident r ON r.red_id = bd.red_id
-                INNER JOIN Mail m ON m.pack_type = bd.pack_type
-                WHERE  bd.deleted = 0
-                  AND  bd.status = 1
-                  AND  r.condo_id = @condoId
-                  AND  r.red_id = @residentId
-                ORDER BY bd.pickup_datetime DESC";
+                    sql += @"
+                      AND (
+                          bd.red_id = @residentId 
+                          OR bd.red_id IS NULL
+                          OR m.pack_name LIKE '%信件%'
+                      )";
                     parameters.Add("@residentId", selectedResidentId);
                 }
-                else
-                {
-                    sql = @"
-                SELECT bd.pack_id,
-                       bd.create_time,
-                       bd.pickup_datetime,
-                       r.red_name,
-                       m.pack_name,
-                       CASE WHEN m.pack_name LIKE '%信件%' OR m.pack_name LIKE '%郵件%' 
-                            THEN N'信件' ELSE N'包裹' END as item_type,
-                       DATEDIFF(day, bd.create_time, bd.pickup_datetime) as storage_days,
-                       bd.collector_name
-                FROM   Boxdetail bd
-                INNER JOIN Resident r ON r.red_id = bd.red_id
-                INNER JOIN Mail m ON m.pack_type = bd.pack_type
-                WHERE  bd.deleted = 0
-                  AND  bd.status = 1
-                  AND  r.condo_id = @condoId
-                ORDER BY bd.pickup_datetime DESC";
-                }
+                sql += " ORDER BY bd.pickup_datetime DESC";
 
                 DataTable result = _dbConn.GetDataTable(sql, parameters);
                 return Content(_dbConn.DataTableToJsonString(result), "application/json");
@@ -419,53 +395,28 @@ namespace ParcelManagement2.Controllers
                 if (acct == null)
                     return Json(new { success = false, message = "找不到使用者資料" });
 
-                // 取得選中的成員ID
-                string? selectedResidentId = HttpContext.Session.GetString("SelectedResidentId");
+                    // 顯示整戶的信件
+                string sql = @"
+                        SELECT bd.pack_id,
+                               bd.condo_id,
+                               bd.red_id,
+                               N'待領取' AS mailStatus,
+                               r.red_name,
+                               m.pack_name,
+                               bd.create_time
+                        FROM   Boxdetail bd
+                        INNER JOIN Mail m ON m.pack_type = bd.pack_type
+                        LEFT JOIN Resident r ON r.red_id = bd.red_id
+                        WHERE  bd.deleted = 0
+                          AND  bd.status = 0
+                          AND  bd.condo_id = @condoId
+                          AND  (m.pack_name LIKE '%信件%')
+                        ORDER BY bd.create_time DESC";
 
-                string sql;
                 var parameters = new Dictionary<string, object>
                 {
                     { "@condoId", acct.Condo_Id ?? "" }
                 };
-
-                if (!string.IsNullOrEmpty(selectedResidentId))
-                {
-                    // 只顯示選中成員的信件
-                    sql = @"
-                        SELECT bd.pack_id,
-                               N'待領取' AS mailStatus,
-                               r.red_name,
-                               m.pack_name,
-                               bd.create_time
-                        FROM   Boxdetail bd
-                        INNER JOIN Resident r ON r.red_id = bd.red_id
-                        INNER JOIN Mail m ON m.pack_type = bd.pack_type
-                        WHERE  bd.deleted = 0
-                          AND  bd.status = 0
-                          AND  r.condo_id = @condoId
-                          AND  r.red_id = @residentId
-                          AND  (m.pack_name LIKE '%信件%')
-                        ORDER BY bd.create_time DESC";
-                    parameters.Add("@residentId", selectedResidentId);
-                }
-                else
-                {
-                    // 顯示整戶的信件
-                    sql = @"
-                        SELECT bd.pack_id,
-                               N'待領取' AS mailStatus,
-                               r.red_name,
-                               m.pack_name,
-                               bd.create_time
-                        FROM   Boxdetail bd
-                        INNER JOIN Resident r ON r.red_id = bd.red_id
-                        INNER JOIN Mail m ON m.pack_type = bd.pack_type
-                        WHERE  bd.deleted = 0
-                          AND  bd.status = 0
-                          AND  r.condo_id = @condoId
-                          AND  (m.pack_name LIKE '%信件%' OR m.pack_name LIKE '%郵件%')
-                        ORDER BY bd.create_time DESC";
-                }
 
                 DataTable result = _dbConn.GetDataTable(sql, parameters);
                 return Content(_dbConn.DataTableToJsonString(result), "application/json");
@@ -492,9 +443,9 @@ namespace ParcelManagement2.Controllers
                 const string sql = @"
                     SELECT COUNT(*) as cnt
                     FROM Boxdetail bd
-                    JOIN Resident r ON r.red_id = bd.red_id
-                    WHERE bd.deleted = 0 AND bd.status = 0
-                          AND r.condo_id = @condoId";
+                    WHERE bd.deleted = 0 
+                      AND bd.status = 0
+                      AND bd.condo_id = @condoId";
 
                 var parameters = new Dictionary<string, object>
                 {
@@ -533,12 +484,12 @@ namespace ParcelManagement2.Controllers
 
                 // 查詢包裹資訊，包含檔案路徑和二進制資料
                 string sql = @"
-            SELECT b.pack_id, b.photo_path, b.image_data, b.create_time,
-                   m.pack_name, r.red_name, r.red_id
-            FROM Boxdetail b
-            LEFT JOIN Mail m ON b.pack_type = m.pack_type
-            LEFT JOIN Resident r ON b.red_id = r.red_id
-            WHERE b.pack_id = @packageId AND ISNULL(b.deleted, 0) = 0";
+                    SELECT b.pack_id, b.photo_path, b.image_data, b.create_time,
+                           m.pack_name, r.red_name, r.red_id
+                    FROM Boxdetail b
+                    LEFT JOIN Mail m ON b.pack_type = m.pack_type
+                    LEFT JOIN Resident r ON b.red_id = r.red_id
+                    WHERE b.pack_id = @packageId AND ISNULL(b.deleted, 0) = 0";
 
                 var parameters = new Dictionary<string, object> { ["@packageId"] = packageId };
                 DataTable dataTable = await _dbConn.GetDataTableAsync(sql, parameters);
@@ -635,7 +586,7 @@ namespace ParcelManagement2.Controllers
             if (imageData[0] == 0x42 && imageData[1] == 0x4D)
                 return "image/bmp";
 
-            return "image/jpeg"; // 預設為 JPEG
+            return "image/jpeg"; 
         }
         /* ======= 編輯個人資料 ======= */
         public IActionResult Edit()
@@ -652,7 +603,7 @@ namespace ParcelManagement2.Controllers
                 // 取得選中的成員ID
                 string? selectedResidentId = HttpContext.Session.GetString("SelectedResidentId");
 
-                DataRow? row = null; // ✅ 加入 nullable
+                DataRow? row = null; 
                 if (!string.IsNullOrEmpty(selectedResidentId))
                 {
                     row = _residentModel.GetRowById(selectedResidentId);
@@ -1012,6 +963,18 @@ namespace ParcelManagement2.Controllers
             }
         }
         // 請求模型
+        public class MarkMailsRequest
+        {
+            // 戶號（condo_id）
+            public string? CondoId { get; set; }
+
+            // 領取人名稱（住戶名或"系統自動標記"）
+            public string? CollectorName { get; set; }
+            //領取人 ID（住戶編號）
+            public string? CollectorId { get; set; }
+            //領取時間
+            public DateTime? PickupTime { get; set; }
+        }
         public class GetPackagePhotosRequest
         {
             public string? PackageId { get; set; }

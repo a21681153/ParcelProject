@@ -10,1141 +10,243 @@
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 <style>
-    :root {
-        --resident-primary: #3F9E95; 
-        --resident-secondary: #7FCFC3;
-        --resident-primary-dark: #2F847C;
-        --resident-accent: #CFC7BB;
-        --resident-light: #9FB1B1;
-        --border-color: #E7E3DA;
-        --card-radius: 12px;
+:root{
+  --resident-primary:#3F9E95;
+  --resident-secondary:#7FCFC3;
+  --resident-primary-dark:#2F847C;
+  --resident-accent:#CFC7BB;
+  --resident-light:#9FB1B1;
+  --border-color:#E7E3DA;
+  --card-radius:12px;
+  --status-pending:#E74C3C;
+  --status-collected:#2ECC71;
+  --text-primary:#1E2A2A;
+  --text-secondary:#6c757d;
+}
 
-        --status-pending: #E74C3C;
-        --status-collected: #2ECC71;
-        --text-primary: #1E2A2A;
-        --text-secondary: #6c757d;
-    }
+/* ===== 基本框架 ===== */
+.resident-container{padding:15px;margin:0;min-height:100vh;background:linear-gradient(135deg,#f8f9fa 0%,#e9ecef 100%);}
+.welcome-card{background:linear-gradient(135deg,var(--resident-primary) 0%,var(--resident-secondary) 100%);color:#fff;border-radius:var(--card-radius);padding:20px 25px;margin-bottom:20px;box-shadow:0 4px 20px rgba(44,62,80,.2);position:relative;overflow:hidden;}
+.welcome-card::before{content:'';position:absolute;top:-50%;right:-50%;width:200px;height:200px;background:rgba(255,255,255,.1);border-radius:50%;z-index:1;}
+.welcome-content{position:relative;z-index:2;}
+.welcome-title{font-size:1.4rem;font-weight:700;margin-bottom:8px;display:flex;align-items:center;flex-wrap:wrap;}
+.welcome-title i{margin-right:10px;font-size:1.2rem;color:rgba(255,255,255,.9);}
+.resident-link{color:rgba(255,255,255,.9);text-decoration:none;border-bottom:2px solid rgba(255,255,255,.3);transition:.3s;}
+.resident-link:hover{color:#fff;border-bottom-color:#fff;}
+.condo-info{font-size:1rem;margin-top:6px;color:rgba(255,255,255,.9);font-weight:500;}
+.member-selector{margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.2);}
+.member-select-label{font-size:13px;margin-bottom:6px;color:rgba(255,255,255,.9);font-weight:500;}
+.member-select{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.3);color:#fff;border-radius:6px;padding:6px 10px;font-size:13px;transition:.3s;max-width:220px;}
+.member-select:focus{background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.5);outline:none;box-shadow:0 0 0 2px rgba(255,255,255,.2);}
+.member-select option{background:var(--resident-primary);color:#fff;}
 
-    /* 主容器 */
-    .resident-container {
-        padding: 15px;
-        margin: 0;
-        min-height: 100vh;
-        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-    }
+.layout-container{display:flex;gap:20px;align-items:stretch;min-height:calc(100vh - 300px);}
+.left-column,.right-column{flex:1;display:flex;flex-direction:column;min-height:auto;}
+.left-column{gap:20px;max-width:45%;min-height:calc(100vh - 300px);}
+.right-column{max-width:55%;}
 
-    /* 歡迎標題卡片*/
-    .welcome-card {
-        background: linear-gradient(135deg, var(--resident-primary) 0%, var(--resident-secondary) 100%);
-        color: white;
-        border-radius: var(--card-radius);
-        padding: 20px 25px; 
-        margin-bottom: 20px; 
-        box-shadow: 0 4px 20px rgba(44, 62, 80, 0.2);
-        position: relative;
-        overflow: hidden;
-    }
+/* ===== 卡片與表格 ===== */
+.resident-card{background:#fff;border:1px solid var(--border-color);border-radius:var(--card-radius);box-shadow:0 2px 8px rgba(0,0,0,.08);transition:.3s;padding:20px;position:relative;display:flex;flex-direction:column;overflow:hidden;}
+.resident-card:hover{box-shadow:0 4px 16px rgba(0,0,0,.12);transform:translateY(-2px);}
+.resident-card.residents-card{flex:none;height:280px;min-height:280px;max-height:280px;}
+.resident-card.mails-card{flex:1;min-height:300px;}
+.resident-card.full-height{flex:1;min-height:680px;display:flex;flex-direction:column;}
+.resident-card.full-height .resident-table-container{flex:1;display:flex;flex-direction:column;}
+.resident-card.full-height .table-wrapper{overflow-y:auto;overflow-x:hidden;border:1px solid var(--border-color);border-radius:4px;}
+.resident-card.full-height .table-wrapper::-webkit-scrollbar{width:8px;}
+.resident-card.full-height .table-wrapper::-webkit-scrollbar-track{background:#f1f1f1;border-radius:4px;}
+.resident-card.full-height .table-wrapper::-webkit-scrollbar-thumb{background:var(--resident-light);border-radius:4px;}
+.resident-card.full-height .table-wrapper::-webkit-scrollbar-thumb:hover{background:var(--resident-primary);}
+.resident-card.full-height .resident-table{margin:0;border:none;border-collapse:separate;border-spacing:0;width:100%;font-size:14px;}
 
-        .welcome-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200px;
-            height: 200px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            z-index: 1;
-        }
+.card-title{font-size:1.2rem;font-weight:600;color:var(--resident-primary);margin-bottom:15px;display:flex;align-items:center;border-bottom:2px solid var(--border-color);padding-bottom:10px;flex-shrink:0;}
+.card-title i{margin-right:8px;color:var(--resident-accent);font-size:1.1rem;}
+.card-title .badge{margin-left:auto;font-size:11px;padding:4px 8px;border-radius:12px;}
 
-    .welcome-content {
-        position: relative;
-        z-index: 2;
-    }
+.resident-table-container{background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.06);border:1px solid var(--border-color);flex:1;display:flex;flex-direction:column;}
+.table-wrapper{flex:1;overflow-y:auto;display:flex;flex-direction:column;}
+.resident-table{margin:0;border:none;border-collapse:separate;border-spacing:0;width:100%;font-size:14px;flex:1;height:100%;}
+.resident-table thead th{background:var(--resident-primary);color:#fff;font-weight:600;font-size:14px;padding:12px 10px;text-align:center;border:none;position:sticky;top:0;z-index:10;}
+.resident-table tbody td{padding:10px 8px;text-align:center;height:70px;font-size:14px;border-bottom:1px solid var(--border-color);vertical-align:middle;transition:background-color .2s;}
+.resident-table tbody tr:hover td{background-color:rgba(63,158,149,.08);}
+.resident-table tbody tr:last-child td{border-bottom:none;}
+.resident-table tbody tr.empty-row td{height:40px;border-bottom:1px solid rgba(222,226,230,.3);color:transparent;}
+.resident-table tbody tr.empty-row:hover td{background-color:transparent;}
 
-    .welcome-title {
-        font-size: 1.4rem; 
-        font-weight: 700;
-        margin-bottom: 8px;
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-    }
+.empty-state{text-align:center;padding:60px 20px;color:#6c757d;}
+.empty-state i{font-size:36px;margin-bottom:12px;opacity:.5;}
+.empty-state h6{font-size:15px;margin-bottom:6px;font-weight:600;color:var(--resident-primary);}
+.empty-state p{font-size:13px;margin:0;opacity:.8;}
 
-        .welcome-title i {
-            margin-right: 10px;
-            font-size: 1.2rem; 
-            color: rgba(255, 255, 255, 0.9);
-        }
+/* ===== 狀態/字樣 ===== */
+.package-id{background:transparent!important;padding:0!important;border-radius:0!important;box-shadow:none!important;font-family:inherit!important;font-size:14px;font-weight:700;border:0!important;color:var(--text-primary)!important;display:inline-block;}
+.status-badge{padding:6px 15px;border-radius:15px;font-size:14px;font-weight:600;text-align:center;display:inline-block;cursor:pointer;transition:.2s;border:1px solid;text-decoration:none;}
+.status-badge:hover{transform:scale(1.05);box-shadow:0 2px 6px rgba(0,0,0,.2);}
+.status-badge-pending{background:#fff5f5;border-color:var(--status-pending);color:var(--status-pending);}
+.status-badge-pending:hover{background:var(--status-pending);color:#fff;}
+.status-badge-mail{background:#fff8dc;border-color:#f39c12;color:#f39c12;}
+.status-badge-mail:hover{background:#f39c12;color:#fff;}
 
-    .resident-link {
-        color: rgba(255, 255, 255, 0.9);
-        text-decoration: none;
-        border-bottom: 2px solid rgba(255, 255, 255, 0.3);
-        transition: all 0.3s ease;
-    }
+.resident-info{font-weight:600;color:var(--text-primary);font-size:16px;}
+.resident-id{background:var(--resident-primary);color:#fff;padding:4px 12px;border-radius:3px;font-size:14px;font-weight:600;display:inline-block;}
+.resident-phone{color:var(--text-primary);letter-spacing:.2px;padding:4px 12px;font-size:16px;font-weight:700;font-family:'Courier New',monospace;}
 
-        .resident-link:hover {
-            color: white;
-            border-bottom-color: white;
-        }
+/* ===== 載入 ===== */
+.loading{text-align:center;padding:60px 20px;color:#6c757d;}
+.loading i{animation:spin 1s linear infinite;font-size:24px;margin-bottom:10px;display:block;color:var(--resident-primary);}
+.loading p{font-size:14px;margin:0;}
+.spin{animation:spin 1s linear infinite;}
+@@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
 
-    .condo-info {
-        font-size: 1rem; 
-        margin-top: 6px; 
-        color: rgba(255, 255, 255, 0.9);
-        font-weight: 500;
-    }
+/* ===== 通知條 ===== */
+.mail-notification-bar{background:linear-gradient(135deg,#f39c12 0%,#e67e22 100%);color:#fff;border-radius:var(--card-radius);margin-bottom:20px;box-shadow:0 4px 15px rgba(243,156,18,.3);overflow:hidden;animation:slideInDown .5s ease-out;}
+.notification-content{display:flex;align-items:center;padding:15px 20px;gap:15px;}
+.notification-icon{font-size:24px;color:rgba(255,255,255,.9);animation:bellShake 2s ease-in-out infinite;}
+.notification-text{flex:1;}
+.notification-text h6{margin:0 0 3px 0;font-size:16px;font-weight:600;}
+.notification-text small{font-size:13px;color:rgba(255,255,255,.8);}
 
-    /* 成員選擇器 */
-    .member-selector {
-        margin-top: 12px; 
-        padding: 12px 0 0 0; 
-        border-top: 1px solid rgba(255, 255, 255, 0.2);
-    }
+/* ===== 信件清單（卡片滾動） ===== */
+.mail-scroll-container{min-height:330px;overflow-y:auto;overflow-x:hidden;padding:8px;display:flex;flex-direction:column;gap:12px;}
+.mail-scroll-container::-webkit-scrollbar{width:8px;}
+.mail-scroll-container::-webkit-scrollbar-track{background:#f1f1f1;border-radius:10px;}
+.mail-scroll-container::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--resident-primary),var(--resident-secondary));border-radius:10px;}
+.mail-card-item{background:linear-gradient(135deg,#fff 0%,#f8f9fa 100%);border:1px solid #e9ecef;border-left:4px solid var(--resident-primary);border-radius:12px;padding:16px;transition:.3s;box-shadow:0 2px 8px rgba(0,0,0,.05);animation:slideIn .4s ease;}
+.mail-card-item:hover{transform:translateX(4px);box-shadow:0 4px 16px rgba(63,158,149,.15);border-left-color:var(--resident-secondary);}
+.mail-card-header{display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;}
+.mail-icon{font-size:28px;color:var(--resident-primary);flex-shrink:0;animation:bounce 2s infinite;}
+.mail-info{flex:1;min-width:0;}
+.mail-id{font-family:'Courier New',monospace;font-size:15px;font-weight:700;color:#2c3e50;margin-bottom:6px;letter-spacing:.5px;}
+.mail-type{margin-top:4px;}
+.badge-mail{display:inline-flex;align-items:center;padding:4px 12px;background:linear-gradient(135deg,#ffc107,#ff9800);color:#fff;font-size:12px;font-weight:600;border-radius:12px;box-shadow:0 2px 6px rgba(255,193,7,.3);}
+.mail-card-footer{display:flex;justify-content:space-between;align-items:center;padding-top:12px;border-top:1px solid #e9ecef;}
+.mail-time{font-size:13px;color:#6c757d;display:flex;align-items:center;}
+.mail-time i{opacity:.7;}
+.mail-status{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:#dc3545;}
+.status-dot{width:8px;height:8px;background:#dc3545;border-radius:50%;animation:pulse 2s infinite;}
 
-    .member-select-label {
-        font-size: 13px;
-        margin-bottom: 6px;
-        color: rgba(255, 255, 255, 0.9);
-        font-weight: 500;
-    }
+/* ===== 包裹清單（卡片滾動） ===== */
+.package-scroll-container{max-height:600px;overflow-y:auto;overflow-x:hidden;padding:8px;display:flex;flex-direction:column;gap:12px;}
+.package-scroll-container::-webkit-scrollbar{width:8px;}
+.package-scroll-container::-webkit-scrollbar-track{background:#f1f1f1;border-radius:10px;}
+.package-scroll-container::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#E74C3C,#C0392B);border-radius:10px;}
+.package-scroll-container::-webkit-scrollbar-thumb:hover{background:#E74C3C;}
 
-    .member-select {
-        background: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        color: white;
-        border-radius: 6px;
-        padding: 6px 10px;
-        font-size: 13px; 
-        transition: all 0.3s ease;
-        max-width: 220px;
-    }
+.package-card-item{background:linear-gradient(135deg,#fff 0%,#f8f9fa 100%);border:1px solid #e9ecef;border-left:4px solid #E74C3C;border-radius:12px;padding:16px;cursor:pointer;transition:.3s;box-shadow:0 2px 8px rgba(0,0,0,.05);animation:slideIn .4s ease;}
+.package-card-item:hover{transform:translateY(-4px) scale(1.02);box-shadow:0 6px 20px rgba(231,76,60,.2);border-left-color:#C0392B;}
+.package-card-item:active{transform:translateY(-2px) scale(1.01);}
+.package-card-header{display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;}
+.package-icon{font-size:32px;color:#E74C3C;flex-shrink:0;animation:packageBounce 2s infinite;}
+.package-info{flex:1;min-width:0;}
+.package-id{font-family:'Courier New',monospace;font-size:16px;font-weight:700;color:#2c3e50;margin-bottom:6px;letter-spacing:.5px;word-break:break-all;}
+.package-type{margin-top:4px;}
+.badge-package{display:inline-flex;align-items:center;padding:4px 12px;background:linear-gradient(135deg,var(--resident-primary),var(--resident-secondary));color:#fff;font-size:12px;font-weight:600;border-radius:12px;box-shadow:0 2px 6px rgba(63,158,149,.3);white-space:nowrap;}
+.package-card-body{padding:12px 0;border-top:1px solid #e9ecef;border-bottom:1px solid #e9ecef;margin-bottom:12px;}
+.package-recipient{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:#495057;}
+.package-recipient i{color:var(--resident-primary);font-size:18px;flex-shrink:0;}
+.package-recipient span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.package-card-footer{display:flex;justify-content:space-between;align-items:center;}
+.package-status{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:#E74C3C;}
+.status-dot-red{width:8px;height:8px;background:#E74C3C;border-radius:50%;animation:pulse 2s infinite;}
+.package-action{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--resident-primary);padding:4px 12px;background:rgba(63,158,149,.1);border-radius:8px;transition:.3s;}
+.package-card-item:hover .package-action{background:var(--resident-primary);color:#fff;transform:translateX(4px);}
+.package-action i{font-size:14px;}
 
-        .member-select:focus {
-            background: rgba(255, 255, 255, 0.15);
-            border-color: rgba(255, 255, 255, 0.5);
-            outline: none;
-            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2);
-        }
 
-        .member-select option {
-            background: var(--resident-primary);
-            color: white;
-        }
-    /* 佈局容器 */
-    .layout-container {
-        display: flex;
-        gap: 20px;
-        align-items: stretch;
-        min-height: calc(100vh - 300px); 
-    }
+/* 右欄高度控制 */
+.right-column .full-height{height:100%;display:flex;flex-direction:column;}
+.right-column .full-height .card-content{flex:1;overflow:hidden;}
 
-    .left-column, .right-column {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        min-height: auto;
-    }
+/* ===== 共用空狀態/顏色 ===== */
+.empty-state i{font-size:64px;opacity:.3;margin-bottom:20px;display:block;}
+.empty-state i.bi-inbox{color:#E74C3C;}
+.empty-state i.bi-envelope-open{color:var(--resident-primary);}
+.empty-state h6{font-size:18px;font-weight:600;color:#495057;margin-bottom:8px;}
+.empty-state p{font-size:14px;color:#6c757d;margin:0;}
 
-    .left-column {
-        flex: 1;
-        gap: 20px;
-        max-width: 45%; 
-        min-height: calc(100vh - 300px);
-    }
+/* ===== 動畫 ===== */
+@@keyframes slideInDown{from{transform:translateY(-20px);opacity:0}to{transform:translateY(0);opacity:1}}
+@@keyframes slideDown{from{max-height:0;opacity:0}to{max-height:500px;opacity:1}}
+@@keyframes bellShake{
+  0%,100%{transform:rotate(0)}
+  10%,30%,50%,70%,90%{transform:rotate(-10deg)}
+  20%,40%,60%,80%{transform:rotate(10deg)}
+}
+@@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@@keyframes packageBounce{0%,100%{transform:translateY(0) rotate(0)}25%{transform:translateY(-4px) rotate(-5deg)}75%{transform:translateY(-2px) rotate(5deg)}}
+@@keyframes slideIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(1.2)}}
 
-    .right-column {
-        flex: 1;
-        max-width: 55%; 
-    }
-    /* 卡片設計 */
-    .resident-card {
-        background: white;
-        border: 1px solid var(--border-color);
-        border-radius: var(--card-radius);
-        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        transition: all 0.3s ease;
-        padding: 20px; 
-        margin-bottom: 0;
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-    }
+/* ===== 照片 Modal（精簡 RWD） ===== */
+#packagePhotoModal .modal-dialog{max-width:900px;}
+@@media (max-width:992px){#packagePhotoModal .modal-dialog{margin:12px;max-width:100%;}}
+#packagePhotoModal .modal-content{max-height:calc(100vh - 24px);display:flex;flex-direction:column;}
+#packagePhotoModal .modal-body{overflow:auto;}
+.package-info-compact{background:#f8f9fa;padding:8px 12px;border-radius:6px;border:1px solid #dee2e6;font-size:14px;}
+.package-info-compact .text-muted{font-size:14px;font-weight:600;margin-bottom:2px;}
+.package-info-compact .small{font-size:14px;font-weight:500;}
 
-        .resident-card:hover {
-            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
-            transform: translateY(-2px);
-        }
-        .resident-card.half-height {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            min-height: 200px; 
-        }
+#photo-gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;padding:4px 0;}
+.photo{position:relative;border:1px solid #dee2e6;border-radius:8px;background:#fff;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.08);}
+.photo img{width:100%;height:auto;display:block;max-height:calc(100vh - 260px);object-fit:contain;cursor:zoom-in;}
+.photo .label{position:absolute;left:8px;right:8px;bottom:8px;background:rgba(0,0,0,.7);color:#fff;padding:6px 10px;border-radius:6px;text-align:center;font-weight:600;}
 
-        /* 第一個卡片（戶內住戶） */
-        .resident-card.residents-card {
-            flex: none; 
-            height: 280px; 
-            min-height: 280px;
-            max-height: 280px;
-        }
-
-        /* 第二個卡片（待領取信件）*/
-        .resident-card.mails-card {
-            flex: 1; 
-            min-height: 300px; 
-        }
-
-        .resident-card.full-height {
-            flex: 1;
-            height: 100%;
-            min-height: 680px; 
-            display: flex;
-            flex-direction: column;
-        }
-
-            .resident-card.full-height .resident-table-container {
-                flex: 1;
-                display: flex;
-                flex-direction: column;
-            }
-
-            .resident-card.full-height .table-wrapper {
-                flex: none;
-                overflow-y: auto;
-                overflow-x: hidden;
-                min-height: 0px;
-                max-height: none;
-                border: 1px solid var(--border-color);
-                border-radius:4px;
-            }
-
-                .resident-card.full-height .table-wrapper::-webkit-scrollbar {
-                    width: 8px;
-                }
-
-                .resident-card.full-height .table-wrapper::-webkit-scrollbar-track {
-                    background: #f1f1f1;
-                    border-radius: 4px;
-                }
-
-                .resident-card.full-height .table-wrapper::-webkit-scrollbar-thumb {
-                    background: var(--resident-light);
-                    border-radius: 4px;
-                }
-
-                    .resident-card.full-height .table-wrapper::-webkit-scrollbar-thumb:hover {
-                        background: var(--resident-primary);
-                    }
-            .resident-card.full-height .resident-table tbody {
-                height: auto;
-            }
-
-                .resident-card.full-height .resident-table tbody td {
-                    padding: 12px 8px; 
-                    text-align: center;
-                    font-size: 14px;
-                    border-bottom: 1px solid var(--border-color);
-                    height:70px;
-                    vertical-align: middle;
-                    transition: background-color 0.2s ease;
-                    white-space: nowrap; 
-                }
-
-            .resident-card.full-height .empty-state {
-                text-align: center;
-                color: var(--resident-light);
-                flex: 1;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                min-height: 200px; 
-                padding: 40px 20px;
-            }
-
-            .resident-card.full-height .loading {
-                text-align: center;
-                padding: 40px 20px;
-                color: var(--resident-light);
-                flex: 1;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                min-height: 200px;
-            }
-            .resident-card.full-height .resident-table {
-                margin: 0;
-                border: none;
-                border-collapse: separate;
-                border-spacing: 0;
-                height:70px;
-                width: 100%;
-                font-size: 14px;
-                min-height: fit-content; 
-            }
-
-        .resident-card.mails-card .table-wrapper {
-            flex: 1;
-            overflow-y: auto;
-            min-height: 0;
-        }
-
-            .resident-card.mails-card .table-wrapper::-webkit-scrollbar {
-                width: 6px;
-            }
-
-            .resident-card.mails-card .table-wrapper::-webkit-scrollbar-track {
-                background: #f1f1f1;
-                border-radius: 4px;
-            }
-
-            .resident-card.mails-card .table-wrapper::-webkit-scrollbar-thumb {
-                background: var(--resident-light);
-                border-radius: 4px;
-            }
-
-            .resident-card.full-height .card-content,
-            .resident-card.residents-card .card-content,
-            .resident-card.mails-card .card-content {
-                flex: none;
-                display: flex;
-                flex-direction: column;
-                overflow: hidden;
-            }
-
-    .card-title {
-        font-size: 1.2rem; 
-        font-weight: 600;
-        color: var(--resident-primary);
-        margin-bottom: 15px; 
-        display: flex;
-        align-items: center;
-        border-bottom: 2px solid var(--border-color);
-        padding-bottom: 10px;
-        flex-shrink: 0;
-    }
-
-        .card-title i {
-            margin-right: 8px;
-            color: var(--resident-accent);
-            font-size: 1.1rem; 
-        }
-
-        .card-title .badge {
-            margin-left: auto;
-            font-size: 11px;
-            padding: 4px 8px;
-            border-radius: 12px;
-        }
-
-    .card-content {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-    }
-
-    .resident-table-container {
-        background: white;
-        border-radius: 8px;
-        overflow: hidden;
-        box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-        border: 1px solid var(--border-color);
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .table-wrapper {
-        flex: 1;
-        overflow-y: auto;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .resident-table {
-        margin: 0;
-        border: none;
-        border-collapse: separate;
-        border-spacing: 0;
-        width: 100%;
-        font-size: 14px;
-        flex: 1; 
-        height: 100%;
-    }
-
-        .resident-table tbody {
-            height: 100%;
-        }
-
-        .resident-table thead th {
-            background: var(--resident-primary);
-            color: white;
-            font-weight: 600;
-            font-size: 14px;
-            padding: 12px 10px;
-            text-align: center;
-            border: none;
-            position: sticky;
-            top: 0;
-            z-index: 10;
-        }
-
-        .resident-table tbody td {
-            padding: 10px 8px; 
-            text-align: center;
-            height:70px;
-            font-size: 14px;
-            border-bottom: 1px solid var(--border-color);
-            vertical-align: middle;
-            transition: background-color 0.2s ease;
-        }
-
-        .resident-table tbody tr:hover td {
-            background-color: rgba(63,158,149,.08);
-        }
-
-        .resident-table tbody tr:last-child td {
-            border-bottom: none;
-        }
-
-        /* 空白填充行樣式 */
-        .resident-table tbody tr.empty-row td {
-            height: 40px;
-            border-bottom: 1px solid rgba(222, 226, 230, 0.3);
-            color: transparent;
-        }
-
-        .resident-table tbody tr.empty-row:hover td {
-            background-color: transparent;
-        }
-
-    /* 空狀態 */
-    .empty-state {
+    #photo-loading, #no-photos {
+        padding: 40px 20px;
         text-align: center;
-        color: var(--resident-light);
-        flex: 1; 
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        min-height: auto;
-        padding: 30px 15px;
-    }
-
-        .empty-state i {
-            font-size: 36px;
-            margin-bottom: 12px;
-            display: block;
-            opacity: 0.5;
-        }
-
-        .empty-state h6 {
-            font-size: 15px;
-            margin-bottom: 6px;
-            font-weight: 600;
-            color: var(--resident-primary);
-        }
-
-        .empty-state p {
-            font-size: 13px;
-            margin: 0;
-            opacity: 0.8;
-        }
-
-    /* 狀態樣式 */
-    .package-id {
-        background: transparent !important;
-        padding: 0 !important;
-        border-radius: 0 !important;
-        box-shadow: none !important;
-        font-family: inherit !important;
-        font-size: 14px;
-        font-weight: 700;
-        border: 0 !important;
-        color: var(--text-primary) !important;
-        display: inline-block;
-    }
-
-    /* 可點擊的狀態徽章 */
-    .status-badge {
-        padding: 6px 15px;
-        border-radius: 15px;
-        font-size: 14px;
-        font-weight: 600;
-        text-align: center;
-        display: inline-block;
-        cursor: pointer; 
-        transition: all 0.2s ease; 
-        border: 1px solid;
-        text-decoration: none;
-    }
-
-        .status-badge:hover {
-            transform: scale(1.05);
-            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-        }
-
-    .status-badge-pending {
-        background-color: #fff5f5;
-        border-color: var(--status-pending);
-        color: var(--status-pending);
-    }
-
-        .status-badge-pending:hover {
-            background-color: var(--status-pending);
-            color: white;
-        }
-
-    .status-badge-mail {
-        background-color: #fff8dc;
-        border-color: #f39c12;
-        color: #f39c12;
-    }
-
-        .status-badge-mail:hover {
-            background-color: #f39c12;
-            color: white;
-        }
-
-    .resident-info {
-        font-weight: 600;
-        color: var(--text-primary);
-        font-size: 16px;
-    }
-
-    .resident-id {
-        background: var(--resident-primary);
-        color: white;
-        padding: 4px 12px;
-        border-radius: 3px;
-        font-size: 14px;
-        font-weight: 600;
-        display: inline-block;
-    }
-
-    .resident-phone {
-        color: var(--text-primary);
-        letter-spacing: .2px;
-        padding: 4px 12px;
-        font-size: 16px;
-        font-weight: 700;
-        font-family: 'Courier New', monospace;
-    }
-
-    /* 載入動畫 */
-    .loading {
-        text-align: center;
-        padding: 20px;
-        color: var(--resident-light);
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        min-height: 100px;
-    }
-
-        .loading i {
-            animation: spin 1s linear infinite;
-            font-size: 24px;
-            margin-bottom: 10px;
-            display: block;
-            color: var(--resident-primary);
-        }
-
-    @@keyframes spin {
-        0% {
-            transform: rotate(0deg);
-        }
-
-        100% {
-            transform: rotate(360deg);
-        }
-    }
-
-    /* 包裹照片模態視窗 */
-
-    .package-info-compact {
-        background: #f8f9fa;
-        padding: 8px 12px;
-        border-radius: 6px;
-        border: 1px solid #dee2e6;
-        font-size: 14px; 
-    }
-
-        .package-info-compact .text-muted {
-            font-size: 14px; 
-            font-weight: 600;
-            margin-bottom: 2px;
-        }
-
-        .package-info-compact .small {
-            font-size: 14px; 
-            font-weight: 500;
-        }
-
-    /* 照片展示區域 */
-    #photo-gallery-container {
-        min-height: 40vh; 
-        max-height: 50vh; 
-        overflow-y: auto;
-    }
-
-    #photo-gallery {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
-        gap: 12px; 
-        padding: 8px 4px; 
-    }
-
-    .photo-item {
-        border: 2px solid #dee2e6;
-        border-radius: 8px;
-        overflow: hidden;
-        background: white;
-        position: relative;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        transition: all 0.3s ease;
-    }
-
-        .photo-item:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
-        }
-
-        .photo-item img {
-            width: 100%;
-            height: 370px; 
-            object-fit: cover;
-            cursor: zoom-in;
-            transition: transform 0.2s ease;
-        }
-
-            .photo-item img:hover {
-                transform: scale(1.02);
-            }
-
-        .photo-item .photo-label {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(transparent, rgba(0,0,0,0.8));
-            color: white;
-            padding: 6px 8px; 
-            font-size: 11px; 
-            font-weight: 600;
-            text-align: center;
-        }
-
-    /* 載入和空狀態 */
-    #photo-loading {
-        padding: 30px 0 !important;
-    }
-
-    #no-photos {
-        padding: 30px 0 !important;
+        color: var(--light-color);
     }
 
         #no-photos i {
-            font-size: 2.5rem !important;
-        }
-
-    /* 全螢幕照片檢視器 */
-    .fullscreen-viewer {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,0.95);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 9999;
-        cursor: zoom-out;
-        animation: fadeIn 0.2s ease-out;
-    }
-
-        .fullscreen-viewer img {
-            max-width: 95%;
-            max-height: 95%;
-            object-fit: contain;
-            border-radius: 8px;
-            box-shadow: 0 4px 24px rgba(0,0,0,0.5);
-        }
-
-        /* 關閉按鈕 */
-        .fullscreen-viewer::before {
-            content: '✕';
-            position: fixed;
-            top: 20px;
-            right: 30px;
-            color: white;
-            font-size: 24px;
-            font-weight: bold;
-            cursor: pointer;
-            z-index: 10000;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(0,0,0,0.5);
-            border-radius: 50%;
-            transition: all 0.2s ease;
-        }
-
-        .fullscreen-viewer:hover::before {
-            background: rgba(255,255,255,0.2);
-            transform: scale(1.1);
-        }
-
-    /* 載入動畫 */
-    @@keyframes fadeIn {
-        from {
-            opacity: 0;
-        }
-
-        to {
-            opacity: 1;
-        }
-    }
-
-    /* 響應式調整 */
-    @@media (max-width: 992px) {
-        .layout-container {
-            flex-direction: column;
-            gap: 15px;
-            min-height: auto;
-        }
-
-        .left-column, .right-column {
-            flex: none;
-            max-width: none;
-            min-height: auto;
-        }
-
-        .left-column {
-            gap: 15px;
-        }
-
-        .resident-card.residents-card,
-        .resident-card.mails-card,
-        .resident-card.full-height {
-            flex: none;
+            font-size: 3rem;
+            opacity: .3;
             margin-bottom: 15px;
-            height: auto;
-            min-height: 300px;
-            max-height: none;
+            display: block;
         }
 
-        .modal-dialog.modal-lg {
-            margin: 15px; 
-            max-width: calc(100% - 30px);
-        }
-
-        #photo-gallery-container {
-            min-height: 35vh;
-            max-height: 45vh;
-        }
-
-        #photo-gallery {
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 8px;
-        }
-
-        .photo-item img {
-            height: 150px; 
-        }
-
-        .package-info-compact {
-            padding: 6px 8px;
-            font-size: 11px;
-        }
-
-            .package-info-compact .row {
-                flex-direction: column;
-            }
-
-            .package-info-compact .col-3 {
-                margin-bottom: 6px;
-                padding-bottom: 6px;
-                border-bottom: 1px solid #e9ecef;
-            }
-
-                .package-info-compact .col-3:last-child {
-                    border-bottom: none;
-                    margin-bottom: 0;
-                }
-    }
-
-    @@media (max-width: 768px) {
-        .resident-container {
-            padding: 12px;
-        }
-
-        .welcome-card {
-            padding: 15px 20px;
-            margin-bottom: 15px;
-        }
-
-        .welcome-title {
-            font-size: 1.3rem;
-        }
-
-        .layout-container {
-            gap: 12px;
-        }
-
-        .left-column {
-            gap: 12px;
-            min-height: auto;
-        }
-
-        .resident-card {
-            padding: 15px;
-        }
-
-            .resident-card.residents-card {
-                height: auto;
-                min-height: 250px;
-                max-height: none;
-            }
-
-        .card-title {
-            font-size: 1.1rem;
-        }
-
-        .empty-state {
-            padding: 25px 10px;
-            min-height: 100px;
-        }
-
-            .empty-state i {
-                font-size: 28px;
-            }
-
-        .modal-dialog.modal-lg {
-            margin: 10px;
-            max-width: calc(100% - 20px);
-        }
-
-        #photo-gallery-container {
-            min-height: 30vh;
-            max-height: 40vh;
-        }
-
-        #photo-gallery {
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 6px;
-            padding: 6px 2px;
-        }
-
-        .photo-item img {
-            height: 120px;
-        }
-    }
-
-    @@media (max-width: 576px) {
-        .resident-container {
-            padding: 10px;
-        }
-
-        .welcome-card {
-            padding: 12px 15px;
-        }
-
-        .welcome-title {
-            font-size: 1.2rem;
-        }
-
-        .layout-container {
-            gap: 10px;
-        }
-
-        .left-column {
-            gap: 10px;
-            min-height: auto;
-        }
-
-        .resident-card {
-            padding: 12px;
-        }
-
-            .resident-card.residents-card {
-                height: auto;
-                min-height: 200px;
-            }
-
-        .card-title {
-            font-size: 1rem;
-        }
-
-        .resident-table thead th{
-            padding: 9px 6px;
-            font-size: 14px;
-        }
-        .resident-table tbody td {
-            padding: 9px 6px;
-            font-size: 13px;
-            height: 60px; 
-            white-space: normal;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .resident-table tbody tr.empty-row td {
-            height: 60px; 
-        }
-        #photo-gallery {
-            grid-template-columns: 1fr 1fr; 
-            padding: 4px;
-        }
-
-        .photo-item img {
-            height: 100px;
-        }
-
-        .modal-header {
-            padding: 6px 10px !important; 
-        }
-
-        .modal-body {
-            padding: 6px !important; 
-        }
-
-        #photo-gallery-container {
-            min-height: 25vh;
-            max-height: 35vh;
-        }
-    }
-
-    .resident-table tbody tr.empty-row td {
-        height: 70px;
-        border-bottom: 1px solid rgba(222, 226, 230, 0.3);
-        color: transparent;
-    }
-
-    .resident-table tbody tr.empty-row:hover td {
-        background-color: transparent;
-    }
-    /* 包裹圖標動畫效果 */
-    .package-icon-animation {
-        animation: packageIconPulse 2s ease-in-out infinite;
-        transition: all 0.3s ease;
-    }
-
-        .package-icon-animation:hover {
-            transform: scale(1.05);
-            color: #004499 !important;
-        }
-
-    @@keyframes packageIconPulse {
-        0%, 100%
-
-    {
-        transform: scale(1);
-        opacity: 0.8;
-    }
-
-    50% {
-        transform: scale(1.02);
-        opacity: 1;
-    }
-
-    }
-
-    /* 無照片佔位符樣式 */
-    .no-photo-placeholder {
-        transition: all 0.3s ease;
-        cursor: default;
-    }
-
-        .no-photo-placeholder:hover {
-            background: #f1f3f4 !important;
-            border-color: var(--resident-primary) !important;
-        }
-
-    /* 照片載入失敗回退樣式 */
-    .photo-fallback {
-        transition: all 0.3s ease;
-    }
-
-        .photo-fallback:hover i {
-            color: #004499 !important;
-            transform: scale(1.1);
-        }
-    /* 信件通知樣式 */
-    .mail-notification-bar {
-        background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
-        color: white;
-        border-radius: var(--card-radius);
-        margin-bottom: 20px;
-        box-shadow: 0 4px 15px rgba(243, 156, 18, 0.3);
-        overflow: hidden;
-        animation: slideInDown 0.5s ease-out;
-    }
-
-    .notification-content {
-        display: flex;
-        align-items: center;
-        padding: 15px 20px;
-        gap: 15px;
-    }
-
-    .notification-icon {
-        font-size: 24px;
-        color: rgba(255, 255, 255, 0.9);
-        animation: bellShake 2s ease-in-out infinite;
-    }
-
-    .notification-text {
-        flex: 1;
-    }
-
-        .notification-text h6 {
-            margin: 0 0 3px 0;
-            font-size: 16px;
-            font-weight: 600;
-        }
-
-        .notification-text small {
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.8);
-        }
-
-    .notification-action .btn {
-        border-color: rgba(255, 255, 255, 0.3);
-        color: white;
-        font-size: 12px;
-        padding: 4px 12px;
-        transition: all 0.3s ease;
-    }
-
-        .notification-action .btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-            border-color: white;
-            transform: translateY(-1px);
-        }
-
-    /* 信件詳情 */
-    .mail-details-panel {
-        padding: 0 20px 20px 20px;
-        border-top: 1px solid rgba(255, 255, 255, 0.2);
-        margin-top: 15px;
-        padding-top: 15px;
-        animation: slideDown 0.3s ease-out;
-    }
-
-    .mail-item-card {
-        background: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 8px;
-        padding: 12px;
-        transition: all 0.3s ease;
-    }
-
-        .mail-item-card:hover {
-            background: rgba(255, 255, 255, 0.15);
-            transform: translateY(-2px);
-        }
-
-    .mail-info {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        margin-bottom: 6px;
-    }
-
-    .mail-id {
-        background: rgba(255, 255, 255, 0.2);
-        color: white;
-        padding: 2px 6px;
-        border-radius: 4px;
-        font-size: 11px;
-        font-family: 'Courier New', monospace;
-    }
-
-    .mail-type {
-        background: rgba(255, 255, 255, 0.9);
-        color: #e67e22;
-        padding: 2px 8px;
-        border-radius: 10px;
-        font-size: 11px;
-        font-weight: 600;
-    }
-
-    .recipient-name {
-        color: rgba(255, 255, 255, 0.8);
-        font-size: 12px;
-    }
-
-    /* 動畫效果 */
-    @@keyframes slideInDown {
-        from
-
-    {
-        transform: translateY(-20px);
-        opacity: 0;
-    }
-
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-
-    }
-
-    @@keyframes slideDown {
-        from
-
-    {
-        max-height: 0;
-        opacity: 0;
-    }
-
-    to {
-        max-height: 500px;
-        opacity: 1;
-    }
-
-    }
-
-    @@keyframes bellShake {
-        0%, 100%
-
-    {
-        transform: rotate(0deg);
-    }
-
-    10%, 30%, 50%, 70%, 90% {
-        transform: rotate(-10deg);
-    }
-
-    20%, 40%, 60%, 80% {
-        transform: rotate(10deg);
-    }
-    }
-     @@keyframes packagePulse {
-         0%, 100%
-
-    {
-        transform: scale(1);
-        opacity: 0.8;
-    }
-
-    50% {
-        transform: scale(1.05);
-        opacity: 1;
-    }
-    }
+.fullscreen-viewer{position:fixed;inset:0;background:rgba(0,0,0,.95);display:flex;align-items:center;justify-content:center;z-index:9999;cursor:zoom-out;}
+.fullscreen-viewer img{max-width:95%;max-height:95%;object-fit:contain;border-radius:8px;box-shadow:0 4px 24px rgba(0,0,0,.5);}
+
+/* ===== RWD ===== */
+@@media (max-width:992px){
+  .layout-container{flex-direction:column;gap:15px;min-height:auto;}
+  .left-column,.right-column{flex:none;max-width:none;min-height:auto;}
+  .left-column{gap:15px;}
+  .resident-card.residents-card,.resident-card.mails-card,.resident-card.full-height{flex:none;margin-bottom:15px;height:auto;min-height:300px;max-height:none;}
+}
+@@media (max-width:768px){
+  .resident-container{padding:12px;}
+  .welcome-card{padding:15px 20px;margin-bottom:15px;}
+  .welcome-title{font-size:1.3rem;}
+  .layout-container{gap:12px;}
+  .left-column{gap:12px;min-height:auto;}
+  .resident-card{padding:15px;}
+  .resident-card.residents-card{height:auto;min-height:250px;max-height:none;}
+  .card-title{font-size:1.1rem;}
+  .empty-state{padding:25px 10px;min-height:100px;}
+  .empty-state i{font-size:28px;}
+  #packagePhotoModal .modal-dialog{margin:10px;max-width:calc(100% - 20px);}
+}
+@@media (max-width:576px){
+  .resident-container{padding:10px;}
+  .welcome-card{padding:12px 15px;}
+  .welcome-title{font-size:1.2rem;}
+  .layout-container{gap:10px;}
+  .left-column{gap:10px;min-height:auto;}
+  .resident-card{padding:12px;}
+  .resident-card.residents-card{height:auto;min-height:200px;}
+  .card-title{font-size:1rem;}
+  .resident-table thead th{padding:9px 6px;font-size:14px;}
+  .resident-table tbody td{padding:9px 6px;font-size:13px;height:60px;white-space:normal;overflow:hidden;text-overflow:ellipsis;}
+  .resident-table tbody tr.empty-row td{height:60px;}
+  #photo-gallery{grid-template-columns:1fr;gap:10px;padding:4px;}
+  .photo img{max-height:calc(100vh - 220px);}
+}
+/* 小數量列表高度調整 */
+.mail-scroll-container:has(.mail-card-item:only-child){max-height:none;}
+.mail-scroll-container:has(.mail-card-item:nth-child(-n+2)){max-height:200px;}
+.package-scroll-container:has(.package-card-item:only-child){max-height:none;}
+.package-scroll-container:has(.package-card-item:nth-child(-n+2)){max-height:630px;}
 </style>
 
 <div class="resident-container" id="ResidentApp">
@@ -1235,42 +337,44 @@
                     <span v-if="mails.length > 0" class="badge bg-warning">{{ mails.length }}</span>
                 </h3>
                 <div class="card-content">
-                    <div class="resident-table-container">
-                        <div v-if="mailsLoading" class="loading">
-                            <i class="bi bi-arrow-clockwise"></i>
-                            <p>載入中...</p>
+                    <!-- 載入狀態 -->
+                    <div v-if="mailsLoading" class="loading">
+                        <i class="bi bi-arrow-clockwise spin"></i>
+                        <p>載入中...</p>
+                    </div>
+
+                    <!-- 信件清單 -->
+                    <div v-else-if="mails && mails.length > 0" class="mail-scroll-container">
+                        <div class="mail-card-item" v-for="m in mails" :key="m.pack_id" v-on:click="viewMailPhoto(m.pack_id)" style="cursor: pointer;">
+                            <div class="mail-card-header">
+                                <i class="bi bi-envelope-fill mail-icon"></i>
+                                <div class="mail-info">
+                                    <div class="mail-id">{{ m.pack_id }}</div>
+                                    <div class="mail-type">
+                                        <span class="badge-mail">
+                                            <i class="bi bi-tag-fill me-1"></i>{{ m.pack_name || '信件' }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mail-card-footer">
+                                <div class="mail-time">
+                                    <i class="bi bi-clock me-1"></i>
+                                    {{ formatDateTime(m.create_time) }}
+                                </div>
+                                <div class="mail-status">
+                                    <span class="status-dot"></span>
+                                    未領取
+                                </div>
+                            </div>
                         </div>
-                        <div v-else-if="mails && mails.length > 0" class="table-wrapper">
-                            <table class="table resident-table">
-                                <thead>
-                                    <tr>
-                                        <th><i class="bi bi-hash me-1"></i>信件編號</th>
-                                        <th><i class="bi bi-envelope me-1"></i>類別</th>
-                                        <th><i class="bi bi-person me-1"></i>收件人</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for="m in mails" :key="m.pack_id">
-                                        <td>
-                                            <code class="package-id">{{ m.pack_id }}</code>
-                                        </td>
-                                        <td>
-                                            <span class="status-badge status-badge-mail">
-                                                <i class="bi bi-envelope me-1"></i>{{ m.pack_name || '信件' }}
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <span class="resident-info">{{ m.red_name }}</span>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div v-else class="empty-state">
-                            <i class="bi bi-envelope-open"></i>
-                            <h6>目前沒有信件</h6>
-                            <p>所有信件都已領取完畢</p>
-                        </div>
+                    </div>
+
+                    <!-- 空狀態 -->
+                    <div v-else class="empty-state">
+                        <i class="bi bi-envelope-open"></i>
+                        <h6>目前沒有信件</h6>
+                        <p>所有信件都已領取完畢</p>
                     </div>
                 </div>
             </div>
@@ -1290,33 +394,40 @@
                             <p>載入包裹資料中...</p>
                         </div>
                         <!-- 包裹清單 -->
-                        <div v-else-if="packages && packages.length > 0" class="table-wrapper">
-                            <table class="table resident-table">
-                                <thead>
-                                    <tr>
-                                        <th><i class="bi bi-hash me-1"></i>包裹編號</th>
-                                        <th><i class="bi bi-box me-1"></i>狀態</th>
-                                        <th><i class="bi bi-person me-1"></i>收件人</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for="p in packages" :key="p.pack_id">
-                                        <td>
-                                            <code class="package-id">{{ p.pack_id }}</code>
-                                        </td>
-                                        <td>
-                                            <span class="status-badge status-badge-pending"
-                                                  v-on:click="viewPackagePhoto(p.pack_id)"
-                                                  title="點擊查看包裹照片">
-                                                <i class="bi bi-box me-1"></i>未取
+                        <div v-else-if="packages && packages.length > 0" class="package-scroll-container">
+                            <div class="package-card-item"
+                                 v-for="p in packages"
+                                 :key="p.pack_id"
+                                 v-on:click="viewPackagePhoto(p.pack_id)"
+                                 title="點擊查看包裹照片">
+                                <div class="package-card-header">
+                                    <i class="bi bi-box-seam-fill package-icon"></i>
+                                    <div class="package-info">
+                                        <div class="package-id">{{ p.pack_id }}</div>
+                                        <div class="package-type">
+                                            <span class="badge-package">
+                                                <i class="bi bi-box me-1"></i>{{ p.pack_name || '包裹' }}
                                             </span>
-                                        </td>
-                                        <td>
-                                            <span class="resident-info">{{ p.red_name }}</span>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="package-card-body">
+                                        <div class="package-recipient">
+                                            <i class="bi bi-person-circle me-2"></i>
+                                            <span>{{ p.red_name }}</span>
+                                        </div>
+                                </div>
+                                <div class="package-card-footer">
+                                    <div class="package-status">
+                                        <span class="status-dot status-dot-red"></span>
+                                        未領取
+                                    </div>
+                                    <div class="package-action">
+                                        <i class="bi bi-camera"></i>
+                                        查看照片
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <!-- 空狀態 -->
                         <div v-else class="empty-state">
@@ -1327,7 +438,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> 
     </div>
 </div>
 <!-- 包裹照片模態視窗 -->
@@ -1426,6 +537,22 @@
                 this.initCurrentMemberName();
             },
             methods: {
+                viewMailPhoto: function(packId) {
+                    this.viewPackagePhoto(packId);
+                },
+                formatDateTime: function(dateTimeStr) {
+                    if (!dateTimeStr) return '-';
+                    try {
+                        var date = new Date(dateTimeStr);
+                        var month = ('0' + (date.getMonth() + 1)).slice(-2);
+                        var day = ('0' + date.getDate()).slice(-2);
+                        var hours = ('0' + date.getHours()).slice(-2);
+                        var minutes = ('0' + date.getMinutes()).slice(-2);
+                        return month + '/' + day + ' ' + hours + ':' + minutes;
+                    } catch (e) {
+                        return dateTimeStr;
+                    }
+                },
                 toggleMailDetails: function() {
                 this.showMailDetails = !this.showMailDetails;
                 },
@@ -1556,8 +683,10 @@
                             document.getElementById('package-info').style.display = 'block';
                             document.getElementById('modal-package-id').textContent = res.data.packageId;
                             document.getElementById('modal-package-name').textContent = res.data.packageName;
-                            document.getElementById('modal-recipient').textContent =
-                                res.data.recipientName + ' (' + res.data.recipientId + ')';
+                            var recipientDisplay = res.data.recipientId
+                                ? res.data.recipientName + ' (' + res.data.recipientId + ')'
+                                : (res.data.condoId || '未指定');
+                            document.getElementById('modal-recipient').textContent = recipientDisplay;
                             document.getElementById('modal-create-time').textContent = res.data.createTime;
 
                             // 顯示照片
@@ -1601,8 +730,8 @@
                     }
                 })
                 .catch(function(error) {
-                    document.getElementById('photo-loading').style.display = 'none';
                     console.error('載入包裹照片錯誤:', error);
+                    document.getElementById('photo-loading').style.display = 'none';
                     document.getElementById('no-photos').style.display = 'block';
                 });
                 },

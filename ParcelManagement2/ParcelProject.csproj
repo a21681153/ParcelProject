@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\css\**" />
+    <Content Remove="wwwroot\css\**" />
+    <EmbeddedResource Remove="wwwroot\css\**" />
+    <None Remove="wwwroot\css\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
   </ItemGroup>
@@ -15,5 +22,4 @@
     <Folder Include="Models\Response\" />
     <Folder Include="wwwroot\uploads\packages\" />
   </ItemGroup>
-
 </Project>

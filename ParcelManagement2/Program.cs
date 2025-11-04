@@ -13,7 +13,14 @@ var isProduction = builder.Environment.IsProduction();
 Console.WriteLine($"=== 環境: {builder.Environment.EnvironmentName} ===");
 Console.WriteLine($"=== 開發環境: {isDevelopment} ===");
 Console.WriteLine($"=== 正式環境: {isProduction} ===");
-
+builder.Services.AddCors(opts =>
+{
+    opts.AddPolicy("MailboxPolicy", p =>
+    {
+        p.AllowAnyHeader().AllowAnyMethod().WithOrigins(
+            "http://127.0.0.1", "http://localhost", "http://140.137.61.129"); // 視你的 Python 執行環境調整
+    });
+});
 builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromMinutes(30);
@@ -122,5 +129,5 @@ app.MapControllers();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Account}/{action=Login}/{id?}");
-
+app.UseCors("MailboxPolicy");
 app.Run();

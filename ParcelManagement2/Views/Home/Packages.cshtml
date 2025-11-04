@@ -23,106 +23,123 @@
     }
 
     body {
-        font-size: 16px
+        font-size: 16px;
     }
+
+    /*基礎樣式 */
 
     .page-title {
         font-size: 1.4rem;
-        color: var(--admin-primary)
+        color: var(--admin-primary);
     }
 
         .page-title i {
-            color: var(--admin-accent)
+            color: var(--admin-accent);
         }
 
     .table th, .table td {
         font-size: 15px;
-        text-align: center
+        text-align: center;
     }
 
     .form-label, .form-select, .btn, .pickup-time, .resident-name, .package-id,
     .package-type-badge, .package-status-pending, .package-status-collected,
     .status-badge-pending, .status-badge-collected {
         font-size: 15px;
-        text-align: center
+        text-align: center;
     }
 
-    /* 清單容器與表頭 */
+    /* 表格與容器*/
+
     .admin-table-container {
         background: #fff;
         border: 1px solid var(--border-color);
         border-radius: var(--card-radius);
         box-shadow: 0 8px 24px rgba(63,158,149,.08);
         overflow: hidden;
-        position: relative
+        position: relative;
     }
 
     .table-responsive {
         max-height: calc(100vh - 260px);
         overflow: auto;
         -webkit-overflow-scrolling: touch;
-        position: relative
-    }
-
-    .table thead {
         position: relative;
-        z-index: 5
     }
-
-        .table thead th {
-            position: sticky;
-            top: 0;
-            z-index: 5;
-            background: linear-gradient(180deg,var(--admin-primary),#388F87);
-            color: #fff;
-            border-color: var(--admin-primary);
-            white-space: nowrap;
-            box-shadow: 0 2px 0 rgba(0,0,0,.05)
-        }
-
-            .table thead th i {
-                margin-right: 10px;
-                color: #E6F6F4;
-                font-size: 13px;
-                vertical-align: middle
-            }
-
-            .table thead th:first-child {
-                border-top-left-radius: calc(var(--card-radius) - 2px)
-            }
-
-            .table thead th:last-child {
-                border-top-right-radius: calc(var(--card-radius) - 2px)
-            }
 
     .table {
         margin: 0;
         border-collapse: separate;
-        border-spacing: 0
+        border-spacing: 0;
+        width: 100% !important;
+        table-layout: auto !important;
     }
+
+        .table thead {
+            position: relative;
+            z-index: 5;
+        }
+
+            .table thead th {
+                position: sticky;
+                top: 0;
+                z-index: 5;
+                background: linear-gradient(180deg, var(--admin-primary), #388F87);
+                color: #fff;
+                border-color: var(--admin-primary);
+                white-space: nowrap;
+                box-shadow: 0 2px 0 rgba(0,0,0,.05);
+                border: 1px solid var(--border-color);
+                vertical-align: middle;
+            }
+
+                .table thead th i {
+                    margin-right: 10px;
+                    color: #E6F6F4;
+                    font-size: 13px;
+                    vertical-align: middle;
+                }
+
+                .table thead th:first-child {
+                    border-top-left-radius: calc(var(--card-radius) - 2px);
+                }
+
+                .table thead th:last-child {
+                    border-top-right-radius: calc(var(--card-radius) - 2px);
+                }
+
+        .table tbody tr:hover {
+            background: rgba(127,207,195,.12);
+        }
+
+            .table tbody tr:hover td:first-child {
+                border-top-left-radius: 10px;
+                border-bottom-left-radius: 10px;
+            }
+
+            .table tbody tr:hover td:last-child {
+                border-top-right-radius: 10px;
+                border-bottom-right-radius: 10px;
+            }
 
         .table th, .table td {
             border: 1px solid var(--border-color);
             color: #1E2A2A;
             background: #fff;
-            vertical-align: middle
+            vertical-align: middle;
+            white-space: normal;
+            word-wrap: break-word;
         }
 
-        .table tbody tr:hover {
-            background: rgba(127,207,195,.12)
+        .table .remarks-cell {
+            max-width: none !important;
+            width: 100%;
+            white-space: normal;
+            word-wrap: break-word;
         }
 
-            .table tbody tr:hover td:first-child {
-                border-top-left-radius: 10px;
-                border-bottom-left-radius: 10px
-            }
+    /* 導覽列*/
 
-            .table tbody tr:hover td:last-child {
-                border-top-right-radius: 10px;
-                border-bottom-right-radius: 10px
-            }
-
-    /* 導覽列 */
     .admin-tabs .nav-link {
         background: var(--admin-primary);
         border-color: var(--admin-primary);
@@ -134,22 +151,21 @@
         .admin-tabs .nav-link:not(.active) {
             background: var(--admin-secondary);
             border-color: var(--admin-secondary);
-            color: #0E2523
+            color: #0E2523;
         }
 
         .admin-tabs .nav-link:hover, .admin-tabs .nav-link:focus {
             background: var(--admin-primary-dark);
             border-color: var(--admin-primary-dark);
-            color: #fff
+            color: #fff;
         }
 
         .admin-tabs .nav-link.active {
             background: var(--admin-primary);
             border-color: var(--admin-primary);
-            color: #fff
+            color: #fff;
         }
 
-        /* 導覽列動態底線 */
         .admin-tabs .nav-link::after {
             content: "";
             position: absolute;
@@ -168,7 +184,8 @@
             transform: scaleX(1);
         }
 
-    /* 包裹種類 */
+    /*包裹類型與狀態 */
+
     .package-type-badge {
         display: inline-block;
         padding: 4px 12px;
@@ -177,80 +194,80 @@
         font-weight: 700;
         line-height: 1;
         box-shadow: 0 1px 0 rgba(0,0,0,.04);
-        transition: transform .15s,box-shadow .15s
+        transition: transform .15s, box-shadow .15s;
     }
 
         .package-type-badge:hover {
             transform: translateY(-1px);
-            box-shadow: 0 3px 8px rgba(0,0,0,.1)
+            box-shadow: 0 3px 8px rgba(0,0,0,.1);
         }
 
     .package-type-parcel {
         background: #E7F7F4 !important;
         color: #2C7E77 !important;
-        border-color: #2C7E77 !important
+        border-color: #2C7E77 !important;
     }
 
     .package-type-letter {
         background: #FFE6CC !important;
         color: #C76B16 !important;
-        border-color: #E5924A !important
+        border-color: #E5924A !important;
     }
 
-    /* 狀態 */
     .status-badge-pending {
         background: #fff5f5;
         border: 1px solid var(--status-pending);
-        color: var(--status-pending)
+        color: var(--status-pending);
     }
 
     .status-badge-collected {
         background: #f0fff4;
         border: 1px solid var(--status-collected);
-        color: var(--status-collected)
+        color: var(--status-collected);
     }
 
     .status-display-wrapper .package-status-pending {
         color: var(--status-pending) !important;
-        font-weight: 700
+        font-weight: 700;
     }
 
     .status-display-wrapper .package-status-collected {
         color: var(--status-collected) !important;
-        font-weight: 700
+        font-weight: 700;
     }
 
-    /* 包裹編號 */
     .package-id {
         background: transparent;
         border: none;
         font-family: inherit;
         font-weight: 700;
         color: #1E2A2A;
-        padding: 0
+        padding: 0;
     }
 
-    /* 卷軸 */
+    /* 滾輪樣式 */
+
     .table-responsive::-webkit-scrollbar {
         width: 8px;
-        height: 8px
+        height: 8px;
     }
 
     .table-responsive::-webkit-scrollbar-track {
         background: #F1F1F1;
-        border-radius: 4px
+        border-radius: 4px;
     }
 
     .table-responsive::-webkit-scrollbar-thumb {
         background: var(--admin-secondary);
-        border-radius: 4px
+        border-radius: 4px;
     }
 
         .table-responsive::-webkit-scrollbar-thumb:hover {
-            background: var(--admin-primary)
+            background: var(--admin-primary);
         }
 
     /* 卡片 */
+
     .admin-card {
         background: #fff;
         border: 1px solid var(--border-color);
@@ -266,181 +283,212 @@
             box-shadow: 0 14px 28px rgba(63,158,149,.12);
         }
 
+    /* 住戶查詢篩選區  */
+
     .filter-bar {
+        padding: 20px;
+        background: #f8f9fa;
+        border-radius: 12px;
+    }
+
+    .filter-controls-wrapper {
         display: grid;
-        grid-template-columns: auto 320px auto minmax(340px,1fr) auto;
-        gap: 16px;
+        grid-template-columns: auto 1fr auto auto;
+        gap: 20px;
         align-items: center;
     }
 
-    .lbl-inline {
-        font-weight: 800;
-        font-size: 17px;
-        color: #1E2A2A;
-        line-height: var(--ctl-h);
+    .filter-item {
         display: flex;
         align-items: center;
-        justify-content: center;
-        white-space: nowrap;
+        gap: 12px;
     }
 
-    /* 住戶下拉 */
+    .filter-item-select {
+        grid-column: 1 / 2;
+    }
+
+    .filter-item-pills {
+        grid-column: 2 / 3;
+    }
+
+    .filter-item-hint {
+        grid-column: 3 / 4;
+        justify-content: center;
+    }
+
+    .filter-item-action {
+        grid-column: 4 / 5;
+        justify-content: flex-end;
+    }
+
+    .filter-label {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-weight: 600;
+        font-size: 14px;
+        color: #495057;
+        white-space: nowrap;
+        margin: 0;
+    }
+
+        .filter-label i {
+            font-size: 16px;
+            color: var(--admin-primary);
+        }
+
+    /* 下拉選單 */
     .combo-wrap {
-        position: relative
+        position: relative;
+        display: flex;
+        align-items: center;
+        min-width: 250px;
     }
 
         .combo-wrap i {
             position: absolute;
             left: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 16px;
+            font-size: 18px;
             color: var(--admin-primary);
-            pointer-events: none
+            z-index: 1;
+            pointer-events: none;
         }
 
-        .combo-wrap select.form-select {
-            padding-left: 40px;
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            min-height: var(--ctl-h)
+        .combo-wrap .form-select {
+            width: 100%;
+            padding: 8px 12px 8px 40px;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            transition: all 0.3s ease;
         }
 
-            .combo-wrap select.form-select:focus {
+            .combo-wrap .form-select:focus {
                 border-color: var(--admin-primary);
-                box-shadow: 0 0 0 .15rem rgba(63,158,149,.15)
+                box-shadow: 0 0 0 0.2rem rgba(63, 158, 149, 0.25);
             }
 
-    /* 可選狀態 + 提示 */
-    .status-inline {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        min-height: var(--ctl-h);
-        justify-content: flex-start;
-    }
-
-    .status-hint-inline {
-        font-size: 13px;
-        line-height: 1.2;
-        color: #7A8A8A;
-        white-space: nowrap;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-    }
-
-        .status-hint-inline i {
-            color: #C08917;
-        }
-
-    .status-label-inline {
-        font-weight: 800;
-        font-size: 17px;
-        color: #1E2A2A;
-        white-space: nowrap;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-    }
-
+    /* 狀態按鈕組 */
     .status-pills {
         display: flex;
-        align-items: center;
-        justify-content: flex-start;
         gap: 10px;
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
     }
 
     .status-pill {
-        border: 1px solid var(--border-color);
-        padding: 9px 14px;
-        border-radius: 999px;
-        background: #fff;
-        font-weight: 700;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 14px;
+        background: white;
+        border: 2px solid #dee2e6;
+        border-radius: 20px;
+        font-weight: 600;
+        color: #495057;
         cursor: pointer;
+        transition: all 0.3s ease;
         user-select: none;
-        position: relative;
-        overflow: hidden;
-        transition: transform .12s ease, box-shadow .12s ease;
+        white-space: nowrap;
     }
 
-        .status-pill:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(0,0,0,.06);
+        .status-pill:hover:not(.disabled) {
+            background: var(--admin-primary);
+            color: white;
+            border-color: var(--admin-primary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(63, 158, 149, 0.3);
         }
 
         .status-pill[data-active="true"] {
+            background: var(--admin-primary);
+            color: white;
             border-color: var(--admin-primary);
-            background: #E7F7F4;
-            color: #2C7E77;
-            animation: pill-bounce .35s ease;
         }
 
         .status-pill[data-type="pending"][data-active="true"] {
             background: #fff5f5;
             border-color: var(--status-pending);
-            color: var(--status-pending)
+            color: var(--status-pending);
         }
 
         .status-pill[data-type="done"][data-active="true"] {
             background: #f0fff4;
             border-color: var(--status-collected);
-            color: var(--status-collected)
+            color: var(--status-collected);
         }
 
         .status-pill.disabled {
-            background: #F4F1E7;
-            border-color: #E7E3DA;
-            color: #9BA6A6;
+            opacity: 0.5;
             cursor: not-allowed;
-            box-shadow: none
         }
 
             .status-pill.disabled:hover {
                 transform: none;
-                box-shadow: none
+                box-shadow: none;
             }
 
+        .status-pill i {
+            font-size: 14px;
+        }
+
+    /* 提示訊息 */
     .filter-hint {
-        font-size: 13px;
-        line-height: 1.2;
-        text-align: center;
-        color: #7A8A8A
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+        background: #fff3cd;
+        border-radius: 8px;
+        border-left: 4px solid #ffc107;
+        white-space: nowrap;
+        transition: opacity 0.3s ease;
     }
+
+        .filter-hint.invisible {
+            opacity: 0;
+            pointer-events: none;
+        }
 
         .filter-hint i {
-            color: #C08917
+            color: #ffc107;
+            font-size: 16px;
+            flex-shrink: 0;
         }
 
-    .invisible {
-        visibility: hidden
-    }
-
+    /* 清除按鈕 */
     .filter-actions {
         display: flex;
-        gap: 10px;
-        justify-content: flex-end
+        justify-content: flex-end;
     }
 
-        .filter-actions .btn {
-            min-height: var(--ctl-h);
-            border-radius: 10px;
-            position: relative;
-            overflow: hidden;
-        }
-
     .btn-clear {
-        background: #fff;
-        border: 1px solid var(--border-color);
-        color: #2a3a3a
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 16px;
+        background: white;
+        border: 2px solid #dc3545;
+        border-radius: 8px;
+        color: #dc3545;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        white-space: nowrap;
+        cursor: pointer;
     }
 
         .btn-clear:hover {
-            background: #F4F1E7
+            background: #dc3545;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
         }
 
-    /* 統計 */
+        .btn-clear i {
+            font-size: 16px;
+        }
+
+    /* 統計區 */
+
     .summary-bar {
         background: linear-gradient(135deg, #FFF9F0 0%, #F7F3EB 100%);
         border: 1px solid #EDE6D8;
@@ -475,19 +523,19 @@
             font-size: 36px;
             line-height: 1;
             margin-bottom: 8px;
-            color: #1F2A2A; 
+            color: #1F2A2A;
         }
 
             .summary-item .value.is-pending {
                 color: #E74C3C;
             }
-            /* 未取：紅 */
+
             .summary-item .value.is-done {
                 color: #2ECC71;
             }
-            /* 已取：綠 */
+
             .summary-item .value.is-time {
-                font-size: 22px; 
+                font-size: 22px;
                 font-weight: 700;
             }
 
@@ -511,118 +559,11 @@
                 opacity: .9;
             }
 
-    /* RWD */
-    @@media (max-width: 992px) {
-        .summary-row {
-            grid-template-columns: 1fr 1fr;
-            row-gap: 18px;
-        }
-    }
+    /* 編輯表單 */
 
-    @@media (max-width: 576px) {
-        .summary-row {
-            grid-template-columns: 1fr;
-        }
-    }
-
-    @@media (max-width:992px) {
-        .status-inline {
-            flex-wrap: wrap;
-        }
-
-        .status-hint-inline {
-            order: 0;
-            width: 100%;
-        }
-
-        .status-label-inline {
-            order: 1;
-        }
-
-        .status-pills {
-            order: 2;
-        }
-    }
-
-    /* 互動/動畫新增*/
-
-    /* 逐列滑入（套在 <tr>） */
-    @@keyframes row-pop {
-        from
-
-    {
-        opacity: 0;
-        transform: translateY(6px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    }
-
-    .row-pop {
-        opacity: 0;
-        animation: row-pop .35s ease forwards;
-    }
-
-    /* 統計卡片 淡入上移 */
-    @@keyframes fade-in-up {
-        from
-
-    {
-        opacity: 0;
-        transform: translateY(6px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    }
-
-    /* 狀態 pill 啟用小彈跳 */
-    @@keyframes pill-bounce {
-        0%
-
-    {
-        transform: translateY(0) scale(1);
-    }
-
-    40% {
-        transform: translateY(-2px) scale(1.03);
-    }
-
-    100% {
-        transform: translateY(0) scale(1);
-    }
-
-    }
-
-    .ripple-ink {
-        position: absolute;
-        border-radius: 50%;
-        transform: scale(0);
-        background: rgba(255,255,255,.55);
-        pointer-events: none;
-        animation: ripple .6s ease-out forwards;
-        mix-blend-mode: screen;
-    }
-    @@keyframes ripple {
-        to
-
-    {
-        transform: scale(3.5);
-        opacity: 0;
-    }
-
-    }
-    /* 編輯模式表單 */
     .edit-form .form-grid {
         display: grid;
-        grid-template-columns: repeat(12,1fr);
+        grid-template-columns: repeat(12, 1fr);
         gap: 16px;
         align-items: start;
     }
@@ -641,31 +582,6 @@
 
     .edit-form .fg-col-12 {
         grid-column: span 12;
-    }
-
-    @@media (max-width:1200px) {
-        .edit-form .fg-col-3
-
-    {
-        grid-column: span 6;
-    }
-
-    .edit-form .fg-col-4 {
-        grid-column: span 6;
-    }
-
-    .edit-form .fg-col-2 {
-        grid-column: span 6;
-    }
-
-    }
-    @@media (max-width:768px) {
-        .edit-form .fg-col-3, .edit-form .fg-col-4, .edit-form .fg-col-2, .edit-form .fg-col-12
-
-    {
-        grid-column: span 12;
-    }
-
     }
 
     .edit-form .field {
@@ -690,7 +606,6 @@
     .edit-form .label {
         font-weight: 800;
         color: #1E2A2A;
-        font-size: 14px;
         margin: 0 0 6px 0;
         display: flex;
         align-items: center;
@@ -794,6 +709,8 @@
                 transform: translateY(0);
             }
 
+    /* 模態視窗*/
+
     .modal-overlay {
         position: fixed;
         top: 0;
@@ -885,6 +802,229 @@
         .modal-footer .btn {
             margin-left: 10px;
         }
+
+    /*動畫效果 */
+
+    @@keyframes row-pop {
+        from
+
+    {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    }
+
+    .row-pop {
+        opacity: 0;
+        animation: row-pop .35s ease forwards;
+    }
+
+    @@keyframes fade-in-up {
+        from
+
+    {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    }
+
+    @@keyframes pill-bounce {
+        0%
+
+    {
+        transform: translateY(0) scale(1);
+    }
+
+    40% {
+        transform: translateY(-2px) scale(1.03);
+    }
+
+    100% {
+        transform: translateY(0) scale(1);
+    }
+
+    }
+
+    .status-pill[data-active="true"] {
+        animation: pill-bounce .35s ease;
+    }
+
+    @@keyframes ripple {
+        to
+
+    {
+        transform: scale(3.5);
+        opacity: 0;
+    }
+
+    }
+
+    .ripple-ink {
+        position: absolute;
+        border-radius: 50%;
+        transform: scale(0);
+        background: rgba(255,255,255,.55);
+        pointer-events: none;
+        animation: ripple .6s ease-out forwards;
+        mix-blend-mode: screen;
+    }
+
+    /* 響應式設計*/
+
+    @@media (max-width: 1200px) {
+        .edit-form .fg-col-3, .edit-form .fg-col-4, .edit-form .fg-col-2
+
+    {
+        grid-column: span 6;
+    }
+
+    }
+
+    @@media (max-width: 1024px) {
+        .filter-controls-wrapper
+
+    {
+        grid-template-columns: auto 1fr;
+        gap: 16px;
+    }
+
+    .filter-item-select,
+    .filter-item-pills,
+    .filter-item-hint,
+    .filter-item-action {
+        grid-column: 1 / -1;
+    }
+
+    .combo-wrap {
+        min-width: 100%;
+    }
+
+    .status-pills {
+        width: 100%;
+    }
+
+    .filter-item-hint {
+        justify-content: flex-start;
+    }
+
+    .filter-item-action {
+        justify-content: stretch;
+    }
+
+    .btn-clear {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .summary-row {
+        grid-template-columns: 1fr 1fr;
+        row-gap: 18px;
+    }
+
+    }
+
+    @@media (max-width: 768px) {
+        .filter-bar
+
+    {
+        gap: 16px;
+        padding: 16px;
+    }
+
+    .filter-item {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+    }
+
+    .filter-label {
+        justify-content: flex-start;
+    }
+
+    .combo-wrap .form-select {
+        padding-left: 38px;
+    }
+
+    .status-pills {
+        gap: 8px;
+    }
+
+    .status-pill {
+        flex: 1;
+        justify-content: center;
+        padding: 6px 12px;
+        min-width: calc(33.333% - 8px);
+    }
+
+    .filter-hint {
+        padding: 6px 10px;
+    }
+
+    .btn-clear {
+        width: 100%;
+        justify-content: center;
+        padding: 10px 16px;
+    }
+
+    .edit-form .fg-col-3,
+    .edit-form .fg-col-4,
+    .edit-form .fg-col-2,
+    .edit-form .fg-col-12 {
+        grid-column: span 12;
+    }
+
+    .summary-row {
+        grid-template-columns: 1fr;
+    }
+
+    }
+
+    @@media (max-width: 480px) {
+        .filter-bar
+
+    {
+        gap: 12px;
+        padding: 12px;
+    }
+
+    .status-pills {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .status-pill {
+        width: 100%;
+        padding: 10px 16px;
+    }
+
+    .filter-hint {
+        padding: 8px;
+        text-align: center;
+    }
+
+    .btn-clear {
+        padding: 12px 16px;
+    }
+
+    .modal-content,
+    .pickup-modal-content {
+        min-width: 90%;
+        max-width: 90%;
+    }
+
+    }
 </style>
 
 <div class="container-fluid py-4" id="ProductItem" style="padding:20px!important;margin:0!important;">
@@ -1052,83 +1192,96 @@
             </div>
         </div>
     </div>
-
-
     <!-- 住戶查詢條件 -->
-    <div class="admin-card" v-if="QueryOpt==='RESIDENT'">
-        <div class="filter-bar">
+<div class="admin-card" v-if="QueryOpt==='RESIDENT'">
+    <div class="filter-bar">
+        <!-- 篩選條件容器 -->
+        <div class="filter-controls-wrapper">
             <!-- 選擇住戶 -->
-            <div class="lbl-inline"><i class="bi bi-person-badge me-1"></i>選擇住戶</div>
-
-            <!-- 住戶下拉 -->
-            <div class="combo-wrap">
-                <i class="bi bi-people"></i>
-                <select class="form-select" v-model="SelectRed" v-on:change="SearchByResident">
-                    <option value="">請選擇要查詢的住戶</option>
-                    <option v-for="r in ResidentList" :value="r.red_id" :key="r.red_id">
-                        {{ r.condo_id }} - {{ r.red_name }}
-                    </option>
-                </select>
+            <div class="filter-item filter-item-select">
+                <label class="filter-label">
+                    <i class="bi bi-person-badge"></i>
+                    <span>選擇住戶</span>
+                </label>
+                <div class="combo-wrap">
+                    <i class="bi bi-people"></i>
+                    <select class="form-select" v-model="SelectRed" v-on:change="SearchByResident">
+                        <option value="">請選擇要查詢的住戶</option>
+                        <option v-for="r in ResidentList" :value="r.red_id" :key="r.red_id">
+                            {{ r.condo_id }} - {{ r.red_name }}
+                        </option>
+                    </select>
+                </div>
             </div>
 
-            <!-- 狀態區 -->
-            <div class="status-inline">
-                <!-- 篩選狀態 -->
-                <div class="status-label-inline">
-                    <i class="bi bi-funnel"></i>篩選狀態
-                </div>
-
-                <!-- 可選狀態（pills）-->
+            <!-- 篩選狀態 -->
+            <div class="filter-item filter-item-pills">
+                <label class="filter-label">
+                    <i class="bi bi-funnel"></i>
+                    <span>篩選狀態</span>
+                </label>
                 <div class="status-pills">
                     <span class="status-pill"
                           :data-active="!SelectStatus"
                           v-on:class="{disabled: !SelectRed}"
                           :title="!SelectRed ? '請先選擇住戶' : '全部'"
-                          v-on:click="SelectRed ? (SelectStatus='', SearchByResident()) : null">全部</span>
+                          v-on:click="SelectRed ? (SelectStatus='', SearchByResident()) : null">
+                        <i class="bi bi-grid-3x3-gap"></i>全部
+                    </span>
 
                     <span class="status-pill" data-type="pending"
                           :data-active="SelectStatus==='未取'"
                           v-on:class="{disabled: !SelectRed}"
                           :title="!SelectRed ? '請先選擇住戶' : '未取'"
-                          v-on:click="SelectRed ? (SelectStatus='未取', SearchByResident()) : null">未取</span>
+                          v-on:click="SelectRed ? (SelectStatus='未取', SearchByResident()) : null">
+                        <i class="bi bi-exclamation-triangle"></i>未取
+                    </span>
 
                     <span class="status-pill" data-type="done"
                           :data-active="SelectStatus==='已取'"
                           v-on:class="{disabled: !SelectRed}"
                           :title="!SelectRed ? '請先選擇住戶' : '已取'"
-                          v-on:click="SelectRed ? (SelectStatus='已取', SearchByResident()) : null">已取</span>
+                          v-on:click="SelectRed ? (SelectStatus='已取', SearchByResident()) : null">
+                        <i class="bi bi-check-circle"></i>已取
+                    </span>
                 </div>
-                <!-- 提示字 -->
-                <div class="status-hint-inline" v-bind:class="{ invisible: SelectRed }">
-                    <i class="bi bi-exclamation-circle"></i>請先選擇查詢住戶，再點選篩選狀態
-                </div>
+                    <!-- 提示訊息 -->
+                    <div class="filter-item filter-item-hint">
+                        <div class="filter-hint" v-bind:class="{ invisible: SelectRed }">
+                            <i class="bi bi-exclamation-circle"></i>
+                            <span>請先選擇查詢住戶</span>
+                        </div>
+                    </div>
             </div>
 
-            <!-- 清除條件 -->
-            <div class="filter-actions">
+            
+
+            <!-- 清除按鈕 -->
+            <div class="filter-item filter-item-action">
                 <button type="button" class="btn btn-clear"
                         v-on:click="SelectRed=''; SelectStatus=''; ProductList=[]">
-                    <i class="bi bi-x-circle me-1"></i>清除條件
+                    <i class="bi bi-x-circle"></i>清除條件
                 </button>
             </div>
         </div>
     </div>
-
+</div>
+    
     <!-- 包裹清單 -->
     <div class="admin-table-container">
         <div class="table-responsive">
             <table class="table admin-table table-hover align-middle" style="margin:0!important;">
                 <thead class="sticky-top">
                     <tr>
-                        <th v-if="display_edit && QueryOpt==='HISTORY'" style="width:10%;"><i class="bi bi-gear"></i>操作</th>
-                        <th v-if="display_edit && QueryOpt!=='HISTORY'" class="edit-selection-cell" style="width:10%;"><i class="bi bi-check2-square"></i>選取</th>
-                        <th v-if="QueryOpt!=='UNDONE'" style="width:15%;"><i class="bi bi-clock"></i>領取時間</th>
-                        <th style="width:15%;"><i class="bi bi-hash"></i>包裹編號</th>
-                        <th style="width:10%;"><i class="bi bi-box"></i>類別</th>
-                        <th style="width:10%;"><i class="bi bi-person"></i>住戶</th>
-                        <th style="width:10%;"><i class="bi bi-clipboard-check"></i>狀態</th>
-                        <th v-if="QueryOpt!=='HISTORY'" style="width:22%;font-size:14px;color:#999;"><i style="font-size:14px;font-style:italic;"> 備註</i></th>
-                        <th v-if="QueryOpt!=='HISTORY'&& !display_edit" style="width:8%; font-size:14px;">是否領取</th>
+                        <th v-if="display_edit && QueryOpt==='HISTORY'" style="width:80px;"><i class="bi bi-gear"></i>操作</th>
+                        <th v-if="display_edit && QueryOpt!=='HISTORY'" class="edit-selection-cell" style="width:80px;"><i class="bi bi-check2-square"></i>選取</th>
+                        <th v-if="QueryOpt!=='UNDONE'"><i class="bi bi-clock"></i>領取時間</th>
+                        <th ><i class="bi bi-hash"></i>包裹編號</th>
+                        <th ><i class="bi bi-box"></i>類別</th>
+                        <th ><i class="bi bi-person"></i>住戶</th>
+                        <th ><i class="bi bi-clipboard-check"></i>狀態</th>
+                        <th v-if="QueryOpt!=='HISTORY'" style="font-size:14px;color:#999;"><i style="font-size:14px;font-style:italic;"> 備註</i></th>
+                        <th v-if="QueryOpt!=='HISTORY'&& !display_edit" style="width:100px; font-size:14px;">是否領取</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -1172,7 +1325,18 @@
                             <span v-bind:class="getPackageTypeClass(item)" class="package-type-badge">{{ item.pack_name }}</span>
                         </td>
 
-                        <td><span class="resident-name">{{ item.condo_id }}-{{ item.red_name }}</span></td>
+                        <td>
+                            <span class="resident-name">
+                                <template v-if="item.red_id">
+                                        {{ item.condo_id }}-{{ item.red_name }}
+                                </template>
+                                <template v-else>
+                                    <span class="resident-name">
+                                        {{item.condo_id}}
+                                    </span>
+                                </template>
+                            </span>
+                        </td>
 
                         <td>
                             <div v-if="display_edit" class="status-container">
@@ -1204,9 +1368,8 @@
                         <td v-if="QueryOpt!=='HISTORY'" style="text-align:center;">
                             <span class="remarks-cell" :title="item.remarks || '-'">{{ item.remarks || '-' }}</span>
                         </td>
-                        <td>
-                            <button v-if = "!display_edit"
-                                    class="btn btn-sm"
+                        <td v-if="QueryOpt!=='HISTORY' && !display_edit">
+                            <button class="btn btn-sm"
                                     :class="(item.status==0 || item.status==='0') ? 'btn-success' : 'btn-secondary'"
                                     v-bind:disabled="picking || !(item.status==0 || item.status==='0')"
                                     v-on:click ="handlePickup(item)">
@@ -1218,49 +1381,49 @@
 
                     <!-- 空狀態（依情境） -->
                     <tr v-if="ProductList.length===0">
-                        <td v-if="QueryOpt==='HISTORY' && display_edit" colspan="6" style="padding:40px 20px;text-align:center;color:var(--admin-light);">
+                        <td v-if="QueryOpt==='HISTORY' && display_edit" colspan="7" style="padding:40px 20px;text-align:center;color:var(--admin-light);">
                             <div>
                                 <i class="bi bi-archive" style="font-size:48px;margin:0 0 16px 0;display:block;color:var(--admin-light);"></i>
                                 <h6 style="margin:0 0 4px 0;">目前尚無歷史紀錄</h6><p class="text-secondary" style="margin:0;">尚未有任何已刪除的包裹記錄</p>
                             </div>
                         </td>
-                        <td v-else-if="QueryOpt==='HISTORY' && !display_edit" colspan="5" style="padding:40px 20px;text-align:center;color:var(--admin-light);">
+                        <td v-else-if="QueryOpt==='HISTORY' && !display_edit" colspan="6" style="padding:40px 20px;text-align:center;color:var(--admin-light);">
                             <div>
                                 <i class="bi bi-archive" style="font-size:48px;margin:0 0 16px 0;display:block;color:var(--admin-light);"></i>
                                 <h6 style="margin:0 0 4px 0;">目前尚無歷史紀錄</h6><p class="text-secondary" style="margin:0;">尚未有任何已刪除的包裹記錄</p>
                             </div>
                         </td>
-                        <td v-else-if="QueryOpt==='UNDONE' && display_edit" colspan="6" style="padding:40px 20px;text-align:center;color:var(--admin-light);">
+                        <td v-else-if="QueryOpt==='UNDONE' && display_edit" colspan="7" style="padding:40px 20px;text-align:center;color:var(--admin-light);">
                             <div>
                                 <i class="bi bi-check-circle" style="font-size:48px;margin:0 0 16px 0;display:block;color:var(--admin-light);"></i>
                                 <h6 style="margin:0 0 4px 0;">沒有待領取的包裹</h6><p class="text-secondary" style="margin:0;">所有包裹都已領取完畢</p>
                             </div>
                         </td>
-                        <td v-else-if="QueryOpt==='UNDONE' && !display_edit" colspan="5" style="padding:40px 20px;text-align:center;color:var(--admin-light);">
+                        <td v-else-if="QueryOpt==='UNDONE' && !display_edit" colspan="6" style="padding:40px 20px;text-align:center;color:var(--admin-light);">
                             <div>
                                 <i class="bi bi-check-circle" style="font-size:48px;margin:0 0 16px 0;display:block;color:var(--admin-light);"></i>
                                 <h6 style="margin:0 0 4px 0;">沒有待領取的包裹</h6><p class="text-secondary" style="margin:0;">所有包裹都已領取完畢</p>
                             </div>
                         </td>
-                        <td v-else-if="QueryOpt==='RESIDENT' && display_edit" colspan="7" style="padding:40px 20px;text-align:center;color:var(--admin-light);">
+                        <td v-else-if="QueryOpt==='RESIDENT' && display_edit" colspan="8" style="padding:40px 20px;text-align:center;color:var(--admin-light);">
                             <div>
                                 <i class="bi bi-search" style="font-size:48px;margin:0 0 16px 0;display:block;color:var(--admin-light);"></i>
                                 <h6 style="margin:0 0 4px 0;">查無此住戶的包裹記錄</h6><p class="text-secondary" style="margin:0;">請選擇其他住戶或調整查詢條件</p>
                             </div>
                         </td>
-                        <td v-else-if="QueryOpt==='RESIDENT' && !display_edit" colspan="6" style="padding:40px 20px;text-align:center;color:var(--admin-light);">
+                        <td v-else-if="QueryOpt==='RESIDENT' && !display_edit" colspan="7" style="padding:40px 20px;text-align:center;color:var(--admin-light);">
                             <div>
                                 <i class="bi bi-search" style="font-size:48px;margin:0 0 16px 0;display:block;color:var(--admin-light);"></i>
                                 <h6 style="margin:0 0 4px 0;">查無此住戶的包裹記錄</h6><p class="text-secondary" style="margin:0;">請選擇其他住戶或調整查詢條件</p>
                             </div>
                         </td>
-                        <td v-else-if="display_edit" colspan="7" style="padding:40px 20px;text-align:center;color:var(--admin-light);">
+                        <td v-else-if="display_edit" colspan="8" style="padding:40px 20px;text-align:center;color:var(--admin-light);">
                             <div>
                                 <i class="bi bi-inbox" style="font-size:48px;margin:0 0 16px 0;display:block;color:var(--admin-light);"></i>
                                 <h6 style="margin:0 0 4px 0;">目前暫無包裹或信件</h6><p class="text-secondary" style="margin:0;">請等待包裹送達或調整查詢條件</p>
                             </div>
                         </td>
-                        <td v-else colspan="6" style="padding:40px 20px;text-align:center;color:var(--admin-light);">
+                        <td v-else colspan="7" style="padding:40px 20px;text-align:center;color:var(--admin-light);">
                             <div>
                                 <i class="bi bi-inbox" style="font-size:48px;margin:0 0 16px 0;display:block;color:var(--admin-light);"></i>
                                 <h6 style="margin:0 0 4px 0;">目前暫無包裹或信件</h6><p class="text-secondary" style="margin:0;">請等待包裹送達或調整查詢條件</p>
